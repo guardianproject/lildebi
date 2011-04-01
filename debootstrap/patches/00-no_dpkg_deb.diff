@@ -1,0 +1,14 @@
+--- debootstrap-1.0.26/usr/share/debootstrap/functions	2010-11-12 13:07:47.000000000 +0100
++++ debootstrap-1.0.26/usr/share/debootstrap/functions	2010-11-26 21:55:06.440000562 +0100
+@@ -800,8 +800,9 @@
+ 
+ 	if [ -n "$EXTRACTOR_OVERRIDE" ]; then
+ 		extractor="$EXTRACTOR_OVERRIDE"
+-	elif type dpkg-deb >/dev/null 2>&1; then
+-		extractor="dpkg-deb"
++#	busybox's dpkg-deb is not suitable for this script
++#	elif type dpkg-deb >/dev/null 2>&1; then
++#		extractor="dpkg-deb"
+ 	else
+ 		extractor="ar"
+ 	fi
