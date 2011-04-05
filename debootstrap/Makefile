@@ -1,13 +1,15 @@
 
 PKG_NAME:=debootstrap
-PKG_VERSION:=1.0.28
+PKG_VERSION:=1.0.26+squeeze1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-udeb_$(PKG_VERSION)_all.udeb
 PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/d/debootstrap
 PKG_MD5SUM:=dee0dc77573d88af80b225d8810ab7a1
 
-DL_DIR=download
+DL_DIR=$(PKG_NAME)-$(PKG_VERSION)
+
+all: unpack
 
 $(DL_DIR):
 	mkdir $(DL_DIR)
@@ -21,6 +23,6 @@ unpack: $(PKG_SOURCE)
 		(ar -p $(PKG_SOURCE) data.tar.gz | tar -xzf -)
 
 clean:
-	-rm -rf -- download
+	-rm -rf -- $(DL_DIR)
 
 .PHONY: unpack clean
