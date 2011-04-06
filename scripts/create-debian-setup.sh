@@ -91,4 +91,10 @@ ln -s /proc/mounts $mnt/etc/mtab
 
 # apt sources
 test -e $mnt/etc/apt || mkdir $mnt/etc/apt
-echo "deb $repo $distro main" > $mnt/etc/apt/sources.list
+touch $mnt/etc/apt/sources.list
+echo "deb $repo $distro main" >> $mnt/etc/apt/sources.list
+echo "deb http://security.debian.org/ $distro/updates main" >> $mnt/etc/apt/sources.list
+
+
+# setup apt-get
+PATH=/usr/bin:/bin:/usr/sbin:/sbin chroot $mnt apt-get update
