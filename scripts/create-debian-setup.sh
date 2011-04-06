@@ -21,6 +21,7 @@ export PATH=$busybox_path:/system/bin:/system/xbin:$PATH
 
 #------------------------------------------------------------------------------#
 # setup busybox
+test -e $busybox_path || mkdir $busybox_path
 cp $app_payload/busybox $busybox
 chmod 755 $busybox
 cd $busybox_path && ./busybox --install
