@@ -1,16 +1,6 @@
 #!/system/bin/sh
 
-# TODO switch to . debian-variables
-
-mnt=/data/debian # in /dev because /data is mounted 'nodev'
-sdcard=/mnt/sdcard
-imagefile=$sdcard/debian.img
-loopdev=/dev/block/loop4
-
-app_payload=/data/lildebi
-imagesize=199999999
-repo=http://ftp.us.debian.org/debian
-distro=stable
+. ./lildebi-common
 
 sh_debootstrap="/system/bin/sh $mnt/usr/sbin/debootstrap"
 busybox_path=/data/busybox
@@ -18,6 +8,8 @@ busybox=$busybox_path/busybox
 
 # so we can find busybox tools
 export PATH=$busybox_path:/system/bin:/system/xbin:$PATH
+# so that the debootstrap script can find its files
+export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 
 #------------------------------------------------------------------------------#
 # setup busybox
@@ -38,15 +30,15 @@ mount -o remount,ro rootfs /
 
 #------------------------------------------------------------------------------#
 # create the image file
-echo "dd if=/dev/zero of=$imagefile seek=$imagesize bs=1 count=1"
-dd if=/dev/zero of=$imagefile seek=$imagesize bs=1 count=1
+echo "dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1"
+dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1
 # create the mount dir
 test -e $mnt || mkdir $mnt
 # set them up
 if test -d $mnt && test -e $imagefile; then
     mke2fs -L debian_chroot -F $imagefile
     losetup $loopdev $imagefile
-    mount -o loop,relatime,errors=remount-ro $loopdev $mnt
+    mount -o loop,noatime,errors=remount-ro $loopdev $mnt
     cd $mnt
     tar xjf $app_payload/usr-share-debootstrap.tar.bz2
     cp $app_payload/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
@@ -59,8 +51,6 @@ fi
 #------------------------------------------------------------------------------#
 # run debootstrap in two stages
 
-# so that the debootstrap script can find its files
-export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 $sh_debootstrap --verbose --arch armel --foreign $distro $mnt $repo
 
 # how we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
@@ -75,6 +65,7 @@ PATH=/usr/bin:/bin:/usr/sbin:/sbin chroot $mnt apt-get autoclean
 # create mountpoints
 test -e $mnt/dev || mkdir $mnt/dev
 test -e $mnt/dev/pts || mkdir $mnt/dev/pts
+test -e $mnt/media || mkdir $mnt/media
 test -e $mnt/mnt || mkdir $mnt/mnt
 test -e $mnt/mnt/sdcard || mkdir $mnt/mnt/sdcard
 test -e $mnt/proc || mkdir $mnt/proc
