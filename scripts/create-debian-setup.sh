@@ -1,7 +1,5 @@
 #!/system/bin/sh
 
-export PATH=/system/bin:/system/xbin:$PATH
-
 # TODO switch to . debian-variables
 
 mnt=/data/debian # in /dev because /data is mounted 'nodev'
@@ -9,16 +7,35 @@ sdcard=/mnt/sdcard
 imagefile=$sdcard/debian.img
 loopdev=/dev/block/loop4
 
-app_payload=$sdcard/lildebi
+app_payload=/data/lildebi
 imagesize=159999999
 repo=http://ftp.us.debian.org/debian
 distro=stable
 
 sh_debootstrap="/system/bin/sh $mnt/usr/sbin/debootstrap"
+busybox_path=/data/busybox
+busybox=$busybox_path/busybox
 
-# so that the debootstrap script can find its files
-export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
+# so we can find busybox tools
+export PATH=$busybox_path:/system/bin:/system/xbin:$PATH
 
+#------------------------------------------------------------------------------#
+# setup busybox
+cp $app_payload/busybox $busybox
+chmod 755 $busybox
+cd $busybox_path && ./busybox --install
+# this busybox's wget is not as good as the CyanogenMod wget, I think the
+# difference is HTTPS support
+rm $busybox_path/wget
+
+#------------------------------------------------------------------------------#
+# set /bin to busybox utils
+mount -o remount,rw rootfs /
+cd /
+ln -s /data/busybox /bin
+mount -o remount,ro rootfs /
+
+#------------------------------------------------------------------------------#
 # create the image file
 echo "dd if=/dev/zero of=$imagefile seek=$imagesize bs=1 count=1"
 dd if=/dev/zero of=$imagefile seek=$imagesize bs=1 count=1
@@ -38,9 +55,19 @@ else
     exit 1
 fi
 
-$sh_debootstrap --verbose --arch armel --foreign $distro $mnt $repo
-chroot $mnt debootstrap --second-stage
+#------------------------------------------------------------------------------#
+# run debootstrap in two stages
 
+# so that the debootstrap script can find its files
+export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
+$sh_debootstrap --verbose --arch armel --foreign $distro $mnt $repo
+
+# how we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
+# need a more Debian-ish PATH
+unset DEBOOTSTRAP_DIR
+PATH=/usr/bin:/bin:/usr/sbin:/sbin chroot $mnt /debootstrap/debootstrap --second-stage
+
+#------------------------------------------------------------------------------#
 # create mountpoints
 test -e $mnt/dev || mkdir $mnt/dev
 test -e $mnt/dev/pts || mkdir $mnt/dev/pts
@@ -50,6 +77,9 @@ test -e $mnt/proc || mkdir $mnt/proc
 test -e $mnt/sys || mkdir $mnt/sys
 test -e $mnt/tmp || mkdir $mnt/tmp
 
+#------------------------------------------------------------------------------#
+# create configs
+
 # create /etc/resolv.conf
 test -e $mnt/etc || mkdir $mnt/etc
 touch $mnt/etc/resolv.conf
@@ -58,7 +88,7 @@ echo 'nameserver 8.8.8.8' >> $mnt/etc/resolv.conf
 echo 'nameserver 198.6.1.1' >> $mnt/etc/resolv.conf
 
 # create /etc/hosts
-echo '127.0.0.1    localhost' > $mnt/etc/hosts
+cp /etc/hosts $mnt/etc/hosts
 
 # create live mtab
 test -e $mnt/etc/mtab && rm $mnt/etc/mtab
