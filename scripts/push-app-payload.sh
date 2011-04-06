@@ -11,13 +11,17 @@ else
     debootstrap=../debootstrap/
 fi
 
-adb -d push ${scripts}/lildebi-common $app_payload/
-adb -d shell chmod 644 $app_payload/lildebi-common
-adb -d push ${scripts}/create-debian-setup.sh $app_payload/
-adb -d shell chmod 644 $app_payload/create-debian-setup.sh
+adb -d shell "test -e $app_payload || mkdir $app_payload"
+
 adb -d push ${scripts}/usr-share-debootstrap.tar.bz2 $app_payload/
 adb -d shell chmod 644 $app_payload/usr-share-debootstrap.tar.bz2
+adb -d push ${scripts}/lildebi-common $app_payload/
+adb -d shell chmod 644 $app_payload/lildebi-common
 
+adb -d push ${scripts}/create-debian-setup.sh $app_payload/
+adb -d shell chmod 755 $app_payload/create-debian-setup.sh
+adb -d push ${scripts}/remove-debian-setup.sh $app_payload/
+adb -d shell chmod 755 $app_payload/remove-debian-setup.sh
 adb -d push ${scripts}/start-debian.sh $app_payload/
 adb -d shell chmod 755 $app_payload/start-debian.sh
 
