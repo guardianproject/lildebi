@@ -1,6 +1,6 @@
 #!/bin/sh
 
-scripts=`dirname $0`
+scripts=$(cd `dirname $0` && pwd)
 if [ -x "$scripts" ]; then
     . $scripts/lildebi-common
     binaries="${scripts}/../binaries"
@@ -17,6 +17,9 @@ adb -d push ${scripts}/create-debian-setup.sh $app_payload/
 adb -d shell chmod 644 $app_payload/create-debian-setup.sh
 adb -d push ${scripts}/usr-share-debootstrap.tar.bz2 $app_payload/
 adb -d shell chmod 644 $app_payload/usr-share-debootstrap.tar.bz2
+
+adb -d push ${scripts}/start-debian.sh $app_payload/
+adb -d shell chmod 755 $app_payload/start-debian.sh
 
 adb -d push ${binaries}/busybox $app_payload/
 adb -d shell chmod 755 $app_payload/busybox
