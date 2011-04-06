@@ -67,6 +67,9 @@ $sh_debootstrap --verbose --arch armel --foreign $distro $mnt $repo
 unset DEBOOTSTRAP_DIR
 PATH=/usr/bin:/bin:/usr/sbin:/sbin chroot $mnt /debootstrap/debootstrap --second-stage
 
+# purge install packages
+PATH=/usr/bin:/bin:/usr/sbin:/sbin chroot $mnt apt-get autoclean
+
 #------------------------------------------------------------------------------#
 # create mountpoints
 test -e $mnt/dev || mkdir $mnt/dev
