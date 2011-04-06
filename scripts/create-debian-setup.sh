@@ -8,7 +8,7 @@ imagefile=$sdcard/debian.img
 loopdev=/dev/block/loop4
 
 app_payload=/data/lildebi
-imagesize=159999999
+imagesize=199999999
 repo=http://ftp.us.debian.org/debian
 distro=stable
 
