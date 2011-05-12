@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.io.OutputStream;
 
-public class LilDebiInstall extends Activity
+public class InstallDebian extends Activity
 {
     private TextView installSource;
 
@@ -62,7 +62,7 @@ public class LilDebiInstall extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.install_debby);
+        setContentView(R.layout.install_debian);
         installSource = (TextView)findViewById(R.id.installSource);
         installSource.setText("http://www.someserver.org");
         installButton = findViewById(R.id.installButton);
@@ -115,7 +115,7 @@ public class LilDebiInstall extends Activity
         {
             public void onClick(View view)
             {
-                startService(new Intent(LilDebiInstall.this, InstallService.class));
+                startService(new Intent(InstallDebian.this, InstallService.class));
                 App.logi("Starting install service");
                 handler.postDelayed(new Runnable()
                 {
@@ -131,7 +131,7 @@ public class LilDebiInstall extends Activity
         {
             public void onClick(View view)
             {
-                SelectInstallMirror.callMe(LilDebiInstall.this);
+                SelectInstallMirror.callMe(InstallDebian.this);
             }
         });
 
