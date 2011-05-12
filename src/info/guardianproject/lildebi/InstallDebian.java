@@ -95,9 +95,12 @@ public class InstallDebian extends Activity
         {
             public void run()
             {
-                final String log = mBoundService.dumpLog();
-                if(log != null && log.trim().length() > 0)
-                    installLog.setText(log);
+            	if (mBoundService != null) 
+            	{
+            		final String log = mBoundService.dumpLog();
+            		if(log != null && log.trim().length() > 0)
+            			installLog.setText(log);
+            	}
             }
         });
         handler.postDelayed(new Runnable()
