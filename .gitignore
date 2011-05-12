@@ -1,4 +1,7 @@
 debootstrap/debootstrap-1.0.2*
 debootstrap/files/pkgdetails
 debootstrap/files/pkgdetails.o
+local.properties
+external/busybox/busybox-1.18.4
+external/busybox/busybox-1.18.4.tar.bz2
 
