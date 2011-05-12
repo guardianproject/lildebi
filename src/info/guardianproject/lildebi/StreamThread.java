@@ -18,7 +18,6 @@ public class StreamThread extends Thread
 	StreamThread(InputStream i)
 	{
 		this.i = i;
-		this.update = update;
 	}
 
 	StreamThread(InputStream i, StreamUpdate update)
@@ -30,7 +29,6 @@ public class StreamThread extends Thread
 	@Override
 	public void run()
 	{
-		int next;
 		try
 		{
 			byte[] readBuffer = new byte[512];

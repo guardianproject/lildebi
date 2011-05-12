@@ -32,7 +32,6 @@ public class StreamDisplay extends Thread
 	@Override
 	public void run()
 	{
-		int next;
 		try
 		{
 			byte[] readBuffer = new byte[512];
