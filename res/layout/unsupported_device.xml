@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" android:orientation="vertical">
+    <TextView android:id="@+id/unsupportedDeviceMessage" android:layout_height="wrap_content" android:text="@string/unsupported_device_body" android:layout_width="wrap_content"></TextView>
+    <Button android:id="@+id/uninstallButton" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/uninstall_button_title"></Button>
+</LinearLayout>

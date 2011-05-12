@@ -1,20 +1,31 @@
 package info.guardianproject.lildebi;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+
 import android.app.Activity;
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import java.io.OutputStream;
+import android.widget.Toast;
 
 public class InstallDebian extends Activity
 {
+	private boolean ext2SupportChecked = false;
 	private TextView installSource;
-
 	private InstallService mBoundService;
 
 	private ServiceConnection mConnection = new ServiceConnection()
@@ -33,7 +44,7 @@ public class InstallDebian extends Activity
 		}
 	};
 	private boolean mIsBound;
-	private View installButton;
+	private Button installButton;
 	private View progressBar;
 	private TextView installLog;
 	private ScrollView textScroll;
@@ -65,7 +76,7 @@ public class InstallDebian extends Activity
 		setContentView(R.layout.install_debian);
 		installSource = (TextView)findViewById(R.id.installSource);
 		installSource.setText("http://www.someserver.org");
-		installButton = findViewById(R.id.installButton);
+		installButton = (Button) findViewById(R.id.installButton);
 		progressBar = findViewById(R.id.progressBar);
 		installLog = (TextView)findViewById(R.id.installLog);
 		textScroll = (ScrollView)findViewById(R.id.textScroll);
@@ -76,9 +87,23 @@ public class InstallDebian extends Activity
 	protected void onResume()
 	{
 		super.onResume();
-		doBindService();
-		registerReceivers();
-		updateLog();
+		if (isExt2Supported())
+		{
+			doBindService();
+			registerReceivers();
+			updateLog();
+		} 
+		else
+		{
+			installButton.setText("Uninstall...");
+			installButton.setOnClickListener(new View.OnClickListener()
+			{
+				public void onClick(View view)
+				{
+					UnsupportedDeviceActivity.callMe(InstallDebian.this);
+				}
+			});
+		}
 	}
 
 	@Override
@@ -204,6 +229,35 @@ public class InstallDebian extends Activity
 		{
 			String mirror = data.getStringExtra(SelectInstallMirror.MIRROR);
 			installSource.setText(mirror);
+		}
+	}
+
+	private boolean isExt2Supported()
+	{
+		Context context = getApplicationContext();
+		ext2SupportChecked = true;
+		try
+		{
+			FileInputStream fstream = new FileInputStream("/proc/filesystems");
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String line;
+			while ((line = br.readLine()) != null)
+			{
+				if (line.contains("ext2"))
+				{
+					return true;
+				}
+			}
+			Toast.makeText(context,
+					"/proc/filesystems does not list 'ext2' as a supported filesystem", 
+					Toast.LENGTH_LONG).show();
+			return false;
+		}
+		catch (Exception e)
+		{
+			Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+			return false;
 		}
 	}
 

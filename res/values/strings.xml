@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LilDebi</string>
+    <string name="unsupported_device_body">Your device is not supported by LilDebi for installing Debian.  It needs to support the &quot;ext2&quot; filesystem and loopback mounting of files as disks. Therefore, this app is useless to you, we recommend uninstalling it.</string>
+    <string name="uninstall_button_title">Uninstall LilDebi</string>
 </resources>
