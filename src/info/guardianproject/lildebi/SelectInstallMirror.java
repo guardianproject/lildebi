@@ -17,36 +17,36 @@ import android.widget.ListView;
  */
 public class SelectInstallMirror extends Activity
 {
-    public static final String MIRROR = "MIRROR";
-    private ListView mirrorList;
-    private String[] mirrors = new String[]{
-            "http://www.someserver.org",
-            "http://www.asdf.com",
-            "http://www.qwert.com"
-    };
+	public static final String MIRROR = "MIRROR";
+	private ListView mirrorList;
+	private String[] mirrors = new String[]{
+			"http://www.someserver.org",
+			"http://www.asdf.com",
+			"http://www.qwert.com"
+	};
 
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.select_install_mirror);
-        mirrorList = (ListView)findViewById(R.id.mirrorList);
-        mirrorList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mirrors));
-        mirrorList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
-            {
-                Intent result = new Intent();
-                String mirror = ((ArrayAdapter<String>) mirrorList.getAdapter()).getItem(i);
-                result.putExtra(MIRROR, mirror);
-                setResult(RESULT_OK, result);
-                finish();
-            }
-        });
-    }
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.select_install_mirror);
+		mirrorList = (ListView)findViewById(R.id.mirrorList);
+		mirrorList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mirrors));
+		mirrorList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+			{
+				Intent result = new Intent();
+				String mirror = ((ArrayAdapter<String>) mirrorList.getAdapter()).getItem(i);
+				result.putExtra(MIRROR, mirror);
+				setResult(RESULT_OK, result);
+				finish();
+			}
+		});
+	}
 
-    public static void callMe(Activity activity)
-    {
-        Intent intent = new Intent(activity, SelectInstallMirror.class);
-        activity.startActivityForResult(intent, 123);
-    }
+	public static void callMe(Activity activity)
+	{
+		Intent intent = new Intent(activity, SelectInstallMirror.class);
+		activity.startActivityForResult(intent, 123);
+	}
 }
