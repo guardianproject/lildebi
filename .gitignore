@@ -1,3 +1,5 @@
+bin/
+gen/
 debootstrap/debootstrap-1.0.2*
 debootstrap/files/pkgdetails
 debootstrap/files/pkgdetails.o
