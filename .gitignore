@@ -6,4 +6,7 @@ debootstrap/files/pkgdetails.o
 local.properties
 external/busybox/busybox-1.18.4
 external/busybox/busybox-1.18.4.tar.bz2
+build.xml
+local.properties
+proguard.cfg
 
