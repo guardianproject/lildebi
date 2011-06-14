@@ -1,6 +1,24 @@
 #!/system/bin/sh
+#
+# the arguments are: distro mirror imagesize
 
 . ./lildebi-common
+
+if [ $# -gt 3 ]; then
+    echo "too many arguments, should be:"
+    echo "    $0 [distro] [mirror] [imagesize]"
+fi
+
+# lildebi-common sets the defaults, the arguments override them
+if [ ! -z $1 ]; then
+    distro=$1
+fi    
+if [ ! -z $2 ]; then
+    mirror=$2
+fi    
+if [ ! -z $3 ]; then
+    imagesize=$3
+fi    
 
 sh_debootstrap="/system/bin/sh $mnt/usr/sbin/debootstrap"
 busybox_path=/data/busybox
