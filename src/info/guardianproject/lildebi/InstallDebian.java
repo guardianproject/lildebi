@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+import org.torproject.android.service.TorServiceUtils;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -13,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -95,14 +98,11 @@ public class InstallDebian extends Activity
 	protected void onResume()
 	{
 		super.onResume();
-		if (isExt2Supported())
+		if ( ! isExt2Supported())
 		{
-			doBindService();
-			registerReceivers();
-			updateLog();
-		} 
-		else
-		{
+			selectedDistro.setEnabled(false);
+			selectedMirror.setEnabled(false);
+			imagesize.setEnabled(false);
 			installButton.setText("Uninstall...");
 			installButton.setOnClickListener(new View.OnClickListener()
 			{
@@ -111,6 +111,37 @@ public class InstallDebian extends Activity
 					UnsupportedDeviceActivity.callMe(InstallDebian.this);
 				}
 			});
+		} 
+		else if ( ! TorServiceUtils.checkRootAccess())
+		{
+			Toast.makeText(getApplicationContext(),
+					"Lil' Debi needs SuperUser access, install the SuperUser app", 
+					Toast.LENGTH_LONG).show();
+			selectedDistro.setEnabled(false);
+			selectedMirror.setEnabled(false);
+			imagesize.setEnabled(false);
+			installButton.setText("Get SuperUser...");
+			installButton.setOnClickListener(new View.OnClickListener()
+			{
+				public void onClick(View view)
+				{
+					// http://stackoverflow.com/questions/2518740/launch-market-place-with-id-of-an-application-that-doesnt-exist-in-the-android-m
+					//final String APP_MARKET_URL = "market://search?q=pname:com.noshufou.android.su";
+					final String APP_MARKET_URL = "market://details?q=id:com.noshufou.android.su";
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(APP_MARKET_URL));
+					startActivity(intent);
+					finish();
+				}
+			});
+		}
+		else
+		{
+			selectedDistro.setEnabled(true);
+			selectedMirror.setEnabled(true);
+			imagesize.setEnabled(true);
+			doBindService();
+			registerReceivers();
+			updateLog();
 		}
 	}
 
