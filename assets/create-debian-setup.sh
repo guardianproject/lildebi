@@ -121,3 +121,5 @@ echo "deb http://security.debian.org/ $distro/updates main" >> $mnt/etc/apt/sour
 
 # setup apt-get
 PATH=/usr/bin:/bin:/usr/sbin:/sbin chroot $mnt apt-get update
+
+echo "Debian is installed!"
