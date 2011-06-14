@@ -29,7 +29,8 @@ public class InstallDebian extends Activity
 	public static final String IMAGESIZE = "IMAGESIZE";
 
 	private boolean ext2SupportChecked = false;
-	private TextView installSource;
+	private TextView selectedDistro;
+	private TextView selectedMirror;
 	private InstallService mBoundService;
 
 	private ServiceConnection mConnection = new ServiceConnection()
@@ -78,8 +79,8 @@ public class InstallDebian extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.install_debian);
-		installSource = (TextView)findViewById(R.id.installSource);
-		installSource.setText("http://www.someserver.org");
+		selectedDistro = (TextView)findViewById(R.id.selectedDistro);
+		selectedMirror = (TextView)findViewById(R.id.selectedMirror);
 		installButton = (Button) findViewById(R.id.installButton);
 		progressBar = findViewById(R.id.progressBar);
 		installLog = (TextView)findViewById(R.id.installLog);
@@ -149,7 +150,7 @@ public class InstallDebian extends Activity
 			{
 				Intent intent = new Intent(InstallDebian.this, InstallService.class);
 				intent.putExtra(DISTRO, "stable");
-				intent.putExtra(MIRROR, installSource.getText().toString());
+				intent.putExtra(MIRROR, selectedMirror.getText().toString());
 				intent.putExtra(IMAGESIZE, 256);
 				startService(intent);
 				App.logi("Starting install service");
@@ -163,7 +164,15 @@ public class InstallDebian extends Activity
 			}
 		});
 
-		installSource.setOnClickListener(new View.OnClickListener()
+		selectedDistro.setOnClickListener(new View.OnClickListener()
+		{
+			public void onClick(View view)
+			{
+				SelectDistro.callMe(InstallDebian.this);
+			}
+		});
+
+		selectedMirror.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View view)
 			{
@@ -221,7 +230,7 @@ public class InstallDebian extends Activity
 
 		progressBar.setVisibility(View.GONE);
 
-		installSource.setOnClickListener(null);
+		selectedMirror.setOnClickListener(null);
 	}
 
 	private void refreshButtons()
@@ -235,8 +244,10 @@ public class InstallDebian extends Activity
 	{
 		if(resultCode == RESULT_OK)
 		{
-			String mirror = data.getStringExtra(MIRROR);
-			installSource.setText(mirror);
+			if(data.hasExtra(DISTRO))
+				selectedDistro.setText(data.getStringExtra(DISTRO));
+			if(data.hasExtra(MIRROR))
+				selectedMirror.setText(data.getStringExtra(MIRROR));
 		}
 	}
 
