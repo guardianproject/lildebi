@@ -108,6 +108,7 @@ public class InstallService extends Service
 				writeCommand(os, "chmod 755 create-debian-setup.sh");
 				writeCommand(os, "chmod 755 remove-debian-setup.sh");
 				writeCommand(os, "chmod 755 start-debian.sh");
+				writeCommand(os, "chmod 755 stop-debian.sh");
 				writeCommand(os, "chmod 755 busybox");
 				writeCommand(os, "chmod 755 pkgdetails");
 
