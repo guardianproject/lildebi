@@ -31,25 +31,30 @@ export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 
 #------------------------------------------------------------------------------#
 # setup busybox
-test -e $busybox_path || mkdir $busybox_path
-cp $app_payload/busybox $busybox
-chmod 755 $busybox
-cd $busybox_path && ./busybox --install
+if [ ! -e $busybox_path ]; then
+    mkdir $busybox_path
+    cp $app_payload/busybox $busybox
+    chmod 755 $busybox
+    cd $busybox_path && ./busybox --install
 # this busybox's wget is not as good as the CyanogenMod wget, I think the
 # difference is HTTPS support
-rm $busybox_path/wget
+    rm $busybox_path/wget
+fi
 
 #------------------------------------------------------------------------------#
 # set /bin to busybox utils
-mount -o remount,rw rootfs /
-cd /
-ln -s /data/busybox /bin
-mount -o remount,ro rootfs /
+if [ ! -e /bin ]; then
+    mount -o remount,rw rootfs /
+    cd /
+    ln -s /data/busybox /bin
+    mount -o remount,ro rootfs /
+fi
 
 #------------------------------------------------------------------------------#
 # create the image file
 echo "dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1"
-dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1
+test -e $imagefile || \
+    dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1
 # create the mount dir
 test -e $mnt || mkdir $mnt
 # set them up
