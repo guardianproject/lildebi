@@ -4,9 +4,14 @@
 
 remove_root_symlinks
 
+if [ ! -e /bin ]; then
+    mount -o remount,rw rootfs /
+    rm /bin
+    mount -o remount,ro rootfs /
+fi
+
 umount $mnt
 rm -rf $mnt
-rm -rf /data/busybox
 rm -rf $app_payload
 rm -f $imagefile
 
