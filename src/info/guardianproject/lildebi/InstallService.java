@@ -23,6 +23,10 @@ public class InstallService extends Service
 
 	private StringBuffer log;
 
+	private String distro;
+	private String mirror;
+	private String imagesize;
+	
 	public class LocalBinder extends Binder
 	{
 		public InstallService getService()
@@ -66,7 +70,10 @@ public class InstallService extends Service
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
 		synchronized (this)
-		{
+		{	
+			distro = intent.getStringExtra(InstallDebian.DISTRO);
+			mirror = intent.getStringExtra(InstallDebian.MIRROR);
+			imagesize = intent.getStringExtra(InstallDebian.IMAGESIZE);
 			log = new StringBuffer();
 			installThread = new InstallThread();
 			installThread.start();
@@ -89,7 +96,6 @@ public class InstallService extends Service
 			logUpdate.update("Install files copied\n");
 
 			try {
-
 				Process sh = Runtime.getRuntime().exec("su - sh");
 				OutputStream os = sh.getOutputStream();
 
@@ -111,8 +117,7 @@ public class InstallService extends Service
 				writeCommand(os, "chmod 755 stop-debian.sh");
 				writeCommand(os, "chmod 755 busybox");
 				writeCommand(os, "chmod 755 pkgdetails");
-
-				writeCommand(os, "./create-debian-setup.sh");
+				writeCommand(os, "./create-debian-setup.sh " + distro + " http://" + mirror + "/debian/ " + imagesize);
 
 				writeCommand(os, "exit");
 

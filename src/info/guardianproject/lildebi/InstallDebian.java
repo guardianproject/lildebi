@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class InstallDebian extends Activity
 	private boolean ext2SupportChecked = false;
 	private TextView selectedDistro;
 	private TextView selectedMirror;
+	private EditText imagesize;
 	private InstallService mBoundService;
 
 	private ServiceConnection mConnection = new ServiceConnection()
@@ -81,6 +83,7 @@ public class InstallDebian extends Activity
 		setContentView(R.layout.install_debian);
 		selectedDistro = (TextView)findViewById(R.id.selectedDistro);
 		selectedMirror = (TextView)findViewById(R.id.selectedMirror);
+		imagesize = (EditText)findViewById(R.id.imagesize);
 		installButton = (Button) findViewById(R.id.installButton);
 		progressBar = findViewById(R.id.progressBar);
 		installLog = (TextView)findViewById(R.id.installLog);
@@ -149,9 +152,9 @@ public class InstallDebian extends Activity
 			public void onClick(View view)
 			{
 				Intent intent = new Intent(InstallDebian.this, InstallService.class);
-				intent.putExtra(DISTRO, "stable");
+				intent.putExtra(DISTRO, selectedDistro.getText().toString());
 				intent.putExtra(MIRROR, selectedMirror.getText().toString());
-				intent.putExtra(IMAGESIZE, 256);
+				intent.putExtra(IMAGESIZE, imagesize.getText().toString());
 				startService(intent);
 				App.logi("Starting install service");
 				handler.postDelayed(new Runnable()
