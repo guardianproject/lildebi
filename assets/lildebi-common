@@ -7,7 +7,7 @@ loopdev=/dev/block/loop4
 
 app_payload=/data/data/info.guardianproject.lildebi
 imagesize=256 # 200 megs is the minimum for a useable squeeze system
-repo=http://ftp.us.debian.org/debian
+mirror=http://ftp.us.debian.org/debian
 distro=stable
 
 
