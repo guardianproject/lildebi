@@ -167,7 +167,7 @@ public class InstallDebian extends Activity
 		{
 			public void onClick(View view)
 			{
-				SelectInstallMirror.callMe(InstallDebian.this);
+				SelectMirror.callMe(InstallDebian.this);
 			}
 		});
 

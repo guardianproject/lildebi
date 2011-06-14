@@ -15,7 +15,7 @@ import android.widget.ListView;
  * Time: 4:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SelectInstallMirror extends Activity
+public class SelectMirror extends Activity
 {
 	private ListView mirrorList;
 	private String[] mirrors = new String[]{
@@ -72,7 +72,7 @@ public class SelectInstallMirror extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.select_install_mirror);
+		setContentView(R.layout.select_mirror);
 		mirrorList = (ListView)findViewById(R.id.mirrorList);
 		mirrorList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mirrors));
 		mirrorList.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -90,7 +90,7 @@ public class SelectInstallMirror extends Activity
 
 	public static void callMe(Activity activity)
 	{
-		Intent intent = new Intent(activity, SelectInstallMirror.class);
+		Intent intent = new Intent(activity, SelectMirror.class);
 		activity.startActivityForResult(intent, 123);
 	}
 }

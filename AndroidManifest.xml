@@ -13,7 +13,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectInstallMirror"/>
+        <activity android:name=".SelectMirror"/>
         <activity android:name=".UnsupportedDeviceActivity"/>
         <service android:name=".InstallService"/>
     </application>
