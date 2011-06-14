@@ -24,6 +24,10 @@ import android.widget.Toast;
 
 public class InstallDebian extends Activity
 {
+	public static final String DISTRO = "DISTRO";
+	public static final String MIRROR = "MIRROR";
+	public static final String IMAGESIZE = "IMAGESIZE";
+
 	private boolean ext2SupportChecked = false;
 	private TextView installSource;
 	private InstallService mBoundService;
@@ -143,7 +147,11 @@ public class InstallDebian extends Activity
 		{
 			public void onClick(View view)
 			{
-				startService(new Intent(InstallDebian.this, InstallService.class));
+				Intent intent = new Intent(InstallDebian.this, InstallService.class);
+				intent.putExtra(DISTRO, "stable");
+				intent.putExtra(MIRROR, installSource.getText().toString());
+				intent.putExtra(IMAGESIZE, 256);
+				startService(intent);
 				App.logi("Starting install service");
 				handler.postDelayed(new Runnable()
 				{
@@ -227,7 +235,7 @@ public class InstallDebian extends Activity
 	{
 		if(resultCode == RESULT_OK)
 		{
-			String mirror = data.getStringExtra(SelectInstallMirror.MIRROR);
+			String mirror = data.getStringExtra(MIRROR);
 			installSource.setText(mirror);
 		}
 	}
