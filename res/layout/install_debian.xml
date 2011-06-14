@@ -7,9 +7,8 @@
     <LinearLayout
             android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10sp"
-                        android:layout_marginTop="30sp"
-                        android:layout_marginBottom="10sp" android:orientation="horizontal">
+                        android:layout_margin="5sp"
+                        android:orientation="horizontal">
         <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -29,9 +28,8 @@
     <LinearLayout
             android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10sp"
-                        android:layout_marginTop="10sp"
-                        android:layout_marginBottom="30sp" android:orientation="horizontal">
+                        android:layout_margin="5sp"
+                        android:orientation="horizontal">
 
         <TextView
                     android:layout_width="wrap_content"
@@ -51,13 +49,41 @@
 
     </LinearLayout>
 
+    <LinearLayout
+            android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:orientation="horizontal">
+        <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Image Size: "
+                    android:textStyle="bold"
+                    />
+        <EditText android:text="256" 
+        		  android:id="@+id/imagesize"
+        		  android:layout_width="90sp"
+        		  android:layout_height="60sp"
+        		  android:gravity="center|right"
+        		  android:autoText="false"
+        		  android:inputType="number"
+        		  />
+        <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="MB"
+                    />
+    </LinearLayout>
+
     <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Install"
             android:textSize="20sp"
-            android:padding="30sp"
-            android:layout_margin="30sp"
+            android:padding="20sp"
+            android:layout_margin="10sp"
             android:id="@+id/installButton"/>
     <ProgressBar
             android:padding="30sp"
