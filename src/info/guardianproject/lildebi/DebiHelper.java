@@ -24,7 +24,7 @@ public class DebiHelper
 	public static String sdcard;
 	public static String imagename;
 	public static String mnt;
-	public static String[] envp;
+	public static String args;
 
 	public static void unzipDebiFiles(Context context)
 	{

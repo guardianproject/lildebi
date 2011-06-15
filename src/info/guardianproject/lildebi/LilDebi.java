@@ -34,12 +34,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 		DebiHelper.sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
 		DebiHelper.imagename = DebiHelper.sdcard + "/debian.img";
 		DebiHelper.mnt = "/data/debian";
-		DebiHelper.envp = new String[4];
-		DebiHelper.envp[0] = "dataDir=" + DebiHelper.dataDir.getAbsolutePath();
-		DebiHelper.envp[1] = "sdcard=" + DebiHelper.sdcard;
-		DebiHelper.envp[2] = "imagename=" + DebiHelper.imagename;
-		DebiHelper.envp[3] = "mnt=" + DebiHelper.mnt;
-		
+		DebiHelper.args = new String(" " + DebiHelper.dataDir.getAbsolutePath() + " " + 
+				DebiHelper.sdcard + " " + DebiHelper.imagename + " " + DebiHelper.mnt + " ");
+
 		//if(! DebiHelper.dataDir.exists())
 		DebiHelper.unzipDebiFiles(this);
 		

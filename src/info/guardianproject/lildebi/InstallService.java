@@ -101,12 +101,10 @@ public class InstallService extends Service
 				it.start();
 				et.start();
 
-				final String homeDir = DebiHelper.dataDir.getAbsolutePath();
-
-				writeCommand(os, "cd "+ homeDir);
-
-				// TODO switch this to use envp
-				writeCommand(os, "./create-debian-setup.sh " + distro + " http://" + mirror + "/debian/ " + imagesize);
+				App.logi("cd " + DebiHelper.dataDir.getAbsolutePath());
+				writeCommand(os, "cd " + DebiHelper.dataDir.getAbsolutePath());
+				writeCommand(os, "./create-debian-setup.sh "+ DebiHelper.args + 
+						distro + " http://" + mirror + "/debian/ " + imagesize);
 				writeCommand(os, "exit");
 
 				sh.waitFor();
