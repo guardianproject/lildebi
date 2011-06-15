@@ -11,5 +11,6 @@
     <string name="pref_boot_script_summary">The file to run when booting up Debian.</string>
     <string name="menu_preferences_title">Preferences</string>
     <string name="title_start">Start</string>
-    <string name="title_status">Status:</string>
+    <string name="title_stop">Stop</string>
+    <string name="title_status">Status:</string>    
 </resources>

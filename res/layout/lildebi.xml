@@ -10,10 +10,10 @@
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/statusTitle"
 			android:text="@string/title_status" android:textStyle="bold"
-			android:textSize="20sp" />
+			android:padding="5sp" android:textSize="20sp" />
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/statusText"
-			android:text="" android:textStyle="bold" android:singleLine="true"
+			android:text="(blank)" android:textStyle="bold" android:singleLine="true"
 			android:textSize="20sp" />
 	</LinearLayout>
 
