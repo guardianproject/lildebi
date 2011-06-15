@@ -107,6 +107,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			selectedMirror.setEnabled(false);
 			imagesize.setEnabled(false);
 			installButton.setText("Uninstall...");
+			// TODO focus the button otherwise the imagesize EditText focuses and pops up the keyboard
+			installButton.requestFocus();
 			installButton.setOnClickListener(new View.OnClickListener()
 			{
 				public void onClick(View view)
