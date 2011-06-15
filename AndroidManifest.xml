@@ -16,6 +16,7 @@
         <activity android:name=".SelectDistro"/>
         <activity android:name=".SelectMirror"/>
         <activity android:name=".UnsupportedDeviceActivity"/>
+        <activity android:name=".PreferencesActivity"/>
         <service android:name=".InstallService"/>
     </application>
 </manifest> 

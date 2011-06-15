@@ -19,6 +19,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +29,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class InstallDebian extends Activity
+public class InstallDebian extends Activity implements View.OnCreateContextMenuListener
 {
 	public static final String DISTRO = "DISTRO";
 	public static final String MIRROR = "MIRROR";
@@ -318,4 +321,25 @@ public class InstallDebian extends Activity
 	{
 		os.write((command + "\n").getBytes("ASCII"));
 	}
+	
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+    	MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.preferences_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menu_preferences:
+                Intent intent = new Intent(this, PreferencesActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return false;
+    }
 }

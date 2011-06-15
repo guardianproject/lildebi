@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+  <CheckBoxPreference android:defaultValue="false" android:title="@string/pref_start_on_boot_title" android:key="@string/pref_start_on_boot_key" android:summary="@string/pref_start_on_boot_summary"/>
+
+  <EditTextPreference android:defaultValue="/sbin/init" android:title="@string/pref_boot_script_title" android:key="@string/pref_boot_script_key" android:summary="@string/pref_boot_script_summary"/>
+
+</PreferenceScreen>
