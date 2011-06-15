@@ -91,10 +91,6 @@ public class InstallService extends Service
 		public void run()
 		{
 			logUpdate = new LogUpdate();
-
-			DebiHelper.unzipDebiFiles(InstallService.this);
-			logUpdate.update("Install files copied\n");
-
 			try {
 				Process sh = Runtime.getRuntime().exec("su - sh");
 				OutputStream os = sh.getOutputStream();
@@ -105,20 +101,12 @@ public class InstallService extends Service
 				it.start();
 				et.start();
 
-				final String homeDir = DebiHelper.buildHomeDirPath(InstallService.this);
+				final String homeDir = DebiHelper.dataDir.getAbsolutePath();
 
 				writeCommand(os, "cd "+ homeDir);
 
-				writeCommand(os, "chmod 644 usr-share-debootstrap.tar.bz2");
-				writeCommand(os, "chmod 644 lildebi-common");
-				writeCommand(os, "chmod 755 create-debian-setup.sh");
-				writeCommand(os, "chmod 755 remove-debian-setup.sh");
-				writeCommand(os, "chmod 755 start-debian.sh");
-				writeCommand(os, "chmod 755 stop-debian.sh");
-				writeCommand(os, "chmod 755 busybox");
-				writeCommand(os, "chmod 755 pkgdetails");
+				// TODO switch this to use envp
 				writeCommand(os, "./create-debian-setup.sh " + distro + " http://" + mirror + "/debian/ " + imagesize);
-
 				writeCommand(os, "exit");
 
 				sh.waitFor();

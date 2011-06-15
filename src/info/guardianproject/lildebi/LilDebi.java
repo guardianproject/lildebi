@@ -39,6 +39,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 		DebiHelper.envp[1] = "sdcard=" + DebiHelper.sdcard;
 		DebiHelper.envp[2] = "imagename=" + DebiHelper.imagename;
 		DebiHelper.envp[3] = "mnt=" + DebiHelper.mnt;
+		
+		//if(! DebiHelper.dataDir.exists())
+		DebiHelper.unzipDebiFiles(this);
+		
 		setContentView(R.layout.lildebi);
 		statusText = (TextView) findViewById(R.id.statusText);
 		startStopButton = (Button) findViewById(R.id.startStopButton);

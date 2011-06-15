@@ -1,10 +1,15 @@
 package info.guardianproject.lildebi;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import android.content.Context;
 import android.content.res.AssetManager;
-
-import java.io.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,15 +25,6 @@ public class DebiHelper
 	public static String imagename;
 	public static String mnt;
 	public static String[] envp;
-	public static File buildHomeDir(Context c)
-	{
-		return new File(buildHomeDirPath(c));
-	}
-
-	public static String buildHomeDirPath(Context c)
-	{
-		return "/data/data/" + c.getPackageName();
-	}
 
 	public static void unzipDebiFiles(Context context)
 	{
@@ -41,8 +37,6 @@ public class DebiHelper
 			//            ZipInputStream zin = new ZipInputStream(new BufferedInputStream(allZipIS));
 			//            ZipEntry entry;
 
-			final File baseFolder = buildHomeDir(context);
-
 			for (String asset : assetList)
 			{
 				if(
@@ -53,11 +47,14 @@ public class DebiHelper
 					continue;
 
 				int BUFFER = 2048;
-				final File file = new File(baseFolder, asset);
+				final File file = new File(DebiHelper.dataDir, asset);
 				final InputStream assetIS = am.open(asset);
 
 				if(file.exists())
+				{
 					file.delete();
+					App.logi("DebiHelper.unzipDebiFiles() deleting " + file.getAbsolutePath());
+				}
 
 				FileOutputStream fos = new FileOutputStream(file);
 				BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER);
@@ -73,7 +70,7 @@ public class DebiHelper
 
 				dest.flush();
 				dest.close();
-
+				
 				assetIS.close();
 			}
 		}
@@ -81,5 +78,64 @@ public class DebiHelper
 		{
 			App.loge("Can't unzip", e);
 		}
+		chmod(0644, new File(dataDir, "usr-share-debootstrap.tar.bz2"));
+		chmod(0644, new File(dataDir, "lildebi-common"));
+		chmod(0755, new File(dataDir, "create-debian-setup.sh"));
+		chmod(0755, new File(dataDir, "remove-debian-setup.sh"));
+		chmod(0755, new File(dataDir, "start-debian.sh"));
+		chmod(0755, new File(dataDir, "stop-debian.sh"));
+		chmod(0755, new File(dataDir, "test.sh"));
+		chmod(0755, new File(dataDir, "busybox"));
+		chmod(0755, new File(dataDir, "pkgdetails"));
 	}
+	
+	public static void runCommandInAppPayload(String command)
+	{
+		Runtime runtime = Runtime.getRuntime();
+		try
+		{
+			Process sh = runtime.exec(command, envp, dataDir);
+			sh.waitFor();
+		}
+		catch (Exception e)
+		{
+			App.loge("Error running " + command, e);
+		}
+		finally
+		{
+			App.logi(command + "failed!");
+		}
+	}
+	
+	public static void chmod(int mode, File path)
+	{
+		try
+		{
+			Class<?> fileUtils = Class.forName("android.os.FileUtils");
+			Method setPermissions =
+				fileUtils.getMethod("setPermissions", String.class, int.class, int.class, int.class);
+			int a = (Integer) setPermissions.invoke(null, path.getAbsolutePath(), mode, -1, -1);
+			if(a != 0)
+			{
+				App.logi("ERROR: android.os.FileUtils.setPermissions() returned " + a + " for '" + path + "'");
+			}
+		}
+		catch(ClassNotFoundException e)
+		{
+			App.logi("android.os.FileUtils.setPermissions() failed - ClassNotFoundException.");
+		}
+		catch(IllegalAccessException e)
+		{
+			App.logi("android.os.FileUtils.setPermissions() failed - IllegalAccessException.");
+		}
+		catch(InvocationTargetException e)
+		{
+			App.logi("android.os.FileUtils.setPermissions() failed - InvocationTargetException.");
+		}
+		catch(NoSuchMethodException e)
+		{
+			App.logi("android.os.FileUtils.setPermissions() failed - NoSuchMethodException.");
+		}
+	}
+
 }
