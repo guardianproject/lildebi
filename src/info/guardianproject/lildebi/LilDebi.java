@@ -80,9 +80,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 				String script;
 				if (! debianInstalled)
 				{
-					// TODO get this launching the install screen
-//	                Intent intent = new Intent(this, InstallDebian.class);
-//	                startActivity(intent);
+	                Intent intent = new Intent(getApplicationContext(), InstallActivity.class);
+	                startActivity(intent);
 					return;
 				}
 /*
