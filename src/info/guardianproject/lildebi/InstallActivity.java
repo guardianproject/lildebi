@@ -29,7 +29,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class InstallDebian extends Activity implements View.OnCreateContextMenuListener
+public class InstallActivity extends Activity implements View.OnCreateContextMenuListener
 {
 	public static final String DISTRO = "DISTRO";
 	public static final String MIRROR = "MIRROR";
@@ -86,7 +86,7 @@ public class InstallDebian extends Activity implements View.OnCreateContextMenuL
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.install_debian);
+		setContentView(R.layout.install_activity);
 		selectedDistro = (TextView)findViewById(R.id.selectedDistro);
 		selectedMirror = (TextView)findViewById(R.id.selectedMirror);
 		imagesize = (EditText)findViewById(R.id.imagesize);
@@ -111,7 +111,7 @@ public class InstallDebian extends Activity implements View.OnCreateContextMenuL
 			{
 				public void onClick(View view)
 				{
-					UnsupportedDeviceActivity.callMe(InstallDebian.this);
+					UnsupportedDeviceActivity.callMe(InstallActivity.this);
 				}
 			});
 		} 
@@ -185,7 +185,7 @@ public class InstallDebian extends Activity implements View.OnCreateContextMenuL
 		{
 			public void onClick(View view)
 			{
-				Intent intent = new Intent(InstallDebian.this, InstallService.class);
+				Intent intent = new Intent(InstallActivity.this, InstallService.class);
 				intent.putExtra(DISTRO, selectedDistro.getText().toString());
 				intent.putExtra(MIRROR, selectedMirror.getText().toString());
 				intent.putExtra(IMAGESIZE, imagesize.getText().toString());
@@ -205,7 +205,7 @@ public class InstallDebian extends Activity implements View.OnCreateContextMenuL
 		{
 			public void onClick(View view)
 			{
-				SelectDistro.callMe(InstallDebian.this);
+				SelectDistro.callMe(InstallActivity.this);
 			}
 		});
 
@@ -213,7 +213,7 @@ public class InstallDebian extends Activity implements View.OnCreateContextMenuL
 		{
 			public void onClick(View view)
 			{
-				SelectMirror.callMe(InstallDebian.this);
+				SelectMirror.callMe(InstallActivity.this);
 			}
 		});
 

@@ -13,7 +13,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InstallDebian"/>
+        <activity android:name=".InstallActivity"/>
         <activity android:name=".SelectDistro"/>
         <activity android:name=".SelectMirror"/>
         <activity android:name=".UnsupportedDeviceActivity"/>

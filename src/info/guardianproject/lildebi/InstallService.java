@@ -71,9 +71,9 @@ public class InstallService extends Service
 	{
 		synchronized (this)
 		{	
-			distro = intent.getStringExtra(InstallDebian.DISTRO);
-			mirror = intent.getStringExtra(InstallDebian.MIRROR);
-			imagesize = intent.getStringExtra(InstallDebian.IMAGESIZE);
+			distro = intent.getStringExtra(InstallActivity.DISTRO);
+			mirror = intent.getStringExtra(InstallActivity.MIRROR);
+			imagesize = intent.getStringExtra(InstallActivity.IMAGESIZE);
 			log = new StringBuffer();
 			installThread = new InstallThread();
 			installThread.start();

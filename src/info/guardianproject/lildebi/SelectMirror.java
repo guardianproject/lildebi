@@ -81,7 +81,7 @@ public class SelectMirror extends Activity
 			{
 				Intent result = new Intent();
 				String mirror = ((ArrayAdapter<String>) mirrorList.getAdapter()).getItem(i);
-				result.putExtra(InstallDebian.MIRROR, mirror);
+				result.putExtra(InstallActivity.MIRROR, mirror);
 				setResult(RESULT_OK, result);
 				finish();
 			}

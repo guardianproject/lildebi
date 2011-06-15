@@ -30,7 +30,7 @@ public class SelectDistro extends Activity
 			{
 				Intent result = new Intent();
 				String distro = ((ArrayAdapter<String>) distroList.getAdapter()).getItem(i);
-				result.putExtra(InstallDebian.DISTRO, distro);
+				result.putExtra(InstallActivity.DISTRO, distro);
 				setResult(RESULT_OK, result);
 				finish();
 			}
