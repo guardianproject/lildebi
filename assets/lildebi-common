@@ -1,15 +1,39 @@
+#!/bin/sh
 # this is the common settings for the various scripts here
 
-mnt=/data/debian # in /dev because /data is mounted 'nodev'
-sdcard=/mnt/sdcard
-imagefile=$sdcard/debian.img
+if [ $# -lt 1 ]; then
+    echo "incorrect number of arguments, should be between 1 and 7:"
+    echo "    $0 dataDir [sdcard] [imagefile] [mnt] [distro] [mirror] [imagesize]"
+fi
+
+dataDir=$1
+if [ -z $sdcard ]; then
+    sdcard=$2
+fi
+if [ -z $imagefile ]; then
+    imagefile=$3
+fi
+if [ -z $mnt ]; then
+    mnt=$4
+fi
+if [ -z $distro ]; then
+    distro=$5
+fi    
+if [ -z $mirror ]; then
+    mirror=$6
+fi    
+if [ -z $imagesize ]; then
+    imagesize=$7
+fi    
+
+test -d $dataDir || echo "dataDir: '$dataDir' not a directory"
+test -d $sdcard || echo "sdcard: '$sdcard' not a directory"
+test -z $imagefile || echo "imagefile: '$imagefile' is empty"
+test -z $mnt || echo "mnt: '$mnt' is empty"
+
 loopdev=/dev/block/loop4
-
-app_payload=/data/data/info.guardianproject.lildebi
-imagesize=256 # 200 megs is the minimum for a useable squeeze system
-mirror=http://ftp.us.debian.org/debian
-distro=stable
-
+busybox_path=/data/busybox
+busybox=$busybox_path/busybox
 
 make_root_symlinks () {
     wd=`pwd`

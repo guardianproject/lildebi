@@ -1,5 +1,6 @@
 package info.guardianproject.lildebi;
 
+import java.io.File;
 import android.content.Context;
 import android.content.res.AssetManager;
 
@@ -14,6 +15,11 @@ import java.io.*;
  */
 public class DebiHelper
 {
+	public static File dataDir;
+	public static String sdcard;
+	public static String imagename;
+	public static String mnt;
+	public static String[] envp;
 	public static File buildHomeDir(Context c)
 	{
 		return new File(buildHomeDirPath(c));

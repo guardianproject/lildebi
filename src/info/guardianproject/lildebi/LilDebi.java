@@ -20,19 +20,25 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 {
 	private boolean debianInstalled;
 	private boolean debianMounted;
-	private String homeDir;
-	private String imagename;
 	private TextView statusText;
 	private Button startStopButton;
 	private ScrollView consoleScroll;
 	private TextView consoleText;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		homeDir = DebiHelper.buildHomeDirPath(this);
-		imagename = new String(Environment.getExternalStorageDirectory() + "/debian.img");
+		DebiHelper.dataDir = getDir("bin", MODE_PRIVATE);
+		DebiHelper.sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
+		DebiHelper.imagename = DebiHelper.sdcard + "/debian.img";
+		DebiHelper.mnt = "/data/debian";
+		DebiHelper.envp = new String[4];
+		DebiHelper.envp[0] = "dataDir=" + DebiHelper.dataDir.getAbsolutePath();
+		DebiHelper.envp[1] = "sdcard=" + DebiHelper.sdcard;
+		DebiHelper.envp[2] = "imagename=" + DebiHelper.imagename;
+		DebiHelper.envp[3] = "mnt=" + DebiHelper.mnt;
 		setContentView(R.layout.lildebi);
 		statusText = (TextView) findViewById(R.id.statusText);
 		startStopButton = (Button) findViewById(R.id.startStopButton);
@@ -49,7 +55,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 			Toast.makeText(getApplicationContext(),
 					"The SD card/external storage is not mounted, cannot start Debian.", 
 					Toast.LENGTH_LONG).show();
-		File f = new File(imagename);
+		File f = new File(DebiHelper.imagename);
 		debianInstalled = f.exists();
 		if (debianInstalled)
 		{
@@ -77,32 +83,17 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 		{
 			public void onClick(View view)
 			{
-				String script;
+				DebiHelper.runCommandInAppPayload("sh ./test.sh");
 				if (! debianInstalled)
 				{
 	                Intent intent = new Intent(getApplicationContext(), InstallActivity.class);
 	                startActivity(intent);
 					return;
 				}
-/*
 				if (debianMounted)
-					script = "su - " + homeDir + "/stop-debian.sh";
+					DebiHelper.runCommandInAppPayload("su - ./stop-debian.sh");
 				else
-					script = "su - " + homeDir + "/start-debian.sh";
-				try
-				{
-					Process sh = Runtime.getRuntime().exec(script);
-					sh.waitFor();
-				}
-				catch (Exception e)
-				{
-					App.loge("Error in " + script, e);
-				}
-				finally
-				{
-					App.logi(script + "failed!");
-				}
-				*/
+					DebiHelper.runCommandInAppPayload("su - ./start-debian.sh");
 			}
 		});
 	}

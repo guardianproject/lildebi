@@ -1,16 +1,13 @@
 #!/data/busybox/sh
+#
+# see lildebi-common for arguments, the args are converted to vars there. The
+# first arg $1 is the "app payload" directory, where the included scripts are
+# kept.
 
-scripts=$(cd `dirname $0` && pwd)
-if [ -x "$scripts" ]; then
-    . $scripts/lildebi-common
-    binaries="${scripts}/../binaries"
-    debootstrap="${scripts}/../debootstrap"
-else
-    . ./lildebi-common
-    binaries=../binaries
-    debootstrap=../debootstrap/
-fi
+test -e $1/lildebi-common || exit
+. $1/lildebi-common
 
+# lazy umount
 umount -l $mnt$sdcard
 
-/data/busybox/umount -f  $mnt/dev/pts $mnt/proc $mnt/sys $mnt/tmp $mnt$sdcard
+$busybox_path/umount -f  $mnt/dev/pts $mnt/proc $mnt/sys $mnt/tmp $mnt$sdcard

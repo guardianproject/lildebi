@@ -12,7 +12,7 @@ fi
 
 umount $mnt
 rm -rf $mnt
-rm -rf $app_payload
+rm -rf $dataDir
 rm -f $imagefile
 
 losetup -d $loopdev

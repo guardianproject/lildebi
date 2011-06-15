@@ -1,28 +1,12 @@
 #!/system/bin/sh
 #
-# the arguments are: distro mirror imagesize
+# see lildebi-common for arguments, the args are converted to vars there.  The
+# first arg is the "app payload" directory where the included scripts are kept
 
-. ./lildebi-common
-
-if [ $# -gt 3 ]; then
-    echo "too many arguments, should be:"
-    echo "    $0 [distro] [mirror] [imagesize]"
-fi
-
-# lildebi-common sets the defaults, the arguments override them
-if [ ! -z $1 ]; then
-    distro=$1
-fi    
-if [ ! -z $2 ]; then
-    mirror=$2
-fi    
-if [ ! -z $3 ]; then
-    imagesize=$3
-fi    
+test -e $1/lildebi-common || exit
+. $1/lildebi-common
 
 sh_debootstrap="/system/bin/sh $mnt/usr/sbin/debootstrap"
-busybox_path=/data/busybox
-busybox=$busybox_path/busybox
 
 # so we can find busybox tools
 export PATH=$busybox_path:/system/bin:/system/xbin:$PATH
@@ -33,7 +17,7 @@ export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 # setup busybox
 if [ ! -e $busybox_path ]; then
     mkdir $busybox_path
-    cp $app_payload/busybox $busybox
+    cp $dataDir/busybox $busybox
     chmod 755 $busybox
     cd $busybox_path && ./busybox --install
 # this busybox's wget is not as good as the CyanogenMod wget, I think the
@@ -63,8 +47,8 @@ if test -d $mnt && test -e $imagefile; then
     losetup $loopdev $imagefile
     mount -o loop,noatime,errors=remount-ro $loopdev $mnt
     cd $mnt
-    tar xjf $app_payload/usr-share-debootstrap.tar.bz2
-    cp $app_payload/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
+    tar xjf $dataDir/usr-share-debootstrap.tar.bz2
+    cp $dataDir/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
     chmod 755 $DEBOOTSTRAP_DIR/pkgdetails
 else
     echo "No mount dir found ($mnt) or no imagefile ($imagefile)"

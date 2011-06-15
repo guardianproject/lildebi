@@ -1,15 +1,10 @@
 #!/system/bin/sh
+#
+# see lildebi-common for arguments, the args are converted to vars there.  The
+# first arg is the "app payload" directory where the included scripts are kept
 
-scripts=$(cd `dirname $0` && pwd)
-if [ -x "$scripts" ]; then
-    . $scripts/lildebi-common
-    binaries="${scripts}/../binaries"
-    debootstrap="${scripts}/../debootstrap"
-else
-    . ./lildebi-common
-    binaries=../binaries
-    debootstrap=../debootstrap/
-fi
+test -e $1/lildebi-common || exit
+. $1/lildebi-common
 
 export TERM=linux
 export HOME=/root
@@ -42,16 +37,4 @@ mount -t proc proc $mnt/proc
 mount -t sysfs sysfs $mnt/sys
 mount -t tmpfs tmpfs $mnt/tmp
  
-mount -o bind $sdcard $mnt/$sdcard
-
-echo " "
-echo "Type EXIT to end session"
-echo "Make sure you do a proper EXIT for a clean umount!"
-echo " "
-echo "Please reboot your device when you finished your work."
-
-chroot $mnt /bin/bash
-
-umount -l $mnt$sdcard
-
-busybox umount -f  $mnt/dev/pts $mnt/proc $mnt/sys $mnt/tmp $mnt$sdcard
+mount -o bind $sdcard $mnt/mnt/sdcard
