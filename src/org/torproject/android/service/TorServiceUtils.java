@@ -36,11 +36,11 @@ public class TorServiceUtils implements TorServiceConstants {
 			
 		} catch (IOException e) {
 			//this means that there is no root to be had (normally) so we won't log anything
-			App.logi("Error checking for root access");
+			App.loge("Error checking for root access", e);
 			
 		}
 		catch (Exception e) {
-			App.logi("Error checking for root access");
+			App.loge("Error checking for root access", e);
 			//this means that there is no root to be had (normally)
 		}
 		
@@ -105,7 +105,7 @@ public class TorServiceUtils implements TorServiceConstants {
         	}
         	catch (NumberFormatException e)
         	{
-        		App.logi("unable to parse process pid: " + line);
+        		App.loge("unable to parse process pid: " + line, e);
         	}
         }
             
