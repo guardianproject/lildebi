@@ -1,9 +1,13 @@
 package info.guardianproject.lildebi;
 
 import java.io.File;
+import java.io.OutputStream;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -25,6 +29,14 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 	private ScrollView consoleScroll;
 	private TextView consoleText;
 
+	public static final String LOG_UPDATE = "LOG_UPDATE";
+	public static final String COMMAND_FINISHED = "COMMAND_FINISHED";
+
+	private CommandThread commandThread;
+	private StringBuffer log;
+	private BroadcastReceiver logUpdateReceiver;
+	private BroadcastReceiver commandFinishedReceiver;
+	public String command;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -45,6 +57,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 		startStopButton = (Button) findViewById(R.id.startStopButton);
 		consoleScroll = (ScrollView)findViewById(R.id.consoleScroll);
 		consoleText = (TextView)findViewById(R.id.consoleText);
+		
+		log = new StringBuffer();
 	}
 
 	@Override
@@ -84,7 +98,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 		{
 			public void onClick(View view)
 			{
-				DebiHelper.runCommandInAppPayload("sh ./test.sh");
 				if (! debianInstalled)
 				{
 	                Intent intent = new Intent(getApplicationContext(), InstallActivity.class);
@@ -92,17 +105,21 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 					return;
 				}
 				if (debianMounted)
-					DebiHelper.runCommandInAppPayload("su - ./stop-debian.sh");
+					command = "./stop-debian.sh";
 				else
-					DebiHelper.runCommandInAppPayload("su - ./start-debian.sh");
+					command = "./start-debian.sh";
+				commandThread = new CommandThread();
+				commandThread.start();
 			}
 		});
+		registerReceivers();
 	}
 
 	@Override
 	protected void onPause()
 	{
 		super.onPause();
+		unregisterReceivers();
 	}
 
 	@Override
@@ -126,4 +143,110 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
         return false;
     }
 
+	class CommandThread extends Thread
+	{
+		private LogUpdate logUpdate;
+
+		@Override
+		public void run()
+		{
+			logUpdate = new LogUpdate();
+			try {
+				Process sh = Runtime.getRuntime().exec("su - sh");
+				OutputStream os = sh.getOutputStream();
+
+				StreamThread it = new StreamThread(sh.getInputStream(), logUpdate);
+				StreamThread et = new StreamThread(sh.getErrorStream(), logUpdate);
+
+				it.start();
+				et.start();
+
+				App.logi("cd " + DebiHelper.dataDir.getAbsolutePath());
+				writeCommand(os, "cd " + DebiHelper.dataDir.getAbsolutePath());
+				App.logi(command + DebiHelper.args);
+				writeCommand(os, command + DebiHelper.args);
+				writeCommand(os, "exit");
+
+				sh.waitFor();
+				App.logi("Done!");
+			}
+			catch (Exception e)
+			{
+				App.loge("Error!!!", e);
+			}
+			finally {
+				synchronized (LilDebi.this)
+				{
+					commandThread = null;
+				}
+				sendBroadcast(new Intent(COMMAND_FINISHED));
+			}
+		}
+	}
+
+	class LogUpdate extends StreamThread.StreamUpdate
+	{
+
+		StringBuffer sb = new StringBuffer();
+
+		@Override
+		public void update(String val)
+		{
+			log.append(val);
+			sendBroadcast(new Intent(LOG_UPDATE));
+		}
+	}
+
+	public static void writeCommand(OutputStream os, String command) throws Exception
+	{
+		os.write((command + "\n").getBytes("ASCII"));
+	}
+
+	private void updateLog()
+	{
+		final String logContents = log.toString();
+		if(logContents != null && logContents.trim().length() > 0)
+			consoleText.setText(logContents);
+		consoleScroll.scrollTo(0, consoleText.getHeight());
+	}
+
+	private void registerReceivers()
+	{
+		{
+			logUpdateReceiver = new BroadcastReceiver()
+			{
+				@Override
+				public void onReceive(Context context, Intent intent)
+				{
+					updateLog();
+				}
+			};
+
+			IntentFilter filter = new IntentFilter(LilDebi.LOG_UPDATE);
+			registerReceiver(logUpdateReceiver, filter);
+		}
+
+		{
+			commandFinishedReceiver = new BroadcastReceiver()
+			{
+				@Override
+				public void onReceive(Context context, Intent intent)
+				{
+					// TODO wireButtons();
+				}
+			};
+
+			IntentFilter filter = new IntentFilter(LilDebi.COMMAND_FINISHED);
+			registerReceiver(commandFinishedReceiver, filter);
+		}
+	}
+
+	private void unregisterReceivers()
+	{
+		if(logUpdateReceiver != null)
+			unregisterReceiver(logUpdateReceiver);
+
+		if(commandFinishedReceiver != null)
+			unregisterReceiver(commandFinishedReceiver);
+	}
 }

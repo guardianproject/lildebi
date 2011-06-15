@@ -89,24 +89,6 @@ public class DebiHelper
 		chmod(0755, new File(dataDir, "pkgdetails"));
 	}
 	
-	public static void runCommandInAppPayload(String command)
-	{
-		Runtime runtime = Runtime.getRuntime();
-		try
-		{
-			Process sh = runtime.exec(command, envp, dataDir);
-			sh.waitFor();
-		}
-		catch (Exception e)
-		{
-			App.loge("Error running " + command, e);
-		}
-		finally
-		{
-			App.logi(command + "failed!");
-		}
-	}
-	
 	public static void chmod(int mode, File path)
 	{
 		try
