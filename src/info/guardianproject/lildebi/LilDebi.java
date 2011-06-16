@@ -65,6 +65,14 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 	protected void onResume()
 	{
 		super.onResume();
+		if (DebiHelper.isInstallRunning)
+		{
+			// go back to the running install screen
+			Intent intent = new Intent(this, InstallActivity.class);
+			startActivity(intent);
+			finish();
+			return;
+		}
 		String state = Environment.getExternalStorageState();
 		if (! Environment.MEDIA_MOUNTED.equals(state))
 			Toast.makeText(getApplicationContext(),
@@ -101,7 +109,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 				if (! debianInstalled)
 				{
 	                Intent intent = new Intent(getApplicationContext(), InstallActivity.class);
-	                startActivity(intent);
+	                startActivityForResult(intent, DebiHelper.STARTING_INSTALL);
 					return;
 				}
 				if (debianMounted)

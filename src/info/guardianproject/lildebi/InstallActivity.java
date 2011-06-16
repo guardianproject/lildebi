@@ -187,6 +187,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		{
 			public void onClick(View view)
 			{
+				setResult(DebiHelper.STARTING_INSTALL);
 				Intent intent = new Intent(InstallActivity.this, InstallService.class);
 				intent.putExtra(DISTRO, selectedDistro.getText().toString());
 				intent.putExtra(MIRROR, selectedMirror.getText().toString());

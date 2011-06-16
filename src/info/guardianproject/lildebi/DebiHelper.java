@@ -20,11 +20,15 @@ import android.content.res.AssetManager;
  */
 public class DebiHelper
 {
+	public static int STARTING_INSTALL = 12345; 
+	
 	public static File dataDir;
 	public static String sdcard;
 	public static String imagename;
 	public static String mnt;
 	public static String args;
+	
+	public static boolean isInstallRunning = false;
 
 	public static void unzipDebiFiles(Context context)
 	{

@@ -70,10 +70,11 @@ public class InstallService extends Service
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
 		synchronized (this)
-		{	
+		{
 			distro = intent.getStringExtra(InstallActivity.DISTRO);
 			mirror = intent.getStringExtra(InstallActivity.MIRROR);
 			imagesize = intent.getStringExtra(InstallActivity.IMAGESIZE);
+			DebiHelper.isInstallRunning = true;
 			log = new StringBuffer();
 			installThread = new InstallThread();
 			installThread.start();
@@ -120,6 +121,8 @@ public class InstallService extends Service
 				{
 					installThread = null;
 				}
+				// TODO write install log to a file for future reference
+				DebiHelper.isInstallRunning = false;
 				sendBroadcast(new Intent(INSTALL_FINISHED));
 			}
 		}
