@@ -124,6 +124,8 @@ public class InstallService extends Service
 				// TODO write install log to a file for future reference
 				DebiHelper.isInstallRunning = false;
 				sendBroadcast(new Intent(INSTALL_FINISHED));
+				Intent intent = new Intent(getApplicationContext(), LilDebi.class);
+				startActivity(intent);
 			}
 		}
 	}
