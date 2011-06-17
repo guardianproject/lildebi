@@ -30,7 +30,11 @@ if [ ! -e $loopdev ]; then
     exit
 fi
 
-echo "config: $mnt $sdcard $imagefile $loopdev"
+echo "config:"
+echo "       mnt: $mnt"
+echo "       sdcard: $sdcard"
+echo "       imagefile: $imagefile"
+echo "       loopdev: $loopdev"
 
 losetup $loopdev $imagefile
 mount -t ext2 $loopdev $mnt
@@ -41,5 +45,9 @@ mount -t sysfs sysfs $mnt/sys
 mount -t tmpfs tmpfs $mnt/tmp
  
 mount -o bind $sdcard $mnt/mnt/sdcard
+
+if [ -x /etc/init.d/ssh ]; then
+    chroot $mnt /bin/bash -c "/etc/init.d/ssh start"
+fi
 
 echo "Debian chroot mounted and started."

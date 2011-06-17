@@ -11,7 +11,11 @@ test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
 # stop ssh, this really should use the whole proper shutdown procedure
+if [ -x /etc/init.d/ssh ]; then
+    chroot $mnt /bin/bash -c "/etc/init.d/ssh stop"
+fi
 
+echo "Checking for open files in Debian chroot..."
 openfiles=`lsof | cut -b 68-255 | grep $mnt`
 
 if [ ! -z "$openfiles" ]; then
