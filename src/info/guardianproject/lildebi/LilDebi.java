@@ -73,53 +73,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 			finish();
 			return;
 		}
-		String state = Environment.getExternalStorageState();
-		if (! Environment.MEDIA_MOUNTED.equals(state))
-			Toast.makeText(getApplicationContext(),
-					"The SD card/external storage is not mounted, cannot start Debian.", 
-					Toast.LENGTH_LONG).show();
-		File f = new File(DebiHelper.imagename);
-		debianInstalled = f.exists();
-		if (debianInstalled)
-		{
-			File f2 = new File("/data/debian/etc");
-			if (f2.exists())
-			{
-				debianMounted = true;
-				statusText.setText("Debian mounted");
-				startStopButton.setText(R.string.title_stop);
-			}
-			else
-			{
-				debianMounted = false;
-				statusText.setText("Debian not mounted");
-				startStopButton.setText(R.string.title_start);
-			}
-		}
-		else
-		{
-			debianMounted = false;
-			statusText.setText("Debian not installed");
-			startStopButton.setText("Install...");
-		}
-		startStopButton.setOnClickListener(new View.OnClickListener()
-		{
-			public void onClick(View view)
-			{
-				if (! debianInstalled)
-				{
-	                Intent intent = new Intent(getApplicationContext(), InstallActivity.class);
-	                startActivityForResult(intent, DebiHelper.STARTING_INSTALL);
-					return;
-				}
-				if (debianMounted)
-					command = "./stop-debian.sh";
-				else
-					command = "./start-debian.sh";
-				commandThread = new CommandThread();
-				commandThread.start();
-			}
-		});
+		updateScreenStatus();
 		registerReceivers();
 	}
 
@@ -215,6 +169,66 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 		os.write((command + "\n").getBytes("ASCII"));
 	}
 
+	private void updateScreenStatus()
+	{
+		String state = Environment.getExternalStorageState();
+		if (! Environment.MEDIA_MOUNTED.equals(state))
+			Toast.makeText(getApplicationContext(),
+					"The SD card/external storage is not mounted, cannot start Debian.", 
+					Toast.LENGTH_LONG).show();
+		File f = new File(DebiHelper.imagename);
+		debianInstalled = f.exists();
+		if (debianInstalled)
+		{
+			File f2 = new File("/data/debian/etc");
+			if (f2.exists())
+			{
+				debianMounted = true;
+				statusText.setText("Debian mounted");
+				startStopButton.setText(R.string.title_stop);
+				startStopButton.setOnClickListener(new View.OnClickListener()
+				{
+					public void onClick(View view)
+					{
+						command = "./stop-debian.sh";
+						commandThread = new CommandThread();
+						commandThread.start();
+					}
+				});
+			}
+			else
+			{
+				debianMounted = false;
+				statusText.setText("Debian not mounted");
+				startStopButton.setText(R.string.title_start);
+				startStopButton.setOnClickListener(new View.OnClickListener()
+				{
+					public void onClick(View view)
+					{
+						command = "./start-debian.sh";
+						commandThread = new CommandThread();
+						commandThread.start();
+					}
+				});
+			}
+		}
+		else
+		{
+			debianMounted = false;
+			statusText.setText("Debian not installed");
+			startStopButton.setText("Install...");
+			startStopButton.setOnClickListener(new View.OnClickListener()
+			{
+				public void onClick(View view)
+				{
+					Intent intent = new Intent(getApplicationContext(), InstallActivity.class);
+					startActivityForResult(intent, DebiHelper.STARTING_INSTALL);
+					return;
+				}
+			});
+		}
+	}
+
 	private void updateLog()
 	{
 		final String logContents = log.toString();
@@ -225,33 +239,25 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 
 	private void registerReceivers()
 	{
+		logUpdateReceiver = new BroadcastReceiver()
 		{
-			logUpdateReceiver = new BroadcastReceiver()
+			@Override
+			public void onReceive(Context context, Intent intent)
 			{
-				@Override
-				public void onReceive(Context context, Intent intent)
-				{
-					updateLog();
-				}
-			};
+				updateLog();
+			}
+		};
+		registerReceiver(logUpdateReceiver, new IntentFilter(LilDebi.LOG_UPDATE));
 
-			IntentFilter filter = new IntentFilter(LilDebi.LOG_UPDATE);
-			registerReceiver(logUpdateReceiver, filter);
-		}
-
+		commandFinishedReceiver = new BroadcastReceiver()
 		{
-			commandFinishedReceiver = new BroadcastReceiver()
+			@Override
+			public void onReceive(Context context, Intent intent)
 			{
-				@Override
-				public void onReceive(Context context, Intent intent)
-				{
-					// TODO wireButtons();
-				}
-			};
-
-			IntentFilter filter = new IntentFilter(LilDebi.COMMAND_FINISHED);
-			registerReceiver(commandFinishedReceiver, filter);
-		}
+				updateScreenStatus();
+			}
+		};
+		registerReceiver(commandFinishedReceiver, new IntentFilter(LilDebi.COMMAND_FINISHED));
 	}
 
 	private void unregisterReceivers()
