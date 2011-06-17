@@ -10,10 +10,11 @@ test -e $1/lildebi-common || exit
 # stop ssh, this really should use the whole proper shutdown procedure
 chroot $mnt /etc/init.d/ssh stop
 
-# lazy umount
-umount -l $mnt$sdcard
+$busybox_path/umount -f  $mnt/dev/pts $mnt/proc $mnt/sys $mnt/tmp $mnt/mnt/sdcard
 
-$busybox_path/umount -f  $mnt/dev/pts $mnt/proc $mnt/sys $mnt/tmp $mnt$sdcard
+umount $mnt
+sleep 1
+umount -f $mnt
 
 # remove loopback mount association
 losetup -d $loopdev
