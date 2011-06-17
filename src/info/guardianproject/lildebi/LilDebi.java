@@ -147,6 +147,11 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
                 Intent intent = new Intent(this, PreferencesActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.menu_run_test:
+				command = "./test.sh";
+				commandThread = new CommandThread();
+				commandThread.start();
+                return true;
         }
         return false;
     }
