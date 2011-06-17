@@ -32,8 +32,8 @@ fi
 
 test -d $dataDir || echo "dataDir: '$dataDir' not a directory"
 test -d $sdcard || echo "sdcard: '$sdcard' not a directory"
-test -z $imagefile || echo "imagefile: '$imagefile' is empty"
-test -z $mnt || echo "mnt: '$mnt' is empty"
+test -z $imagefile && echo "imagefile: '$imagefile' is empty"
+test -z $mnt && echo "mnt: '$mnt' is empty"
 
 loopdev=/dev/block/loop4
 busybox_path=/data/busybox
