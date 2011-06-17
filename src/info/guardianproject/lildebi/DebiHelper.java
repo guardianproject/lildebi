@@ -88,6 +88,7 @@ public class DebiHelper
 		chmod(0755, new File(dataDir, "remove-debian-setup.sh"));
 		chmod(0755, new File(dataDir, "start-debian.sh"));
 		chmod(0755, new File(dataDir, "stop-debian.sh"));
+		chmod(0755, new File(dataDir, "debian"));
 		chmod(0755, new File(dataDir, "test.sh"));
 		chmod(0755, new File(dataDir, "busybox"));
 		chmod(0755, new File(dataDir, "pkgdetails"));
