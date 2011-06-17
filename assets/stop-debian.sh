@@ -12,11 +12,19 @@ test -e $1/lildebi-common || exit
 
 # stop ssh, this really should use the whole proper shutdown procedure
 
-$busybox_path/umount -f  $mnt/dev/pts $mnt/proc $mnt/sys $mnt/tmp $mnt/mnt/sdcard
+openfiles=`lsof | cut -b 68-255 | grep $mnt`
 
-umount $mnt
+if [ ! -z "$openfiles" ]; then
+    echo "Files that are still open:"
+    echo $openfiles
+else
+    $busybox_path/umount -f  $mnt/dev/pts $mnt/proc $mnt/sys $mnt/tmp $mnt/mnt/sdcard
 
+    umount $mnt
+    
 # remove loopback mount association
-losetup -d $loopdev
-
-echo "Debian chroot stopped and unmounted."
+    losetup -d $loopdev
+    
+    echo ""
+    echo "Debian chroot stopped and unmounted."
+fi
