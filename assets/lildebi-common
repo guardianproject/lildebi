@@ -1,6 +1,10 @@
 #!/bin/sh
 # this is the common settings for the various scripts here
 
+export TERM=linux
+export HOME=/root
+export HOSTNAME=debian
+
 if [ $# -lt 1 ]; then
     echo "incorrect number of arguments, should be between 1 and 7:"
     echo "    $0 dataDir [sdcard] [imagefile] [mnt] [distro] [mirror] [imagesize]"

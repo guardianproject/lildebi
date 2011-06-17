@@ -38,3 +38,5 @@ mount -t sysfs sysfs $mnt/sys
 mount -t tmpfs tmpfs $mnt/tmp
  
 mount -o bind $sdcard $mnt/mnt/sdcard
+
+echo "Debian chroot mounted and started."

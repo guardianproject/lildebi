@@ -13,8 +13,8 @@ chroot $mnt /etc/init.d/ssh stop
 $busybox_path/umount -f  $mnt/dev/pts $mnt/proc $mnt/sys $mnt/tmp $mnt/mnt/sdcard
 
 umount $mnt
-sleep 1
-umount -f $mnt
 
 # remove loopback mount association
 losetup -d $loopdev
+
+echo "Debian chroot stopped and unmounted."
