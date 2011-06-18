@@ -58,7 +58,7 @@ fi
 #------------------------------------------------------------------------------#
 # run debootstrap in two stages
 
-$sh_debootstrap --verbose --arch armel --foreign $distro $mnt $mirror
+$sh_debootstrap --verbose --arch armel --foreign $release $mnt $mirror
 
 # how we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
 # need a more Debian-ish PATH
@@ -99,8 +99,8 @@ ln -s /proc/mounts $mnt/etc/mtab
 # apt sources
 test -e $mnt/etc/apt || mkdir $mnt/etc/apt
 touch $mnt/etc/apt/sources.list
-echo "deb $mirror $distro main" >> $mnt/etc/apt/sources.list
-echo "deb http://security.debian.org/ $distro/updates main" >> $mnt/etc/apt/sources.list
+echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
+echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
 
 
 # setup apt-get

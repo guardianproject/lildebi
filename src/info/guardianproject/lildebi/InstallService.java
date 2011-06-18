@@ -23,7 +23,7 @@ public class InstallService extends Service
 
 	private StringBuffer log;
 
-	private String distro;
+	private String release;
 	private String mirror;
 	private String imagesize;
 	
@@ -71,7 +71,7 @@ public class InstallService extends Service
 	{
 		synchronized (this)
 		{
-			distro = intent.getStringExtra(InstallActivity.DISTRO);
+			release = intent.getStringExtra(InstallActivity.RELEASE);
 			mirror = intent.getStringExtra(InstallActivity.MIRROR);
 			imagesize = intent.getStringExtra(InstallActivity.IMAGESIZE);
 			DebiHelper.isInstallRunning = true;
@@ -105,7 +105,7 @@ public class InstallService extends Service
 				App.logi("cd " + DebiHelper.dataDir.getAbsolutePath());
 				writeCommand(os, "cd " + DebiHelper.dataDir.getAbsolutePath());
 				writeCommand(os, "./create-debian-setup.sh "+ DebiHelper.args + 
-						distro + " http://" + mirror + "/debian/ " + imagesize);
+						release + " http://" + mirror + "/debian/ " + imagesize);
 				writeCommand(os, "exit");
 
 				sh.waitFor();

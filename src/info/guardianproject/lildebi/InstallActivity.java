@@ -31,12 +31,12 @@ import android.widget.Toast;
 
 public class InstallActivity extends Activity implements View.OnCreateContextMenuListener
 {
-	public static final String DISTRO = "DISTRO";
+	public static final String RELEASE = "RELEASE";
 	public static final String MIRROR = "MIRROR";
 	public static final String IMAGESIZE = "IMAGESIZE";
 
 	private boolean ext2SupportChecked = false;
-	private TextView selectedDistro;
+	private TextView selectedRelease;
 	private TextView selectedMirror;
 	private EditText imagesize;
 	private InstallService mBoundService;
@@ -87,7 +87,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.install_activity);
-		selectedDistro = (TextView)findViewById(R.id.selectedDistro);
+		selectedRelease = (TextView)findViewById(R.id.selectedRelease);
 		selectedMirror = (TextView)findViewById(R.id.selectedMirror);
 		imagesize = (EditText)findViewById(R.id.imagesize);
 		installButton = (Button) findViewById(R.id.installButton);
@@ -103,7 +103,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		super.onResume();
 		if ( ! isExt2Supported())
 		{
-			selectedDistro.setEnabled(false);
+			selectedRelease.setEnabled(false);
 			selectedMirror.setEnabled(false);
 			imagesize.setEnabled(false);
 			installButton.setText("Uninstall...");
@@ -122,7 +122,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			Toast.makeText(getApplicationContext(),
 					"Lil' Debi needs SuperUser access, install the SuperUser app", 
 					Toast.LENGTH_LONG).show();
-			selectedDistro.setEnabled(false);
+			selectedRelease.setEnabled(false);
 			selectedMirror.setEnabled(false);
 			imagesize.setEnabled(false);
 			installButton.setText("Get SuperUser...");
@@ -141,7 +141,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		}
 		else
 		{
-			selectedDistro.setEnabled(true);
+			selectedRelease.setEnabled(true);
 			selectedMirror.setEnabled(true);
 			imagesize.setEnabled(true);
 			doBindService();
@@ -189,7 +189,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			{
 				setResult(DebiHelper.STARTING_INSTALL);
 				Intent intent = new Intent(InstallActivity.this, InstallService.class);
-				intent.putExtra(DISTRO, selectedDistro.getText().toString());
+				intent.putExtra(RELEASE, selectedRelease.getText().toString());
 				intent.putExtra(MIRROR, selectedMirror.getText().toString());
 				intent.putExtra(IMAGESIZE, imagesize.getText().toString());
 				startService(intent);
@@ -204,11 +204,11 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			}
 		});
 
-		selectedDistro.setOnClickListener(new View.OnClickListener()
+		selectedRelease.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View view)
 			{
-				SelectDistro.callMe(InstallActivity.this);
+				SelectRelease.callMe(InstallActivity.this);
 			}
 		});
 
@@ -284,8 +284,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	{
 		if(resultCode == RESULT_OK)
 		{
-			if(data.hasExtra(DISTRO))
-				selectedDistro.setText(data.getStringExtra(DISTRO));
+			if(data.hasExtra(RELEASE))
+				selectedRelease.setText(data.getStringExtra(RELEASE));
 			if(data.hasExtra(MIRROR))
 				selectedMirror.setText(data.getStringExtra(MIRROR));
 		}

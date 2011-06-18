@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".InstallActivity"/>
-        <activity android:name=".SelectDistro"/>
+        <activity android:name=".SelectRelease"/>
         <activity android:name=".SelectMirror"/>
         <activity android:name=".UnsupportedDeviceActivity"/>
         <activity android:name=".PreferencesActivity"/>

@@ -8,7 +8,7 @@ export PATH=/usr/sbin:/usr/bin:/sbin:/bin:/sbin:/system/sbin:/system/bin:/system
 
 if [ $# -lt 1 ]; then
     echo "incorrect number of arguments, should be between 1 and 7:"
-    echo "    $0 dataDir [sdcard] [imagefile] [mnt] [distro] [mirror] [imagesize]"
+    echo "    $0 dataDir [sdcard] [imagefile] [mnt] [release] [mirror] [imagesize]"
 fi
 
 dataDir=$1
@@ -21,8 +21,8 @@ fi
 if [ -z $mnt ]; then
     mnt=$4
 fi
-if [ -z $distro ]; then
-    distro=$5
+if [ -z $release ]; then
+    release=$5
 fi    
 if [ -z $mirror ]; then
     mirror=$6
