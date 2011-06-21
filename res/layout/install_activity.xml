@@ -61,7 +61,7 @@
                     android:text="Image Size: "
                     android:textStyle="bold"
                     />
-        <EditText android:text="256" 
+        <EditText android:text="600" 
         		  android:id="@+id/imagesize"
         		  android:layout_width="90sp"
         		  android:layout_height="60sp"
