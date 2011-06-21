@@ -51,6 +51,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 
 		//if(! DebiHelper.dataDir.exists())
 		DebiHelper.unzipDebiFiles(this);
+		// TODO figure out how to manage the scripts on upgrades, etc.
 		
 		setContentView(R.layout.lildebi);
 		statusText = (TextView) findViewById(R.id.statusText);
@@ -103,6 +104,11 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
                 return true;
             case R.id.menu_run_test:
 				command = "./test.sh";
+				commandThread = new CommandThread();
+				commandThread.start();
+                return true;
+            case R.id.menu_delete:
+				command = "./remove-debian-setup.sh";
 				commandThread = new CommandThread();
 				commandThread.start();
                 return true;
