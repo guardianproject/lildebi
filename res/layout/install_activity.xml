@@ -13,13 +13,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="Distro: "
+                    android:text="Release: "
                     android:textStyle="bold"
                     />
         <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/selectedDistro"
+                    android:id="@+id/selectedRelease"
                     android:singleLine="true"
                     android:textSize="20sp"
                     android:text="stable"/>
