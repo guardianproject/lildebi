@@ -45,7 +45,7 @@ test -e $mnt || mkdir $mnt
 if test -d $mnt && test -e $imagefile; then
     mke2fs -L debian_chroot -F $imagefile
     losetup $loopdev $imagefile
-    mount -o loop,noatime,errors=remount-ro $loopdev $mnt
+    mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
     cd $mnt
     tar xjf $dataDir/usr-share-debootstrap.tar.bz2
     cp $dataDir/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
