@@ -63,10 +63,13 @@ $sh_debootstrap --verbose --arch armel --foreign $release $mnt $mirror
 # how we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
 # need a more Debian-ish PATH
 unset DEBOOTSTRAP_DIR
-PATH=/usr/bin:/bin:/usr/sbin:/sbin chroot $mnt /debootstrap/debootstrap --second-stage
+# set path to Debian-style for chrooted commands
+export PATH=/usr/sbin:/usr/bin:/sbin:/bin
+
+chroot $mnt /debootstrap/debootstrap --second-stage
 
 # purge install packages
-PATH=/usr/bin:/bin:/usr/sbin:/sbin chroot $mnt apt-get autoclean
+chroot $mnt apt-get autoclean
 
 #------------------------------------------------------------------------------#
 # create mountpoints
@@ -102,11 +105,17 @@ touch $mnt/etc/apt/sources.list
 echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
 echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
 
-
 # setup apt-get
-PATH=/usr/bin:/bin:/usr/sbin:/sbin chroot $mnt apt-get update
+chroot $mnt apt-get update
 
-# finish with an 'apt-get upgrade' to get the security updates
-PATH=/usr/bin:/bin:/usr/sbin:/sbin chroot $mnt apt-get -y upgrade
+# run 'apt-get upgrade' to get the security updates
+chroot $mnt apt-get -y upgrade
 
-echo "Debian is installed!"
+# finish by installing and starting sshd so you can easily log in
+chroot $mnt apt-get -y install ssh
+
+if [ -x /etc/init.d/ssh ]; then
+    chroot $mnt /bin/bash -c "/etc/init.d/ssh start"
+fi
+
+echo "Debian is installed and ssh started!"
