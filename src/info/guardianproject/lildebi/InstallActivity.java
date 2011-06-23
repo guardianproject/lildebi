@@ -103,10 +103,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		super.onResume();
 		if ( ! isExt2Supported())
 		{
-			selectedRelease.setEnabled(false);
-			selectedMirror.setEnabled(false);
-			imagesize.setEnabled(false);
-			installButton.setText("Uninstall...");
+			unwireButtons();
+			renameInstallButton("Uninstall...");
 			// TODO focus the button otherwise the imagesize EditText focuses and pops up the keyboard
 			installButton.requestFocus();
 			installButton.setOnClickListener(new View.OnClickListener()
@@ -122,10 +120,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			Toast.makeText(getApplicationContext(),
 					"Lil' Debi needs SuperUser access, install the SuperUser app", 
 					Toast.LENGTH_LONG).show();
-			selectedRelease.setEnabled(false);
-			selectedMirror.setEnabled(false);
-			imagesize.setEnabled(false);
-			installButton.setText("Get SuperUser...");
+			unwireButtons();
+			renameInstallButton("Get SuperUser...");
 			installButton.setOnClickListener(new View.OnClickListener()
 			{
 				public void onClick(View view)
@@ -141,9 +137,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		}
 		else
 		{
-			selectedRelease.setEnabled(true);
-			selectedMirror.setEnabled(true);
-			imagesize.setEnabled(true);
+			refreshButtons();
 			doBindService();
 			registerReceivers();
 			updateLog();
@@ -268,18 +262,40 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 
 	private void unwireButtons()
 	{
+		selectedRelease.setEnabled(false);
+		selectedMirror.setEnabled(false);
+		selectedMirror.setOnClickListener(null);
+		imagesize.setEnabled(false);
 		installButton.setOnClickListener(null);
 		installButton.setVisibility(View.GONE);
-
 		progressBar.setVisibility(View.GONE);
+	}
 
-		selectedMirror.setOnClickListener(null);
+	private void renameInstallButton(String name)
+	{
+		installButton.setEnabled(true);
+		installButton.setVisibility(View.VISIBLE);
+		installButton.setText(name);
 	}
 
 	private void refreshButtons()
 	{
-		installButton.setVisibility(mBoundService.isRunning() ? View.GONE : View.VISIBLE);
-		progressBar.setVisibility(mBoundService.isRunning() ? View.VISIBLE : View.GONE);
+		if (mBoundService != null && mBoundService.isRunning())
+		{
+			selectedRelease.setEnabled(false);
+			selectedMirror.setEnabled(false);
+			imagesize.setEnabled(false);
+			installButton.setVisibility(View.GONE);
+			progressBar.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			selectedRelease.setEnabled(true);
+			selectedMirror.setEnabled(true);
+			imagesize.setEnabled(true);
+			installButton.setVisibility(View.VISIBLE);
+			progressBar.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
