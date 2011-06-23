@@ -37,11 +37,11 @@ if [ ! -b $loopdev ]; then
     exit
 fi
 
-echo "config:"
-echo "       mnt: $mnt"
-echo "       sdcard: $sdcard"
-echo "       imagefile: $imagefile"
-echo "       loopdev: $loopdev"
+echo "dataDir: $dataDir"
+echo "mnt: $mnt"
+echo "sdcard: $sdcard"
+echo "imagefile: $imagefile"
+echo "loopdev: $loopdev"
 
 losetup $loopdev $imagefile
 mount -t ext2 $loopdev $mnt
