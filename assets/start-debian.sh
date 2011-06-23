@@ -43,6 +43,11 @@ echo "sdcard: $sdcard"
 echo "imagefile: $imagefile"
 echo "loopdev: $loopdev"
 
+echo "Running fsck:"
+e2fsck -pv $imagefile
+fsck_return=$?
+test $fsck_return -lt 4 || exit $fsck_return
+
 losetup $loopdev $imagefile
 mount -t ext2 $loopdev $mnt
 
@@ -50,7 +55,6 @@ mount -t devpts devpts $mnt/dev/pts
 mount -t proc proc $mnt/proc
 mount -t sysfs sysfs $mnt/sys
 mount -t tmpfs tmpfs $mnt/tmp
- 
 mount -o bind $sdcard $mnt/mnt/sdcard
 
 # mount other android mounts, these may vary, so test first
