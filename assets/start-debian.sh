@@ -9,6 +9,11 @@ echo "./start-debian.sh"
 test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
+test-mount-bind() {
+    test -d $1 && \
+        mount -o bind $1 $mnt/$1
+}
+
 export TERM=linux
 export HOME=/root
 export PATH=/usr/bin:/usr/sbin:/bin:/sbin:$PATH
@@ -47,6 +52,19 @@ mount -t sysfs sysfs $mnt/sys
 mount -t tmpfs tmpfs $mnt/tmp
  
 mount -o bind $sdcard $mnt/mnt/sdcard
+
+# mount other android mounts, these may vary, so test first
+test-mount-bind /data
+test-mount-bind /system
+test-mount-bind /cache
+test-mount-bind /dev/cpuctl
+test-mount-bind /acct
+test-mount-bind /mnt/obb
+test-mount-bind /mnt/asec
+test-mount-bind /mnt/secure/asec
+test-mount-bind /mnt/secure/.android_secure
+test-mount-bind /sqlite_stmt_journals
+test-mount-bind /app-cache
 
 if [ -x $mnt/etc/init.d/ssh ]; then
     chroot $mnt /bin/bash -c "/etc/init.d/ssh start"

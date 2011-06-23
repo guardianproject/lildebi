@@ -24,7 +24,9 @@ if [ ! -z "$openfiles" ]; then
         echo $line
     done
 else
-    $busybox_path/umount -f  $mnt/dev/pts $mnt/proc $mnt/sys $mnt/tmp $mnt/mnt/sdcard
+    for mount in `cut -d ' ' -f 2 /proc/mounts | grep $mnt/`; do
+        $busybox_path/umount -f $mount
+    done
 
     umount $mnt
     

@@ -70,14 +70,33 @@ chroot $mnt /debootstrap/debootstrap --second-stage
 
 #------------------------------------------------------------------------------#
 # create mountpoints
-test -e $mnt/dev || mkdir $mnt/dev
-test -e $mnt/dev/pts || mkdir $mnt/dev/pts
-test -e $mnt/media || mkdir $mnt/media
-test -e $mnt/mnt || mkdir $mnt/mnt
-test -e $mnt/mnt/sdcard || mkdir $mnt/mnt/sdcard
-test -e $mnt/proc || mkdir $mnt/proc
-test -e $mnt/sys || mkdir $mnt/sys
-test -e $mnt/tmp || mkdir $mnt/tmp
+create_mountpoint() {
+    test -d $1 && test -e $mnt/$1 || \
+        mkdir $mnt/$1
+}
+
+# standard GNU/Linux mounts
+create_mountpoint /dev
+create_mountpoint /dev/pts
+create_mountpoint /media
+create_mountpoint /mnt
+create_mountpoint /mnt/sdcard
+create_mountpoint /proc
+create_mountpoint /sys
+create_mountpoint /tmp
+# Android mounts
+create_mountpoint /data
+create_mountpoint /system
+create_mountpoint /cache
+create_mountpoint /dev/cpuctl
+create_mountpoint /acct
+create_mountpoint /mnt/obb
+create_mountpoint /mnt/asec
+create_mountpoint /mnt/secure
+create_mountpoint /mnt/secure/asec
+create_mountpoint /mnt/secure/.android_secure
+create_mountpoint /sqlite_stmt_journals
+create_mountpoint /app-cache
 
 #------------------------------------------------------------------------------#
 # create configs
