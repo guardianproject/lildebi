@@ -75,6 +75,13 @@
                     android:textSize="20sp"
                     android:text="MB"
                     />
+        <ProgressBar
+            android:padding="3sp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/progressBar"/>
     </LinearLayout>
 
     <Button
@@ -85,13 +92,6 @@
             android:padding="20sp"
             android:layout_margin="10sp"
             android:id="@+id/installButton"/>
-    <ProgressBar
-            android:padding="30sp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:id="@+id/progressBar"/>
     <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
