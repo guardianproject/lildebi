@@ -68,9 +68,6 @@ export PATH=/usr/sbin:/usr/bin:/sbin:/bin
 
 chroot $mnt /debootstrap/debootstrap --second-stage
 
-# purge install packages
-chroot $mnt apt-get autoclean
-
 #------------------------------------------------------------------------------#
 # create mountpoints
 test -e $mnt/dev || mkdir $mnt/dev
@@ -105,17 +102,22 @@ touch $mnt/etc/apt/sources.list
 echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
 echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
 
-# setup apt-get
 chroot $mnt apt-get update
+
+# install and start sshd so you can easily log in
+chroot $mnt apt-get -y install ssh
+
+# stop and restart setup to make sure everything is mounted, etc.
+$dataDir/stop-debian.sh
+$dataDir/start-debian.sh
+
+# purge install packages in cache
+chroot $mnt apt-get autoclean
 
 # run 'apt-get upgrade' to get the security updates
 chroot $mnt apt-get -y upgrade
 
-# finish by installing and starting sshd so you can easily log in
-chroot $mnt apt-get -y install ssh
-
-if [ -x /etc/init.d/ssh ]; then
-    chroot $mnt /bin/bash -c "/etc/init.d/ssh start"
-fi
+# purge upgrade packages in cache
+chroot $mnt apt-get autoclean
 
 echo "Debian is installed and ssh started!"
