@@ -14,5 +14,8 @@
 	<string name="menu_delete_title">Delete All</string>
     <string name="title_start">Start</string>
     <string name="title_stop">Stop</string>
-    <string name="title_status">Status:</string>    
+    <string name="title_status">Status:</string>
+    <string name="doit">Delete Setup</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_delete_message">Are you sure you want to delete the whole Lil\' Debi setup?</string>    
 </resources>

@@ -108,10 +108,22 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 				commandThread.start();
                 return true;
             case R.id.menu_delete:
-				command = "./remove-debian-setup.sh";
-				commandThread = new CommandThread();
-				commandThread.start();
-                return true;
+            	new AlertDialog.Builder(this)
+            	.setMessage(R.string.confirm_delete_message)
+            	.setCancelable(false)
+            	.setPositiveButton(R.string.doit, new DialogInterface.OnClickListener() {
+            		public void onClick(DialogInterface dialog, int id) {
+            			command = "./remove-debian-setup.sh";
+            			commandThread = new CommandThread();
+            			commandThread.start();
+            		}
+            	})
+            	.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            		public void onClick(DialogInterface dialog, int id) {
+            			dialog.cancel();
+            		}
+            	}).show();
+            	return true;
         }
         return false;
     }
