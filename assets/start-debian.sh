@@ -21,11 +21,13 @@ if [ ! -d $sdcard ]; then
     echo "Your Debian setup is missing sdcard: $sdcard"
     exit
 fi
-if [ ! -e $imagefile ]; then
+# test if $imagefile is a file
+if [ ! -f $imagefile ]; then
     echo "Your Debian setup is missing imagefile: $imagefile"
     exit
 fi
-if [ ! -e $loopdev ]; then
+# test if $loopdev is a block device
+if [ ! -b $loopdev ]; then
     echo "Your Debian setup is missing loopdev: $loopdev"
     exit
 fi
