@@ -16,11 +16,13 @@ if [ -x /etc/init.d/ssh ]; then
 fi
 
 echo "Checking for open files in Debian chroot..."
-openfiles=`lsof | cut -b 68-255 | grep $mnt`
+openfiles=`lsof /data/debian | sed -n 's|.*\(/data/debian.*\)|\1|p'`
 
 if [ ! -z "$openfiles" ]; then
     echo "Files that are still open:"
-    echo $openfiles
+    for line in $openfiles; do 
+        echo $line
+    done
 else
     $busybox_path/umount -f  $mnt/dev/pts $mnt/proc $mnt/sys $mnt/tmp $mnt/mnt/sdcard
 
