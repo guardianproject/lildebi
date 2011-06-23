@@ -48,7 +48,7 @@ mount -t tmpfs tmpfs $mnt/tmp
  
 mount -o bind $sdcard $mnt/mnt/sdcard
 
-if [ -x /etc/init.d/ssh ]; then
+if [ -x $mnt/etc/init.d/ssh ]; then
     chroot $mnt /bin/bash -c "/etc/init.d/ssh start"
 fi
 
