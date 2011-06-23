@@ -245,7 +245,10 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 				@Override
 				public void onReceive(Context context, Intent intent)
 				{
-					wireButtons();
+					intent.setAction(Intent.ACTION_VIEW);
+					intent.setClass(getApplicationContext(), LilDebi.class);
+					startActivity(intent);
+					finish();
 				}
 			};
 
