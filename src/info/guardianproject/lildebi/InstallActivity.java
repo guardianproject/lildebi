@@ -29,8 +29,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class InstallActivity extends Activity implements View.OnCreateContextMenuListener
-{
+public class InstallActivity extends Activity implements View.OnCreateContextMenuListener {
 	public static final String RELEASE = "RELEASE";
 	public static final String MIRROR = "MIRROR";
 	public static final String IMAGESIZE = "IMAGESIZE";
@@ -41,17 +40,14 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private EditText imagesize;
 	private InstallService mBoundService;
 
-	private ServiceConnection mConnection = new ServiceConnection()
-	{
-		public void onServiceConnected(ComponentName className, IBinder service)
-		{
+	private ServiceConnection mConnection = new ServiceConnection() {
+		public void onServiceConnected(ComponentName className, IBinder service) {
 			mBoundService = ((InstallService.LocalBinder) service).getService();
 			App.logi("calling serviceBound");
 			wireButtons();
 		}
 
-		public void onServiceDisconnected(ComponentName className)
-		{
+		public void onServiceDisconnected(ComponentName className) {
 			mBoundService = null;
 			unwireButtons();
 		}
@@ -65,17 +61,15 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private BroadcastReceiver installLogUpdateRec;
 	private BroadcastReceiver installFinishedRec;
 
-	void doBindService()
-	{
+	void doBindService() {
 		App.logi("bindService");
-		bindService(new Intent(this, InstallService.class), mConnection, Context.BIND_AUTO_CREATE);
+		bindService(new Intent(this, InstallService.class), mConnection,
+				Context.BIND_AUTO_CREATE);
 		mIsBound = true;
 	}
 
-	void doUnbindService()
-	{
-		if (mIsBound)
-		{
+	void doUnbindService() {
+		if (mIsBound) {
 			unbindService(mConnection);
 			mIsBound = false;
 		}
@@ -83,60 +77,51 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.install_activity);
-		selectedRelease = (TextView)findViewById(R.id.selectedRelease);
-		selectedMirror = (TextView)findViewById(R.id.selectedMirror);
-		imagesize = (EditText)findViewById(R.id.imagesize);
+		selectedRelease = (TextView) findViewById(R.id.selectedRelease);
+		selectedMirror = (TextView) findViewById(R.id.selectedMirror);
+		imagesize = (EditText) findViewById(R.id.imagesize);
 		installButton = (Button) findViewById(R.id.installButton);
 		progressBar = findViewById(R.id.progressBar);
-		installLog = (TextView)findViewById(R.id.installLog);
-		textScroll = (ScrollView)findViewById(R.id.textScroll);
+		installLog = (TextView) findViewById(R.id.installLog);
+		textScroll = (ScrollView) findViewById(R.id.textScroll);
 		handler = new Handler();
 	}
 
 	@Override
-	protected void onResume()
-	{
+	protected void onResume() {
 		super.onResume();
-		if ( ! isExt2Supported())
-		{
+		if (!isExt2Supported()) {
 			unwireButtons();
 			renameInstallButton(R.string.uninstall);
-			// TODO focus the button otherwise the imagesize EditText focuses and pops up the keyboard
+			// TODO focus the button otherwise the imagesize EditText focuses
+			// and pops up the keyboard
 			installButton.requestFocus();
-			installButton.setOnClickListener(new View.OnClickListener()
-			{
-				public void onClick(View view)
-				{
+			installButton.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View view) {
 					UnsupportedDeviceActivity.callMe(InstallActivity.this);
 				}
 			});
-		} 
-		else if ( ! TorServiceUtils.checkRootAccess())
-		{
-			Toast.makeText(getApplicationContext(),
-					R.string.needs_superuser_message, 
+		} else if (!TorServiceUtils.checkRootAccess()) {
+			Toast.makeText(getApplicationContext(), R.string.needs_superuser_message,
 					Toast.LENGTH_LONG).show();
 			unwireButtons();
 			renameInstallButton(R.string.get_superuser);
-			installButton.setOnClickListener(new View.OnClickListener()
-			{
-				public void onClick(View view)
-				{
+			installButton.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View view) {
 					// http://stackoverflow.com/questions/2518740/launch-market-place-with-id-of-an-application-that-doesnt-exist-in-the-android-m
-					//final String APP_MARKET_URL = "market://search?q=pname:com.noshufou.android.su";
+					// final String APP_MARKET_URL =
+					// "market://search?q=pname:com.noshufou.android.su";
 					final String APP_MARKET_URL = "market://details?q=id:com.noshufou.android.su";
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(APP_MARKET_URL));
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri
+							.parse(APP_MARKET_URL));
 					startActivity(intent);
 					finish();
 				}
 			});
-		}
-		else
-		{
+		} else {
 			refreshButtons();
 			doBindService();
 			registerReceivers();
@@ -145,42 +130,32 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	}
 
 	@Override
-	protected void onPause()
-	{
+	protected void onPause() {
 		super.onPause();
 		doUnbindService();
 		unregisterReceivers();
 	}
 
-	private void updateLog()
-	{
-		handler.post(new Runnable()
-		{
-			public void run()
-			{
-				if (mBoundService != null) 
-				{
+	private void updateLog() {
+		handler.post(new Runnable() {
+			public void run() {
+				if (mBoundService != null) {
 					final String log = mBoundService.dumpLog();
-					if(log != null && log.trim().length() > 0)
+					if (log != null && log.trim().length() > 0)
 						installLog.setText(log);
 				}
 			}
 		});
-		handler.postDelayed(new Runnable()
-		{
-			public void run()
-			{
+		handler.postDelayed(new Runnable() {
+			public void run() {
 				textScroll.scrollTo(0, installLog.getHeight());
 			}
 		}, 300);
 	}
 
-	private void wireButtons()
-	{
-		installButton.setOnClickListener(new View.OnClickListener()
-		{
-			public void onClick(View view)
-			{
+	private void wireButtons() {
+		installButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
 				setResult(DebiHelper.STARTING_INSTALL);
 				Intent intent = new Intent(InstallActivity.this, InstallService.class);
 				intent.putExtra(RELEASE, selectedRelease.getText().toString());
@@ -188,28 +163,22 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 				intent.putExtra(IMAGESIZE, imagesize.getText().toString());
 				startService(intent);
 				App.logi("Starting install service");
-				handler.postDelayed(new Runnable()
-				{
-					public void run()
-					{
+				handler.postDelayed(new Runnable() {
+					public void run() {
 						refreshButtons();
 					}
 				}, 300);
 			}
 		});
 
-		selectedRelease.setOnClickListener(new View.OnClickListener()
-		{
-			public void onClick(View view)
-			{
+		selectedRelease.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
 				SelectRelease.callMe(InstallActivity.this);
 			}
 		});
 
-		selectedMirror.setOnClickListener(new View.OnClickListener()
-		{
-			public void onClick(View view)
-			{
+		selectedMirror.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
 				SelectMirror.callMe(InstallActivity.this);
 			}
 		});
@@ -217,14 +186,11 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		refreshButtons();
 	}
 
-	private void registerReceivers()
-	{
+	private void registerReceivers() {
 		{
-			installLogUpdateRec = new BroadcastReceiver()
-			{
+			installLogUpdateRec = new BroadcastReceiver() {
 				@Override
-				public void onReceive(Context context, Intent intent)
-				{
+				public void onReceive(Context context, Intent intent) {
 					updateLog();
 				}
 			};
@@ -234,11 +200,9 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		}
 
 		{
-			installFinishedRec = new BroadcastReceiver()
-			{
+			installFinishedRec = new BroadcastReceiver() {
 				@Override
-				public void onReceive(Context context, Intent intent)
-				{
+				public void onReceive(Context context, Intent intent) {
 					intent.setAction(Intent.ACTION_VIEW);
 					intent.setClass(getApplicationContext(), LilDebi.class);
 					startActivity(intent);
@@ -251,17 +215,15 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		}
 	}
 
-	private void unregisterReceivers()
-	{
-		if(installLogUpdateRec != null)
+	private void unregisterReceivers() {
+		if (installLogUpdateRec != null)
 			unregisterReceiver(installLogUpdateRec);
 
-		if(installFinishedRec != null)
+		if (installFinishedRec != null)
 			unregisterReceiver(installFinishedRec);
 	}
 
-	private void unwireButtons()
-	{
+	private void unwireButtons() {
 		selectedRelease.setEnabled(false);
 		selectedMirror.setEnabled(false);
 		selectedMirror.setOnClickListener(null);
@@ -271,25 +233,20 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		progressBar.setVisibility(View.GONE);
 	}
 
-	private void renameInstallButton(int resid)
-	{
+	private void renameInstallButton(int resid) {
 		installButton.setEnabled(true);
 		installButton.setVisibility(View.VISIBLE);
 		installButton.setText(getString(resid));
 	}
 
-	private void refreshButtons()
-	{
-		if (mBoundService != null && mBoundService.isRunning())
-		{
+	private void refreshButtons() {
+		if (mBoundService != null && mBoundService.isRunning()) {
 			selectedRelease.setEnabled(false);
 			selectedMirror.setEnabled(false);
 			imagesize.setEnabled(false);
 			installButton.setVisibility(View.GONE);
 			progressBar.setVisibility(View.VISIBLE);
-		}
-		else
-		{
+		} else {
 			selectedRelease.setEnabled(true);
 			selectedMirror.setEnabled(true);
 			imagesize.setEnabled(true);
@@ -299,68 +256,54 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		if(resultCode == RESULT_OK)
-		{
-			if(data.hasExtra(RELEASE))
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			if (data.hasExtra(RELEASE))
 				selectedRelease.setText(data.getStringExtra(RELEASE));
-			if(data.hasExtra(MIRROR))
+			if (data.hasExtra(MIRROR))
 				selectedMirror.setText(data.getStringExtra(MIRROR));
 		}
 	}
 
-	private boolean isExt2Supported()
-	{
+	private boolean isExt2Supported() {
 		Context context = getApplicationContext();
 		ext2SupportChecked = true;
-		try
-		{
+		try {
 			FileInputStream fstream = new FileInputStream("/proc/filesystems");
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String line;
-			while ((line = br.readLine()) != null)
-			{
-				if (line.contains("ext2"))
-				{
+			while ((line = br.readLine()) != null) {
+				if (line.contains("ext2")) {
 					return true;
 				}
 			}
-			Toast.makeText(context,	R.string.no_ext2_message, 
-					Toast.LENGTH_LONG).show();
+			Toast.makeText(context, R.string.no_ext2_message, Toast.LENGTH_LONG).show();
 			return false;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
 			return false;
 		}
 	}
 
-	public static void writeCommand(OutputStream os, String command) throws Exception
-	{
+	public static void writeCommand(OutputStream os, String command) throws Exception {
 		os.write((command + "\n").getBytes("ASCII"));
 	}
-	
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-    	MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.options_menu, menu);
+		return true;
+	}
 
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case R.id.menu_preferences:
-                Intent intent = new Intent(this, PreferencesActivity.class);
-                startActivity(intent);
-                return true;
-        }
-        return false;
-    }
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_preferences:
+			Intent intent = new Intent(this, PreferencesActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		return false;
+	}
 }

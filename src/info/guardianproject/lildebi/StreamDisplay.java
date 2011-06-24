@@ -1,19 +1,12 @@
 package info.guardianproject.lildebi;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import android.os.Handler;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-/**
- * Created by IntelliJ IDEA.
- * User: kevin
- * Date: 4/1/11
- * Time: 3:36 PM
- * To change this template use File | Settings | File Templates.
- */
 public class StreamDisplay extends Thread
 {
 	InputStream i;

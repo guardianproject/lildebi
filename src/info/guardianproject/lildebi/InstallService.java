@@ -8,15 +8,7 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
-/**
- * Created by IntelliJ IDEA.
- * User: kevin
- * Date: 4/21/11
- * Time: 7:36 PM
- * To change this template use File | Settings | File Templates.
- */
-public class InstallService extends Service
-{
+public class InstallService extends Service {
 	private InstallThread installThread;
 
 	public static final String INSTALL_LOG_UPDATE = "INSTALL_LOG_UPDATE";
@@ -27,19 +19,15 @@ public class InstallService extends Service
 	private String release;
 	private String mirror;
 	private String imagesize;
-	
-	public class LocalBinder extends Binder
-	{
-		public InstallService getService()
-		{
+
+	public class LocalBinder extends Binder {
+		public InstallService getService() {
 			return InstallService.this;
 		}
 	}
 
-	public String dumpLog()
-	{
-		synchronized (this)
-		{
+	public String dumpLog() {
+		synchronized (this) {
 			return log == null ? null : log.toString();
 		}
 	}
@@ -47,31 +35,25 @@ public class InstallService extends Service
 	private final IBinder mBinder = new LocalBinder();
 
 	@Override
-	public IBinder onBind(Intent intent)
-	{
+	public IBinder onBind(Intent intent) {
 		return mBinder;
 	}
 
 	@Override
-	public void onCreate()
-	{
+	public void onCreate() {
 		super.onCreate();
 
 	}
 
-	public boolean isRunning()
-	{
-		synchronized (this)
-		{
+	public boolean isRunning() {
+		synchronized (this) {
 			return installThread != null && installThread.isAlive();
 		}
 	}
 
 	@Override
-	public int onStartCommand(Intent intent, int flags, int startId)
-	{
-		synchronized (this)
-		{
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		synchronized (this) {
 			release = intent.getStringExtra(InstallActivity.RELEASE);
 			mirror = intent.getStringExtra(InstallActivity.MIRROR);
 			imagesize = intent.getStringExtra(InstallActivity.IMAGESIZE);
@@ -84,14 +66,12 @@ public class InstallService extends Service
 		return START_STICKY;
 	}
 
-	class InstallThread extends Thread
-	{
+	class InstallThread extends Thread {
 
 		private LogUpdate logUpdate;
 
 		@Override
-		public void run()
-		{
+		public void run() {
 			logUpdate = new LogUpdate();
 			try {
 				Process sh = Runtime.getRuntime().exec("su - sh");
@@ -105,55 +85,46 @@ public class InstallService extends Service
 
 				App.logi("cd " + DebiHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "cd " + DebiHelper.app_bin.getAbsolutePath());
-				writeCommand(os, "./create-debian-setup.sh "+ DebiHelper.args + 
-						release + " http://" + mirror + "/debian/ " + imagesize);
+				writeCommand(os, "./create-debian-setup.sh " + DebiHelper.args + release
+						+ " http://" + mirror + "/debian/ " + imagesize);
 				writeCommand(os, "exit");
 
 				sh.waitFor();
 				App.logi("Done!");
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				App.loge("Error!!!", e);
-			}
-			finally {
+			} finally {
 				stopSelf();
-				synchronized (InstallService.this)
-				{
+				synchronized (InstallService.this) {
 					installThread = null;
 				}
 				// TODO write install log to a file for future reference
 				DebiHelper.isInstallRunning = false;
 				sendBroadcast(new Intent(INSTALL_FINISHED));
 			}
-			try
-			{
-				FileWriter logfile = new FileWriter(getDir("log", MODE_PRIVATE) + "/install.log");
+			try {
+				FileWriter logfile = new FileWriter(getDir("log", MODE_PRIVATE)
+						+ "/install.log");
 				logfile.append(log.toString());
 				logfile.close();
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				App.loge("Error writing install log file", e);
 			}
 		}
 	}
 
-	class LogUpdate extends StreamThread.StreamUpdate
-	{
+	class LogUpdate extends StreamThread.StreamUpdate {
 
 		StringBuffer sb = new StringBuffer();
 
 		@Override
-		public void update(String val)
-		{
+		public void update(String val) {
 			log.append(val);
 			sendBroadcast(new Intent(INSTALL_LOG_UPDATE));
 		}
 	}
 
-	public static void writeCommand(OutputStream os, String command) throws Exception
-	{
+	public static void writeCommand(OutputStream os, String command) throws Exception {
 		os.write((command + "\n").getBytes("ASCII"));
 	}
 }
