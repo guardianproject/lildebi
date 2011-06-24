@@ -103,8 +103,8 @@ public class InstallService extends Service
 				it.start();
 				et.start();
 
-				App.logi("cd " + DebiHelper.dataDir.getAbsolutePath());
-				writeCommand(os, "cd " + DebiHelper.dataDir.getAbsolutePath());
+				App.logi("cd " + DebiHelper.app_bin.getAbsolutePath());
+				writeCommand(os, "cd " + DebiHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "./create-debian-setup.sh "+ DebiHelper.args + 
 						release + " http://" + mirror + "/debian/ " + imagesize);
 				writeCommand(os, "exit");

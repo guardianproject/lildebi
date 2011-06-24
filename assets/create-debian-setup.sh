@@ -17,7 +17,7 @@ export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 # setup busybox
 if [ ! -e $busybox_path ]; then
     mkdir $busybox_path
-    cp $dataDir/busybox $busybox
+    cp $app_bin/busybox $busybox
     chmod 755 $busybox
     cd $busybox_path && ./busybox --install
 # this busybox's wget is not as good as the CyanogenMod wget, I think the
@@ -47,8 +47,8 @@ if test -d $mnt && test -e $imagefile; then
     losetup $loopdev $imagefile
     mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
     cd $mnt
-    tar xjf $dataDir/usr-share-debootstrap.tar.bz2
-    cp $dataDir/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
+    tar xjf $app_bin/usr-share-debootstrap.tar.bz2
+    cp $app_bin/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
     chmod 755 $DEBOOTSTRAP_DIR/pkgdetails
 else
     echo "No mount dir found ($mnt) or no imagefile ($imagefile)"
@@ -128,8 +128,8 @@ chroot $mnt apt-get update
 chroot $mnt apt-get -y install ssh
 
 # stop and restart setup to make sure everything is mounted, etc.
-$dataDir/stop-debian.sh
-$dataDir/start-debian.sh
+$app_bin/stop-debian.sh
+$app_bin/start-debian.sh
 
 # purge install packages in cache
 chroot $mnt apt-get autoclean
@@ -144,7 +144,7 @@ chroot $mnt apt-get autoclean
 if [ -d /data/local ]; then
     test -d /data/local/bin || mkdir /data/local/bin
     chmod 755 /data/local/bin
-    cp $dataDir/debian /data/local/bin/
+    cp $app_bin/debian /data/local/bin/
     chmod 755 /data/local/bin/debian
 fi
 

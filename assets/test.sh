@@ -10,7 +10,7 @@ echo $1/lildebi-common
 test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
-echo "dataDir: $dataDir"
+echo "app_bin: $app_bin"
 echo "sdcard: $sdcard"
 echo "imagefile: $imagefile"
 echo "mnt: $mnt"

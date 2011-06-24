@@ -8,10 +8,10 @@ export PATH=/usr/sbin:/usr/bin:/sbin:/bin:/sbin:/system/sbin:/system/bin:/system
 
 if [ $# -lt 1 ]; then
     echo "incorrect number of arguments, should be between 1 and 7:"
-    echo "    $0 dataDir [sdcard] [imagefile] [mnt] [release] [mirror] [imagesize]"
+    echo "    $0 app_bin [sdcard] [imagefile] [mnt] [release] [mirror] [imagesize]"
 fi
 
-dataDir=$1
+app_bin=$1
 if [ -z $sdcard ]; then
     sdcard=$2
 fi
@@ -31,7 +31,7 @@ if [ -z $imagesize ]; then
     imagesize=$7
 fi    
 
-test -d $dataDir || echo "dataDir: '$dataDir' not a directory"
+test -d $app_bin || echo "app_bin: '$app_bin' not a directory"
 test -d $sdcard || echo "sdcard: '$sdcard' not a directory"
 test -z $imagefile && echo "imagefile: '$imagefile' is empty"
 test -z $mnt && echo "mnt: '$mnt' is empty"

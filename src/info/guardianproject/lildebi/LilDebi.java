@@ -44,14 +44,14 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		DebiHelper.dataDir = getDir("bin", MODE_PRIVATE);
+		DebiHelper.app_bin = getDir("bin", MODE_PRIVATE);
 		DebiHelper.sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
 		DebiHelper.imagename = DebiHelper.sdcard + "/debian.img";
 		DebiHelper.mnt = "/data/debian";
-		DebiHelper.args = new String(" " + DebiHelper.dataDir.getAbsolutePath() + " " + 
+		DebiHelper.args = new String(" " + DebiHelper.app_bin.getAbsolutePath() + " " + 
 				DebiHelper.sdcard + " " + DebiHelper.imagename + " " + DebiHelper.mnt + " ");
 
-		//if(! DebiHelper.dataDir.exists())
+		//if(! DebiHelper.app_bin.exists())
 		DebiHelper.unzipDebiFiles(this);
 		// TODO figure out how to manage the scripts on upgrades, etc.
 		
@@ -148,8 +148,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 				it.start();
 				et.start();
 
-				App.logi("cd " + DebiHelper.dataDir.getAbsolutePath());
-				writeCommand(os, "cd " + DebiHelper.dataDir.getAbsolutePath());
+				App.logi("cd " + DebiHelper.app_bin.getAbsolutePath());
+				writeCommand(os, "cd " + DebiHelper.app_bin.getAbsolutePath());
 				App.logi(command + DebiHelper.args);
 				writeCommand(os, command + DebiHelper.args);
 				writeCommand(os, "exit");

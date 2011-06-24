@@ -37,7 +37,7 @@ if [ ! -b $loopdev ]; then
     exit
 fi
 
-echo "dataDir: $dataDir"
+echo "app_bin: $app_bin"
 echo "mnt: $mnt"
 echo "sdcard: $sdcard"
 echo "imagefile: $imagefile"

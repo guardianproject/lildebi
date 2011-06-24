@@ -22,7 +22,7 @@ public class DebiHelper
 {
 	public static int STARTING_INSTALL = 12345; 
 	
-	public static File dataDir;
+	public static File app_bin;
 	public static String sdcard;
 	public static String imagename;
 	public static String mnt;
@@ -51,7 +51,7 @@ public class DebiHelper
 					continue;
 
 				int BUFFER = 2048;
-				final File file = new File(DebiHelper.dataDir, asset);
+				final File file = new File(DebiHelper.app_bin, asset);
 				final InputStream assetIS = am.open(asset);
 
 				if(file.exists())
@@ -82,16 +82,16 @@ public class DebiHelper
 		{
 			App.loge("Can't unzip", e);
 		}
-		chmod(0644, new File(dataDir, "usr-share-debootstrap.tar.bz2"));
-		chmod(0644, new File(dataDir, "lildebi-common"));
-		chmod(0755, new File(dataDir, "create-debian-setup.sh"));
-		chmod(0755, new File(dataDir, "remove-debian-setup.sh"));
-		chmod(0755, new File(dataDir, "start-debian.sh"));
-		chmod(0755, new File(dataDir, "stop-debian.sh"));
-		chmod(0755, new File(dataDir, "debian"));
-		chmod(0755, new File(dataDir, "test.sh"));
-		chmod(0755, new File(dataDir, "busybox"));
-		chmod(0755, new File(dataDir, "pkgdetails"));
+		chmod(0644, new File(app_bin, "usr-share-debootstrap.tar.bz2"));
+		chmod(0644, new File(app_bin, "lildebi-common"));
+		chmod(0755, new File(app_bin, "create-debian-setup.sh"));
+		chmod(0755, new File(app_bin, "remove-debian-setup.sh"));
+		chmod(0755, new File(app_bin, "start-debian.sh"));
+		chmod(0755, new File(app_bin, "stop-debian.sh"));
+		chmod(0755, new File(app_bin, "debian"));
+		chmod(0755, new File(app_bin, "test.sh"));
+		chmod(0755, new File(app_bin, "busybox"));
+		chmod(0755, new File(app_bin, "pkgdetails"));
 	}
 	
 	public static void chmod(int mode, File path)
