@@ -4,10 +4,13 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 
 public class PreferencesActivity extends android.preference.PreferenceActivity implements
 		OnSharedPreferenceChangeListener {
 	CheckBoxPreference startOnBootCheckBox;
+	EditTextPreference postStartEditText;
+	EditTextPreference preStopEditText;
 
 	/* save the preferences in Imps so they are accessible everywhere */
 	@Override
@@ -17,9 +20,11 @@ public class PreferencesActivity extends android.preference.PreferenceActivity i
 		} else if (key.equals(getString(R.string.pref_post_start_key))) {
 			DebiHelper.postStartScript = prefs.getString(key,
 					getString(R.string.default_post_start_script));
+			setSummaries();
 		} else if (key.equals(getString(R.string.pref_pre_stop_key))) {
 			DebiHelper.preStopScript = prefs.getString(key,
 					getString(R.string.default_pre_stop_script));
+			setSummaries();
 		}
 	}
 
@@ -28,13 +33,16 @@ public class PreferencesActivity extends android.preference.PreferenceActivity i
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences);
 		startOnBootCheckBox = (CheckBoxPreference) findPreference(getString(R.string.pref_start_on_boot_key));
+		postStartEditText = (EditTextPreference) findPreference(getString(R.string.pref_post_start_key));
+		preStopEditText = (EditTextPreference) findPreference(getString(R.string.pref_pre_stop_key));
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		getPreferenceScreen().getSharedPreferences()
-				.registerOnSharedPreferenceChangeListener(this);
+		SharedPreferences prefs = getPreferenceScreen().getSharedPreferences();
+		prefs.registerOnSharedPreferenceChangeListener(this);
+		setSummaries();
 	}
 
 	@Override
@@ -44,4 +52,16 @@ public class PreferencesActivity extends android.preference.PreferenceActivity i
 				.unregisterOnSharedPreferenceChangeListener(this);
 	}
 
+	private void setSummaries() {
+		if (DebiHelper.postStartScript.equals(getString(R.string.default_post_start_script))) {
+			postStartEditText.setSummary(getString(R.string.pref_post_start_summary));
+		} else {
+			postStartEditText.setSummary(DebiHelper.postStartScript);
+		}
+		if (DebiHelper.preStopScript.equals(getString(R.string.default_pre_stop_script))) {
+			preStopEditText.setSummary(getString(R.string.pref_pre_stop_summary));
+		} else {
+			preStopEditText.setSummary(DebiHelper.preStopScript);
+		}
+	}
 }

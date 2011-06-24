@@ -8,10 +8,10 @@
     <string name="pref_start_on_boot_summary">Automatically start Debian when your phone starts</string>
     <string name="pref_post_start_key">pref_post_start_key</string>
     <string name="pref_post_start_title">Post-start Script</string>
-    <string name="pref_post_start_summary">The script to run after Debian is started (default: /etc/init.d/ssh start)</string>
+    <string name="pref_post_start_summary">Script to run after Debian is started (default: /etc/init.d/ssh start)</string>
     <string name="pref_pre_stop_key">pref_pre_stop_key</string>
     <string name="pref_pre_stop_title">Pre-stop Script</string>
-    <string name="pref_pre_stop_summary">The script to run before Debian will be stopped (default: /etc/init.d/ssh stop)</string>
+    <string name="pref_pre_stop_summary">Script to run before Debian is stopped (default: /etc/init.d/ssh stop)</string>
     <string name="default_post_start_script">/etc/init.d/ssh start</string>
     <string name="default_pre_stop_script">/etc/init.d/ssh stop</string>
     <string name="menu_preferences_title">Preferences</string>
