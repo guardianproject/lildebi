@@ -2,6 +2,7 @@ package info.guardianproject.lildebi;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -279,6 +280,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 					return true;
 				}
 			}
+			if(new File("/system/lib/modules/ext2.ko").exists()) 
+				return true;
 			Toast.makeText(context, R.string.no_ext2_message, Toast.LENGTH_LONG).show();
 			return false;
 		} catch (Exception e) {

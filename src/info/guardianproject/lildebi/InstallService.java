@@ -1,5 +1,6 @@
 package info.guardianproject.lildebi;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.OutputStream;
 
@@ -85,6 +86,7 @@ public class InstallService extends Service {
 				et.start();
 
 				Log.i(LilDebi.TAG, "cd " + DebiHelper.app_bin.getAbsolutePath());
+				writeCommand(os, "modprobe ext2");
 				writeCommand(os, "cd " + DebiHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "./create-debian-setup.sh " + DebiHelper.args + release
 						+ " http://" + mirror + "/debian/ " + imagesize);
