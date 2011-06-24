@@ -70,8 +70,4 @@ test-mount-bind /mnt/secure/.android_secure
 test-mount-bind /sqlite_stmt_journals
 test-mount-bind /app-cache
 
-if [ -x $mnt/etc/init.d/ssh ]; then
-    chroot $mnt /bin/bash -c "/etc/init.d/ssh start"
-fi
-
 echo "Debian chroot mounted and started."

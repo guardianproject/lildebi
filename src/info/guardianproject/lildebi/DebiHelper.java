@@ -28,6 +28,9 @@ public class DebiHelper
 	public static String mnt;
 	public static String args;
 	
+	public static String postStartScript;
+	public static String preStopScript;
+	
 	public static boolean isInstallRunning = false;
 
 	public static void unzipDebiFiles(Context context)

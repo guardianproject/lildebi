@@ -10,8 +10,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -68,7 +70,16 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 		consoleScroll = (ScrollView)findViewById(R.id.consoleScroll);
 		consoleText = (TextView)findViewById(R.id.consoleText);
 		runCommandEditText = (EditText)findViewById(R.id.runCommand);
-		
+
+	    SharedPreferences prefs = 
+	        PreferenceManager.getDefaultSharedPreferences(this);
+		DebiHelper.postStartScript = 
+			prefs.getString(getString(R.string.pref_post_start_key),
+				getString(R.string.default_post_start_script));
+		DebiHelper.preStopScript = 
+			prefs.getString(getString(R.string.pref_pre_stop_key), 
+			getString(R.string.default_pre_stop_script));
+
 		log = new StringBuffer();
 	}
 
@@ -219,7 +230,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 				{
 					public void onClick(View view)
 					{
-						command = "./stop-debian.sh " + DebiHelper.args;
+						command = new String("chroot " + DebiHelper.mnt + 
+								" /bin/bash -c \"" + DebiHelper.preStopScript + 
+								"\"; ./stop-debian.sh " + DebiHelper.args);
 						commandThread = new CommandThread();
 						commandThread.start();
 					}
@@ -253,7 +266,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 				{
 					public void onClick(View view)
 					{
-						command = "./start-debian.sh" + DebiHelper.args;
+						command = new String("./start-debian.sh" + DebiHelper.args +
+								" && chroot " + DebiHelper.mnt + " /bin/bash -c \"" 
+								+ DebiHelper.postStartScript + "\"");
 						commandThread = new CommandThread();
 						commandThread.start();
 					}
