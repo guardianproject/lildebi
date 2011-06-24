@@ -3,6 +3,8 @@ package info.guardianproject.lildebi;
 import java.io.IOException;
 import java.io.InputStream;
 
+import android.util.Log;
+
 public class StreamThread extends Thread {
 	InputStream i;
 	StreamUpdate update;
@@ -26,7 +28,7 @@ public class StreamThread extends Thread {
 				update.update(readString);
 			}
 		} catch (IOException e) {
-			App.loge("", e);
+			Log.e(LilDebi.TAG, "", e);
 		}
 	}
 

@@ -2,7 +2,7 @@
 /* See LICENSE for licensing information */
 package org.torproject.android.service;
 
-import info.guardianproject.lildebi.App;
+import info.guardianproject.lildebi.LilDebi;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,15 +36,15 @@ public class TorServiceUtils implements TorServiceConstants {
 			
 		} catch (IOException e) {
 			//this means that there is no root to be had (normally) so we won't log anything
-			App.loge("Error checking for root access", e);
+			Log.e(LilDebi.TAG, "Error checking for root access", e);
 			
 		}
 		catch (Exception e) {
-			App.loge("Error checking for root access", e);
+			Log.e(LilDebi.TAG, "Error checking for root access", e);
 			//this means that there is no root to be had (normally)
 		}
 		
-		App.logi("Could not acquire root permissions");
+		Log.i(LilDebi.TAG, "Could not acquire root permissions");
 		return false;
 	}
 	
@@ -105,7 +105,7 @@ public class TorServiceUtils implements TorServiceConstants {
         	}
         	catch (NumberFormatException e)
         	{
-        		App.loge("unable to parse process pid: " + line, e);
+        		Log.e(LilDebi.TAG, "unable to parse process pid: " + line, e);
         	}
         }
             
@@ -152,7 +152,7 @@ public class TorServiceUtils implements TorServiceConstants {
 	
 	public static int doShellCommand(String[] cmds, StringBuilder log, boolean runAsRoot, boolean waitFor) throws Exception
 	{
-		App.logi("executing shell cmds: " + cmds[0] + "; runAsRoot=" + runAsRoot);
+		Log.i(LilDebi.TAG, "executing shell cmds: " + cmds[0] + "; runAsRoot=" + runAsRoot);
 		
 		 	
 		Process proc = null;
@@ -201,7 +201,7 @@ public class TorServiceUtils implements TorServiceConstants {
 				log.append(exitCode);
 				log.append("\n");
 				
-				App.logi("command process exit value: " + exitCode);
+				Log.i(LilDebi.TAG, "command process exit value: " + exitCode);
 			}
         
         

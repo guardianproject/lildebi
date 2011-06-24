@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -52,7 +53,7 @@ public class StreamDisplay extends Thread
 		}
 		catch (IOException e)
 		{
-			App.loge("", e);
+			Log.e(LilDebi.TAG, "", e);
 		}
 	}
 }

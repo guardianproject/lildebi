@@ -19,6 +19,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,7 +44,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			mBoundService = ((InstallService.LocalBinder) service).getService();
-			App.logi("calling serviceBound");
+			Log.i(LilDebi.TAG, "calling serviceBound");
 			wireButtons();
 		}
 
@@ -62,7 +63,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private BroadcastReceiver installFinishedRec;
 
 	void doBindService() {
-		App.logi("bindService");
+		Log.i(LilDebi.TAG, "bindService");
 		bindService(new Intent(this, InstallService.class), mConnection,
 				Context.BIND_AUTO_CREATE);
 		mIsBound = true;
@@ -162,7 +163,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 				intent.putExtra(MIRROR, selectedMirror.getText().toString());
 				intent.putExtra(IMAGESIZE, imagesize.getText().toString());
 				startService(intent);
-				App.logi("Starting install service");
+				Log.i(LilDebi.TAG, "Starting install service");
 				handler.postDelayed(new Runnable() {
 					public void run() {
 						refreshButtons();

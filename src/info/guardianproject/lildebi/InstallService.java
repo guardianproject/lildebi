@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 public class InstallService extends Service {
 	private InstallThread installThread;
@@ -83,16 +84,16 @@ public class InstallService extends Service {
 				it.start();
 				et.start();
 
-				App.logi("cd " + DebiHelper.app_bin.getAbsolutePath());
+				Log.i(LilDebi.TAG, "cd " + DebiHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "cd " + DebiHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "./create-debian-setup.sh " + DebiHelper.args + release
 						+ " http://" + mirror + "/debian/ " + imagesize);
 				writeCommand(os, "exit");
 
 				sh.waitFor();
-				App.logi("Done!");
+				Log.i(LilDebi.TAG, "Done!");
 			} catch (Exception e) {
-				App.loge("Error!!!", e);
+				Log.e(LilDebi.TAG, "Error!!!", e);
 			} finally {
 				stopSelf();
 				synchronized (InstallService.this) {
@@ -108,7 +109,7 @@ public class InstallService extends Service {
 				logfile.append(log.toString());
 				logfile.close();
 			} catch (Exception e) {
-				App.loge("Error writing install log file", e);
+				Log.e(LilDebi.TAG, "Error writing install log file", e);
 			}
 		}
 	}

@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 public class DebiHelper {
 	public static int STARTING_INSTALL = 12345;
@@ -46,7 +47,7 @@ public class DebiHelper {
 
 				if (file.exists()) {
 					file.delete();
-					App.logi("DebiHelper.unzipDebiFiles() deleting "
+					Log.i(LilDebi.TAG, "DebiHelper.unzipDebiFiles() deleting "
 							+ file.getAbsolutePath());
 				}
 
@@ -67,7 +68,7 @@ public class DebiHelper {
 				assetIS.close();
 			}
 		} catch (IOException e) {
-			App.loge("Can't unzip", e);
+			Log.e(LilDebi.TAG, "Can't unzip", e);
 		}
 		chmod(0644, new File(app_bin, "usr-share-debootstrap.tar.bz2"));
 		chmod(0644, new File(app_bin, "lildebi-common"));
@@ -89,17 +90,17 @@ public class DebiHelper {
 			int a = (Integer) setPermissions.invoke(null, path.getAbsolutePath(), mode,
 					-1, -1);
 			if (a != 0) {
-				App.logi("ERROR: android.os.FileUtils.setPermissions() returned " + a
+				Log.i(LilDebi.TAG, "ERROR: android.os.FileUtils.setPermissions() returned " + a
 						+ " for '" + path + "'");
 			}
 		} catch (ClassNotFoundException e) {
-			App.logi("android.os.FileUtils.setPermissions() failed - ClassNotFoundException.");
+			Log.i(LilDebi.TAG, "android.os.FileUtils.setPermissions() failed - ClassNotFoundException.");
 		} catch (IllegalAccessException e) {
-			App.logi("android.os.FileUtils.setPermissions() failed - IllegalAccessException.");
+			Log.i(LilDebi.TAG, "android.os.FileUtils.setPermissions() failed - IllegalAccessException.");
 		} catch (InvocationTargetException e) {
-			App.logi("android.os.FileUtils.setPermissions() failed - InvocationTargetException.");
+			Log.i(LilDebi.TAG, "android.os.FileUtils.setPermissions() failed - InvocationTargetException.");
 		} catch (NoSuchMethodException e) {
-			App.logi("android.os.FileUtils.setPermissions() failed - NoSuchMethodException.");
+			Log.i(LilDebi.TAG, "android.os.FileUtils.setPermissions() failed - NoSuchMethodException.");
 		}
 	}
 

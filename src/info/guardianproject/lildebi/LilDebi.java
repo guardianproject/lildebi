@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
 
 public class LilDebi extends Activity implements OnCreateContextMenuListener {
+	public static final String TAG = "LilDebi";
 	private boolean debianInstalled;
 	private boolean debianMounted;
 	private TextView statusTitle;
@@ -156,16 +158,16 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				it.start();
 				et.start();
 
-				App.logi("cd " + DebiHelper.app_bin.getAbsolutePath());
+				Log.i(LilDebi.TAG, "cd " + DebiHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "cd " + DebiHelper.app_bin.getAbsolutePath());
-				App.logi(command);
+				Log.i(LilDebi.TAG, command);
 				writeCommand(os, command);
 				writeCommand(os, "exit");
 
 				sh.waitFor();
-				App.logi("Done!");
+				Log.i(LilDebi.TAG, "Done!");
 			} catch (Exception e) {
-				App.loge("Error!!!", e);
+				Log.e(LilDebi.TAG, "Error!!!", e);
 			} finally {
 				synchronized (LilDebi.this) {
 					commandThread = null;
