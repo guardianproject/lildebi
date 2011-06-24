@@ -192,9 +192,18 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
 	private void updateScreenStatus() {
 		String state = Environment.getExternalStorageState();
-		if (!Environment.MEDIA_MOUNTED.equals(state))
+		if (!Environment.MEDIA_MOUNTED.equals(state)) {
 			Toast.makeText(getApplicationContext(), R.string.no_sdcard_message,
 					Toast.LENGTH_LONG).show();
+			debianMounted = false;
+			statusTitle.setVisibility(View.VISIBLE);
+			statusText.setVisibility(View.VISIBLE);
+			statusText.setText(R.string.no_sdcard_status);
+			startStopButton.setVisibility(View.GONE);
+			runCommandEditText.setVisibility(View.GONE);
+			runCommandEditText.setOnEditorActionListener(null);
+			return;
+		}
 		File f = new File(DebiHelper.imagename);
 		debianInstalled = f.exists();
 		if (debianInstalled) {
@@ -204,6 +213,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				statusTitle.setVisibility(View.GONE);
 				statusText.setVisibility(View.GONE);
 				statusText.setText(R.string.mounted_message);
+				startStopButton.setVisibility(View.VISIBLE);
 				startStopButton.setText(R.string.title_stop);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
@@ -237,6 +247,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				statusTitle.setVisibility(View.VISIBLE);
 				statusText.setVisibility(View.VISIBLE);
 				statusText.setText(R.string.not_mounted_message);
+				startStopButton.setVisibility(View.VISIBLE);
 				startStopButton.setText(R.string.title_start);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
@@ -255,6 +266,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			statusTitle.setVisibility(View.VISIBLE);
 			statusText.setVisibility(View.VISIBLE);
 			statusText.setText(R.string.not_installed_message);
+			startStopButton.setVisibility(View.VISIBLE);
 			startStopButton.setText(R.string.install);
 			startStopButton.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {

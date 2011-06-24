@@ -30,7 +30,8 @@
     <string name="not_mounted_message">Debian not mounted</string>
     <string name="not_installed_message">Debian not installed</string>
     <string name="no_ext2_message">/proc/filesystems does not list \'ext2\' as a supported filesystem</string>
-    <string name="no_sdcard_message">The SD card/external storage is not mounted, cannot start Debian.</string>
+    <string name="no_sdcard_message">The External Storage SD Card is not mounted read/write, cannot install or start Debian without it.</string>
+    <string name="no_sdcard_status">(no SD card)</string>
     <string name="run_command_hint">run commands as root</string>
         
 </resources>
