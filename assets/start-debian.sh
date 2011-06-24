@@ -43,10 +43,12 @@ echo "sdcard: $sdcard"
 echo "imagefile: $imagefile"
 echo "loopdev: $loopdev"
 
-echo "Running fsck:"
-e2fsck -pv $imagefile
-fsck_return=$?
-test $fsck_return -lt 4 || exit $fsck_return
+if [ -x /system/bin/e2fsck ]; then
+    echo "Running fsck:"
+    e2fsck -pv $imagefile
+    fsck_return=$?
+    test $fsck_return -lt 4 || exit $fsck_return
+fi
 
 losetup $loopdev $imagefile
 mount -t ext2 $loopdev $mnt
