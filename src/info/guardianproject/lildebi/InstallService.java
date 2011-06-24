@@ -1,11 +1,12 @@
 package info.guardianproject.lildebi;
 
+import java.io.FileWriter;
+import java.io.OutputStream;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-
-import java.io.OutputStream;
 
 /**
  * Created by IntelliJ IDEA.
@@ -124,6 +125,16 @@ public class InstallService extends Service
 				// TODO write install log to a file for future reference
 				DebiHelper.isInstallRunning = false;
 				sendBroadcast(new Intent(INSTALL_FINISHED));
+			}
+			try
+			{
+				FileWriter logfile = new FileWriter(getDir("log", MODE_PRIVATE) + "/install.log");
+				logfile.append(log.toString());
+				logfile.close();
+			}
+			catch (Exception e)
+			{
+				App.loge("Error writing install log file", e);
 			}
 		}
 	}
