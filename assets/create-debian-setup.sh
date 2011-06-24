@@ -123,7 +123,8 @@ echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sou
 
 chroot $mnt apt-get update
 
-# install and start sshd so you can easily log in
+# install and start sshd so you can easily log in, and before stop/start so
+# the start script starts sshd
 chroot $mnt apt-get -y install ssh
 
 # stop and restart setup to make sure everything is mounted, etc.
@@ -138,5 +139,13 @@ chroot $mnt apt-get -y upgrade
 
 # purge upgrade packages in cache
 chroot $mnt apt-get autoclean
+
+# install 'debian' script for easy way to get to chroot from term
+if [ -d /data/local ]; then
+    test -d /data/local/bin || mkdir /data/local/bin
+    chmod 755 /data/local/bin
+    cp $dataDir/debian /data/local/bin/
+    chmod 755 /data/local/bin/debian
+fi
 
 echo "Debian is installed and ssh started!"
