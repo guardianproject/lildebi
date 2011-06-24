@@ -12,8 +12,8 @@
     <string name="menu_preferences_title">Preferences</string>
     <string name="menu_run_test_title">Run Test</string>
 	<string name="menu_delete_title">Delete All</string>
-    <string name="title_start">Start</string>
-    <string name="title_stop">Stop</string>
+    <string name="title_start">Start Debian</string>
+    <string name="title_stop">Stop Debian</string>
     <string name="title_status">Status:</string>
     <string name="doit">Delete Setup</string>
     <string name="cancel">Cancel</string>
@@ -26,5 +26,6 @@
     <string name="not_installed_message">Debian not installed</string>
     <string name="no_ext2_message">/proc/filesystems does not list \'ext2\' as a supported filesystem</string>
     <string name="no_sdcard_message">The SD card/external storage is not mounted, cannot start Debian.</string>
+    <string name="run_command_hint">run commands as root</string>
         
 </resources>

@@ -12,24 +12,30 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView.OnEditorActionListener;
 
 public class LilDebi extends Activity implements OnCreateContextMenuListener
 {
 	private boolean debianInstalled;
 	private boolean debianMounted;
+	private TextView statusTitle;
 	private TextView statusText;
 	private Button startStopButton;
 	private ScrollView consoleScroll;
 	private TextView consoleText;
+	private EditText runCommandEditText;
 
 	public static final String LOG_UPDATE = "LOG_UPDATE";
 	public static final String COMMAND_FINISHED = "COMMAND_FINISHED";
@@ -56,10 +62,12 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 		// TODO figure out how to manage the scripts on upgrades, etc.
 		
 		setContentView(R.layout.lildebi);
+		statusTitle = (TextView) findViewById(R.id.statusTitle);
 		statusText = (TextView) findViewById(R.id.statusText);
 		startStopButton = (Button) findViewById(R.id.startStopButton);
 		consoleScroll = (ScrollView)findViewById(R.id.consoleScroll);
 		consoleText = (TextView)findViewById(R.id.consoleText);
+		runCommandEditText = (EditText)findViewById(R.id.runCommand);
 		
 		log = new StringBuffer();
 	}
@@ -105,7 +113,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
                 startActivity(intent);
                 return true;
             case R.id.menu_run_test:
-				command = "./test.sh";
+				command = "./test.sh " + DebiHelper.args;
 				commandThread = new CommandThread();
 				commandThread.start();
                 return true;
@@ -115,7 +123,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
             	.setCancelable(false)
             	.setPositiveButton(R.string.doit, new DialogInterface.OnClickListener() {
             		public void onClick(DialogInterface dialog, int id) {
-            			command = "./remove-debian-setup.sh";
+            			command = "./remove-debian-setup.sh " + DebiHelper.args;
             			commandThread = new CommandThread();
             			commandThread.start();
             		}
@@ -150,8 +158,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 
 				App.logi("cd " + DebiHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "cd " + DebiHelper.app_bin.getAbsolutePath());
-				App.logi(command + DebiHelper.args);
-				writeCommand(os, command + DebiHelper.args);
+				App.logi(command);
+				writeCommand(os, command);
 				writeCommand(os, "exit");
 
 				sh.waitFor();
@@ -203,37 +211,62 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 			if (f2.exists())
 			{
 				debianMounted = true;
+				statusTitle.setVisibility(View.GONE);
+				statusText.setVisibility(View.GONE);
 				statusText.setText(R.string.mounted_message);
 				startStopButton.setText(R.string.title_stop);
 				startStopButton.setOnClickListener(new View.OnClickListener()
 				{
 					public void onClick(View view)
 					{
-						command = "./stop-debian.sh";
+						command = "./stop-debian.sh " + DebiHelper.args;
 						commandThread = new CommandThread();
 						commandThread.start();
 					}
 				});
+				runCommandEditText.setVisibility(View.VISIBLE);
+				runCommandEditText.setOnEditorActionListener(new OnEditorActionListener() {
+
+			        @Override
+			        public boolean onEditorAction(TextView v, int actionId,
+			        		KeyEvent event) {
+			            if (actionId == EditorInfo.IME_ACTION_DONE) {
+				            command = runCommandEditText.getText().toString();
+				            log.append("# " + command);
+							commandThread = new CommandThread();
+							commandThread.start();
+							runCommandEditText.setText("");
+				            return true;
+			            }
+			            return false;
+			        }
+			    });
 			}
 			else
 			{
 				debianMounted = false;
+				statusTitle.setVisibility(View.VISIBLE);
+				statusText.setVisibility(View.VISIBLE);
 				statusText.setText(R.string.not_mounted_message);
 				startStopButton.setText(R.string.title_start);
 				startStopButton.setOnClickListener(new View.OnClickListener()
 				{
 					public void onClick(View view)
 					{
-						command = "./start-debian.sh";
+						command = "./start-debian.sh" + DebiHelper.args;
 						commandThread = new CommandThread();
 						commandThread.start();
 					}
 				});
+				runCommandEditText.setVisibility(View.GONE);
+				runCommandEditText.setOnEditorActionListener(null);
 			}
 		}
 		else
 		{
 			debianMounted = false;
+			statusTitle.setVisibility(View.VISIBLE);
+			statusText.setVisibility(View.VISIBLE);
 			statusText.setText(R.string.not_installed_message);
 			startStopButton.setText(R.string.install);
 			startStopButton.setOnClickListener(new View.OnClickListener()
@@ -245,6 +278,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 					return;
 				}
 			});
+			runCommandEditText.setVisibility(View.GONE);
+			runCommandEditText.setOnEditorActionListener(null);
 		}
 	}
 
