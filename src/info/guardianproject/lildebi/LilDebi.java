@@ -99,7 +99,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
     public boolean onCreateOptionsMenu(Menu menu)
     {
     	MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.preferences_menu, menu);
+        inflater.inflate(R.menu.options_menu, menu);
         return true;
     }
 
