@@ -104,7 +104,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		if ( ! isExt2Supported())
 		{
 			unwireButtons();
-			renameInstallButton("Uninstall...");
+			renameInstallButton(R.string.uninstall);
 			// TODO focus the button otherwise the imagesize EditText focuses and pops up the keyboard
 			installButton.requestFocus();
 			installButton.setOnClickListener(new View.OnClickListener()
@@ -118,10 +118,10 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		else if ( ! TorServiceUtils.checkRootAccess())
 		{
 			Toast.makeText(getApplicationContext(),
-					"Lil' Debi needs SuperUser access, install the SuperUser app", 
+					R.string.needs_superuser_message, 
 					Toast.LENGTH_LONG).show();
 			unwireButtons();
-			renameInstallButton("Get SuperUser...");
+			renameInstallButton(R.string.get_superuser);
 			installButton.setOnClickListener(new View.OnClickListener()
 			{
 				public void onClick(View view)
@@ -271,11 +271,11 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		progressBar.setVisibility(View.GONE);
 	}
 
-	private void renameInstallButton(String name)
+	private void renameInstallButton(int resid)
 	{
 		installButton.setEnabled(true);
 		installButton.setVisibility(View.VISIBLE);
-		installButton.setText(name);
+		installButton.setText(getString(resid));
 	}
 
 	private void refreshButtons()
@@ -327,8 +327,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 					return true;
 				}
 			}
-			Toast.makeText(context,
-					"/proc/filesystems does not list 'ext2' as a supported filesystem", 
+			Toast.makeText(context,	R.string.no_ext2_message, 
 					Toast.LENGTH_LONG).show();
 			return false;
 		}

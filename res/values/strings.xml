@@ -17,5 +17,14 @@
     <string name="title_status">Status:</string>
     <string name="doit">Delete Setup</string>
     <string name="cancel">Cancel</string>
-    <string name="confirm_delete_message">Are you sure you want to delete the whole Lil\' Debi setup?</string>    
+    <string name="confirm_delete_message">Are you sure you want to delete the whole Lil\' Debi setup?</string>
+    <string name="install">Install...</string><string name="uninstall">Uninstall...</string>
+    <string name="get_superuser">Get SuperUser...</string>
+    <string name="needs_superuser_message">Lil\' Debi needs SuperUser access, install the SuperUser app</string>
+    <string name="mounted_message">Debian mounted</string>
+    <string name="not_mounted_message">Debian not mounted</string>
+    <string name="not_installed_message">Debian not installed</string>
+    <string name="no_ext2_message">/proc/filesystems does not list \'ext2\' as a supported filesystem</string>
+    <string name="no_sdcard_message">The SD card/external storage is not mounted, cannot start Debian.</string>
+        
 </resources>

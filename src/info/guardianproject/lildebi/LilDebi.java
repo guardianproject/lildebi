@@ -193,8 +193,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 	{
 		String state = Environment.getExternalStorageState();
 		if (! Environment.MEDIA_MOUNTED.equals(state))
-			Toast.makeText(getApplicationContext(),
-					"The SD card/external storage is not mounted, cannot start Debian.", 
+			Toast.makeText(getApplicationContext(), R.string.no_sdcard_message, 
 					Toast.LENGTH_LONG).show();
 		File f = new File(DebiHelper.imagename);
 		debianInstalled = f.exists();
@@ -204,7 +203,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 			if (f2.exists())
 			{
 				debianMounted = true;
-				statusText.setText("Debian mounted");
+				statusText.setText(R.string.mounted_message);
 				startStopButton.setText(R.string.title_stop);
 				startStopButton.setOnClickListener(new View.OnClickListener()
 				{
@@ -219,7 +218,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 			else
 			{
 				debianMounted = false;
-				statusText.setText("Debian not mounted");
+				statusText.setText(R.string.not_mounted_message);
 				startStopButton.setText(R.string.title_start);
 				startStopButton.setOnClickListener(new View.OnClickListener()
 				{
@@ -235,8 +234,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener
 		else
 		{
 			debianMounted = false;
-			statusText.setText("Debian not installed");
-			startStopButton.setText("Install...");
+			statusText.setText(R.string.not_installed_message);
+			startStopButton.setText(R.string.install);
 			startStopButton.setOnClickListener(new View.OnClickListener()
 			{
 				public void onClick(View view)
