@@ -44,13 +44,20 @@ echo "imagefile: $imagefile"
 echo "loopdev: $loopdev"
 
 if [ -x /system/bin/e2fsck ]; then
-    echo "Running fsck:"
-    e2fsck -pv $imagefile
+    echo "Running /system/bin/e2fsck:"
+    /system/bin/e2fsck -pv $imagefile
     fsck_return=$?
     test $fsck_return -lt 4 || exit $fsck_return
 fi
 
 losetup $loopdev $imagefile
+
+if [ -z `grep ext2 /proc/filesystems` ]; then
+    echo "Loading ext2 kernel module:"
+    modprobe ext2
+fi
+
+# root mount for everything Debian
 mount -t ext2 $loopdev $mnt
 
 mount -t devpts devpts $mnt/dev/pts
