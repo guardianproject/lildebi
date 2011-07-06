@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.View.OnKeyListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -227,23 +228,32 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 					}
 				});
 				runCommandEditText.setVisibility(View.VISIBLE);
-				runCommandEditText
-						.setOnEditorActionListener(new OnEditorActionListener() {
+				runCommandEditText.setOnEditorActionListener(new OnEditorActionListener() {
 
-							@Override
-							public boolean onEditorAction(TextView v, int actionId,
-									KeyEvent event) {
-								if (actionId == EditorInfo.IME_ACTION_DONE) {
-									command = runCommandEditText.getText().toString();
-									log.append("# " + command);
-									commandThread = new CommandThread();
-									commandThread.start();
-									runCommandEditText.setText("");
-									return true;
-								}
-								return false;
-							}
-						});
+					@Override
+					public boolean onEditorAction(TextView v, int actionId,
+							KeyEvent event) {
+						// IME_ACTION_DONE is for soft keyboard
+						if (actionId == EditorInfo.IME_ACTION_DONE) {
+							runUserCommand(runCommandEditText.getText().toString());
+							return true;
+						}
+						return false;
+					}
+				});
+				runCommandEditText.setOnKeyListener(new OnKeyListener() {
+
+					@Override
+					public boolean onKey(View v, int keyCode, KeyEvent event) {
+						if (event != null && 
+								event.getAction() == KeyEvent.ACTION_UP &&
+								keyCode == KeyEvent.KEYCODE_ENTER) {
+							runUserCommand(runCommandEditText.getText().toString());
+							return true;
+						}
+						return false;
+					}
+				});				
 			} else {
 				debianMounted = false;
 				statusTitle.setVisibility(View.VISIBLE);
@@ -288,6 +298,13 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		if (logContents != null && logContents.trim().length() > 0)
 			consoleText.setText(logContents);
 		consoleScroll.scrollTo(0, consoleText.getHeight());
+	}
+
+	private void runUserCommand(String command) {
+		log.append("# " + command);
+		commandThread = new CommandThread();
+		commandThread.start();
+		runCommandEditText.setText("");
 	}
 
 	private void registerReceivers() {
