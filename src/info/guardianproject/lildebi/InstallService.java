@@ -1,6 +1,5 @@
 package info.guardianproject.lildebi;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.OutputStream;
 
@@ -101,7 +100,6 @@ public class InstallService extends Service {
 				synchronized (InstallService.this) {
 					installThread = null;
 				}
-				// TODO write install log to a file for future reference
 				DebiHelper.isInstallRunning = false;
 				sendBroadcast(new Intent(INSTALL_FINISHED));
 			}
