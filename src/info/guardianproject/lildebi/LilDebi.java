@@ -33,7 +33,6 @@ import android.widget.TextView.OnEditorActionListener;
 public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	public static final String TAG = "LilDebi";
 	private boolean debianInstalled;
-	private boolean debianMounted;
 	private TextView statusTitle;
 	private TextView statusText;
 	private Button startStopButton;
@@ -192,7 +191,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		if (!Environment.MEDIA_MOUNTED.equals(state)) {
 			Toast.makeText(getApplicationContext(), R.string.no_sdcard_message,
 					Toast.LENGTH_LONG).show();
-			debianMounted = false;
 			statusTitle.setVisibility(View.VISIBLE);
 			statusText.setVisibility(View.VISIBLE);
 			statusText.setText(R.string.no_sdcard_status);
@@ -206,7 +204,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		if (debianInstalled) {
 			File f2 = new File("/data/debian/etc");
 			if (f2.exists()) {
-				debianMounted = true;
 				statusTitle.setVisibility(View.GONE);
 				statusText.setVisibility(View.GONE);
 				statusText.setText(R.string.mounted_message);
@@ -249,7 +246,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 					}
 				});				
 			} else {
-				debianMounted = false;
 				statusTitle.setVisibility(View.VISIBLE);
 				statusText.setVisibility(View.VISIBLE);
 				statusText.setText(R.string.not_mounted_message);
@@ -268,7 +264,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				runCommandEditText.setOnEditorActionListener(null);
 			}
 		} else {
-			debianMounted = false;
 			statusTitle.setVisibility(View.VISIBLE);
 			statusText.setVisibility(View.VISIBLE);
 			statusText.setText(R.string.not_installed_message);

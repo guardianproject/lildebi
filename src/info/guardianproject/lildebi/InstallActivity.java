@@ -36,7 +36,6 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	public static final String MIRROR = "MIRROR";
 	public static final String IMAGESIZE = "IMAGESIZE";
 
-	private boolean ext2SupportChecked = false;
 	private TextView selectedRelease;
 	private TextView selectedMirror;
 	private EditText imagesize;
@@ -269,7 +268,6 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 
 	private boolean isExt2Supported() {
 		Context context = getApplicationContext();
-		ext2SupportChecked = true;
 		try {
 			FileInputStream fstream = new FileInputStream("/proc/filesystems");
 			DataInputStream in = new DataInputStream(fstream);
