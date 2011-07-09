@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Environment;
 import android.util.Log;
 
 public class DebiHelper {
@@ -25,6 +26,15 @@ public class DebiHelper {
 	public static String preStopScript;
 
 	public static boolean isInstallRunning = false;
+
+	public static void setup(Context context) {
+		app_bin = context.getDir("bin", Context.MODE_PRIVATE).getAbsoluteFile();
+		sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
+		imagename = sdcard + "/debian.img";
+		mnt = "/data/debian";
+		args = new String(" " + app_bin.getAbsolutePath() + " " + sdcard + " "
+				+ imagename + " " + mnt + " ");
+	}
 
 	public static void unzipDebiFiles(Context context) {
 		try {

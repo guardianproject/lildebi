@@ -53,14 +53,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		DebiHelper.app_bin = getDir("bin", MODE_PRIVATE);
-		DebiHelper.sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
-		DebiHelper.imagename = DebiHelper.sdcard + "/debian.img";
-		DebiHelper.mnt = "/data/debian";
-		DebiHelper.args = new String(" " + DebiHelper.app_bin.getAbsolutePath() + " "
-				+ DebiHelper.sdcard + " " + DebiHelper.imagename + " " + DebiHelper.mnt
-				+ " ");
-
+		DebiHelper.setup(getApplicationContext());
+		
 		// if(! DebiHelper.app_bin.exists())
 		DebiHelper.unzipDebiFiles(this);
 		// TODO figure out how to manage the scripts on upgrades, etc.
