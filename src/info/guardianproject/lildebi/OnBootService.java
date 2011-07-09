@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.OutputStream;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -11,10 +14,10 @@ import android.os.IBinder;
 import android.util.Log;
 
 public class OnBootService extends Service {
+
 	private OnBootThread onBootThread;
-
 	public static final String START_DEBIAN_FINISHED = "START_DEBIAN_FINISHED";
-
+	private static final int DEBIAN_STARTED_NOTIFICATION=1;
 	private StringBuffer log;
 
 	public class LocalBinder extends Binder {
@@ -106,6 +109,7 @@ public class OnBootService extends Service {
 
 				sh.waitFor();
 				Log.i(LilDebi.TAG, "Done!");
+				sendNotification();
 			} catch (Exception e) {
 				Log.e(LilDebi.TAG, "Error!!!", e);
 			} finally {
@@ -138,5 +142,22 @@ public class OnBootService extends Service {
 
 	public static void writeCommand(OutputStream os, String command) throws Exception {
 		os.write((command + "\n").getBytes("ASCII"));
+	}
+
+	private void sendNotification() {
+		NotificationManager notificationManager =
+			(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		Notification notification = new Notification(R.drawable.icon,
+				"Debian started",
+				System.currentTimeMillis());
+		Intent myIntent = new Intent(this, LilDebi.class);
+		PendingIntent pendingIntent = PendingIntent.getActivity(OnBootService.this,
+				0, myIntent,
+				Intent.FLAG_ACTIVITY_NEW_TASK);
+		notification.setLatestEventInfo(this,
+				"Debian started",
+				"Lil' Debi has started your Debian chroot.",
+				pendingIntent);
+		notificationManager.notify(DEBIAN_STARTED_NOTIFICATION, notification);
 	}
 }
