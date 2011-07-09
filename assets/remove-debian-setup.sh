@@ -8,7 +8,14 @@ test -e $1/lildebi-common || exit
 
 $1/stop-debian.sh
 
-remove_root_symlinks
+# force umount if stop-debian.sh failed
+test -d $mnt/usr && umount -f $mnt
+losetup -d $loopdev
+
+echo rm -r $mnt
+rm -r $mnt
+echo rm $imagefile
+rm $imagefile
 
 # if the /bin symlink exists, delete it
 if [ -h /bin ]; then
@@ -16,9 +23,3 @@ if [ -h /bin ]; then
     rm /bin
     mount -o remount,ro rootfs /
 fi
-
-umount -f $mnt
-rm -rf $mnt
-rm -f $imagefile
-
-losetup -d $loopdev
