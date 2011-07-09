@@ -150,6 +150,7 @@ public class OnBootService extends Service {
 		Notification notification = new Notification(R.drawable.icon,
 				"Debian started",
 				System.currentTimeMillis());
+		notification.flags |= Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
 		Intent myIntent = new Intent(this, LilDebi.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(OnBootService.this,
 				0, myIntent,
