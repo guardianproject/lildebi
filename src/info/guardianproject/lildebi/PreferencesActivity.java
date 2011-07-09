@@ -48,7 +48,8 @@ public class PreferencesActivity extends android.preference.PreferenceActivity i
 	}
 
 	private void setSummaries() {
-		if (DebiHelper.postStartScript.equals(getString(R.string.default_post_start_script))) {
+		if (DebiHelper.postStartScript
+				.equals(getString(R.string.default_post_start_script))) {
 			postStartEditText.setSummary(getString(R.string.pref_post_start_summary));
 		} else {
 			postStartEditText.setSummary(DebiHelper.postStartScript);

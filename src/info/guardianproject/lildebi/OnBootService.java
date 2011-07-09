@@ -19,7 +19,7 @@ public class OnBootService extends Service {
 
 	private OnBootThread onBootThread;
 	public static final String START_DEBIAN_FINISHED = "START_DEBIAN_FINISHED";
-	private static final int DEBIAN_STARTED_NOTIFICATION=1;
+	private static final int DEBIAN_STARTED_NOTIFICATION = 1;
 	private StringBuffer log;
 	private boolean startOnBoot;
 
@@ -93,9 +93,8 @@ public class OnBootService extends Service {
 			}
 			String startScript = DebiHelper.app_bin.getAbsolutePath()
 					+ "/start-debian.sh " + DebiHelper.args;
-			Log.i(LilDebi.TAG, "Running OnBootService");
 			if (!new File(DebiHelper.imagename).exists()) {
-				Log.e(LilDebi.TAG, DebiHelper.imagename + " does not exist!");
+				// TODO send notification that imagename doesn't exist
 				stopSelf();
 				return;
 			}
@@ -115,7 +114,6 @@ public class OnBootService extends Service {
 				writeCommand(os, "exit");
 
 				sh.waitFor();
-				Log.i(LilDebi.TAG, "Done!");
 				sendNotification();
 			} catch (Exception e) {
 				Log.e(LilDebi.TAG, "Error!!!", e);
@@ -152,20 +150,15 @@ public class OnBootService extends Service {
 	}
 
 	private void sendNotification() {
-		NotificationManager notificationManager =
-			(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		Notification notification = new Notification(R.drawable.icon,
-				"Debian started",
+		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		Notification notification = new Notification(R.drawable.icon, "Debian started",
 				System.currentTimeMillis());
 		notification.flags |= Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
 		Intent myIntent = new Intent(this, LilDebi.class);
-		PendingIntent pendingIntent = PendingIntent.getActivity(OnBootService.this,
-				0, myIntent,
-				Intent.FLAG_ACTIVITY_NEW_TASK);
-		notification.setLatestEventInfo(this,
-				"Debian started",
-				"Lil' Debi has started your Debian chroot.",
-				pendingIntent);
+		PendingIntent pendingIntent = PendingIntent.getActivity(OnBootService.this, 0,
+				myIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
+		notification.setLatestEventInfo(this, "Debian started",
+				"Lil' Debi has started your Debian chroot.", pendingIntent);
 		notificationManager.notify(DEBIAN_STARTED_NOTIFICATION, notification);
 	}
 }

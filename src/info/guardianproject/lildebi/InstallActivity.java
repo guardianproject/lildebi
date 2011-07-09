@@ -280,7 +280,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 					return true;
 				}
 			}
-			if(new File("/system/lib/modules/ext2.ko").exists()) 
+			if (new File("/system/lib/modules/ext2.ko").exists())
 				return true;
 			Toast.makeText(context, R.string.no_ext2_message, Toast.LENGTH_LONG).show();
 			return false;

@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 public class SelectRelease extends Activity {
 	private ListView releaseList;
-	private String[] releases = 
+	private String[] releases =
 		new String[] { "oldstable", "stable", "testing", "unstable" };
 
 	public void onCreate(Bundle savedInstanceState) {

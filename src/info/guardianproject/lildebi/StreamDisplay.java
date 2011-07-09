@@ -8,15 +8,13 @@ import android.util.Log;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class StreamDisplay extends Thread
-{
+public class StreamDisplay extends Thread {
 	InputStream i;
 	TextView display;
 	ScrollView scrollView;
 	Handler handler;
 
-	StreamDisplay(InputStream i, TextView display, ScrollView scrollView, Handler handler)
-	{
+	StreamDisplay(InputStream i, TextView display, ScrollView scrollView, Handler handler) {
 		this.i = i;
 		this.display = display;
 		this.scrollView = scrollView;
@@ -24,35 +22,26 @@ public class StreamDisplay extends Thread
 	}
 
 	@Override
-	public void run()
-	{
-		try
-		{
+	public void run() {
+		try {
 			byte[] readBuffer = new byte[512];
 			int readCount = -1;
-			while ((readCount = i.read(readBuffer)) > 0)
-			{
+			while ((readCount = i.read(readBuffer)) > 0) {
 				final String readString = new String(readBuffer, 0, readCount);
-				handler.post(new Runnable()
-				{
-					public void run()
-					{
+				handler.post(new Runnable() {
+					public void run() {
 						CharSequence currentText = display.getText();
 						display.setText(currentText + readString);
 						scrollView.scrollTo(0, display.getHeight() + 100);
 					}
 				});
-				handler.postDelayed(new Runnable()
-				{
-					public void run()
-					{
+				handler.postDelayed(new Runnable() {
+					public void run() {
 						scrollView.scrollTo(0, display.getHeight());
 					}
 				}, 300);
 			}
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			Log.e(LilDebi.TAG, "", e);
 		}
 	}
