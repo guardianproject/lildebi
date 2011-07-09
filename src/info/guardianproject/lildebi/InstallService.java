@@ -104,8 +104,7 @@ public class InstallService extends Service {
 				sendBroadcast(new Intent(INSTALL_FINISHED));
 			}
 			try {
-				FileWriter logfile = new FileWriter(getDir("log", MODE_PRIVATE)
-						+ "/install.log");
+				FileWriter logfile = new FileWriter(DebiHelper.app_log + "/install.log");
 				logfile.append(log.toString());
 				logfile.close();
 			} catch (Exception e) {

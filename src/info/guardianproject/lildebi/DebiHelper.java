@@ -17,6 +17,7 @@ public class DebiHelper {
 	public static int STARTING_INSTALL = 12345;
 
 	public static File app_bin;
+	public static File app_log;
 	public static String sdcard;
 	public static String imagename;
 	public static String mnt;
@@ -29,6 +30,7 @@ public class DebiHelper {
 
 	public static void setup(Context context) {
 		app_bin = context.getDir("bin", Context.MODE_PRIVATE).getAbsoluteFile();
+		app_log = context.getDir("log", Context.MODE_PRIVATE).getAbsoluteFile();
 		sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
 		imagename = sdcard + "/debian.img";
 		mnt = "/data/debian";

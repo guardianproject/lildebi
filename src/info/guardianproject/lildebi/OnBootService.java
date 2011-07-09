@@ -125,8 +125,7 @@ public class OnBootService extends Service {
 				sendBroadcast(new Intent(START_DEBIAN_FINISHED));
 			}
 			try {
-				FileWriter logfile = new FileWriter(getDir("log", MODE_PRIVATE)
-						+ "/onboot.log");
+				FileWriter logfile = new FileWriter(DebiHelper.app_log + "/onboot.log");
 				logfile.append(log.toString());
 				logfile.close();
 			} catch (Exception e) {
