@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="info.guardianproject.lildebi"
-      android:versionCode="1"
-      android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="7"></uses-sdk>
-    <application android:label="LilDebi" android:icon="@drawable/icon" android:debuggable="true">
+	package="info.guardianproject.lildebi" android:versionCode="1"
+	android:versionName="1.0">
+	<uses-sdk android:minSdkVersion="7" />
+	<application android:label="LilDebi" android:icon="@drawable/icon"
+		android:debuggable="true">
 		<uses-permission android:name="android.permission.INTERNET" />
 		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-        <activity android:configChanges="keyboard|keyboardHidden|orientation"
-                  android:label="@string/app_name" android:name="LilDebi">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".InstallActivity"/>
-        <activity android:name=".SelectRelease"/>
-        <activity android:name=".SelectMirror"/>
-        <activity android:name=".UnsupportedDeviceActivity"/>
-        <activity android:name=".PreferencesActivity"/>
-        <service android:name=".InstallService"/>
+		<activity android:configChanges="keyboard|keyboardHidden|orientation"
+			android:label="@string/app_name" android:name="LilDebi">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name="InstallActivity" />
+		<activity android:name="SelectRelease" />
+		<activity android:name="SelectMirror" />
+		<activity android:name="UnsupportedDeviceActivity" />
+		<activity android:name="PreferencesActivity" />
+		<service android:name="InstallService" />
 
-        <receiver android:name=".OnBootReceiver">
-        	<intent-filter>
-        		<action android:name="android.intent.action.BOOT_COMPLETED" />
-        	</intent-filter>
-        </receiver>
-        <service android:name=".OnBootService">
-        	<intent-filter>
-        		<action android:name="info.guardianproject.lildebi.OnBootService" />
-        	</intent-filter>
-        </service>
-    </application>
+		<receiver android:name="OnBootReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+		</receiver>
+		<service android:name=".OnBootService">
+			<intent-filter>
+				<action android:name="info.guardianproject.lildebi.OnBootService" />
+			</intent-filter>
+		</service>
+	</application>
 </manifest> 
