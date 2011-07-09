@@ -114,4 +114,7 @@ public class DebiHelper {
 		}
 	}
 
+	public static boolean isSdCardPresent() {
+		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+	}
 }
