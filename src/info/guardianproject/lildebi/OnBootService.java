@@ -9,8 +9,10 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class OnBootService extends Service {
@@ -19,6 +21,7 @@ public class OnBootService extends Service {
 	public static final String START_DEBIAN_FINISHED = "START_DEBIAN_FINISHED";
 	private static final int DEBIAN_STARTED_NOTIFICATION=1;
 	private StringBuffer log;
+	private boolean startOnBoot;
 
 	public class LocalBinder extends Binder {
 		public OnBootService getService() {
@@ -42,8 +45,9 @@ public class OnBootService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Log.i(LilDebi.TAG, "OnBootService.onCreate() received ");
 		DebiHelper.setup(getApplication());
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		startOnBoot = prefs.getBoolean(getString(R.string.pref_start_on_boot_key), false);
 	}
 
 	public boolean isRunning() {
@@ -54,13 +58,16 @@ public class OnBootService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		synchronized (this) {
-			log = new StringBuffer();
-			onBootThread = new OnBootThread();
-			onBootThread.start();
+		if (startOnBoot) {
+			synchronized (this) {
+				log = new StringBuffer();
+				onBootThread = new OnBootThread();
+				onBootThread.start();
+			}
+			return START_STICKY;
+		} else {
+			return START_NOT_STICKY;
 		}
-
-		return START_STICKY;
 	}
 
 	class OnBootThread extends Thread {
