@@ -289,8 +289,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		consoleScroll.scrollTo(0, consoleText.getHeight());
 	}
 
-	private void runUserCommand(String command) {
-		log.append("# " + command);
+	private void runUserCommand(String userCommand) {
+		log.append("# " + userCommand);
+		command = "chroot /data/debian /bin/bash -c \""
+				+ userCommand.replace("\"", "\\\"") + "\"";
 		commandThread = new CommandThread();
 		commandThread.start();
 		runCommandEditText.setText("");
