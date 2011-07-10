@@ -11,6 +11,7 @@ test -e $1/lildebi-common || exit
 
 test-mount-bind() {
     test -d $1 && \
+        grep " $1 " /proc/mounts && \
         mount -o bind $1 $mnt/$1
 }
 
