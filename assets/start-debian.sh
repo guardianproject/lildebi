@@ -20,7 +20,9 @@ export HOME=/root
 export PATH=/usr/bin:/usr/sbin:/bin:/sbin:$PATH
 
 if [ ! -d $mnt ]; then
-    echo "Your Debian setup is missing mountpoint: $mnt"
+    echo "Your Debian setup is missing mountpoint."
+    echo "    mkdir $mnt"
+    mkdir $mnt
     exit
 fi
 if [ ! -d $sdcard ]; then
