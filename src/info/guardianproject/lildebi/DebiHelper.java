@@ -86,6 +86,7 @@ public class DebiHelper {
 		chmod(0644, new File(app_bin, "lildebi-common"));
 		chmod(0755, new File(app_bin, "create-debian-setup.sh"));
 		chmod(0755, new File(app_bin, "remove-debian-setup.sh"));
+		chmod(0755, new File(app_bin, "configure-downloaded-image.sh"));
 		chmod(0755, new File(app_bin, "start-debian.sh"));
 		chmod(0755, new File(app_bin, "stop-debian.sh"));
 		chmod(0755, new File(app_bin, "debian"));

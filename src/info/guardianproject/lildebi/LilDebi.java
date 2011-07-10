@@ -32,7 +32,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	public static final String TAG = "LilDebi";
-	private boolean debianInstalled;
+
 	private TextView statusTitle;
 	private TextView statusText;
 	private Button startStopButton;
@@ -199,11 +199,25 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			runCommandEditText.setOnEditorActionListener(null);
 			return;
 		}
-		File f = new File(DebiHelper.imagename);
-		debianInstalled = f.exists();
-		if (debianInstalled) {
-			File f2 = new File("/data/debian/etc");
-			if (f2.exists()) {
+		if (new File(DebiHelper.imagename).exists()) {
+			if (!new File(DebiHelper.mnt).exists()) {
+				// we have a manually downloaded debian.img file, config for it
+				statusTitle.setVisibility(View.VISIBLE);
+				statusText.setVisibility(View.VISIBLE);
+				statusText.setText(R.string.not_configured_message);
+				startStopButton.setVisibility(View.VISIBLE);
+				startStopButton.setText(R.string.title_configure);
+				startStopButton.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View view) {
+						command = new String("./configure-downloaded-image.sh" + DebiHelper.args);
+						commandThread = new CommandThread();
+						commandThread.start();
+					}
+				});
+				runCommandEditText.setVisibility(View.GONE);
+				runCommandEditText.setOnEditorActionListener(null);
+			} else if (new File(DebiHelper.mnt + "/etc").exists()) {
+				// we have a configured and mounted Debian setup, stop it
 				statusTitle.setVisibility(View.GONE);
 				statusText.setVisibility(View.GONE);
 				statusText.setText(R.string.mounted_message);
@@ -246,6 +260,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 					}
 				});				
 			} else {
+				// we have a configured Debian setup that is not mounted, start it
 				statusTitle.setVisibility(View.VISIBLE);
 				statusText.setVisibility(View.VISIBLE);
 				statusText.setText(R.string.not_mounted_message);
@@ -264,6 +279,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				runCommandEditText.setOnEditorActionListener(null);
 			}
 		} else {
+			// we've got nothing, run the install
 			statusTitle.setVisibility(View.VISIBLE);
 			statusText.setVisibility(View.VISIBLE);
 			statusText.setText(R.string.not_installed_message);
