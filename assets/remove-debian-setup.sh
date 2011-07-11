@@ -12,8 +12,8 @@ $1/stop-debian.sh
 test -d $mnt/usr && umount -f $mnt
 losetup -d $loopdev
 
-echo rm -r $mnt
-rm -r $mnt
+echo rmdir $mnt
+rmdir $mnt
 echo rm $imagefile
 rm $imagefile
 
