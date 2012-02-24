@@ -1,12 +1,11 @@
+# auto-generated files from Android builds
 bin/
 gen/
-debootstrap/debootstrap-1.0.2*
-debootstrap/files/pkgdetails
-debootstrap/files/pkgdetails.o
-local.properties
-external/busybox/busybox-1.18.4
-external/busybox/busybox-1.18.4.tar.bz2
 build.xml
+default.properties
 local.properties
+project.properties
 proguard.cfg
-
+#
+assets/pkgdetails
+external/pkgdetails/pkgdetails
