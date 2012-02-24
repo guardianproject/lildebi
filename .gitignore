@@ -4,7 +4,6 @@ gen/
 build.xml
 default.properties
 local.properties
-project.properties
 proguard.cfg
 #
 assets/pkgdetails
