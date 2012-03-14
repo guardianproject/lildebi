@@ -82,7 +82,11 @@ test-mount-bind /mnt/secure/.android_secure
 test-mount-bind /sqlite_stmt_journals
 test-mount-bind /app-cache
 
-echo "My ssh host key fingerprint and random art:"
-/usr/bin/ssh-keygen -lv -f /etc/ssh/ssh_host_rsa_key
+keygen=/usr/bin/ssh-keygen
+if [ -x /data/debian$keygen ]; then
+    echo "My ssh host key fingerprint and random art:"
+    chroot $mnt /bin/bash -c \
+        "for key in /etc/ssh/ssh_host_*_key; do $keygen -lv -f \$key; done"
+fi
 
 echo "Debian chroot mounted and started."
