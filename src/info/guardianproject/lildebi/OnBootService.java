@@ -45,7 +45,7 @@ public class OnBootService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		DebiHelper.setup(getApplication());
+		NativeHelper.setup(getApplication());
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		startOnBoot = prefs.getBoolean(getString(R.string.pref_start_on_boot_key), false);
 	}
@@ -79,7 +79,7 @@ public class OnBootService extends Service {
 			android.os.Debug.waitForDebugger();
 			// first, wait for the External Storage/SD Card to be mounted
 			int retries = 0;
-			while (!DebiHelper.isSdCardPresent()) {
+			while (!NativeHelper.isSdCardPresent()) {
 				retries++;
 				if (retries > 100) {
 					stopSelf();
@@ -91,9 +91,9 @@ public class OnBootService extends Service {
 					e.printStackTrace();
 				}
 			}
-			String startScript = DebiHelper.app_bin.getAbsolutePath()
-					+ "/start-debian.sh " + DebiHelper.args;
-			if (!new File(DebiHelper.imagename).exists()) {
+			String startScript = NativeHelper.app_bin.getAbsolutePath()
+					+ "/start-debian.sh " + NativeHelper.args;
+			if (!new File(NativeHelper.imagename).exists()) {
 				// TODO send notification that imagename doesn't exist
 				stopSelf();
 				return;
@@ -125,7 +125,7 @@ public class OnBootService extends Service {
 				sendBroadcast(new Intent(START_DEBIAN_FINISHED));
 			}
 			try {
-				FileWriter logfile = new FileWriter(DebiHelper.app_log + "/onboot.log");
+				FileWriter logfile = new FileWriter(NativeHelper.app_log + "/onboot.log");
 				logfile.append(log.toString());
 				logfile.close();
 			} catch (Exception e) {

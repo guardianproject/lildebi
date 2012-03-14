@@ -13,7 +13,7 @@ import android.content.res.AssetManager;
 import android.os.Environment;
 import android.util.Log;
 
-public class DebiHelper {
+public class NativeHelper {
 	public static int STARTING_INSTALL = 12345;
 
 	public static File app_bin;
@@ -54,7 +54,7 @@ public class DebiHelper {
 					continue;
 
 				int BUFFER = 2048;
-				final File file = new File(DebiHelper.app_bin, asset);
+				final File file = new File(NativeHelper.app_bin, asset);
 				final InputStream assetIS = am.open(asset);
 
 				if (file.exists()) {

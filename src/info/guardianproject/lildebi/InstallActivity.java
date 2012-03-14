@@ -157,7 +157,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private void wireButtons() {
 		installButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				setResult(DebiHelper.STARTING_INSTALL);
+				setResult(NativeHelper.STARTING_INSTALL);
 				Intent intent = new Intent(InstallActivity.this, InstallService.class);
 				intent.putExtra(RELEASE, selectedRelease.getText().toString());
 				intent.putExtra(MIRROR, selectedMirror.getText().toString());

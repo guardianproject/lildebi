@@ -58,7 +58,7 @@ public class InstallService extends Service {
 			release = intent.getStringExtra(InstallActivity.RELEASE);
 			mirror = intent.getStringExtra(InstallActivity.MIRROR);
 			imagesize = intent.getStringExtra(InstallActivity.IMAGESIZE);
-			DebiHelper.isInstallRunning = true;
+			NativeHelper.isInstallRunning = true;
 			log = new StringBuffer();
 			installThread = new InstallThread();
 			installThread.start();
@@ -84,10 +84,10 @@ public class InstallService extends Service {
 				it.start();
 				et.start();
 
-				Log.i(LilDebi.TAG, "cd " + DebiHelper.app_bin.getAbsolutePath());
+				Log.i(LilDebi.TAG, "cd " + NativeHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "modprobe ext2");
-				writeCommand(os, "cd " + DebiHelper.app_bin.getAbsolutePath());
-				writeCommand(os, "./create-debian-setup.sh " + DebiHelper.args + release
+				writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
+				writeCommand(os, "./create-debian-setup.sh " + NativeHelper.args + release
 						+ " http://" + mirror + "/debian/ " + imagesize);
 				writeCommand(os, "exit");
 
@@ -100,11 +100,11 @@ public class InstallService extends Service {
 				synchronized (InstallService.this) {
 					installThread = null;
 				}
-				DebiHelper.isInstallRunning = false;
+				NativeHelper.isInstallRunning = false;
 				sendBroadcast(new Intent(INSTALL_FINISHED));
 			}
 			try {
-				FileWriter logfile = new FileWriter(DebiHelper.app_log + "/install.log");
+				FileWriter logfile = new FileWriter(NativeHelper.app_log + "/install.log");
 				logfile.append(log.toString());
 				logfile.close();
 			} catch (Exception e) {

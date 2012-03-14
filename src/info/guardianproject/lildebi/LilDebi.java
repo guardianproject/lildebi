@@ -52,10 +52,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		DebiHelper.setup(getApplicationContext());
+		NativeHelper.setup(getApplicationContext());
 		
 		// if(! DebiHelper.app_bin.exists())
-		DebiHelper.unzipDebiFiles(this);
+		NativeHelper.unzipDebiFiles(this);
 		// TODO figure out how to manage the scripts on upgrades, etc.
 
 		setContentView(R.layout.lildebi);
@@ -67,10 +67,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		runCommandEditText = (EditText) findViewById(R.id.runCommand);
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		DebiHelper.postStartScript = prefs.getString(
+		NativeHelper.postStartScript = prefs.getString(
 				getString(R.string.pref_post_start_key),
 				getString(R.string.default_post_start_script));
-		DebiHelper.preStopScript = prefs.getString(getString(R.string.pref_pre_stop_key),
+		NativeHelper.preStopScript = prefs.getString(getString(R.string.pref_pre_stop_key),
 				getString(R.string.default_pre_stop_script));
 
 		log = new StringBuffer();
@@ -79,7 +79,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (DebiHelper.isInstallRunning) {
+		if (NativeHelper.isInstallRunning) {
 			// go back to the running install screen
 			Intent intent = new Intent(this, InstallActivity.class);
 			startActivity(intent);
@@ -111,7 +111,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			startActivity(intent);
 			return true;
 		case R.id.menu_run_test:
-			command = "./test.sh " + DebiHelper.args;
+			command = "./test.sh " + NativeHelper.args;
 			commandThread = new CommandThread();
 			commandThread.start();
 			return true;
@@ -121,7 +121,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int id) {
 									command = "./remove-debian-setup.sh "
-											+ DebiHelper.args;
+											+ NativeHelper.args;
 									commandThread = new CommandThread();
 									commandThread.start();
 								}
@@ -152,8 +152,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				it.start();
 				et.start();
 
-				Log.i(LilDebi.TAG, "cd " + DebiHelper.app_bin.getAbsolutePath());
-				writeCommand(os, "cd " + DebiHelper.app_bin.getAbsolutePath());
+				Log.i(LilDebi.TAG, "cd " + NativeHelper.app_bin.getAbsolutePath());
+				writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
 				Log.i(LilDebi.TAG, command);
 				writeCommand(os, command);
 				writeCommand(os, "exit");
@@ -199,8 +199,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			runCommandEditText.setOnEditorActionListener(null);
 			return;
 		}
-		if (new File(DebiHelper.imagename).exists()) {
-			if (!new File(DebiHelper.mnt).exists()) {
+		if (new File(NativeHelper.imagename).exists()) {
+			if (!new File(NativeHelper.mnt).exists()) {
 				// we have a manually downloaded debian.img file, config for it
 				statusTitle.setVisibility(View.VISIBLE);
 				statusText.setVisibility(View.VISIBLE);
@@ -209,14 +209,14 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				startStopButton.setText(R.string.title_configure);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
-						command = new String("./configure-downloaded-image.sh" + DebiHelper.args);
+						command = new String("./configure-downloaded-image.sh" + NativeHelper.args);
 						commandThread = new CommandThread();
 						commandThread.start();
 					}
 				});
 				runCommandEditText.setVisibility(View.GONE);
 				runCommandEditText.setOnEditorActionListener(null);
-			} else if (new File(DebiHelper.mnt + "/etc").exists()) {
+			} else if (new File(NativeHelper.mnt + "/etc").exists()) {
 				// we have a configured and mounted Debian setup, stop it
 				statusTitle.setVisibility(View.GONE);
 				statusText.setVisibility(View.GONE);
@@ -225,9 +225,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				startStopButton.setText(R.string.title_stop);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
-						command = new String("chroot " + DebiHelper.mnt
-								+ " /bin/bash -c \"" + DebiHelper.preStopScript
-								+ "\"; ./stop-debian.sh " + DebiHelper.args);
+						command = new String("chroot " + NativeHelper.mnt
+								+ " /bin/bash -c \"" + NativeHelper.preStopScript
+								+ "\"; ./stop-debian.sh " + NativeHelper.args);
 						commandThread = new CommandThread();
 						commandThread.start();
 					}
@@ -268,9 +268,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				startStopButton.setText(R.string.title_start);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
-						command = new String("./start-debian.sh" + DebiHelper.args
-								+ " && chroot " + DebiHelper.mnt + " /bin/bash -c \""
-								+ DebiHelper.postStartScript + "\"");
+						command = new String("./start-debian.sh" + NativeHelper.args
+								+ " && chroot " + NativeHelper.mnt + " /bin/bash -c \""
+								+ NativeHelper.postStartScript + "\"");
 						commandThread = new CommandThread();
 						commandThread.start();
 					}
@@ -289,7 +289,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				public void onClick(View view) {
 					Intent intent = new Intent(getApplicationContext(),
 							InstallActivity.class);
-					startActivityForResult(intent, DebiHelper.STARTING_INSTALL);
+					startActivityForResult(intent, NativeHelper.STARTING_INSTALL);
 					return;
 				}
 			});

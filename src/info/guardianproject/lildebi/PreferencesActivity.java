@@ -14,11 +14,11 @@ public class PreferencesActivity extends android.preference.PreferenceActivity i
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
 		if (key.equals(getString(R.string.pref_post_start_key))) {
-			DebiHelper.postStartScript = prefs.getString(key,
+			NativeHelper.postStartScript = prefs.getString(key,
 					getString(R.string.default_post_start_script));
 			setSummaries();
 		} else if (key.equals(getString(R.string.pref_pre_stop_key))) {
-			DebiHelper.preStopScript = prefs.getString(key,
+			NativeHelper.preStopScript = prefs.getString(key,
 					getString(R.string.default_pre_stop_script));
 			setSummaries();
 		}
@@ -48,16 +48,16 @@ public class PreferencesActivity extends android.preference.PreferenceActivity i
 	}
 
 	private void setSummaries() {
-		if (DebiHelper.postStartScript
+		if (NativeHelper.postStartScript
 				.equals(getString(R.string.default_post_start_script))) {
 			postStartEditText.setSummary(getString(R.string.pref_post_start_summary));
 		} else {
-			postStartEditText.setSummary(DebiHelper.postStartScript);
+			postStartEditText.setSummary(NativeHelper.postStartScript);
 		}
-		if (DebiHelper.preStopScript.equals(getString(R.string.default_pre_stop_script))) {
+		if (NativeHelper.preStopScript.equals(getString(R.string.default_pre_stop_script))) {
 			preStopEditText.setSummary(getString(R.string.pref_pre_stop_summary));
 		} else {
-			preStopEditText.setSummary(DebiHelper.preStopScript);
+			preStopEditText.setSummary(NativeHelper.preStopScript);
 		}
 	}
 }
