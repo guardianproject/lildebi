@@ -4,7 +4,7 @@
 # first arg $1 is the "app payload" directory, where the included scripts are
 # kept.
 
-echo "--------------------------------------------------"
+echo "----------------------------------------"
 echo "./stop-debian.sh"
 
 test -e $1/lildebi-common || exit
