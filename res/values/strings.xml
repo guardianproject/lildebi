@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Lil\' Debi</string>
-    <string name="unsupported_device_body">Your device is not supported by LilDebi for installing Debian.  It needs to support the &quot;ext2&quot; filesystem and loopback mounting of files as disks. Therefore, this app is useless to you, we recommend uninstalling it.</string>
+    <string name="unsupported_device_body">Your device is not supported by LilDebi for installing Debian.  It needs to support the "ext2" filesystem and loopback mounting of files as disks. Therefore, this app is useless to you, we recommend uninstalling it.</string>
     <string name="uninstall_button_title">Uninstall LilDebi</string>
-    <string name="pref_start_on_boot_key">pref_start_on_boot_key</string><string name="pref_start_on_boot_title">Start on Boot?</string>
-    
+    <string name="pref_start_on_boot_key">pref_start_on_boot_key</string>
+    <string name="pref_start_on_boot_title">Start on Boot?</string>
     <string name="pref_start_on_boot_summary">Automatically start Debian when your phone starts</string>
     <string name="pref_post_start_key">pref_post_start_key</string>
     <string name="pref_post_start_title">Post-start Script</string>
@@ -16,7 +17,7 @@
     <string name="default_pre_stop_script">/etc/init.d/ssh stop</string>
     <string name="menu_preferences_title">Preferences</string>
     <string name="menu_run_test_title">Run Test</string>
-	<string name="menu_delete_title">Delete All</string>
+    <string name="menu_delete_title">Delete All</string>
     <string name="title_start">Start Debian</string>
     <string name="title_stop">Stop Debian</string>
     <string name="title_configure">Configure Image</string>
@@ -24,7 +25,8 @@
     <string name="doit">Delete Setup</string>
     <string name="cancel">Cancel</string>
     <string name="confirm_delete_message">Are you sure you want to delete the whole Lil\' Debi setup?</string>
-    <string name="install">Install...</string><string name="uninstall">Uninstall...</string>
+    <string name="install">Install...</string>
+    <string name="uninstall">Uninstall...</string>
     <string name="get_superuser">Get SuperUser...</string>
     <string name="needs_superuser_message">Lil\' Debi needs SuperUser access, install the SuperUser app</string>
     <string name="mounted_message">Debian mounted</string>
@@ -35,5 +37,5 @@
     <string name="no_sdcard_message">The External Storage SD Card is not mounted read/write, cannot install or start Debian without it.</string>
     <string name="no_sdcard_status">(no SD card)</string>
     <string name="run_command_hint">run commands as root</string>
-        
+
 </resources>

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-	<item android:id="@+id/menu_preferences" android:title="@string/menu_preferences_title" />
-	<item android:id="@+id/menu_run_test" android:title="@string/menu_run_test_title" />
-	<item android:id="@+id/menu_delete" android:title="@string/menu_delete_title" />
+    <item
+        android:id="@+id/menu_preferences"
+        android:title="@string/menu_preferences_title"/>
+    <item
+        android:id="@+id/menu_run_test"
+        android:title="@string/menu_run_test_title"/>
+    <item
+        android:id="@+id/menu_delete"
+        android:title="@string/menu_delete_title"/>
 
 </menu>

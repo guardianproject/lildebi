@@ -1,105 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-        android:orientation="vertical">
-    <LinearLayout
-            android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5sp"
-                        android:orientation="horizontal">
-        <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="Release: "
-                    android:textStyle="bold"
-                    />
-        <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/selectedRelease"
-                    android:singleLine="true"
-                    android:textSize="20sp"
-                    android:text="stable"/>
-    </LinearLayout>
-                    
-    <LinearLayout
-            android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5sp"
-                        android:orientation="horizontal">
-
-        <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="Mirror: "
-                    android:textStyle="bold"
-                    />
-                    
-        <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/selectedMirror"
-                    android:singleLine="true"
-                    android:textSize="20sp"
-                    android:text="ftp.us.debian.org"/>
-
-    </LinearLayout>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
     <LinearLayout
-            android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5sp"
-                        android:orientation="horizontal">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:orientation="horizontal" >
+
         <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="Image Size: "
-                    android:textStyle="bold"
-                    />
-        <EditText android:text="600" 
-        		  android:id="@+id/imagesize"
-        		  android:layout_width="90sp"
-        		  android:layout_height="60sp"
-        		  android:gravity="center|right"
-        		  android:autoText="false"
-        		  android:inputType="number"
-        		  />
-        <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="MB"
-                    />
-        <ProgressBar
-            android:padding="3sp"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:id="@+id/progressBar"/>
+            android:text="Release: "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/selectedRelease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="stable"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mirror: "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/selectedMirror"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="ftp.us.debian.org"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Image Size: "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/imagesize"
+            android:layout_width="90sp"
+            android:layout_height="60sp"
+            android:autoText="false"
+            android:gravity="center|right"
+            android:inputType="number"
+            android:text="600" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MB"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="3sp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Install"
-            android:textSize="20sp"
-            android:padding="20sp"
-            android:layout_margin="10sp"
-            android:id="@+id/installButton"/>
+        android:id="@+id/installButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:padding="20sp"
+        android:text="Install"
+        android:textSize="20sp" />
+
     <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/textScroll">
+        android:id="@+id/textScroll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
         <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/installLog"/>
+            android:id="@+id/installLog"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
     </ScrollView>
+
 </LinearLayout>

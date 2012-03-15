@@ -1,39 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical" android:addStatesFromChildren="false">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:addStatesFromChildren="false"
+    android:orientation="vertical" >
 
-	<LinearLayout android:layout_width="fill_parent"
-		android:id="@+id/linearLayout1" android:layout_height="wrap_content"
-		android:layout_margin="10sp">
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/statusTitle"
-			android:text="@string/title_status" android:textStyle="bold"
-			android:padding="5sp" android:textSize="20sp" />
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/statusText"
-			android:text="(blank)" android:textStyle="bold" android:singleLine="true"
-			android:textSize="20sp" />
-	</LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp" >
 
-	<LinearLayout android:layout_width="fill_parent"
-		android:id="@+id/linearLayout2" android:layout_height="wrap_content">
-		<Button android:text="@string/title_start" android:id="@+id/startStopButton"
-			android:layout_width="fill_parent" android:layout_height="wrap_content" />
-	</LinearLayout>
+        <TextView
+            android:id="@+id/statusTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:text="@string/title_status"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-	<ScrollView android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:layout_weight="1"
-		android:id="@+id/consoleScroll">
-		<TextView android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:id="@+id/consoleText" />
-	</ScrollView>
-	<EditText android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:id="@+id/runCommand"
-		android:visibility="gone" android:hint="@string/run_command_hint"
-		android:autoLink="none" android:autoText="false" android:capitalize="none"
-		android:cursorVisible="true" android:inputType="text|textNoSuggestions"
-		android:imeOptions="actionDone" />
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="(blank)"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/startStopButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_start" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/consoleScroll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/consoleText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/runCommand"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="none"
+        android:autoText="false"
+        android:capitalize="none"
+        android:cursorVisible="true"
+        android:hint="@string/run_command_hint"
+        android:imeOptions="actionDone"
+        android:inputType="text|textNoSuggestions"
+        android:visibility="gone" />
 
 </LinearLayout>
