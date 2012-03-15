@@ -70,8 +70,8 @@ fi
 # run debootstrap in two stages
 echo "run debootstrap in two stages"
 
-echo "> $sh_debootstrap --verbose --arch armel --foreign $release $mnt $mirror"
-$sh_debootstrap --verbose --arch armel --foreign $release $mnt $mirror
+echo "> $sh_debootstrap --verbose --arch armel --foreign $release $mnt $mirror || exit"
+$sh_debootstrap --verbose --arch armel --foreign $release $mnt $mirror || exit
 
 # now we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
 # need a more Debian-ish PATH
