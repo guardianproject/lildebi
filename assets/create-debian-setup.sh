@@ -84,6 +84,8 @@ chroot $mnt /debootstrap/debootstrap --second-stage
 
 #------------------------------------------------------------------------------#
 # create mountpoints
+echo "creating mountpoints"
+
 create_mountpoint() {
     test -d $1 && test -e $mnt/$1 || \
         mkdir $mnt/$1
@@ -114,6 +116,7 @@ create_mountpoint /app-cache
 
 #------------------------------------------------------------------------------#
 # create configs
+echo "creating configs"
 
 # create /etc/resolv.conf
 test -e $mnt/etc || mkdir $mnt/etc
@@ -135,6 +138,8 @@ touch $mnt/etc/apt/sources.list
 echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
 echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
 
+
+echo "updating debian repositories"
 chroot $mnt apt-get update
 
 # *  install and start sshd so you can easily log in, and before
@@ -144,14 +149,19 @@ chroot $mnt apt-get update
 #    stuff.
 # * 'molly-guard' adds a confirmation prompt to poweroff, halt,
 #    reboot, and shutdown.
+echo "installing ssh"
 chroot $mnt apt-get -y install ssh policyrcd-script-zg2 molly-guard
 cp policy-rc.d $mnt/etc/policy-rc.d
 chmod 755 $mnt/etc/policy-rc.d
 
+
 # stop and restart setup to make sure everything is mounted, etc.
+echo "stop and restart setup to make sure everything is mounted, etc."
 $app_bin/stop-debian.sh
 $app_bin/start-debian.sh
 
+
+echo "apt-get maintenance"
 # purge install packages in cache
 chroot $mnt apt-get autoclean
 
@@ -161,7 +171,9 @@ chroot $mnt apt-get -y upgrade
 # purge upgrade packages in cache
 chroot $mnt apt-get autoclean
 
+
 # install 'debian' script for easy way to get to chroot from term
+echo "installing 'debian' script for easy way to get to chroot from term"
 if [ -d /data/local ]; then
     test -d /data/local/bin || mkdir /data/local/bin
     chmod 755 /data/local/bin
