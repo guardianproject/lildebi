@@ -1,6 +1,8 @@
 #!/bin/sh
 # this is the common settings for the various scripts here
 
+echo "Initialising shell variables"
+
 export TERM=linux
 export HOME=/root
 export HOSTNAME=debian

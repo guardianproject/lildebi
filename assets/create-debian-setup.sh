@@ -16,6 +16,7 @@ export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 #------------------------------------------------------------------------------#
 # setup busybox
 if [ ! -e $busybox_path ]; then
+    echo "No busybox found, setting up busybox"
     mkdir $busybox_path
     cp $app_bin/busybox $busybox
     chmod 755 $busybox
@@ -28,6 +29,7 @@ fi
 #------------------------------------------------------------------------------#
 # set /bin to busybox utils
 if [ ! -e /bin ]; then
+    echo "No '/bin' found, linking it to busybox utils"
     mount -o remount,rw rootfs /
     cd /
     ln -s /data/busybox /bin
@@ -36,19 +38,28 @@ fi
 
 #------------------------------------------------------------------------------#
 # create the image file
-echo "dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1"
+echo "create the image file"
+
+echo "> dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1"
 test -e $imagefile || \
     dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1
 # create the mount dir
 test -e $mnt || mkdir $mnt
 # set them up
 if test -d $mnt && test -e $imagefile; then
+    echo "> mke2fs -L debian_chroot -F $imagefile"
     mke2fs -L debian_chroot -F $imagefile
+    echo "> losetup $loopdev $imagefile"
     losetup $loopdev $imagefile
+    echo "> mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit"
     mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
+    echo "> cd $mnt"
     cd $mnt
+    echo "> tar xjf $app_bin/usr-share-debootstrap.tar.bz2"
     tar xjf $app_bin/usr-share-debootstrap.tar.bz2
+    echo "> cp $app_bin/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails"
     cp $app_bin/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
+    echo "> chmod 755 $DEBOOTSTRAP_DIR/pkgdetails"
     chmod 755 $DEBOOTSTRAP_DIR/pkgdetails
 else
     echo "No mount dir found ($mnt) or no imagefile ($imagefile)"
@@ -57,15 +68,18 @@ fi
 
 #------------------------------------------------------------------------------#
 # run debootstrap in two stages
+echo "run debootstrap in two stages"
 
+echo "> $sh_debootstrap --verbose --arch armel --foreign $release $mnt $mirror"
 $sh_debootstrap --verbose --arch armel --foreign $release $mnt $mirror
 
-# how we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
+# now we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
 # need a more Debian-ish PATH
 unset DEBOOTSTRAP_DIR
 # set path to Debian-style for chrooted commands
 export PATH=/usr/sbin:/usr/bin:/sbin:/bin
 
+echo "> chroot $mnt /debootstrap/debootstrap --second-stage"
 chroot $mnt /debootstrap/debootstrap --second-stage
 
 #------------------------------------------------------------------------------#
