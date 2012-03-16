@@ -40,6 +40,7 @@ if [ ! -b $loopdev ]; then
     exit
 fi
 
+echo ""
 echo "Configuration that will be started:"
 echo "app_bin: $app_bin"
 echo "mnt: $mnt"
@@ -48,20 +49,24 @@ echo "imagefile: $imagefile"
 echo "loopdev: $loopdev"
 
 if [ -x /system/bin/e2fsck ]; then
+    echo ""
     echo "Running /system/bin/e2fsck:"
     /system/bin/e2fsck -pv $imagefile
     fsck_return=$?
     test $fsck_return -lt 4 || exit $fsck_return
 fi
 
+echo ""
 echo "> losetup $loopdev $imagefile"
 losetup $loopdev $imagefile
 
 if [ -z `grep ext2 /proc/filesystems` ]; then
+    echo ""
     echo "Loading ext2 kernel module:"
     modprobe ext2
 fi
 
+echo ""
 echo "root mount for everything Debian"
 # root mount for everything Debian
 mount -t ext2 $loopdev $mnt
@@ -87,6 +92,7 @@ test-mount-bind /app-cache
 
 keygen=/usr/bin/ssh-keygen
 if [ -x /data/debian$keygen ]; then
+    echo ""
     echo "My ssh host key fingerprint and random art:"
     chroot $mnt /bin/bash -c \
         "for key in /etc/ssh/ssh_host_*_key; do $keygen -lv -f \$key; done"
