@@ -9,12 +9,12 @@ test -e $1/lildebi-common || exit
 $1/stop-debian.sh
 
 # force umount if stop-debian.sh failed
+# equivalent to 'losetup -d $loopdev'
 test -d $mnt/usr && umount -f $mnt
-losetup -d $loopdev
 
-echo rmdir $mnt
+echo "> rmdir $mnt"
 rmdir $mnt
-echo rm $imagefile
+echo "> rm $imagefile"
 rm $imagefile
 
 # if the /bin symlink exists, delete it
