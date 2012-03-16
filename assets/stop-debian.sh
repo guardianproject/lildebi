@@ -18,14 +18,19 @@ if [ ! -z "$openfiles" ]; then
     for line in $openfiles; do 
         echo $line
     done
+
+    echo ""
+    echo "Not stopping debian because of open files"
 else
+    echo "unmounting everything"
     for mount in `cut -d ' ' -f 2 /proc/mounts | grep $mnt/`; do
         $busybox_path/umount -f $mount
     done
 
     umount $mnt
     
-# remove loopback mount association
+    # remove loopback mount association
+    echo "> losetup -d $loopdev"
     losetup -d $loopdev
     
     echo ""

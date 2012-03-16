@@ -40,6 +40,7 @@ if [ ! -b $loopdev ]; then
     exit
 fi
 
+echo "Configuration that will be started:"
 echo "app_bin: $app_bin"
 echo "mnt: $mnt"
 echo "sdcard: $sdcard"
@@ -53,6 +54,7 @@ if [ -x /system/bin/e2fsck ]; then
     test $fsck_return -lt 4 || exit $fsck_return
 fi
 
+echo "> losetup $loopdev $imagefile"
 losetup $loopdev $imagefile
 
 if [ -z `grep ext2 /proc/filesystems` ]; then
@@ -60,6 +62,7 @@ if [ -z `grep ext2 /proc/filesystems` ]; then
     modprobe ext2
 fi
 
+echo "root mount for everything Debian"
 # root mount for everything Debian
 mount -t ext2 $loopdev $mnt
 
@@ -89,4 +92,5 @@ if [ -x /data/debian$keygen ]; then
         "for key in /etc/ssh/ssh_host_*_key; do $keygen -lv -f \$key; done"
 fi
 
+echo ""
 echo "Debian chroot mounted and started."
