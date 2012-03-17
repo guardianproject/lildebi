@@ -8,9 +8,9 @@ test -e $1/lildebi-common || exit
 
 $1/stop-debian.sh
 
-# force umount if stop-debian.sh failed
+# force umount if stop-debian.sh failed (losetup not always needed)
 test -d $mnt/usr && umount -f $mnt
-losetup -d $loopdev
+losetup -d $loopdev 2> /dev/null
 
 echo rmdir $mnt
 rmdir $mnt
