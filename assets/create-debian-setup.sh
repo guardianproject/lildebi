@@ -123,9 +123,16 @@ echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sou
 
 chroot $mnt apt-get update
 
-# install and start sshd so you can easily log in, and before stop/start so
-# the start script starts sshd
-chroot $mnt apt-get -y install ssh
+# *  install and start sshd so you can easily log in, and before
+#    stop/start so the start script starts sshd.  Also,
+# * 'policyrcd-script-zg2' sets up the machine for starting and stopping
+#    everything via /etc/init.d/rc without messing with the core Android
+#    stuff.
+# * 'molly-guard' adds a confirmation prompt to poweroff, halt,
+#    reboot, and shutdown.
+chroot $mnt apt-get -y install ssh policyrcd-script-zg2 molly-guard
+cp policy-rc.d $mnt/etc/policy-rc.d
+chmod 755 $mnt/etc/policy-rc.d
 
 # stop and restart setup to make sure everything is mounted, etc.
 $app_bin/stop-debian.sh
