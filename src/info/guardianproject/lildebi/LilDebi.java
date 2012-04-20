@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -27,8 +28,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	public static final String TAG = "LilDebi";
@@ -44,6 +45,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	public static final String COMMAND_FINISHED = "COMMAND_FINISHED";
 
 	private CommandThread commandThread;
+	private PowerManager.WakeLock wl;
+	private boolean useWakeLock;
 	private StringBuffer log;
 	private BroadcastReceiver logUpdateReceiver;
 	private BroadcastReceiver commandFinishedReceiver;
@@ -72,6 +75,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				getString(R.string.default_post_start_script));
 		NativeHelper.preStopScript = prefs.getString(getString(R.string.pref_pre_stop_key),
 				getString(R.string.default_pre_stop_script));
+		useWakeLock = prefs.getBoolean(getString(R.string.pref_prevent_sleep_key), false);
+
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "StartStopWakeLock");
 
 		log = new StringBuffer();
 	}
@@ -225,6 +232,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				startStopButton.setText(R.string.title_stop);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
+						wl.release();
 						command = new String("chroot " + NativeHelper.mnt
 								+ " /bin/bash -c \"" + NativeHelper.preStopScript
 								+ "\"; ./stop-debian.sh " + NativeHelper.args);
@@ -268,6 +276,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				startStopButton.setText(R.string.title_start);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
+						wl.acquire(); //
 						command = new String("./start-debian.sh" + NativeHelper.args
 								+ " && chroot " + NativeHelper.mnt + " /bin/bash -c \""
 								+ NativeHelper.postStartScript + "\"");

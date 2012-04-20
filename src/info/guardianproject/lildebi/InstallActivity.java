@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +41,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private TextView selectedMirror;
 	private EditText imagesize;
 	private InstallService mBoundService;
+	private PowerManager.WakeLock wl;
 
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
@@ -89,11 +91,14 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		installLog = (TextView) findViewById(R.id.installLog);
 		textScroll = (ScrollView) findViewById(R.id.textScroll);
 		handler = new Handler();
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "InstallWakeLock");
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		wl.acquire();
 		if (!isExt2Supported()) {
 			unwireButtons();
 			renameInstallButton(R.string.uninstall);
@@ -135,6 +140,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		super.onPause();
 		doUnbindService();
 		unregisterReceivers();
+		wl.release();
 	}
 
 	private void updateLog() {
