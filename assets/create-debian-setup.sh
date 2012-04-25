@@ -54,20 +54,39 @@ else
 fi
 
 #------------------------------------------------------------------------------#
-# run debootstrap in two stages
+# looking for GPG keyring used to validate signatures on downloaded packages
+
+KEYRING=$app_bin/debian-archive-keyring.gpg
+if test -f $KEYRING; then
+	echo "Using keyring for validating packages: $KEYRING"
+	KEYRING="--keyring=$KEYRING"
+else
+	echo "No keyring found, not validating packages! ($KEYRING)"
+	KEYRING=
+fi
+
+#------------------------------------------------------------------------------#
 echo "run debootstrap in two stages"
 
-echo "> $sh_debootstrap --verbose --arch armel --foreign $release $mnt $mirror || exit"
-$sh_debootstrap --verbose --arch armel --foreign $release $mnt $mirror || exit
+echo "> $sh_debootstrap --verbose $KEYRING --arch armel --foreign $release $mnt $mirror || exit"
+$sh_debootstrap --verbose $KEYRING --arch armel --foreign $release $mnt $mirror || exit
 
 # now we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
 # need a more Debian-ish PATH
 unset DEBOOTSTRAP_DIR
-# set path to Debian-style for chrooted commands
-export PATH=/usr/sbin:/usr/bin:/sbin:/bin
+# use Debian tools from chroot for following chrooted commands
+export PATH=/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin
 
-echo "> chroot $mnt /debootstrap/debootstrap --second-stage"
-chroot $mnt /debootstrap/debootstrap --second-stage
+# debootstrap needs gpgv for the second stage too, but the gpgv Debian
+# package is not installed yet, so install our included 'gpgv' and use
+# that for now
+test -d $mnt/usr || mkdir $mnt/usr
+test -d $mnt/usr/local || mkdir $mnt/usr/local
+test -d $mnt/usr/local/bin || mkdir $mnt/usr/local/bin
+cp $app_bin/gpgv $mnt/usr/local/bin/
+
+echo "> chroot $mnt /debootstrap/debootstrap $KEYRING --second-stage"
+chroot $mnt /debootstrap/debootstrap $KEYRING --second-stage
 
 #------------------------------------------------------------------------------#
 # create mountpoints

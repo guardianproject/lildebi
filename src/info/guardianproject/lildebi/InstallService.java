@@ -85,6 +85,7 @@ public class InstallService extends Service {
 				et.start();
 
 				Log.i(LilDebi.TAG, "cd " + NativeHelper.app_bin.getAbsolutePath());
+				// some platforms need to have the ext2 module installed to get ext2 support
 				writeCommand(os, "modprobe ext2");
 				writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "./create-debian-setup.sh " + NativeHelper.args + release
