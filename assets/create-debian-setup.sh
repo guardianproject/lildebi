@@ -19,7 +19,7 @@ if [ ! -e /bin ]; then
     echo "No '/bin' found, linking it to busybox utils"
     mount -o remount,rw rootfs /
     cd /
-    ln -s /data/busybox /bin
+    ln -s $app_bin /bin
     mount -o remount,ro rootfs /
 fi
 
