@@ -21,6 +21,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -93,6 +95,20 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		handler = new Handler();
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "InstallWakeLock");
+
+		// make sure the user can't set the image size greater than the total free space
+		imagesize.addTextChangedListener(new TextWatcher() {
+			public void afterTextChanged(Editable s) {
+				try {
+					long currentsize = Long.parseLong(imagesize.getText().toString());
+					setImageSizeInMB(currentsize);
+				} catch (NumberFormatException e) {
+					// ignore, this means we got blank value or something like that
+				}
+			}
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+			public void onTextChanged(CharSequence s, int start, int before, int count) {}
+		});
 	}
 
 	@Override
@@ -128,6 +144,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 				}
 			});
 		} else {
+			// make sure the default image size isn't larger than the SDcard's free space
+			setImageSizeInMB(Integer.parseInt(imagesize.getText().toString()));
 			refreshButtons();
 			doBindService();
 			registerReceivers();
@@ -141,6 +159,17 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		doUnbindService();
 		unregisterReceivers();
 		wl.release();
+	}
+
+	private void setImageSizeInMB(long requestedSize) {
+		// if the requested size is bigger than available space, adjust before prompting the user
+		long freeSize = NativeHelper.getSdCardFreeBytes() / 1024 / 1024;
+		if (freeSize < requestedSize) {
+			Toast.makeText(getApplicationContext(), R.string.smaller_imagesize_message,
+					Toast.LENGTH_LONG).show();
+			requestedSize = freeSize - 10; // leave 10MB free
+			imagesize.setText(String.valueOf(requestedSize));
+		}
 	}
 
 	private void updateLog() {

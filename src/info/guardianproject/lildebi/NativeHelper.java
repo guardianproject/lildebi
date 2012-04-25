@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Environment;
+import android.os.StatFs;
 import android.util.Log;
 
 public class NativeHelper {
@@ -119,5 +120,10 @@ public class NativeHelper {
 
 	public static boolean isSdCardPresent() {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+	}
+
+	public static long getSdCardFreeBytes() {
+		StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+		return (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
 	}
 }

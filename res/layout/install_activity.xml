@@ -65,7 +65,6 @@
             android:id="@+id/imagesize"
             android:layout_width="90sp"
             android:layout_height="60sp"
-            android:autoText="false"
             android:gravity="center|right"
             android:inputType="number"
             android:text="600" />

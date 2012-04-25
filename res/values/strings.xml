@@ -32,6 +32,7 @@
     <string name="uninstall">Uninstall…</string>
     <string name="get_superuser">Get SuperUser…</string>
     <string name="needs_superuser_message">Lil\' Debi needs SuperUser access, install the SuperUser app</string>
+    <string name="smaller_imagesize_message">Not enough space for specified image size, reducing size to fit on SD Card</string>
     <string name="mounted_message">Debian mounted</string>
     <string name="not_mounted_message">Debian not mounted</string>
     <string name="not_installed_message">Debian not installed</string>
