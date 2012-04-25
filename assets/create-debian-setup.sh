@@ -14,19 +14,6 @@ export PATH=$busybox_path:/system/bin:/system/xbin:$PATH
 export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 
 #------------------------------------------------------------------------------#
-# setup busybox
-if [ ! -e $busybox_path ]; then
-    echo "No busybox found, setting up busybox"
-    mkdir $busybox_path
-    cp $app_bin/busybox $busybox
-    chmod 755 $busybox
-    cd $busybox_path && ./busybox --install
-# this busybox's wget is not as good as the CyanogenMod wget, I think the
-# difference is HTTPS support
-    rm $busybox_path/wget
-fi
-
-#------------------------------------------------------------------------------#
 # set /bin to busybox utils
 if [ ! -e /bin ]; then
     echo "No '/bin' found, linking it to busybox utils"

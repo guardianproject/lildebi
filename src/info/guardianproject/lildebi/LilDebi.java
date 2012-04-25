@@ -83,6 +83,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "StartStopWakeLock");
 
 		log = new StringBuffer();
+		installBusyboxSymlinks();
 	}
 
 	@Override
@@ -343,6 +344,17 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		commandThread = new CommandThread();
 		commandThread.start();
 		runCommandEditText.setText("");
+	}
+
+	private void installBusyboxSymlinks() {
+		if (! new File(NativeHelper.app_bin, "wget").exists()) {
+			// setup busybox so we have the utils we need, guaranteed
+			command = new File(NativeHelper.app_bin, "busybox").getAbsolutePath() 
+				+ " --install -s " + NativeHelper.app_bin.getAbsolutePath();
+			log.append("# " + command);
+			commandThread = new CommandThread();
+			commandThread.start();
+		}
 	}
 
 	private void registerReceivers() {
