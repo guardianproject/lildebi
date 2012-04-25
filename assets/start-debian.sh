@@ -48,10 +48,20 @@ echo "sdcard: $sdcard"
 echo "imagefile: $imagefile"
 echo "loopdev: $loopdev"
 
-if [ -x /system/bin/e2fsck ]; then
-    echo ""
-    echo "Running /system/bin/e2fsck:"
+echo ""
+if [ -x $app_bin/fsck.ext2 ]; then
+    echo "> $app_bin/fsck.ext2 -pv $imagefile"
+    $app_bin/fsck.ext2 -pv $imagefile
+    fsck_return=$?
+    test $fsck_return -lt 4 || exit $fsck_return
+elif [ -x /system/bin/e2fsck ]; then
+    echo "> /system/bin/e2fsck -pv $imagefile"
     /system/bin/e2fsck -pv $imagefile
+    fsck_return=$?
+    test $fsck_return -lt 4 || exit $fsck_return
+elif [ -x /system/bin/fsck.ext2 ]; then
+    echo "> /system/bin/fsck.ext2 -pv $imagefile"
+    /system/bin/fsck.ext2 -pv $imagefile
     fsck_return=$?
     test $fsck_return -lt 4 || exit $fsck_return
 fi
