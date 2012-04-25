@@ -163,7 +163,7 @@ chroot $mnt apt-get update
 #    reboot, and shutdown.
 echo "installing ssh"
 chroot $mnt apt-get -y install ssh policyrcd-script-zg2 molly-guard
-cp policy-rc.d $mnt/etc/policy-rc.d
+cp $app_bin/policy-rc.d $mnt/etc/policy-rc.d
 chmod 755 $mnt/etc/policy-rc.d
 
 
