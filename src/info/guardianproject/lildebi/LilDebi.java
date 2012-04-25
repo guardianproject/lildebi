@@ -232,7 +232,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				startStopButton.setText(R.string.title_stop);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
-						wl.release();
+						if (wl.isHeld())
+							wl.release();
 						command = new String("chroot " + NativeHelper.mnt
 								+ " /bin/bash -c \"" + NativeHelper.preStopScript
 								+ "\"; ./stop-debian.sh " + NativeHelper.args);
@@ -276,7 +277,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				startStopButton.setText(R.string.title_start);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
-						wl.acquire(); //
+						if (useWakeLock)
+							wl.acquire();
 						command = new String("./start-debian.sh" + NativeHelper.args
 								+ " && chroot " + NativeHelper.mnt + " /bin/bash -c \""
 								+ NativeHelper.postStartScript + "\"");
