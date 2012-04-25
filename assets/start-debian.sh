@@ -17,7 +17,8 @@ test-mount-bind() {
 
 export TERM=linux
 export HOME=/root
-export PATH=/usr/bin:/usr/sbin:/bin:/sbin:$PATH
+# set the path to use the included utils first
+export PATH=$app_bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
 
 if [ ! -d $mnt ]; then
     echo "Your Debian setup is missing mountpoint."
@@ -70,6 +71,7 @@ echo ""
 echo "> losetup $loopdev $imagefile"
 losetup $loopdev $imagefile
 
+# some platforms need to have the ext2 module installed to get ext2 support
 if [ -z `grep ext2 /proc/filesystems` ]; then
     echo ""
     echo "Loading ext2 kernel module:"

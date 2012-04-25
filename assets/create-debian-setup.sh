@@ -23,6 +23,12 @@ if [ ! -e /bin ]; then
     mount -o remount,ro rootfs /
 fi
 
+# some platforms need to have the ext2 module installed to get ext2 support
+if [ -z `grep ext2 /proc/filesystems` ]; then
+    echo "Loading ext2 kernel module:"
+    modprobe ext2
+fi
+
 #------------------------------------------------------------------------------#
 # create the image file
 echo "create the image file"
