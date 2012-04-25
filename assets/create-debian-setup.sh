@@ -150,8 +150,7 @@ touch $mnt/etc/apt/sources.list
 echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
 echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
 
-
-echo "updating debian repositories"
+echo "> apt-get update"
 chroot $mnt apt-get update
 
 # *  install and start sshd so you can easily log in, and before
@@ -161,9 +160,11 @@ chroot $mnt apt-get update
 #    stuff.
 # * 'molly-guard' adds a confirmation prompt to poweroff, halt,
 #    reboot, and shutdown.
-echo "installing ssh"
+echo "> apt-get -y install ssh policyrcd-script-zg2 molly-guard"
 chroot $mnt apt-get -y install ssh policyrcd-script-zg2 molly-guard
+echo "> cp $app_bin/policy-rc.d $mnt/etc/policy-rc.d"
 cp $app_bin/policy-rc.d $mnt/etc/policy-rc.d
+echo "> chmod 755 $mnt/etc/policy-rc.d"
 chmod 755 $mnt/etc/policy-rc.d
 
 
@@ -173,14 +174,16 @@ $app_bin/stop-debian.sh
 $app_bin/start-debian.sh
 
 
-echo "apt-get maintenance"
 # purge install packages in cache
+echo "> apt-get autoclean"
 chroot $mnt apt-get autoclean
 
 # run 'apt-get upgrade' to get the security updates
+echo "> apt-get -y upgrade"
 chroot $mnt apt-get -y upgrade
 
 # purge upgrade packages in cache
+echo "> apt-get autoclean"
 chroot $mnt apt-get autoclean
 
 
