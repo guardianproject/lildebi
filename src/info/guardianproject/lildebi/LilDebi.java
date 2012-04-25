@@ -11,6 +11,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
@@ -289,6 +291,13 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				runCommandEditText.setVisibility(View.GONE);
 				runCommandEditText.setOnEditorActionListener(null);
 			}
+		} else if (! isOnline()) {
+			statusTitle.setVisibility(View.VISIBLE);
+			statusText.setVisibility(View.VISIBLE);
+			statusText.setText(R.string.no_network_message);
+			startStopButton.setVisibility(View.GONE);
+			runCommandEditText.setVisibility(View.GONE);
+			runCommandEditText.setOnEditorActionListener(null);
 		} else {
 			// we've got nothing, run the install
 			statusTitle.setVisibility(View.VISIBLE);
@@ -307,6 +316,16 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			runCommandEditText.setVisibility(View.GONE);
 			runCommandEditText.setOnEditorActionListener(null);
 		}
+	}
+
+	private boolean isOnline() {
+		ConnectivityManager cm =
+			(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		if (netInfo != null && netInfo.isConnected()) {
+			return true;
+		}
+		return false;
 	}
 
 	private void updateLog() {
