@@ -6,14 +6,16 @@ echo "Initialising shell variables"
 export TERM=linux
 export HOME=/root
 export HOSTNAME=debian
-export PATH=/usr/sbin:/usr/bin:/sbin:/bin:/sbin:/system/sbin:/system/bin:/system/xbin:/data/local/bin
 
 if [ $# -lt 1 ]; then
     echo "incorrect number of arguments, should be between 1 and 7:"
     echo "    $0 app_bin [sdcard] [imagefile] [mnt] [release] [mirror] [imagesize]"
 fi
 
+# use the included utilities first
 app_bin=$1
+export PATH=$app_bin:/usr/sbin:/usr/bin:/sbin:/bin:/sbin:/system/sbin:/system/bin:/system/xbin
+
 if [ -z $sdcard ]; then
     sdcard=$2
 fi

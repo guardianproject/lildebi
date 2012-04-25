@@ -6,5 +6,6 @@ default.properties
 local.properties
 proguard.cfg
 #
+assets/busybox
 assets/pkgdetails
 external/pkgdetails/pkgdetails
