@@ -91,8 +91,8 @@ test -d $mnt/usr/local || mkdir $mnt/usr/local
 test -d $mnt/usr/local/bin || mkdir $mnt/usr/local/bin
 cp $app_bin/gpgv $mnt/usr/local/bin/
 
-echo "> chroot $mnt /debootstrap/debootstrap $KEYRING --second-stage"
-chroot $mnt /debootstrap/debootstrap $KEYRING --second-stage
+echo "> chroot $mnt /debootstrap/debootstrap $KEYRING --second-stage || exit"
+chroot $mnt /debootstrap/debootstrap $KEYRING --second-stage || exit
 
 #------------------------------------------------------------------------------#
 # create mountpoints
