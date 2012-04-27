@@ -8,4 +8,5 @@ proguard.cfg
 #
 assets/busybox
 assets/pkgdetails
+external/debootstrap/debootstrap-1.*
 external/pkgdetails/pkgdetails
