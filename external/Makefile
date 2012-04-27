@@ -55,11 +55,13 @@ ALL_LDFLAGS += -Wl,--gc-sections
 .PHONY = clean distclean assets
 
 all: $(EXTERNAL_ROOT)/pkgdetails/pkgdetails $(EXTERNAL_ROOT)/busybox/busybox
+	make -C $(EXTERNAL_ROOT)/debootstrap
 
 assets: all
 	install $(EXTERNAL_ROOT)/pkgdetails/pkgdetails \
 		$(EXTERNAL_ROOT)/busybox/busybox \
-		$(ASSETS)/pkgdetails
+		$(EXTERNAL_ROOT)/debootstrap/usr-share-debootstrap.tar.bz2 \
+		$(ASSETS)/
 	$(STRIP) $(ASSETS)/pkgdetails
 
 
@@ -86,6 +88,7 @@ clean:
 	-cd $(EXTERNAL_ROOT)/busybox/ && \
 		patch -N -R -p1 --reject-file=- < ../003-mount-umount-fsck-df.patch
 	make -C $(EXTERNAL_ROOT)/busybox/ clean
+	make -C $(EXTERNAL_ROOT)/debootstrap/ clean
 
 distclean: clean
 	rm -f -- $(ASSETS)/pkgdetails

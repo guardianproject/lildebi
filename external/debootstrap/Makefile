@@ -5,24 +5,40 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-udeb_$(PKG_VERSION)_all.udeb
 PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/d/debootstrap
-PKG_MD5SUM:=dee0dc77573d88af80b225d8810ab7a1
 
 DL_DIR=$(PKG_NAME)-$(PKG_VERSION)
 
-all: unpack
+all: usr-share-debootstrap.tar.bz2
+
+usr-share-debootstrap.tar.bz2: $(DL_DIR)/usr/sbin/debootstrap \
+			       $(DL_DIR)/usr/share/debootstrap/functions
+	cd $(DL_DIR) && \
+		tar cjpf ../usr-share-debootstrap.tar.bz2 usr/
+
+$(DL_DIR)/usr/sbin/debootstrap: $(DL_DIR)/usr/share/debootstrap/scripts \
+				patches/02-remove-check_sane_mount.diff
+	patch -p0 < patches/02-remove-check_sane_mount.diff
+
+$(DL_DIR)/usr/share/debootstrap/functions: $(DL_DIR)/usr/share/debootstrap/scripts \
+					   patches/00-no_dpkg_deb.diff
+	patch -p0 < patches/00-no_dpkg_deb.diff
+
+$(DL_DIR)/usr/share/debootstrap/scripts: $(DL_DIR)/$(PKG_SOURCE)
+	cd $(DL_DIR) && \
+		(ar -p $(PKG_SOURCE) data.tar.gz | tar -xzf -)
+
+$(DL_DIR)/$(PKG_SOURCE): $(DL_DIR)
+	cd $(DL_DIR) && \
+		wget $(PKG_SOURCE_URL)/$(PKG_SOURCE)
+	md5sum -c debootstrap-udeb_$(PKG_VERSION)_all.udeb.md5
+	sha1sum -c debootstrap-udeb_$(PKG_VERSION)_all.udeb.sha1
+	sha512sum -c debootstrap-udeb_$(PKG_VERSION)_all.udeb.sha512
 
 $(DL_DIR):
 	mkdir $(DL_DIR)
 
-$(PKG_SOURCE): $(DL_DIR)
-	cd $(DL_DIR) && \
-		wget $(PKG_SOURCE_URL)/$(PKG_SOURCE)
-
-unpack: $(PKG_SOURCE)
-	cd $(DL_DIR) && \
-		(ar -p $(PKG_SOURCE) data.tar.gz | tar -xzf -)
-
 clean:
 	-rm -rf -- $(DL_DIR)
+	-rm -f -- usr-share-debootstrap.tar.bz2
 
-.PHONY: unpack clean
+.PHONY: patch unpack clean

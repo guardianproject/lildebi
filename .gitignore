@@ -8,5 +8,7 @@ proguard.cfg
 #
 assets/busybox
 assets/pkgdetails
+assets/usr-share-debootstrap.tar.bz2
 external/debootstrap/debootstrap-1.*
+external/debootstrap/usr-share-debootstrap.tar.bz2
 external/pkgdetails/pkgdetails
