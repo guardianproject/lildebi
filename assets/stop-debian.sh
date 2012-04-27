@@ -1,8 +1,13 @@
-#!/data/busybox/sh
+#!/system/bin/sh
 #
 # see lildebi-common for arguments, the args are converted to vars there. The
 # first arg $1 is the "app payload" directory, where the included scripts are
 # kept.
+
+# many phones don't even include 'test', so set the path to our
+# busybox tools first, where we provide all the UNIX tools needed by
+# this script
+export PATH=$1:$PATH
 
 echo "----------------------------------------"
 echo "./stop-debian.sh"

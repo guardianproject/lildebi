@@ -3,15 +3,13 @@
 # see lildebi-common for arguments, the args are converted to vars there.  The
 # first arg is the "app payload" directory where the included scripts are kept
 
+# many phones don't even include 'test', so set the path to our
+# busybox tools first, where we provide all the UNIX tools needed by
+# this script
+export PATH=$1:/system/bin:/system/xbin:$PATH
+
 test -e $1/lildebi-common || exit
 . $1/lildebi-common
-
-sh_debootstrap="/system/bin/sh $mnt/usr/sbin/debootstrap"
-
-# so we can find busybox tools
-export PATH=$busybox_path:/system/bin:/system/xbin:$PATH
-# so that the debootstrap script can find its files
-export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 
 #------------------------------------------------------------------------------#
 # set /bin to busybox utils
@@ -73,6 +71,10 @@ fi
 
 #------------------------------------------------------------------------------#
 echo "run debootstrap in two stages"
+
+sh_debootstrap="/system/bin/sh $mnt/usr/sbin/debootstrap"
+# so that the debootstrap script can find its files
+export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 
 echo "> $sh_debootstrap --verbose $KEYRING --arch armel --foreign $release $mnt $mirror || exit"
 $sh_debootstrap --verbose $KEYRING --arch armel --foreign $release $mnt $mirror || exit
