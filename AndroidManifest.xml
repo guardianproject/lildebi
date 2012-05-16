@@ -27,7 +27,8 @@
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
 			</intent-filter>
 		</receiver>
-		<service android:name=".OnBootService">
+		<service android:name=".OnBootService"
+                         android:exported="false" >
 			<intent-filter>
 				<action android:name="info.guardianproject.lildebi.OnBootService" />
 			</intent-filter>
