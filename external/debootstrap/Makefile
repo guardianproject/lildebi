@@ -3,7 +3,7 @@ PKG_NAME:=debootstrap
 PKG_VERSION:=1.0.26+squeeze1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-udeb_$(PKG_VERSION)_all.udeb
+PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION)_all.deb
 PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/d/debootstrap
 
 DL_DIR=$(PKG_NAME)-$(PKG_VERSION)
@@ -30,9 +30,9 @@ $(DL_DIR)/usr/share/debootstrap/scripts: $(DL_DIR)/$(PKG_SOURCE)
 $(DL_DIR)/$(PKG_SOURCE): $(DL_DIR)
 	cd $(DL_DIR) && \
 		wget $(PKG_SOURCE_URL)/$(PKG_SOURCE)
-	md5sum -c debootstrap-udeb_$(PKG_VERSION)_all.udeb.md5
-	sha1sum -c debootstrap-udeb_$(PKG_VERSION)_all.udeb.sha1
-	sha512sum -c debootstrap-udeb_$(PKG_VERSION)_all.udeb.sha512
+	md5sum -c $(PKG_SOURCE).md5
+	sha1sum -c $(PKG_SOURCE).sha1
+	sha512sum -c $(PKG_SOURCE).sha512
 
 $(DL_DIR):
 	mkdir $(DL_DIR)
