@@ -28,8 +28,12 @@ if [ -z `grep ext2 /proc/filesystems` ]; then
 fi
 
 #------------------------------------------------------------------------------#
+# so that the debootstrap script can find its files
+export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
+
+#------------------------------------------------------------------------------#
 # create the image file
-echo "create the image file"
+echo "Create the image file:"
 
 echo "> dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1"
 test -e $imagefile || \
@@ -73,8 +77,6 @@ fi
 echo "run debootstrap in two stages"
 
 sh_debootstrap="/system/bin/sh $mnt/usr/sbin/debootstrap"
-# so that the debootstrap script can find its files
-export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 
 echo "> $sh_debootstrap --verbose $KEYRING --arch armel --foreign $release $mnt $mirror || exit"
 $sh_debootstrap --verbose $KEYRING --arch armel --foreign $release $mnt $mirror || exit
