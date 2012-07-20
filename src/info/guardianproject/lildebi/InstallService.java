@@ -71,6 +71,12 @@ public class InstallService extends Service {
 
 		private LogUpdate logUpdate;
 
+		public void writeCommand(OutputStream os, String command) throws Exception {
+			Log.i(LilDebi.TAG, "writeCommand: " + command);
+			log.append("# " + command + "\n");
+			os.write((command + "\n").getBytes("ASCII"));
+		}
+
 		@Override
 		public void run() {
 			logUpdate = new LogUpdate();
@@ -84,7 +90,6 @@ public class InstallService extends Service {
 				it.start();
 				et.start();
 
-				Log.i(LilDebi.TAG, "cd " + NativeHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "./create-debian-setup.sh " + NativeHelper.args + release
 						+ " http://" + mirror + "/debian/ " + imagesize);
@@ -104,7 +109,7 @@ public class InstallService extends Service {
 			}
 			try {
 				FileWriter logfile = new FileWriter(NativeHelper.app_log + "/install.log");
-				logfile.append(log.toString());
+				logfile.append(dumpLog());
 				logfile.close();
 			} catch (Exception e) {
 				Log.e(LilDebi.TAG, "Error writing install log file", e);
@@ -121,9 +126,5 @@ public class InstallService extends Service {
 			log.append(val);
 			sendBroadcast(new Intent(INSTALL_LOG_UPDATE));
 		}
-	}
-
-	public static void writeCommand(OutputStream os, String command) throws Exception {
-		os.write((command + "\n").getBytes("ASCII"));
 	}
 }
