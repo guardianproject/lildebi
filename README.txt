@@ -25,13 +25,35 @@ Build Setup
 On Debian/Ubuntu/Mint/etc.:
 
   sudo apt-get install autoconf automake libtool transfig wget patch \
-       texinfo ant
+       texinfo ant make openjdk-6-jdk
 
-Install the Android NDK for the command line version, and the Android SDK for
-the Android app version:
+Both the Android SDK and the Android NDK are needed:
 
 SDK: http://developer.android.com/sdk/
 NDK: http://developer.android.com/sdk/ndk/
+
+
+Building
+========
+
+Building Lil' Debi is a multi-step process including clone the sources,
+getting busybox code as a submodule, building the native utilities, and then
+finally building the Android app.  Here are all those steps in a form to run
+in the terminal:
+
+  git clone https://github.com/guardianproject/lildebi
+  cd lildebi
+  git submodule init
+  git submodule update
+  make -C external assets
+  ./update-ant-build.sh
+  ant debug
+
+Once that has completed, you can install it however you would normally install
+an .apk file.  You will find the .apk in the bin/ folder.  An easy way to
+install it via the terminal is to run:
+
+  adb install bin/LilDebi-debug.apk
 
 
 Original Sources
@@ -39,7 +61,6 @@ Original Sources
 
 debootstrap
 -----------
-
 http://packages.debian.org/unstable/debootstrap
 
 This package was extracted, the usr/sbin/debootstrap script placed into
@@ -49,28 +70,26 @@ tarball usr-share-debootstrap.tar.bz2.
 
 pkgdetails
 ----------
-
-pkgdetails comes from OpenWRT's debootstrap, and is built using their build
-system:
-
 https://dev.openwrt.org/browser/packages/utils/debootstrap/files/pkgdetails.c
+
+pkgdetails comes from OpenWRT's debootstrap and is included in this git repo
+and built using external/Makefile
 
 
 busybox
 -------
+git://busybox.net/busybox.git
 
-The goal is to provide a minimal busybox custom built from source, but
-currently, we are using the busybox for Android binaries from:
-
-http://benno.id.au/blog/2007/11/14/android-busybox
+busybox is included as a git submodule and built from source by
+externals/Makefile using a custom config file.
 
 
 gpgv
 ----
-
-This is built from source using the gnupg-for-android build system.  The
-binary ends up in external/data/ called gpgv2-static.  To build it yourself,
-follow the included instructions.
-
 https://github.com/guardianproject/gnupg-for-android
+
+Building gpgv for Android is quite complicated, so the binary is included in
+this project. The binary is built from source using the gnupg-for-android
+build system.  The binary ends up in external/data/ called gpgv2-static.  To
+build it yourself, follow the included instructions.
 
