@@ -95,8 +95,14 @@ test -d $mnt/usr/local || mkdir $mnt/usr/local
 test -d $mnt/usr/local/bin || mkdir $mnt/usr/local/bin
 cp $app_bin/gpgv $mnt/usr/local/bin/
 
-echo "> chroot $mnt /debootstrap/debootstrap $KEYRING --second-stage || exit"
-chroot $mnt /debootstrap/debootstrap $KEYRING --second-stage || exit
+# TODO: gpgv is currently not working for second stage install in chroot, so
+# don't use it for now. When this is fixed, the commented out lines below
+# should be used for second stage bootstrap.
+# See https://github.com/guardianproject/lildebi/issues/20
+#echo "> chroot $mnt /debootstrap/debootstrap $KEYRING --second-stage || exit"
+#chroot $mnt /debootstrap/debootstrap $KEYRING --second-stage || exit
+echo "> chroot $mnt /debootstrap/debootstrap --no-check-certificate --second-stage || exit"
+chroot $mnt /debootstrap/debootstrap --no-check-certificate --second-stage || exit
 
 #------------------------------------------------------------------------------#
 # create mountpoints
