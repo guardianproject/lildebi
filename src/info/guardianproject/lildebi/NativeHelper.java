@@ -90,7 +90,7 @@ public class NativeHelper {
 		chmod(0755, new File(app_bin, "configure-downloaded-image.sh"));
 		chmod(0755, new File(app_bin, "start-debian.sh"));
 		chmod(0755, new File(app_bin, "stop-debian.sh"));
-		chmod(0755, new File(app_bin, "debian"));
+		chmod(0755, new File(app_bin, "shell"));
 		chmod(0755, new File(app_bin, "test.sh"));
 		chmod(0755, new File(app_bin, "busybox"));
 		chmod(0755, new File(app_bin, "pkgdetails"));

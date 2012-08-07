@@ -200,13 +200,11 @@ echo "> apt-get autoclean"
 chroot $mnt apt-get autoclean
 
 
-# install 'debian' script for easy way to get to chroot from term
-echo "installing 'debian' script for easy way to get to chroot from term"
-if [ -d /data/local ]; then
-    test -d /data/local/bin || mkdir /data/local/bin
-    chmod 755 /data/local/bin
-    cp $app_bin/debian /data/local/bin/
-    chmod 755 /data/local/bin/debian
+# install script that sets up a shell in the chroot for you
+echo "installing '/debian/shell' for easy way to get to chroot from term"
+if [ -d /debian ]; then
+    cp $app_bin/shell /debian/shell
+    chmod 755 /debian/shell
 fi
 
 echo "Debian is installed and ssh started!"
