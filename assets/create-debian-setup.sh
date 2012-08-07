@@ -50,8 +50,8 @@ if test -d $mnt && test -e $imagefile; then
     mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
     echo "> cd $mnt"
     cd $mnt
-    echo "> tar xjf $app_bin/usr-share-debootstrap.tar.bz2"
-    tar xjf $app_bin/usr-share-debootstrap.tar.bz2
+    echo "> tar xjf $app_bin/debootstrap.tar.bz2"
+    tar xjf $app_bin/debootstrap.tar.bz2
     echo "> cp $app_bin/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails"
     cp $app_bin/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
     echo "> chmod 755 $DEBOOTSTRAP_DIR/pkgdetails"

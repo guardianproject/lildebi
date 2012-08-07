@@ -8,12 +8,12 @@ PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/d/debootstrap
 
 DL_DIR=$(PKG_NAME)-$(PKG_VERSION)
 
-all: usr-share-debootstrap.tar.bz2
+all: debootstrap.tar.bz2
 
-usr-share-debootstrap.tar.bz2: $(DL_DIR)/usr/sbin/debootstrap \
+debootstrap.tar.bz2: $(DL_DIR)/usr/sbin/debootstrap \
 			       $(DL_DIR)/usr/share/debootstrap/functions
 	cd $(DL_DIR) && \
-		tar cjpf ../usr-share-debootstrap.tar.bz2 usr/
+		tar cjpf ../debootstrap.tar.bz2 usr/
 
 $(DL_DIR)/usr/sbin/debootstrap: $(DL_DIR)/usr/share/debootstrap/scripts \
 				patches/02-remove-check_sane_mount.diff
@@ -39,6 +39,6 @@ $(DL_DIR):
 
 clean:
 	-rm -rf -- $(DL_DIR)
-	-rm -f -- usr-share-debootstrap.tar.bz2
+	-rm -f -- debootstrap.tar.bz2
 
 .PHONY: patch unpack clean

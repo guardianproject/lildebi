@@ -60,7 +60,7 @@ all: $(EXTERNAL_ROOT)/pkgdetails/pkgdetails $(EXTERNAL_ROOT)/busybox/busybox
 assets: all
 	install $(EXTERNAL_ROOT)/pkgdetails/pkgdetails \
 		$(EXTERNAL_ROOT)/busybox/busybox \
-		$(EXTERNAL_ROOT)/debootstrap/usr-share-debootstrap.tar.bz2 \
+		$(EXTERNAL_ROOT)/debootstrap/debootstrap.tar.bz2 \
 		$(ASSETS)/
 	$(STRIP) $(ASSETS)/pkgdetails
 

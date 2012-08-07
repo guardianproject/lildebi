@@ -63,9 +63,9 @@ debootstrap
 -----------
 http://packages.debian.org/unstable/debootstrap
 
-This package was extracted, the usr/sbin/debootstrap script placed into
-assets/ and the usr/share/debootstrap folder tar-bzipped into the included
-tarball usr-share-debootstrap.tar.bz2.
+debootstrap is downloaded directly from Debian, extracted, patched, and then
+tar-bzipped into the included tarball assets/debootstrap.tar.bz2. See
+external/debootstrap/Makefile for details.
 
 
 pkgdetails
