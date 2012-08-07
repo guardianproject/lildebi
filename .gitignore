@@ -5,6 +5,7 @@ build.xml
 default.properties
 local.properties
 proguard.cfg
+proguard-project.txt
 #
 assets/busybox
 assets/pkgdetails
