@@ -34,7 +34,7 @@ public class NativeHelper {
 		app_log = context.getDir("log", Context.MODE_PRIVATE).getAbsoluteFile();
 		sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
 		imagename = sdcard + "/debian.img";
-		mnt = "/data/debian";
+		mnt = "/debian";
 		args = new String(" " + app_bin.getAbsolutePath() + " " + sdcard + " "
 				+ imagename + " " + mnt + " ");
 	}

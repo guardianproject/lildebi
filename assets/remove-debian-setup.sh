@@ -17,14 +17,18 @@ $1/stop-debian.sh
 test -d $mnt/usr && umount -f $mnt
 losetup -d $loopdev
 
-echo rmdir $mnt
-rmdir $mnt
 echo rm $imagefile
 rm $imagefile
 
+mount -o remount,rw rootfs /
+if [ -d $mnt ]; then
+    echo rmdir $mnt
+    rmdir $mnt
+fi
+
 # if the /bin symlink exists, delete it
 if [ -h /bin ]; then
-    mount -o remount,rw rootfs /
+    echo rm /bin
     rm /bin
-    mount -o remount,ro rootfs /
 fi
+mount -o remount,ro rootfs /

@@ -108,7 +108,7 @@ test-mount-bind /sqlite_stmt_journals
 test-mount-bind /app-cache
 
 keygen=/usr/bin/ssh-keygen
-if [ -x /data/debian$keygen ]; then
+if [ -x ${mnt}${keygen} ]; then
     echo ""
     echo "My ssh host key fingerprint and random art:"
     chroot $mnt /bin/bash -c \

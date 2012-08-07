@@ -16,7 +16,7 @@ test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
 echo "Checking for open files in Debian chroot..."
-openfiles=`lsof /data/debian | sed -n 's|.*\(/data/debian.*\)|\1|p'`
+openfiles=`lsof $mnt | sed -n "s|.*\($mnt.*\)|\1|p"`
 
 if [ ! -z "$openfiles" ]; then
     echo "Files that are still open:"

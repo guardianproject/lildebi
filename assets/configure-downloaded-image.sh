@@ -11,5 +11,10 @@ export PATH=$1:/system/bin:/system/xbin:$PATH
 test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
-# create the mount dir
-test -e $mnt || mkdir $mnt
+# create the mount dir on the read-only rootfs
+if [ ! -e $mnt ]; then
+    mount -o remount,rw rootfs /
+    echo mkdir $mnt
+    mkdir $mnt
+    mount -o remount,ro rootfs /
+fi

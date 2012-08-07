@@ -12,15 +12,26 @@ test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
 #------------------------------------------------------------------------------#
+# modify rootfs
+
+mount -o remount,rw rootfs /
+
 # set /bin to busybox utils
 if [ ! -e /bin ]; then
     echo "No '/bin' found, linking it to busybox utils"
-    mount -o remount,rw rootfs /
     cd /
     ln -s $app_bin /bin
-    mount -o remount,ro rootfs /
 fi
 
+if [ ! -e $mnt ]; then
+    echo "Creating chroot mountpoint at $mnt"
+    mkdir $mnt
+    chmod 755 $mnt
+fi
+
+mount -o remount,ro rootfs /
+
+#------------------------------------------------------------------------------#
 # some platforms need to have the ext2 module installed to get ext2 support
 if [ -z `grep ext2 /proc/filesystems` ]; then
     echo "Loading ext2 kernel module:"
@@ -38,8 +49,6 @@ echo "Create the image file:"
 echo "> dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1"
 test -e $imagefile || \
     dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1
-# create the mount dir
-test -e $mnt || mkdir $mnt
 # set them up
 if test -d $mnt && test -e $imagefile; then
     echo "> mke2fs -L debian_chroot -F $imagefile"

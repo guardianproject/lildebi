@@ -339,7 +339,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	private void runUserCommand(String userCommand) {
 		log.append("# " + userCommand);
 		command = "export PATH=/usr/sbin:/usr/bin:/sbin:/bin:/system/xbin:/system/bin; " + 
-			"chroot /data/debian /bin/bash -c \"" +
+			"chroot " + NativeHelper.mnt + " /bin/bash -c \"" +
 			userCommand.replace("\"", "\\\"") + "\"";
 		commandThread = new CommandThread();
 		commandThread.start();

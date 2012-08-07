@@ -6,5 +6,5 @@ export HOME=/root
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/system/xbin:/system/bin
 
 # try using the chroot included in LilDebi, otherwise fail over to a possible system one
-/data/data/info.guardianproject.lildebi/app_bin/chroot /data/debian /bin/bash --login -i \
-    || chroot /data/debian /bin/bash --login -i
+/data/data/info.guardianproject.lildebi/app_bin/chroot /debian /bin/bash --login -i \
+    || chroot /debian /bin/bash --login -i
