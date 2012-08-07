@@ -136,7 +136,6 @@ echo "creating configs"
 
 # create /etc/resolv.conf
 test -e $mnt/etc || mkdir $mnt/etc
-touch $mnt/etc/resolv.conf
 echo 'nameserver 4.2.2.2' >> $mnt/etc/resolv.conf
 echo 'nameserver 8.8.8.8' >> $mnt/etc/resolv.conf
 echo 'nameserver 198.6.1.1' >> $mnt/etc/resolv.conf
@@ -150,7 +149,6 @@ ln -s /proc/mounts $mnt/etc/mtab
 
 # apt sources
 test -e $mnt/etc/apt || mkdir $mnt/etc/apt
-touch $mnt/etc/apt/sources.list
 echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
 echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
 
