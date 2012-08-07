@@ -3,20 +3,37 @@ Lil' Debi
 =========
 
 This is an app to setup and manage a Debian install in parallel on an Android
-phone.  It uses debootstrap to build up the disk image as a chroot, and then
-provides start and stop methods for handling mounting, fsck, starting/stopping
-sshd, etc.
+phone.  It can build a Debian install from scratch or use an existing image.
+It manages the starting and stopping of the Debian install.
 
-It is 100% free software, but its also alpha, so we are still sorting out the
-build process for all the bits.  A couple of the binaries provided in the
-assets/ folder are binaries from other free software projects.
+It uses debootstrap to build up the disk image as a chroot, and then provides
+start and stop methods for handling mounting, fsck, starting/stopping sshd,
+etc.
 
-Ultimately, our aim is to have the whole build process for every bit of this
-app documented so that it can be freely inspected, modified, ported, etc.  We
-want this app to build a trusted Debian install on the phone, so free software
-is the only way to get there.  This is currently functional alpha software, so
-do not rely on it to produce a trusted Debian install.  Please do try it out,
-use it, and report criticisms, bugs, improvements, etc.
+It is 100% free software. Ultimately, our aim is to have the whole
+process for every bit of this app documented so that it can be freely
+inspected, modified, ported, etc.  We want this app to build a trusted Debian
+install on the phone, so free software is the only way to get there.  This is
+currently functional alpha software, so do not rely on it to produce a trusted
+Debian install.  Please do try it out, use it, and report criticisms, bugs,
+improvements, etc.
+
+
+Installing Debian
+=================
+
+The process of installing Debian with Lil' Debi is self-explanatory, just run
+the app and click the Install... button.  But it doesn't yet work on all
+phones.  If the install process fails on your phone, you can still use Lil'
+Debi by downloading a pre-built Debian image.  It should work with any
+Debian/Ubuntu/Mint armel image file.  Here is a Debian image file that was
+built by Lil' Debi:
+
+https://github.com/guardianproject/lildebi/downloads
+
+Download the file, uncompress it and rename it 'debian.img' and copy it to
+your SD Card.  Launch Lil' Debi, and you should now see the button says "Start
+Debian".  Click the button to start your new Debian install.
 
 
 Build Setup
