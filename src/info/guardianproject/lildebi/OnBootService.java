@@ -100,7 +100,7 @@ public class OnBootService extends Service {
 			}
 			logUpdate = new LogUpdate();
 			try {
-				Process sh = Runtime.getRuntime().exec("su - sh");
+				Process sh = Runtime.getRuntime().exec("su -c sh");
 				OutputStream os = sh.getOutputStream();
 
 				StreamThread it = new StreamThread(sh.getInputStream(), logUpdate);
