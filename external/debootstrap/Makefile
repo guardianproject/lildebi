@@ -1,6 +1,6 @@
 
 PKG_NAME:=debootstrap
-PKG_VERSION:=1.0.26+squeeze1
+PKG_VERSION:=1.0.42
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION)_all.deb
