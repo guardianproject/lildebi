@@ -153,7 +153,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		public void run() {
 			logUpdate = new LogUpdate();
 			try {
-				Process sh = Runtime.getRuntime().exec("su -c sh");
+				Process sh = Runtime.getRuntime().exec("su --shell " + 
+						NativeHelper.sh.getAbsolutePath());
 				OutputStream os = sh.getOutputStream();
 
 				StreamThread it = new StreamThread(sh.getInputStream(), logUpdate);
@@ -347,7 +348,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	}
 
 	private void installBusyboxSymlinks() {
-		if (! new File(NativeHelper.app_bin, "wget").exists()) {
+		if (! NativeHelper.sh.exists()) {
 			// setup busybox so we have the utils we need, guaranteed
 			command = new File(NativeHelper.app_bin, "busybox").getAbsolutePath() 
 				+ " --install -s " + NativeHelper.app_bin.getAbsolutePath();

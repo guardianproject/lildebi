@@ -19,6 +19,7 @@ public class NativeHelper {
 
 	public static File app_bin;
 	public static File app_log;
+	public static File sh;
 	public static String sdcard;
 	public static String imagename;
 	public static String mnt;
@@ -32,6 +33,7 @@ public class NativeHelper {
 	public static void setup(Context context) {
 		app_bin = context.getDir("bin", Context.MODE_PRIVATE).getAbsoluteFile();
 		app_log = context.getDir("log", Context.MODE_PRIVATE).getAbsoluteFile();
+		sh = new File(app_bin, "sh");
 		sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
 		imagename = sdcard + "/debian.img";
 		mnt = "/debian";
@@ -92,7 +94,6 @@ public class NativeHelper {
 		chmod(0755, new File(app_bin, "stop-debian.sh"));
 		chmod(0755, new File(app_bin, "shell"));
 		chmod(0755, new File(app_bin, "test.sh"));
-		chmod(0755, new File(app_bin, "busybox"));
 		chmod(0755, new File(app_bin, "pkgdetails"));
 		chmod(0755, new File(app_bin, "gpgv"));
 		chmod(0755, new File(app_bin, "busybox"));

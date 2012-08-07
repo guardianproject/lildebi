@@ -85,7 +85,7 @@ fi
 #------------------------------------------------------------------------------#
 echo "run debootstrap in two stages"
 
-sh_debootstrap="/system/bin/sh $mnt/usr/sbin/debootstrap"
+sh_debootstrap="$app_bin/sh $mnt/usr/sbin/debootstrap"
 
 echo "> $sh_debootstrap --verbose $KEYRING --arch armel --foreign $release $mnt $mirror || exit"
 $sh_debootstrap --verbose $KEYRING --arch armel --foreign $release $mnt $mirror || exit
