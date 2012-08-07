@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.21.0.git
-# Thu Apr 26 15:33:48 2012
+# Tue Aug  7 12:08:29 2012
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -179,12 +179,12 @@ CONFIG_CAT=y
 # CONFIG_FEATURE_DATE_NANO is not set
 # CONFIG_FEATURE_DATE_COMPAT is not set
 # CONFIG_HOSTID is not set
-# CONFIG_ID is not set
+CONFIG_ID=y
 # CONFIG_GROUPS is not set
 CONFIG_TEST=y
 CONFIG_FEATURE_TEST_64=y
-# CONFIG_TOUCH is not set
-# CONFIG_FEATURE_TOUCH_SUSV3 is not set
+CONFIG_TOUCH=y
+CONFIG_FEATURE_TOUCH_SUSV3=y
 # CONFIG_TR is not set
 # CONFIG_FEATURE_TR_CLASSES is not set
 # CONFIG_FEATURE_TR_EQUIV is not set
@@ -240,7 +240,7 @@ CONFIG_FEATURE_LS_SORTFILES=y
 # CONFIG_FEATURE_LS_USERNAME is not set
 # CONFIG_FEATURE_LS_COLOR is not set
 # CONFIG_FEATURE_LS_COLOR_IS_DEFAULT is not set
-# CONFIG_MD5SUM is not set
+CONFIG_MD5SUM=y
 CONFIG_MKDIR=y
 CONFIG_FEATURE_MKDIR_LONG_OPTIONS=y
 # CONFIG_MKFIFO is not set
@@ -251,7 +251,7 @@ CONFIG_NICE=y
 # CONFIG_NOHUP is not set
 # CONFIG_OD is not set
 # CONFIG_PRINTENV is not set
-# CONFIG_PRINTF is not set
+CONFIG_PRINTF=y
 CONFIG_PWD=y
 # CONFIG_READLINK is not set
 # CONFIG_FEATURE_READLINK_FOLLOW is not set
@@ -282,21 +282,37 @@ CONFIG_FEATURE_RMDIR_LONG_OPTIONS=y
 # CONFIG_FEATURE_TEE_USE_BLOCK_IO is not set
 # CONFIG_TRUE is not set
 # CONFIG_TTY is not set
-# CONFIG_UNAME is not set
+CONFIG_UNAME=y
 # CONFIG_UNEXPAND is not set
 # CONFIG_FEATURE_UNEXPAND_LONG_OPTIONS is not set
 # CONFIG_UNIQ is not set
 # CONFIG_USLEEP is not set
 # CONFIG_UUDECODE is not set
 # CONFIG_UUENCODE is not set
-# CONFIG_WC is not set
-# CONFIG_FEATURE_WC_LARGE is not set
+CONFIG_WC=y
+CONFIG_FEATURE_WC_LARGE=y
 # CONFIG_WHOAMI is not set
 # CONFIG_YES is not set
+
+#
+# Common options for cp and mv
+#
 # CONFIG_FEATURE_PRESERVE_HARDLINKS is not set
+
+#
+# Common options for ls, more and telnet
+#
 # CONFIG_FEATURE_AUTOWIDTH is not set
+
+#
+# Common options for df, du, ls
+#
 # CONFIG_FEATURE_HUMAN_READABLE is not set
-# CONFIG_FEATURE_MD5_SHA1_SUM_CHECK is not set
+
+#
+# Common options for md5sum, sha1sum, sha256sum, sha512sum
+#
+CONFIG_FEATURE_MD5_SHA1_SUM_CHECK=y
 
 #
 # Console Utilities
