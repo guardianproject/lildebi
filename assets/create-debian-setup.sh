@@ -180,6 +180,14 @@ cp $app_bin/policy-rc.d $mnt/etc/policy-rc.d
 echo "> chmod 755 $mnt/etc/policy-rc.d"
 chmod 755 $mnt/etc/policy-rc.d
 
+echo "> apt-get -y install locales"
+chroot $mnt apt-get -y install locales
+
+# Move /etc/locale.gen into place.
+cp $app_bin/etc-locale.gen $mnt/etc/locale.gen
+
+echo "> locale-gen"
+chroot $mnt locale-gen
 
 # stop and restart setup to make sure everything is mounted, etc.
 echo "stop and restart setup to make sure everything is mounted, etc."
