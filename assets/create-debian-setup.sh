@@ -3,6 +3,9 @@
 # see lildebi-common for arguments, the args are converted to vars there.  The
 # first arg is the "app payload" directory where the included scripts are kept
 
+# get full debug output
+set -x
+
 # many phones don't even include 'test', so set the path to our
 # busybox tools first, where we provide all the UNIX tools needed by
 # this script
@@ -46,24 +49,16 @@ export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 # create the image file
 echo "Create the image file:"
 
-echo "> dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1"
 test -e $imagefile || \
     dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1
 # set them up
 if test -d $mnt && test -e $imagefile; then
-    echo "> mke2fs -L debian_chroot -F $imagefile"
     mke2fs -L debian_chroot -F $imagefile
-    echo "> losetup $loopdev $imagefile"
     losetup $loopdev $imagefile
-    echo "> mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit"
     mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
-    echo "> cd $mnt"
     cd $mnt
-    echo "> tar xjf $app_bin/debootstrap.tar.bz2"
     tar xjf $app_bin/debootstrap.tar.bz2
-    echo "> cp $app_bin/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails"
     cp $app_bin/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
-    echo "> chmod 755 $DEBOOTSTRAP_DIR/pkgdetails"
     chmod 755 $DEBOOTSTRAP_DIR/pkgdetails
 else
     echo "No mount dir found ($mnt) or no imagefile ($imagefile)"
@@ -103,7 +98,6 @@ echo "run debootstrap in two stages"
 
 sh_debootstrap="$app_bin/sh $mnt/usr/sbin/debootstrap"
 
-echo "> $sh_debootstrap --verbose $FIRST_KEYRING --arch armel --foreign $release $mnt $mirror || exit"
 $sh_debootstrap --verbose $FIRST_KEYRING --arch armel --foreign $release $mnt $mirror || exit
 
 # now we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
@@ -113,7 +107,6 @@ unset DEBOOTSTRAP_DIR
 # the script will find the included busybox utils in /bin, a link to $app_bin
 export PATH=/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin
 
-echo "> chroot $mnt /debootstrap/debootstrap $SECOND_KEYRING --second-stage || exit"
 chroot $mnt /debootstrap/debootstrap $SECOND_KEYRING --second-stage || exit
 
 #------------------------------------------------------------------------------#
@@ -172,7 +165,6 @@ touch $mnt/etc/apt/sources.list
 echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
 echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
 
-echo "> apt-get update"
 chroot $mnt apt-get update
 
 # *  install and start sshd so you can easily log in, and before
@@ -182,11 +174,8 @@ chroot $mnt apt-get update
 #    stuff.
 # * 'molly-guard' adds a confirmation prompt to poweroff, halt,
 #    reboot, and shutdown.
-echo "> apt-get -y install ssh policyrcd-script-zg2 molly-guard"
 chroot $mnt apt-get -y install ssh policyrcd-script-zg2 molly-guard
-echo "> cp $app_bin/policy-rc.d $mnt/etc/policy-rc.d"
 cp $app_bin/policy-rc.d $mnt/etc/policy-rc.d
-echo "> chmod 755 $mnt/etc/policy-rc.d"
 chmod 755 $mnt/etc/policy-rc.d
 
 
@@ -197,15 +186,12 @@ $app_bin/start-debian.sh $app_bin $sdcard $imagefile $mnt
 
 
 # purge install packages in cache
-echo "> apt-get autoclean"
 chroot $mnt apt-get autoclean
 
 # run 'apt-get upgrade' to get the security updates
-echo "> apt-get -y upgrade"
 chroot $mnt apt-get -y upgrade
 
 # purge upgrade packages in cache
-echo "> apt-get autoclean"
 chroot $mnt apt-get autoclean
 
 
