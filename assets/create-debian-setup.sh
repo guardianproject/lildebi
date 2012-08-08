@@ -53,7 +53,13 @@ test -e $imagefile || \
     dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1
 # set them up
 if test -d $mnt && test -e $imagefile; then
-    mke2fs -L debian_chroot -F $imagefile
+    mke2fs_options="-L debian_chroot -F $imagefile"
+# the built-in mke2fs seems to be more reliable when the busybox mke2fs fails
+    if test -x /system/bin/mke2fs; then
+        /system/bin/mke2fs $mke2fs_options
+    else
+        mke2fs $mke2fs_options
+    fi
     losetup $loopdev $imagefile
     mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
     cd $mnt
