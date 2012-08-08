@@ -52,8 +52,12 @@ public class NativeHelper {
 			// ZipEntry entry;
 
 			for (String asset : assetList) {
-				if (asset.equals("images") || asset.equals("sounds")
-						|| asset.equals("webkit"))
+				if (asset.equals("images")
+						|| asset.equals("sounds")
+						|| asset.equals("webkit")
+						|| asset.equals("databases")
+						|| asset.equals("kioskmode"))
+
 					continue;
 
 				int BUFFER = 2048;
