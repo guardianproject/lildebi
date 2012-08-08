@@ -1,6 +1,9 @@
 package info.guardianproject.lildebi;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import android.app.Activity;
@@ -349,12 +352,24 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
 	private void installBusyboxSymlinks() {
 		if (! NativeHelper.sh.exists()) {
+			Log.i(TAG, "Installing busybox symlinks into " + NativeHelper.app_bin);
 			// setup busybox so we have the utils we need, guaranteed
-			command = new File(NativeHelper.app_bin, "busybox").getAbsolutePath() 
-				+ " --install -s " + NativeHelper.app_bin.getAbsolutePath();
-			log.append("# " + command);
-			commandThread = new CommandThread();
-			commandThread.start();
+			String cmd = "su -c \"" + new File(NativeHelper.app_bin, "busybox").getAbsolutePath() 
+					+ " --install -s " + NativeHelper.app_bin.getAbsolutePath() + "\"\nexit\n";
+			log.append("# " + cmd);
+			try {
+				Process su = Runtime.getRuntime().exec("su");
+				OutputStream os = su.getOutputStream();
+				os.write(cmd.getBytes("ASCII"));
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(su.getInputStream()));
+				String line = null;
+				while ((line = in.readLine()) != null)
+					log.append(line);
+			} catch (IOException e) {
+				e.printStackTrace();
+				log.append("Exception triggered by " + cmd);
+			}
 		}
 	}
 
