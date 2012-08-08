@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.21.0.git
-# Tue Aug  7 22:14:50 2012
+# Wed Aug  8 10:33:09 2012
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -220,13 +220,13 @@ CONFIG_FEATURE_FANCY_ECHO=y
 # CONFIG_FEATURE_ENV_LONG_OPTIONS is not set
 # CONFIG_EXPAND is not set
 # CONFIG_FEATURE_EXPAND_LONG_OPTIONS is not set
-# CONFIG_EXPR is not set
-# CONFIG_EXPR_MATH_SUPPORT_64 is not set
+CONFIG_EXPR=y
+CONFIG_EXPR_MATH_SUPPORT_64=y
 # CONFIG_FALSE is not set
 # CONFIG_FOLD is not set
 # CONFIG_FSYNC is not set
-# CONFIG_HEAD is not set
-# CONFIG_FEATURE_FANCY_HEAD is not set
+CONFIG_HEAD=y
+CONFIG_FEATURE_FANCY_HEAD=y
 # CONFIG_INSTALL is not set
 # CONFIG_FEATURE_INSTALL_LONG_OPTIONS is not set
 CONFIG_LN=y
@@ -276,8 +276,8 @@ CONFIG_FEATURE_SORT_BIG=y
 # CONFIG_SUM is not set
 CONFIG_SYNC=y
 # CONFIG_TAC is not set
-# CONFIG_TAIL is not set
-# CONFIG_FEATURE_FANCY_TAIL is not set
+CONFIG_TAIL=y
+CONFIG_FEATURE_FANCY_TAIL=y
 # CONFIG_TEE is not set
 # CONFIG_FEATURE_TEE_USE_BLOCK_IO is not set
 # CONFIG_TRUE is not set
