@@ -306,7 +306,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		try {
 			FileInputStream fstream = new FileInputStream("/proc/filesystems");
 			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			BufferedReader br = new BufferedReader(new InputStreamReader(in), 8192);
 			String line;
 			while ((line = br.readLine()) != null) {
 				if (line.contains("ext2")) {
