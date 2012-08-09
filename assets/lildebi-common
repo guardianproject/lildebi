@@ -40,7 +40,7 @@ test -d $sdcard || echo "sdcard: '$sdcard' not a directory"
 test -z $imagefile && echo "imagefile: '$imagefile' is empty"
 test -z $mnt && echo "mnt: '$mnt' is empty"
 
-loopdev=/dev/block/loop4
+loopdev=/dev/block/loop7
 busybox_path="$app_bin"
 busybox=$busybox_path/busybox
 
