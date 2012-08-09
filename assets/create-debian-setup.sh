@@ -187,6 +187,8 @@ chroot $mnt apt-get -y install ssh policyrcd-script-zg2 molly-guard
 cp $app_bin/policy-rc.d $mnt/etc/policy-rc.d
 chmod 755 $mnt/etc/policy-rc.d
 
+echo "> apt-get -y install locales"
+chroot $mnt apt-get -y install locales
 
 # stop and restart setup to make sure everything is mounted, etc.
 echo "stop and restart setup to make sure everything is mounted, etc."
