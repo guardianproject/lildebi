@@ -2,6 +2,7 @@ package info.guardianproject.lildebi;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,23 +47,24 @@ public class NativeHelper {
 			AssetManager am = context.getAssets();
 			final String[] assetList = am.list("");
 
-			// final InputStream allZipIS = am.open("all.zip");
-			// ZipInputStream zin = new ZipInputStream(new
-			// BufferedInputStream(allZipIS));
-			// ZipEntry entry;
-
 			for (String asset : assetList) {
 				if (asset.equals("images")
 						|| asset.equals("sounds")
 						|| asset.equals("webkit")
-						|| asset.equals("databases")
-						|| asset.equals("kioskmode"))
-
+						|| asset.equals("databases")  // Motorola
+						|| asset.equals("kioskmode")) // Samsung
 					continue;
 
 				int BUFFER = 2048;
 				final File file = new File(NativeHelper.app_bin, asset);
-				final InputStream assetIS = am.open(asset);
+				InputStream tmp;
+				try {
+					tmp = am.open(asset);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+					continue;
+				}
+				final InputStream assetIS = tmp;
 
 				if (file.exists()) {
 					file.delete();
