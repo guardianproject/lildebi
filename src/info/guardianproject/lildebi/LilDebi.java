@@ -156,8 +156,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		public void run() {
 			logUpdate = new LogUpdate();
 			try {
-				Process sh = Runtime.getRuntime().exec("su --shell " + 
-						NativeHelper.sh.getAbsolutePath());
+				String suCmd = "su -s " + NativeHelper.sh.getAbsolutePath();
+				Log.i(TAG, "exec: " + suCmd);
+				Process sh = Runtime.getRuntime().exec(suCmd);
 				OutputStream os = sh.getOutputStream();
 
 				StreamThread it = new StreamThread(sh.getInputStream(), logUpdate);
