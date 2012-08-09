@@ -173,6 +173,9 @@ echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sou
 
 chroot $mnt apt-get update
 
+# install/configure a default locale first to tame the warnings
+chroot $mnt apt-get -y install locales
+
 # *  install and start sshd so you can easily log in, and before
 #    stop/start so the start script starts sshd.  Also,
 # * 'policyrcd-script-zg2' sets up the machine for starting and stopping
