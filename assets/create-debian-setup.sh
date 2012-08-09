@@ -187,6 +187,9 @@ chroot $mnt apt-get -y install ssh policyrcd-script-zg2 molly-guard
 cp $app_bin/policy-rc.d $mnt/etc/policy-rc.d
 chmod 755 $mnt/etc/policy-rc.d
 
+# stop sshd here, otherwise stop-debian.sh will see it as an open file and
+# abort.
+chroot $mnt /etc/init.d/ssh stop
 
 # stop and restart setup to make sure everything is mounted, etc.
 echo "stop and restart setup to make sure everything is mounted, etc."
