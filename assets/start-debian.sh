@@ -55,22 +55,21 @@ echo "imagefile: $imagefile"
 echo "loopdev: $loopdev"
 
 echo ""
-if [ -x $app_bin/fsck.ext2 ]; then
-    echo "> $app_bin/fsck.ext2 -pv $imagefile"
-    $app_bin/fsck.ext2 -pv $imagefile
-    fsck_return=$?
-    test $fsck_return -lt 4 || exit $fsck_return
-elif [ -x /system/bin/e2fsck ]; then
-    echo "> /system/bin/e2fsck -pv $imagefile"
-    /system/bin/e2fsck -pv $imagefile
-    fsck_return=$?
-    test $fsck_return -lt 4 || exit $fsck_return
-elif [ -x /system/bin/fsck.ext2 ]; then
-    echo "> /system/bin/fsck.ext2 -pv $imagefile"
-    /system/bin/fsck.ext2 -pv $imagefile
+for f in /system/bin/e2fsck /system/bin/fsck.ext2 $app_bin/fsck.ext2; do
+    if [ -x $f ]; then
+        fsck=$f
+        break
+    fi
+done
+if [ -z $fsck ]; then
+    echo "NO fsck FOUND, SKIPPING DISK CHECK!"
+else
+    echo "> $fsck -pv $imagefile"
+    $fsck -pv $imagefile
     fsck_return=$?
     test $fsck_return -lt 4 || exit $fsck_return
 fi
+
 
 echo ""
 echo "> losetup $loopdev $imagefile"
