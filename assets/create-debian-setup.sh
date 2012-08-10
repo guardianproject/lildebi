@@ -122,8 +122,10 @@ chroot $mnt /debootstrap/debootstrap $SECOND_KEYRING --second-stage || exit
 echo "creating mountpoints"
 
 create_mountpoint() {
-    test -d $1 && test -e $mnt/$1 || \
-        mkdir $mnt/$1
+    test -d $1 && test -e ${mnt}${1}
+    if [ $? -ne 0 ] && [ ! -e ${mnt}${1} ]; then
+        mkdir ${mnt}${1}
+    fi
 }
 
 # standard GNU/Linux mounts
