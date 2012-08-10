@@ -16,7 +16,7 @@ test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
 echo "Checking for open files in Debian chroot..."
-openfiles=`lsof $mnt | sed -n "s|.*\($mnt.*\)|\1|p"`
+openfiles=`lsof $mnt | grep -v $(basename $imagefile) | sed -n "s|.*\($mnt.*\)|\1|p"`
 
 if [ ! -z "$openfiles" ]; then
     echo "Files that are still open:"
@@ -25,7 +25,7 @@ if [ ! -z "$openfiles" ]; then
     done
 
     echo ""
-    echo "Not stopping debian because of open files"
+    echo "Not stopping debian because of open files, quit all processes and running shell sessions!"
 else
     echo "unmounting everything"
     for mount in `cut -d ' ' -f 2 /proc/mounts | grep $mnt/`; do
