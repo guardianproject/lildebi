@@ -92,7 +92,9 @@ if test -f $keyring; then
     test -d $mnt/usr/local/share || mkdir $mnt/usr/local/share
     test -d $mnt/usr/local/share/keyrings || mkdir $mnt/usr/local/share/keyrings
     cp $keyring $mnt/usr/local/share/keyrings/
-	SECOND_KEYRING="--keyring=/usr/local/share/keyrings/$keyring_name"
+    # TODO fix second stage validation, debootstrap fails saying it can't find gpgv
+	#SECOND_KEYRING="--keyring=/usr/local/share/keyrings/$keyring_name"
+	SECOND_KEYRING=
 else
 	echo "No keyring found, not validating packages! ($keyring)"
 	FIRST_KEYRING=
