@@ -120,8 +120,10 @@ chroot $mnt /debootstrap/debootstrap $SECOND_KEYRING --second-stage || exit
 echo "creating mountpoints"
 
 create_mountpoint() {
-    test -d $1 && test -e $mnt/$1 || \
-        mkdir $mnt/$1
+    test -d $1 && test -e ${mnt}${1}
+    if [ $? -ne 0 ] && [ ! -e ${mnt}${1} ]; then
+        mkdir ${mnt}${1}
+    fi
 }
 
 # standard GNU/Linux mounts
@@ -153,7 +155,6 @@ echo "creating configs"
 
 # create /etc/resolv.conf
 test -e $mnt/etc || mkdir $mnt/etc
-touch $mnt/etc/resolv.conf
 echo 'nameserver 4.2.2.2' >> $mnt/etc/resolv.conf
 echo 'nameserver 8.8.8.8' >> $mnt/etc/resolv.conf
 echo 'nameserver 198.6.1.1' >> $mnt/etc/resolv.conf
@@ -167,7 +168,6 @@ ln -s /proc/mounts $mnt/etc/mtab
 
 # apt sources
 test -e $mnt/etc/apt || mkdir $mnt/etc/apt
-touch $mnt/etc/apt/sources.list
 echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
 echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
 
