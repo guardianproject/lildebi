@@ -20,6 +20,7 @@ public class NativeHelper {
 
 	public static File app_bin;
 	public static File app_log;
+	public static File install_log;
 	public static File sh;
 	public static String sdcard;
 	public static String imagename;
@@ -34,6 +35,7 @@ public class NativeHelper {
 	public static void setup(Context context) {
 		app_bin = context.getDir("bin", Context.MODE_PRIVATE).getAbsoluteFile();
 		app_log = context.getDir("log", Context.MODE_PRIVATE).getAbsoluteFile();
+		install_log = new File(app_log, "install.log");
 		sh = new File(app_bin, "sh");
 		sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
 		imagename = sdcard + "/debian.img";

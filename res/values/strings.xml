@@ -19,7 +19,7 @@
     <string name="pref_prevent_sleep_title">Prevent Sleep</string>
     <string name="pref_prevent_sleep_summary">prevent the device from sleeping while Debian is running</string>
     <string name="menu_preferences_title">Preferences</string>
-    <string name="menu_run_test_title">Run Test</string>
+    <string name="menu_install_log_title">View Install Log</string>
     <string name="menu_delete_title">Delete All</string>
     <string name="title_start">Start Debian</string>
     <string name="title_stop">Stop Debian</string>

@@ -110,11 +110,11 @@ public class InstallService extends Service {
 				sendBroadcast(new Intent(INSTALL_FINISHED));
 			}
 			try {
-				FileWriter logfile = new FileWriter(NativeHelper.app_log + "/install.log");
+				FileWriter logfile = new FileWriter(NativeHelper.install_log);
 				logfile.append(dumpLog());
 				logfile.close();
 			} catch (Exception e) {
-				Log.e(LilDebi.TAG, "Error writing install log file", e);
+				Log.e(LilDebi.TAG, "Error writing install log file: " + NativeHelper.install_log, e);
 			}
 		}
 	}

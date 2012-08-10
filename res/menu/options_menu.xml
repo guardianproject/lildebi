@@ -5,8 +5,8 @@
         android:id="@+id/menu_preferences"
         android:title="@string/menu_preferences_title"/>
     <item
-        android:id="@+id/menu_run_test"
-        android:title="@string/menu_run_test_title"/>
+        android:id="@+id/menu_install_log"
+        android:title="@string/menu_install_log_title"/>
     <item
         android:id="@+id/menu_delete"
         android:title="@string/menu_delete_title"/>

@@ -20,6 +20,7 @@
 		<activity android:name="SelectMirror" />
 		<activity android:name="UnsupportedDeviceActivity" />
 		<activity android:name="PreferencesActivity" />
+		<activity android:name="InstallLogViewActivity" />
 		<service android:name="InstallService" />
 
 		<receiver android:name="OnBootReceiver">

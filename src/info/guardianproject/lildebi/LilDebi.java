@@ -120,13 +120,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_preferences:
-			Intent intent = new Intent(this, PreferencesActivity.class);
-			startActivity(intent);
+			startActivity(new Intent(this, PreferencesActivity.class));
 			return true;
-		case R.id.menu_run_test:
-			command = "./test.sh " + NativeHelper.args;
-			commandThread = new CommandThread();
-			commandThread.start();
+		case R.id.menu_install_log:
+			startActivity(new Intent(this, InstallLogViewActivity.class));
 			return true;
 		case R.id.menu_delete:
 			new AlertDialog.Builder(this).setMessage(R.string.confirm_delete_message)
