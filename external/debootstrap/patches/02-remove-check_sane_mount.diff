@@ -1,5 +1,5 @@
---- debootstrap-1.0.42/usr/sbin/debootstrap	2011-03-04 06:53:53.000000000 -0500
-+++ debootstrap-1.0.42/usr/sbin/debootstrap	2011-04-05 15:13:01.000000000 -0400
+--- debootstrap-1.0.26+squeeze1/usr/sbin/debootstrap	2011-03-04 06:53:53.000000000 -0500
++++ debootstrap-1.0.26+squeeze1/usr/sbin/debootstrap	2011-04-05 15:13:01.000000000 -0400
 @@ -419,9 +419,10 @@
  		error 1 NEEDROOT "debootstrap can only run as root"
  	fi
