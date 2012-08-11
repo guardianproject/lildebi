@@ -28,7 +28,8 @@ if [ ! -z "$openfiles" ]; then
     echo "Not stopping debian because of open files, quit all processes and running shell sessions!"
 else
     echo "unmounting everything"
-    for mount in `cut -d ' ' -f 2 /proc/mounts | grep $mnt/`; do
+    # sort reverse so it gets the nested mounts first
+    for mount in `cut -d ' ' -f 2 /proc/mounts | grep $mnt/ | sort -r`; do
         $busybox_path/umount -f $mount
     done
 
