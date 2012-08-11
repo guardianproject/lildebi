@@ -86,6 +86,11 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "StartStopWakeLock");
 
 		log = new StringBuffer();
+		if (savedInstanceState != null)
+			log.append(savedInstanceState.getString("log"));
+		else
+			Log.i(TAG, "savedInstanceState was null");
+
 		installBusyboxSymlinks();
 	}
 
@@ -101,6 +106,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		}
 		updateScreenStatus();
 		registerReceivers();
+		updateLog();
 	}
 
 	@Override
@@ -406,6 +412,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		savedInstanceState.putString("log", log.toString());
 		super.onSaveInstanceState(savedInstanceState);
 	}
+	// the saved state is restored in onCreate()
 
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
