@@ -10,7 +10,8 @@
         android:id="@+id/installLogView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:ems="10" >
+        android:textSize="12sp"
+        android:typeface="monospace" >
 
         <requestFocus />
     </TextView>
