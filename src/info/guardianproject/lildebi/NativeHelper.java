@@ -21,6 +21,7 @@ public class NativeHelper {
 	public static File app_bin;
 	public static File app_log;
 	public static File install_log;
+	public static File publicFiles;
 	public static File sh;
 	public static String sdcard;
 	public static String imagename;
@@ -36,6 +37,10 @@ public class NativeHelper {
 		app_bin = context.getDir("bin", Context.MODE_PRIVATE).getAbsoluteFile();
 		app_log = context.getDir("log", Context.MODE_PRIVATE).getAbsoluteFile();
 		install_log = new File(app_log, "install.log");
+		// this is the same as android-8's getExternalFilesDir() but works on android-1
+		publicFiles = new File(Environment.getExternalStorageDirectory(),
+				"Android/data/" + context.getPackageName() + "/files/");
+		publicFiles.mkdirs();
 		sh = new File(app_bin, "sh");
 		sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
 		imagename = sdcard + "/debian.img";

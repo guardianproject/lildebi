@@ -42,5 +42,7 @@
     <string name="no_sdcard_message">The External Storage SD Card is not mounted read/write, cannot install or start Debian without it.</string>
     <string name="no_sdcard_status">(no SD card)</string>
     <string name="run_command_hint">run commands as root</string>
+    <string name="title_install_log_view">Install Log</string>
+    <string name="title_share_button">Share</string>
 
 </resources>

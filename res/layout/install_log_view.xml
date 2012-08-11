@@ -1,19 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView1"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true"
+    android:addStatesFromChildren="false"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/installLogView"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:typeface="monospace" >
+        android:layout_height="wrap_content" >
 
-        <requestFocus />
-    </TextView>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/title_install_log_view"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-</ScrollView>
+        <Button
+            android:id="@+id/shareButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/title_share_button" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/installLogView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:typeface="monospace" >
+
+            <requestFocus />
+        </TextView>
+    </ScrollView>
+
+</LinearLayout>
