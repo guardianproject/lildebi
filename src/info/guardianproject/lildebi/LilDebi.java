@@ -245,7 +245,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 					public void onClick(View view) {
 						if (wl.isHeld())
 							wl.release();
-						command = new String("chroot " + NativeHelper.mnt
+						command = new String(NativeHelper.app_bin + "/chroot "
+								+ NativeHelper.mnt
 								+ " /bin/bash -c \"" + NativeHelper.preStopScript
 								+ "\"; ./stop-debian.sh " + NativeHelper.args);
 						commandThread = new CommandThread();
@@ -291,7 +292,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 						if (useWakeLock)
 							wl.acquire();
 						command = new String("./start-debian.sh" + NativeHelper.args
-								+ " && chroot " + NativeHelper.mnt + " /bin/bash -c \""
+								+ " && " + NativeHelper.app_bin + "/chroot "
+								+ NativeHelper.mnt + " /bin/bash -c \""
 								+ NativeHelper.postStartScript + "\"");
 						commandThread = new CommandThread();
 						commandThread.start();
