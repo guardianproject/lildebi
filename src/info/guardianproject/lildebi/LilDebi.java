@@ -172,6 +172,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
 				Log.i(LilDebi.TAG, "cd " + NativeHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
+				Log.i(LilDebi.TAG, "export PATH=" + NativeHelper.app_bin.getAbsolutePath());
+				writeCommand(os, "export PATH=" + NativeHelper.app_bin.getAbsolutePath());
 				Log.i(LilDebi.TAG, command);
 				writeCommand(os, command);
 				writeCommand(os, "exit");
