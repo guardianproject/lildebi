@@ -133,23 +133,29 @@ create_mountpoint /dev
 create_mountpoint /dev/pts
 create_mountpoint /media
 create_mountpoint /mnt
-create_mountpoint /mnt/sdcard
 create_mountpoint /proc
 create_mountpoint /sys
+create_mountpoint /sys/kernel/debug
 create_mountpoint /tmp
 # Android mounts
-create_mountpoint /data
-create_mountpoint /system
-create_mountpoint /cache
-create_mountpoint /dev/cpuctl
 create_mountpoint /acct
-create_mountpoint /mnt/obb
+create_mountpoint /app-cache
+create_mountpoint /cache
+create_mountpoint /data
+create_mountpoint /dbdata
+create_mountpoint /dev/cpuctl
+create_mountpoint /efs
+create_mountpoint /mnt/.lfs
 create_mountpoint /mnt/asec
+create_mountpoint /mnt/obb
+create_mountpoint /mnt/sdcard
+create_mountpoint /mnt/sdcard/external_sd
+create_mountpoint /mnt/sdcard/external_sd/.android_secure
 create_mountpoint /mnt/secure
 create_mountpoint /mnt/secure/asec
 create_mountpoint /mnt/secure/.android_secure
 create_mountpoint /sqlite_stmt_journals
-create_mountpoint /app-cache
+create_mountpoint /system
 
 #------------------------------------------------------------------------------#
 # create configs

@@ -94,17 +94,23 @@ mount -t tmpfs tmpfs $mnt/tmp
 mount -o bind $sdcard $mnt/mnt/sdcard
 
 # mount other android mounts, these may vary, so test first
-test-mount-bind /data
-test-mount-bind /system
-test-mount-bind /cache
-test-mount-bind /dev/cpuctl
 test-mount-bind /acct
-test-mount-bind /mnt/obb
+test-mount-bind /app-cache
+test-mount-bind /cache
+test-mount-bind /data
+test-mount-bind /dbdata
+test-mount-bind /dev/cpuctl
+test-mount-bind /efs
+test-mount-bind /mnt/.lfs
 test-mount-bind /mnt/asec
+test-mount-bind /mnt/obb
 test-mount-bind /mnt/secure/asec
+test-mount-bind /mnt/sdcard/external_sd
+test-mount-bind /mnt/sdcard/external_sd/.android_secure
 test-mount-bind /mnt/secure/.android_secure
 test-mount-bind /sqlite_stmt_journals
-test-mount-bind /app-cache
+test-mount-bind /sys/kernel/debug
+test-mount-bind /system
 
 keygen=/usr/bin/ssh-keygen
 if [ -x ${mnt}${keygen} ]; then
