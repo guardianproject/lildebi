@@ -45,7 +45,7 @@
     <ScrollView
         android:id="@+id/consoleScroll"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dip"
         android:layout_weight="1" >
 
         <TextView
@@ -56,18 +56,5 @@
             android:typeface="monospace" />
 
     </ScrollView>
-
-    <EditText
-        android:id="@+id/runCommand"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:autoLink="none"
-        android:autoText="false"
-        android:capitalize="none"
-        android:cursorVisible="true"
-        android:hint="@string/run_command_hint"
-        android:imeOptions="actionDone"
-        android:inputType="text|textNoSuggestions"
-        android:visibility="gone" />
 
 </LinearLayout>

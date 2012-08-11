@@ -72,7 +72,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		startStopButton = (Button) findViewById(R.id.startStopButton);
 		consoleScroll = (ScrollView) findViewById(R.id.consoleScroll);
 		consoleText = (TextView) findViewById(R.id.consoleText);
-		runCommandEditText = (EditText) findViewById(R.id.runCommand);
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		NativeHelper.postStartScript = prefs.getString(
@@ -215,8 +214,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			statusText.setVisibility(View.VISIBLE);
 			statusText.setText(R.string.no_sdcard_status);
 			startStopButton.setVisibility(View.GONE);
-			runCommandEditText.setVisibility(View.GONE);
-			runCommandEditText.setOnEditorActionListener(null);
 			return;
 		}
 		if (new File(NativeHelper.imagename).exists()) {
@@ -234,8 +231,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 						commandThread.start();
 					}
 				});
-				runCommandEditText.setVisibility(View.GONE);
-				runCommandEditText.setOnEditorActionListener(null);
 			} else if (new File(NativeHelper.mnt + "/etc").exists()) {
 				// we have a configured and mounted Debian setup, stop it
 				statusTitle.setVisibility(View.GONE);
@@ -255,33 +250,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 						commandThread.start();
 					}
 				});
-				runCommandEditText.setVisibility(View.VISIBLE);
-				runCommandEditText.setOnEditorActionListener(new OnEditorActionListener() {
-
-					@Override
-					public boolean onEditorAction(TextView v, int actionId,
-							KeyEvent event) {
-						// IME_ACTION_DONE is for soft keyboard
-						if (actionId == EditorInfo.IME_ACTION_DONE) {
-							runUserCommand(runCommandEditText.getText().toString());
-							return true;
-						}
-						return false;
-					}
-				});
-				runCommandEditText.setOnKeyListener(new OnKeyListener() {
-
-					@Override
-					public boolean onKey(View v, int keyCode, KeyEvent event) {
-						if (event != null && 
-								event.getAction() == KeyEvent.ACTION_UP &&
-								keyCode == KeyEvent.KEYCODE_ENTER) {
-							runUserCommand(runCommandEditText.getText().toString());
-							return true;
-						}
-						return false;
-					}
-				});				
 			} else {
 				// we have a configured Debian setup that is not mounted, start it
 				statusTitle.setVisibility(View.VISIBLE);
@@ -301,16 +269,12 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 						commandThread.start();
 					}
 				});
-				runCommandEditText.setVisibility(View.GONE);
-				runCommandEditText.setOnEditorActionListener(null);
 			}
 		} else if (! isOnline()) {
 			statusTitle.setVisibility(View.VISIBLE);
 			statusText.setVisibility(View.VISIBLE);
 			statusText.setText(R.string.no_network_message);
 			startStopButton.setVisibility(View.GONE);
-			runCommandEditText.setVisibility(View.GONE);
-			runCommandEditText.setOnEditorActionListener(null);
 		} else {
 			// we've got nothing, run the install
 			statusTitle.setVisibility(View.VISIBLE);
@@ -326,8 +290,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 					return;
 				}
 			});
-			runCommandEditText.setVisibility(View.GONE);
-			runCommandEditText.setOnEditorActionListener(null);
 		}
 	}
 
@@ -346,16 +308,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		if (logContents != null && logContents.trim().length() > 0)
 			consoleText.setText(logContents);
 		consoleScroll.scrollTo(0, consoleText.getHeight());
-	}
-
-	private void runUserCommand(String userCommand) {
-		log.append("# " + userCommand);
-		command = "export PATH=/usr/sbin:/usr/bin:/sbin:/bin:/system/xbin:/system/bin; " + 
-			"chroot " + NativeHelper.mnt + " /bin/bash -c \"" +
-			userCommand.replace("\"", "\\\"") + "\"";
-		commandThread = new CommandThread();
-		commandThread.start();
-		runCommandEditText.setText("");
 	}
 
 	private void installBusyboxSymlinks() {
