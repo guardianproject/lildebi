@@ -10,7 +10,6 @@ public class PreferencesActivity extends android.preference.PreferenceActivity i
 	EditTextPreference postStartEditText;
 	EditTextPreference preStopEditText;
 
-	/* save the preferences in Imps so they are accessible everywhere */
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
 		if (key.equals(getString(R.string.pref_post_start_key))) {

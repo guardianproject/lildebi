@@ -21,19 +21,14 @@ import android.os.Environment;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
-import android.view.View.OnKeyListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 public class LilDebi extends Activity implements OnCreateContextMenuListener {
@@ -44,7 +39,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	private Button startStopButton;
 	private ScrollView consoleScroll;
 	private TextView consoleText;
-	private EditText runCommandEditText;
 
 	public static final String LOG_UPDATE = "LOG_UPDATE";
 	public static final String COMMAND_FINISHED = "COMMAND_FINISHED";
