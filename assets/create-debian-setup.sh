@@ -158,6 +158,22 @@ create_mountpoint /sqlite_stmt_journals
 create_mountpoint /system
 
 #------------------------------------------------------------------------------#
+# create root symlinks that exist on the Android system
+echo "creating root symlinks"
+
+create_root_symlink() {
+    if [ -L $1 ] && [ ! -e ${mnt}${1} ]; then
+        link=`ls -l $1 | awk '{print $4}'`
+        target=`ls -l $1 | awk '{print $6}'`
+        ln -s $target ${mnt}${link}
+    fi
+}
+
+for file in /*; do
+    create_root_symlink $file
+done
+
+#------------------------------------------------------------------------------#
 # create configs
 echo "creating configs"
 
