@@ -44,5 +44,7 @@
     <string name="run_command_hint">run commands as root</string>
     <string name="title_install_log_view">Install Log</string>
     <string name="title_share_button">Share</string>
+    <string name="starting_debian">Started Debian…</string>
+    <string name="stopping_debian">Stopped Debian…</string>
 
 </resources>

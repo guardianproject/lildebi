@@ -205,6 +205,36 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		os.write((command + "\n").getBytes("ASCII"));
 	}
 
+	private void configureDownloadedImage () {
+		command = new String("./configure-downloaded-image.sh" + NativeHelper.args);
+		commandThread = new CommandThread();
+		commandThread.start();
+	}
+
+	private void startDebian() {
+		if (useWakeLock)
+			wl.acquire();
+		command = new String("./start-debian.sh" + NativeHelper.args
+				+ " && " + NativeHelper.app_bin + "/chroot "
+				+ NativeHelper.mnt + " /bin/bash -c \""
+				+ NativeHelper.postStartScript + "\"");
+		commandThread = new CommandThread();
+		commandThread.start();
+		Toast.makeText(this, R.string.starting_debian, Toast.LENGTH_LONG).show();
+	}
+
+	private void stopDebian() {
+		if (wl.isHeld())
+			wl.release();
+		command = new String(NativeHelper.app_bin + "/chroot "
+				+ NativeHelper.mnt
+				+ " /bin/bash -c \"" + NativeHelper.preStopScript
+				+ "\"; ./stop-debian.sh " + NativeHelper.args);
+		commandThread = new CommandThread();
+		commandThread.start();
+		Toast.makeText(this, R.string.stopping_debian, Toast.LENGTH_LONG).show();
+	}
+
 	private void updateScreenStatus() {
 		String state = Environment.getExternalStorageState();
 		if (!Environment.MEDIA_MOUNTED.equals(state)) {
@@ -226,9 +256,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				startStopButton.setText(R.string.title_configure);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
-						command = new String("./configure-downloaded-image.sh" + NativeHelper.args);
-						commandThread = new CommandThread();
-						commandThread.start();
+						configureDownloadedImage();
 					}
 				});
 			} else if (new File(NativeHelper.mnt + "/etc").exists()) {
@@ -240,14 +268,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				startStopButton.setText(R.string.title_stop);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
-						if (wl.isHeld())
-							wl.release();
-						command = new String(NativeHelper.app_bin + "/chroot "
-								+ NativeHelper.mnt
-								+ " /bin/bash -c \"" + NativeHelper.preStopScript
-								+ "\"; ./stop-debian.sh " + NativeHelper.args);
-						commandThread = new CommandThread();
-						commandThread.start();
+						stopDebian();
 					}
 				});
 			} else {
@@ -259,14 +280,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				startStopButton.setText(R.string.title_start);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View view) {
-						if (useWakeLock)
-							wl.acquire();
-						command = new String("./start-debian.sh" + NativeHelper.args
-								+ " && " + NativeHelper.app_bin + "/chroot "
-								+ NativeHelper.mnt + " /bin/bash -c \""
-								+ NativeHelper.postStartScript + "\"");
-						commandThread = new CommandThread();
-						commandThread.start();
+						startDebian();
 					}
 				});
 			}
