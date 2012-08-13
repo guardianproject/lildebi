@@ -70,6 +70,8 @@ else
     test $fsck_return -lt 4 || exit $fsck_return
 fi
 
+#------------------------------------------------------------------------------#
+# mounts
 
 echo ""
 echo "> losetup $loopdev $imagefile"
@@ -111,6 +113,24 @@ test-mount-bind /mnt/secure/.android_secure
 test-mount-bind /sqlite_stmt_journals
 test-mount-bind /sys/kernel/debug
 test-mount-bind /system
+
+#------------------------------------------------------------------------------#
+# shortcuts for setting up the chroot in the terminal
+
+if [ ! -e /debian/shell ]; then
+    ln -s $app_bin/shell /debian/shell
+fi
+
+if [ ! -e /data/local/bin ]; then
+    mkdir /data/local/bin
+fi
+
+if [ ! -e /data/local/bin/debian ]; then
+    ln -s $app_bin/shell /data/local/bin/debian
+fi
+
+#------------------------------------------------------------------------------#
+# ssh
 
 keygen=/usr/bin/ssh-keygen
 if [ -x ${mnt}${keygen} ]; then
