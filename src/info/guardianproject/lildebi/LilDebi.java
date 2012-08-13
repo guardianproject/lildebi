@@ -49,6 +49,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	private StringBuffer log;
 	private BroadcastReceiver logUpdateReceiver;
 	private BroadcastReceiver commandFinishedReceiver;
+	private BroadcastReceiver mediaEjectReceiver = null;
 	public String command;
 
 	@Override
@@ -85,6 +86,19 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			Log.i(TAG, "savedInstanceState was null");
 
 		installBusyboxSymlinks();
+
+		// if the user tries to unmount the SD Card, try to stop Debian first
+		mediaEjectReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (NativeHelper.mounted)
+					stopDebian();
+			}
+		};
+		IntentFilter eject = new IntentFilter();
+		eject.addDataScheme("file");
+		eject.addAction(Intent.ACTION_MEDIA_EJECT);
+		registerReceiver(mediaEjectReceiver, eject);
 	}
 
 	@Override
@@ -231,6 +245,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
 	private void updateScreenStatus() {
 		String state = Environment.getExternalStorageState();
+		NativeHelper.mounted = false;
 		if (!Environment.MEDIA_MOUNTED.equals(state)) {
 			Toast.makeText(getApplicationContext(), R.string.no_sdcard_message,
 					Toast.LENGTH_LONG).show();
@@ -255,6 +270,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				});
 			} else if (new File(NativeHelper.mnt + "/etc").exists()) {
 				// we have a configured and mounted Debian setup, stop it
+				NativeHelper.mounted = true;
 				statusTitle.setVisibility(View.GONE);
 				statusText.setVisibility(View.GONE);
 				statusText.setText(R.string.mounted_message);

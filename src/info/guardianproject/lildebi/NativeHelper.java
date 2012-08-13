@@ -32,6 +32,7 @@ public class NativeHelper {
 	public static String preStopScript;
 
 	public static boolean isInstallRunning = false;
+	public static boolean mounted = false;
 
 	public static void setup(Context context) {
 		app_bin = context.getDir("bin", Context.MODE_PRIVATE).getAbsoluteFile();
