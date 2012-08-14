@@ -47,8 +47,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	private PowerManager.WakeLock wl;
 	private boolean useWakeLock;
 	private StringBuffer log;
-	private BroadcastReceiver logUpdateReceiver;
-	private BroadcastReceiver commandFinishedReceiver;
+	// we have to keep a copy around of these to prevent them from being GCed
+	private BroadcastReceiver logUpdateReceiver = null;
+	private BroadcastReceiver commandFinishedReceiver = null;
+	private BroadcastReceiver mediaMountedReceiver = null;
 	private BroadcastReceiver mediaEjectReceiver = null;
 	public String command;
 
@@ -112,14 +114,20 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			return;
 		}
 		updateScreenStatus();
-		registerReceivers();
+		registerRuntimeReceivers();
 		updateLog();
+
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		if (prefs.getBoolean(getString(R.string.pref_start_on_mount_key), false))
+			registerMediaMountedReceiver();
+		else
+			unregisterMediaMountedReceiver();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		unregisterReceivers();
+		unregisterRuntimeReceivers();
 	}
 
 	@Override
@@ -357,7 +365,37 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		}
 	}
 
-	private void registerReceivers() {
+	void registerMediaMountedReceiver() {
+		if (mediaMountedReceiver == null) {
+			mediaMountedReceiver = new BroadcastReceiver() {
+				@Override
+				public void onReceive(Context context, Intent intent) {
+					if (new File(NativeHelper.imagename).exists() && new File(NativeHelper.mnt).exists())
+						startDebian();
+				}
+			};
+			IntentFilter filter = new IntentFilter();
+			filter.addDataScheme("file");
+			filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
+			registerReceiver(mediaMountedReceiver, filter);
+			mediaMountedReceiver.setDebugUnregister(true);
+		}
+	}
+
+	void unregisterMediaMountedReceiver() {
+		if (mediaMountedReceiver != null)
+			try {
+				unregisterReceiver(mediaMountedReceiver);
+			} catch (IllegalArgumentException e) {
+				// ugly workaround for bug in Android 2.1 and maybe higher
+				// http://code.google.com/p/android/issues/detail?id=6191
+				Log.w(TAG, "Android project issue 6191 workaround:");
+				e.printStackTrace();
+			}
+	}
+
+	// these receivers are only used when the app is running in the foreground
+	private void registerRuntimeReceivers() {
 		logUpdateReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
@@ -376,10 +414,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				LilDebi.COMMAND_FINISHED));
 	}
 
-	private void unregisterReceivers() {
+	private void unregisterRuntimeReceivers() {
 		if (logUpdateReceiver != null)
 			unregisterReceiver(logUpdateReceiver);
-
 		if (commandFinishedReceiver != null)
 			unregisterReceiver(commandFinishedReceiver);
 	}

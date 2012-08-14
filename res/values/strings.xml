@@ -4,9 +4,9 @@
     <string name="app_name">Lil\' Debi</string>
     <string name="unsupported_device_body">Your device is not supported by LilDebi for installing Debian.  It needs to support the "ext2" filesystem and loopback mounting of files as disks. Therefore, this app is useless to you, we recommend uninstalling it.</string>
     <string name="uninstall_button_title">Uninstall LilDebi</string>
-    <string name="pref_start_on_boot_key">pref_start_on_boot_key</string>
-    <string name="pref_start_on_boot_title">Start on Boot?</string>
-    <string name="pref_start_on_boot_summary">Automatically start Debian when your phone starts</string>
+    <string name="pref_start_on_mount_key">pref_start_on_mount_key</string>
+    <string name="pref_start_on_mount_title">Start on SD Card Mount?</string>
+    <string name="pref_start_on_mount_summary">Automatically start Debian whenever your SD Card is mounted</string>
     <string name="pref_post_start_key">pref_post_start_key</string>
     <string name="pref_post_start_title">Post-start Script</string>
     <string name="pref_post_start_summary">Script to run after Debian is started (default: /etc/init.d/ssh start)</string>
