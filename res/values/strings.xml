@@ -4,18 +4,14 @@
     <string name="app_name">Lil\' Debi</string>
     <string name="unsupported_device_body">Your device is not supported by LilDebi for installing Debian.  It needs to support the "ext2" filesystem and loopback mounting of files as disks. Therefore, this app is useless to you, we recommend uninstalling it.</string>
     <string name="uninstall_button_title">Uninstall LilDebi</string>
-    <string name="pref_start_on_mount_key">pref_start_on_mount_key</string>
     <string name="pref_start_on_mount_title">Start on SD Card Mount?</string>
     <string name="pref_start_on_mount_summary">Automatically start Debian whenever your SD Card is mounted</string>
-    <string name="pref_post_start_key">pref_post_start_key</string>
     <string name="pref_post_start_title">Post-start Script</string>
     <string name="pref_post_start_summary">Script to run after Debian is started (default: /etc/init.d/ssh start)</string>
-    <string name="pref_pre_stop_key">pref_pre_stop_key</string>
     <string name="pref_pre_stop_title">Pre-stop Script</string>
     <string name="pref_pre_stop_summary">Script to run before Debian is stopped (default: /etc/init.d/ssh stop)</string>
     <string name="default_post_start_script">/etc/init.d/ssh start</string>
     <string name="default_pre_stop_script">/etc/init.d/ssh stop</string>
-    <string name="pref_prevent_sleep_key">pref_prevent_sleep_key</string>
     <string name="pref_prevent_sleep_title">Prevent Sleep</string>
     <string name="pref_prevent_sleep_summary">prevent the device from sleeping while Debian is running</string>
     <string name="menu_preferences_title">Preferences</string>
@@ -46,5 +42,11 @@
     <string name="title_share_button">Share</string>
     <string name="starting_debian">Started Debian…</string>
     <string name="stopping_debian">Stopped Debian…</string>
+
+    <!-- DO NOT TRANSLATE (these are just keys used in the programming) -->
+    <string name="pref_start_on_mount_key">pref_start_on_mount_key</string>
+    <string name="pref_prevent_sleep_key">pref_prevent_sleep_key</string>
+    <string name="pref_post_start_key">pref_post_start_key</string>
+    <string name="pref_pre_stop_key">pref_pre_stop_key</string>
 
 </resources>
