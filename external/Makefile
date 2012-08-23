@@ -16,7 +16,7 @@ EXTERNAL_ROOT = $(PROJECT_ROOT)/external
 ASSETS = $(PROJECT_ROOT)/assets
 
 # Android NDK setup
-NDK_BASE ?=  /usr/local/android-ndk
+NDK_BASE ?=  /opt/android-ndk
 NDK_PLATFORM_LEVEL ?= 9
 NDK_SYSROOT=$(NDK_BASE)/platforms/android-$(NDK_PLATFORM_LEVEL)/arch-arm
 NDK_UNAME := $(shell uname -s | tr '[A-Z]' '[a-z]')

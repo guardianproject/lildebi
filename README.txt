@@ -62,7 +62,7 @@ in the terminal:
   cd lildebi
   git submodule init
   git submodule update
-  make -C external assets
+  make NDK_BASE=/path/to/your/android-ndk -C external assets
   ./update-ant-build.sh
   ant debug
 
