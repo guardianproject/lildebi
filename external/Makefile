@@ -71,6 +71,8 @@ $(EXTERNAL_ROOT)/pkgdetails/pkgdetails: $(EXTERNAL_ROOT)/pkgdetails/pkgdetails.c
 
 $(EXTERNAL_ROOT)/busybox/.config: $(EXTERNAL_ROOT)/busybox_config
 	cp $(EXTERNAL_ROOT)/busybox_config $(EXTERNAL_ROOT)/busybox/.config
+	sed -i "s|^CONFIG_SYSROOT=.*|CONFIG_SYSROOT=\"$(NDK_SYSROOT)\"|" \
+		$(EXTERNAL_ROOT)/busybox/.config
 
 $(EXTERNAL_ROOT)/busybox/busybox: $(EXTERNAL_ROOT)/busybox/.config
 # I haven't found a reliable way to install/uninstall a patch from a Makefile,
