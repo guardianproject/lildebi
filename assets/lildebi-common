@@ -40,7 +40,6 @@ test -d $sdcard || echo "sdcard: '$sdcard' not a directory"
 test -z $imagefile && echo "imagefile: '$imagefile' is empty"
 test -z $mnt && echo "mnt: '$mnt' is empty"
 
-loopdev=/dev/block/loop7
 busybox_path="$app_bin"
 busybox=$busybox_path/busybox
 
@@ -67,3 +66,20 @@ remove_root_symlinks () {
     done
     mount -oremount,ro rootfs /
 }
+
+find_free_loopdev () {
+    # on Android 'losetup -f' doesn't reliably return a device that will
+    # actually work, so instead we query the existing loop devices to see if
+    # anything is attached, and return the first one found that has nothing
+    # attached
+    for loopdev in `$app_bin/ls -1 /dev/block/loop*`; do
+        if  ! `$app_bin/losetup $loopdev > /dev/null 2>&1`; then
+            echo $loopdev
+            return
+        fi
+    done
+    # if the above doesn't succeed, ask the system as a fallback
+    echo `$app_bin/losetup -f`
+}
+
+loopdev=`find_free_loopdev`
