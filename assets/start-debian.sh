@@ -87,7 +87,7 @@ fi
 echo ""
 echo "root mount for everything Debian"
 # root mount for everything Debian
-mount -t ext2 $loopdev $mnt
+mount $loopdev $mnt
 
 mount -t devpts devpts $mnt/dev/pts
 mount -t proc proc $mnt/proc
