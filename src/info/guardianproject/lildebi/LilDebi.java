@@ -58,10 +58,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		NativeHelper.setup(getApplicationContext());
-		
-		// if(! DebiHelper.app_bin.exists())
-		NativeHelper.unzipDebiFiles(this);
-		// TODO figure out how to manage the scripts on upgrades, etc.
 
 		setContentView(R.layout.lildebi);
 		statusTitle = (TextView) findViewById(R.id.statusTitle);
@@ -87,6 +83,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		else
 			Log.i(TAG, "savedInstanceState was null");
 
+		NativeHelper.installOrUpgradeAppBin(this);
 		installBusyboxSymlinks();
 
 		// if the user tries to unmount the SD Card, try to stop Debian first

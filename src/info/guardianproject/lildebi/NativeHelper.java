@@ -6,10 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Calendar;
+import java.util.Scanner;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
 import android.os.Environment;
 import android.os.StatFs;
@@ -23,6 +27,7 @@ public class NativeHelper {
 	public static File install_log;
 	public static File publicFiles;
 	public static File sh;
+	public static File versionFile;
 	public static String sdcard;
 	public static String imagename;
 	public static String mnt;
@@ -43,11 +48,64 @@ public class NativeHelper {
 				"Android/data/" + context.getPackageName() + "/files/");
 		publicFiles.mkdirs();
 		sh = new File(app_bin, "sh");
+		versionFile = new File(app_bin, "VERSION");
 		sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
 		imagename = sdcard + "/debian.img";
 		mnt = "/debian";
 		args = new String(" " + app_bin.getAbsolutePath() + " " + sdcard + " "
 				+ imagename + " " + mnt + " ");
+	}
+
+	private static int readVersionFile() {
+		if (! versionFile.exists()) return 0;
+		Scanner in;
+		int versionCode = 0;
+		try {
+			in = new Scanner(versionFile);
+			versionCode = Integer.parseInt(in.next());
+			in.close();
+		} catch (Exception e) {
+			Log.e(LilDebi.TAG, "Can't read app version file: " + e.getLocalizedMessage());
+		}
+		return versionCode;
+	}
+
+	private static void writeVersionFile(Context context) {
+		try {
+			PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+			FileOutputStream fos = new FileOutputStream(versionFile);
+			OutputStreamWriter out = new OutputStreamWriter(fos);
+			out.write(String.valueOf(pInfo.versionCode) + "\n");
+			out.close();
+			fos.close();
+		} catch (Exception e) {
+			Log.e(LilDebi.TAG, "Can't write app version file: " + e.getLocalizedMessage());
+		}
+	}
+
+	private static int getCurrentVersionCode(Context context) {
+		try {
+			PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+			return pInfo.versionCode;
+		} catch (Exception e) {
+			Log.e(LilDebi.TAG, "Can't get app version: " + e.getLocalizedMessage());
+			return 0;
+		}
+	}
+
+	private static void renameOldAppBin() {
+		String moveTo = app_bin.toString();
+		Calendar now = Calendar.getInstance();
+		int version = readVersionFile();
+		if (version == 0) {
+			moveTo += ".old";
+		} else {
+			moveTo += ".build" + String.valueOf(version);
+		}
+		moveTo += "." + String.valueOf(now.getTimeInMillis());
+		Log.i(LilDebi.TAG, "Moving " + app_bin + " to " + moveTo);
+		app_bin.renameTo(new File(moveTo));
+		app_bin.mkdir(); // Android normally creates this at onCreate()
 	}
 
 	public static void unzipDebiFiles(Context context) {
@@ -64,7 +122,7 @@ public class NativeHelper {
 					continue;
 
 				int BUFFER = 2048;
-				final File file = new File(NativeHelper.app_bin, asset);
+				final File file = new File(app_bin, asset);
 				InputStream tmp;
 				try {
 					tmp = am.open(asset);
@@ -111,6 +169,29 @@ public class NativeHelper {
 		chmod(0755, new File(app_bin, "pkgdetails"));
 		chmod(0755, new File(app_bin, "gpgv"));
 		chmod(0755, new File(app_bin, "busybox"));
+		writeVersionFile(context);
+	}
+
+	public static void installOrUpgradeAppBin(Context context) {
+		if (versionFile.exists()) {
+			if (getCurrentVersionCode(context) > readVersionFile()) {
+				Log.i(LilDebi.TAG, "Upgrading '" + app_bin + "'");
+				// upgrade, rename current app_bin, then unpack
+				renameOldAppBin();
+				unzipDebiFiles(context);
+			} else {
+				Log.i(LilDebi.TAG, "Not upgrading '" + app_bin + "'");
+			}
+		} else {
+			File[] list = app_bin.listFiles();
+			if (list == null || list.length > 0) {
+				Log.i(LilDebi.TAG, "Old, unversioned app_bin dir, upgrading.");
+				renameOldAppBin();
+			} else {
+				Log.i(LilDebi.TAG, "Fresh app_bin install.");
+			}
+			unzipDebiFiles(context);
+		}
 	}
 
 	public static void chmod(int mode, File path) {
