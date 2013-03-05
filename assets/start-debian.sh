@@ -89,6 +89,13 @@ echo "root mount for everything Debian"
 # root mount for everything Debian
 mount $loopdev $mnt
 
+# check error code for the above mount
+mounterr=$?
+if [ $mounterr -ne 0 ] ; then
+    echo "Mounting '$mnt' failed, returned $mounterr"
+    exit
+fi
+
 mount -t devpts devpts $mnt/dev/pts
 mount -t proc proc $mnt/proc
 mount -t sysfs sysfs $mnt/sys
