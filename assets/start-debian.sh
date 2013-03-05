@@ -55,12 +55,13 @@ echo "imagefile: $imagefile"
 echo "loopdev: $loopdev"
 
 echo ""
-for f in /system/bin/e2fsck /system/bin/fsck.ext2 $app_bin/fsck.ext2; do
-    if [ -x $f ]; then
-        fsck=$f
-        break
-    fi
-done
+# use offical fsck if it exists, other use included one if it exists
+if [ -x /system/bin/e2fsck ]; then
+    fsck=/system/bin/e2fsck
+elif [ -x $app_bin/e2fsck.static ]; then
+    fsck=$app_bin/e2fsck.static
+fi
+
 if [ -z $fsck ]; then
     echo "NO fsck FOUND, SKIPPING DISK CHECK!"
 else
