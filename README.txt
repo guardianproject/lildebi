@@ -110,3 +110,14 @@ this project. The binary is built from source using the gnupg-for-android
 build system.  The binary ends up in external/data/ called gpgv2-static.  To
 build it yourself, follow the included instructions.
 
+
+e2fsck
+------
+http://packages.debian.org/squeeze/e2fsck-static
+
+Maybe Android devices ship without an fsck program to check ext2/3/4
+filesystems even tho ext4 is the default filesystem for Android since 4.0.
+Since building e2fsck is tricky, especially for Android, Lil' Debi uses the
+Debian package for a static e2fsck build for ARMel, which is fully compatible
+with the Android ARM ABI.  To get the original sources and build process, see
+the official Debian page and packaging for e2fsck-static.

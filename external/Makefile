@@ -56,10 +56,12 @@ ALL_LDFLAGS += -Wl,--gc-sections
 
 all: $(EXTERNAL_ROOT)/pkgdetails/pkgdetails $(EXTERNAL_ROOT)/busybox/busybox
 	make -C $(EXTERNAL_ROOT)/debootstrap
+	make -C $(EXTERNAL_ROOT)/e2fsck
 
 assets: all
 	install $(EXTERNAL_ROOT)/pkgdetails/pkgdetails \
 		$(EXTERNAL_ROOT)/busybox/busybox \
+		$(EXTERNAL_ROOT)/e2fsck/e2fsck.static \
 		$(EXTERNAL_ROOT)/debootstrap/debootstrap.tar.bz2 \
 		$(ASSETS)/
 	$(STRIP) $(ASSETS)/pkgdetails
@@ -91,6 +93,7 @@ clean:
 		patch -N -R -p1 --reject-file=- < ../003-mount-umount-fsck-df.patch
 	make -C $(EXTERNAL_ROOT)/busybox/ clean
 	make -C $(EXTERNAL_ROOT)/debootstrap/ clean
+	make -C $(EXTERNAL_ROOT)/e2fsck/ clean
 
 distclean: clean
 	rm -f -- $(ASSETS)/pkgdetails
