@@ -105,3 +105,8 @@ find_loopdev () {
 }
 
 loopdev=`find_loopdev`
+
+
+find_best_filesystem () {
+    $app_bin/grep 'ext[234]' /proc/filesystems | $app_bin/sort | $app_bin/tail -1
+}

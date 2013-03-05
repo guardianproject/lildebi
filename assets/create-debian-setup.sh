@@ -206,6 +206,16 @@ chroot $mnt apt-get update
 # install/configure a default locale first to tame the warnings
 chroot $mnt apt-get -y install locales
 
+# convert to ext3, if that's available. for some reason unknown to me, Android
+# shows the loop devices as /dev/block/loop[0-7] while those same devices show
+# up as /dev/loop[0-7] un Debian. tune2fs needs /proc mounted so it can read
+# /proc/mounts via the /etc/mtab symlink.
+if `grep -q -s ext3 /proc/filesystems`; then
+    mount -t proc proc $mnt/proc
+    chroot $mnt tune2fs -j `echo $loopdev | sed s,block/,,`
+    umount $mnt/proc
+fi
+
 # *  install and start sshd so you can easily log in, and before
 #    stop/start so the start script starts sshd.  Also,
 # * 'policyrcd-script-zg2' sets up the machine for starting and stopping
