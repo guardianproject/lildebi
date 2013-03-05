@@ -135,6 +135,7 @@ create_mountpoint /media
 create_mountpoint /mnt
 create_mountpoint /proc
 create_mountpoint /sys
+create_mountpoint /sys/kernel
 create_mountpoint /sys/kernel/debug
 create_mountpoint /tmp
 # Android mounts
