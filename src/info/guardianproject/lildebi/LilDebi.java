@@ -83,6 +83,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		else
 			Log.i(TAG, "savedInstanceState was null");
 
+		NativeHelper.log = log;
 		NativeHelper.installOrUpgradeAppBin(this);
 		installBusyboxSymlinks();
 
