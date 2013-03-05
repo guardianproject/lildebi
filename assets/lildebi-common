@@ -67,6 +67,10 @@ remove_root_symlinks () {
     mount -oremount,ro rootfs /
 }
 
+find_mounted_loopdev () {
+    $app_bin/sed -n "s|^\(/dev/.*loop[0-9][0-9]*\) $mnt .*|\1|p" /proc/mounts
+}
+
 find_free_loopdev () {
     # on Android 'losetup -f' doesn't reliably return a device that will
     # actually work, so instead we query the existing loop devices to see if
@@ -82,4 +86,22 @@ find_free_loopdev () {
     echo `$app_bin/losetup -f`
 }
 
-loopdev=`find_free_loopdev`
+find_attached_loopdev () {
+    for loopdev in `$app_bin/ls -1 /dev/block/loop*`; do
+        if `$app_bin/losetup $loopdev 2>&1 | grep -q $imagefile`; then
+            echo $loopdev
+            return
+        fi
+    done
+}
+
+find_loopdev () {
+    loopdev=`find_attached_loopdev`
+    if [ -z $loopdev ]; then
+        echo `find_free_loopdev`
+    else
+        echo $loopdev
+    fi
+}
+
+loopdev=`find_loopdev`

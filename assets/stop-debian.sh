@@ -34,16 +34,9 @@ else
     done
 
     umount $mnt
-    
-    # remove loopback mount association
-    TEST=`losetup $loopdev | grep $imagefile || echo stopped`
-    if [ "$TEST" != "stopped" ]; then
-        echo "> losetup -d $loopdev"
-        losetup -d $loopdev
-    else
-        echo "losetup test result: $TEST"
-        losetup $loopdev
-    fi
+
+    echo "Deleting loopback device..."
+    losetup -d `find_attached_loopdev`
     
     echo ""
     echo "Debian chroot stopped and unmounted."
