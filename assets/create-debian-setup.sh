@@ -220,7 +220,7 @@ chroot $mnt /etc/init.d/ssh stop
 
 # stop and restart setup to make sure everything is mounted, etc.
 echo "stop and restart setup to make sure everything is mounted, etc."
-$app_bin/stop-debian.sh $app_bin $sdcard $imagefile $mnt
+$app_bin/stop-debian.sh $app_bin $sdcard $imagefile $mnt || exit
 $app_bin/start-debian.sh $app_bin $sdcard $imagefile $mnt
 
 

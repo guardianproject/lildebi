@@ -26,6 +26,7 @@ if [ ! -z "$openfiles" ]; then
 
     echo ""
     echo "Not stopping debian because of open files, quit all processes and running shell sessions!"
+    exit 1
 else
     echo "unmounting everything"
     # sort reverse so it gets the nested mounts first
