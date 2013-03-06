@@ -24,7 +24,7 @@ public class InstallLogViewActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.install_log_view);
-		new LoadLogTask().execute(null);
+		new LoadLogTask().execute((Void[])null);
 		Button shareButton = (Button) findViewById(R.id.shareButton);
 		shareButton.setOnClickListener(new OnClickListener() {
 			@Override
