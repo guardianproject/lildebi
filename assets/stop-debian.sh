@@ -34,7 +34,7 @@ else
         $busybox_path/umount -f $mount
     done
 
-    umount $mnt
+    umount -d $mnt
 
     echo "Deleting loopback device..."
     losetup -d `find_attached_loopdev`
