@@ -198,6 +198,9 @@ touch $mnt/etc/apt/sources.list
 echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
 echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
 
+# purge install packages in cache
+chroot $mnt apt-get clean
+
 chroot $mnt apt-get update
 
 # install/configure a default locale first to tame the warnings
@@ -225,7 +228,7 @@ $app_bin/start-debian.sh $app_bin $sdcard $imagefile $mnt
 
 
 # purge install packages in cache
-chroot $mnt apt-get autoclean
+chroot $mnt apt-get clean
 
 # run 'apt-get upgrade' to get the security updates
 chroot $mnt apt-get -y upgrade
