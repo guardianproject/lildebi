@@ -43,6 +43,8 @@ test -z $mnt && echo "mnt: '$mnt' is empty"
 busybox_path="$app_bin"
 busybox=$busybox_path/busybox
 
+fsck_chroot=`dirname $app_bin`/fsck-chroot
+
 make_root_symlinks () {
     wd=`pwd`
     cd /
@@ -109,4 +111,20 @@ loopdev=`find_loopdev`
 
 find_best_filesystem () {
     $app_bin/grep 'ext[234]' /proc/filesystems | $app_bin/sort | $app_bin/tail -1
+}
+
+
+# We include Debian's e2fsck.static, which needs to check /etc/mtab to make
+# sure the filesystem being check is not currently mounted. on Android, /etc
+# is actually /system/etc, so in order to avoid modifying /system, we setup a
+# special minimal chroot just for running e2fsck.static
+
+create_e2fsck_chroot () {
+    echo "Setting up chroot for e2fsck.static"
+    mkdir -p $fsck_chroot/`dirname $imagefile`
+    mkdir $fsck_chroot/app_bin
+    mkdir $fsck_chroot/dev
+    mkdir $fsck_chroot/etc
+    mkdir $fsck_chroot/proc
+    ln -s /proc/mounts $fsck_chroot/etc/mtab
 }

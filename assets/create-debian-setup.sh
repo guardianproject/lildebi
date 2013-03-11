@@ -207,6 +207,14 @@ if [ -d /debian ]; then
     ln -s $app_bin/shell /data/local/bin/debian
 fi
 
+# set up chroot for e2fsck
+echo "set up chroot for e2fsck"
+create_e2fsck_chroot
+
+#------------------------------------------------------------------------------#
+# finish tweaking Debian install
+echo "finish tweaking Debian install"
+
 # purge install packages in cache
 chroot $mnt apt-get clean
 
