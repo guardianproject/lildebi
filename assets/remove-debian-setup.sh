@@ -32,3 +32,14 @@ if [ -h /bin ]; then
     rm /bin
 fi
 mount -o remount,ro rootfs /
+
+#------------------------------------------------------------------------------#
+# shortcuts for setting up the chroot in the terminal
+
+if [ -e /data/local/bin/debian ]; then
+    rm /data/local/bin/debian
+fi
+
+if [ -d /data/local/bin ]; then
+    rmdir /data/local/bin
+fi
