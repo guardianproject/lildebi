@@ -13,22 +13,21 @@ test -e $1/lildebi-common || exit
 
 $1/stop-debian.sh
 
+set -x
+
 # force umount if stop-debian.sh failed
 test -d $mnt/usr && umount -f $mnt
 losetup -d $loopdev
 
-echo rm $imagefile
 rm $imagefile
 
 mount -o remount,rw rootfs /
 if [ -d $mnt ]; then
-    echo rmdir $mnt
     rmdir $mnt
 fi
 
 # if the /bin symlink exists, delete it
 if [ -h /bin ]; then
-    echo rm /bin
     rm /bin
 fi
 mount -o remount,ro rootfs /
