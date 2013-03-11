@@ -198,6 +198,15 @@ touch $mnt/etc/apt/sources.list
 echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
 echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
 
+# install script that sets up a shell in the chroot for you
+echo "installing '/debian/shell' for easy way to get to chroot from term"
+if [ -d /debian ]; then
+    cp $app_bin/shell /debian/shell
+    chmod 755 /debian/shell
+    test -e /data/local/bin || mkdir /data/local/bin
+    ln -s $app_bin/shell /data/local/bin/debian
+fi
+
 # purge install packages in cache
 chroot $mnt apt-get clean
 
@@ -246,12 +255,5 @@ chroot $mnt apt-get -y upgrade
 # purge upgrade packages in cache
 chroot $mnt apt-get autoclean
 
-
-# install script that sets up a shell in the chroot for you
-echo "installing '/debian/shell' for easy way to get to chroot from term"
-if [ -d /debian ]; then
-    cp $app_bin/shell /debian/shell
-    chmod 755 /debian/shell
-fi
 
 echo "Debian is installed and ssh started!"
