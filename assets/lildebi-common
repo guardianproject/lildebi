@@ -45,6 +45,9 @@ busybox=$busybox_path/busybox
 
 fsck_chroot=`dirname $app_bin`/fsck-chroot
 
+# keep all files private to this app
+umask 077
+
 make_root_symlinks () {
     wd=`pwd`
     cd /
