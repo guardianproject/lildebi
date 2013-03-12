@@ -43,10 +43,11 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	public static final String LOG_UPDATE = "LOG_UPDATE";
 	public static final String COMMAND_FINISHED = "COMMAND_FINISHED";
 
+	static StringBuffer log = null;
+
 	private CommandThread commandThread;
 	private PowerManager.WakeLock wl;
 	private boolean useWakeLock;
-	private StringBuffer log;
 	// we have to keep a copy around of these to prevent them from being GCed
 	private BroadcastReceiver logUpdateReceiver = null;
 	private BroadcastReceiver commandFinishedReceiver = null;
@@ -77,13 +78,13 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "StartStopWakeLock");
 
-		log = new StringBuffer();
+		if(log == null);
+			log = new StringBuffer();
 		if (savedInstanceState != null)
 			log.append(savedInstanceState.getString("log"));
 		else
 			Log.i(TAG, "savedInstanceState was null");
 
-		NativeHelper.log = log;
 		NativeHelper.installOrUpgradeAppBin(this);
 		installBusyboxSymlinks();
 
