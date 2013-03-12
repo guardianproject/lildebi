@@ -45,6 +45,8 @@ busybox=$busybox_path/busybox
 
 fsck_chroot=`dirname $app_bin`/fsck-chroot
 
+sha1file=`dirname $app_bin`/`basename $imagefile.sha1`
+
 # keep all files private to this app
 umask 077
 

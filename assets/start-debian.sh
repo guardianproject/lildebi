@@ -52,7 +52,20 @@ echo "app_bin: $app_bin"
 echo "mnt: $mnt"
 echo "sdcard: $sdcard"
 echo "imagefile: $imagefile"
+echo "sha1file: $sha1file"
 echo "loopdev: $loopdev"
+
+if [ -e $sha1file ]; then
+    echo "Checking SHA1 checksum of $imagefile..."
+    cp $sha1file `dirname $imagefile`
+    if `$app_bin/sha1sum -c $sha1file`; then
+        echo "SHA1 checksum failed, exiting!"
+        exit
+    else
+        echo "Done!"
+    fi
+fi
+
 
 echo ""
 # use offical fsck if it exists, other use included one if it exists

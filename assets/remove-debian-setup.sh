@@ -20,6 +20,7 @@ test -d $mnt/usr && umount -f $mnt
 losetup -d $loopdev
 
 rm $imagefile
+rm $imagefile.sha1
 
 mount -o remount,rw rootfs /
 if [ -d $mnt ]; then

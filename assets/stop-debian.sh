@@ -41,4 +41,11 @@ else
     
     echo ""
     echo "Debian chroot stopped and unmounted."
+    if [ -e $sha1file ]; then
+        echo "Calculating new SHA1 checksum of $imagefile..."
+        $app_bin/sha1sum $imagefile > $sha1file
+        chmod 0600 $sha1file
+        cp $sha1file `dirname $imagefile`
+        echo "Done!"
+    fi
 fi

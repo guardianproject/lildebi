@@ -13,6 +13,12 @@
         android:summary="@string/pref_prevent_sleep_summary"
         android:title="@string/pref_prevent_sleep_title" />
 
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/pref_use_checksum_key"
+        android:summary="@string/pref_use_checksum_summary"
+        android:title="@string/pref_use_checksum_title" />
+
     <EditTextPreference
         android:defaultValue="@string/default_post_start_script"
         android:inputType="textNoSuggestions"

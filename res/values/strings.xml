@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-
     <string name="app_name">Lil\' Debi</string>
     <string name="unsupported_device_body">Your device is not supported by LilDebi for installing Debian.  It needs to support the "ext2" filesystem and loopback mounting of files as disks. Therefore, this app is useless to you, we recommend uninstalling it.</string>
     <string name="uninstall_button_title">Uninstall LilDebi</string>
     <string name="pref_start_on_mount_title">Start on SD Card Mount?</string>
     <string name="pref_start_on_mount_summary">Automatically start Debian whenever your SD Card is mounted</string>
+    <string name="pref_use_checksum_title">Checksum Image on Start?</string>
+    <string name="pref_use_checksum_summary">Before booting, check the SHA1 checksum of the image to verify its integrity.</string>
     <string name="pref_post_start_title">Post-start Script</string>
     <string name="pref_post_start_summary">Script to run after Debian is started (default: /etc/init.d/ssh start)</string>
     <string name="pref_pre_stop_title">Pre-stop Script</string>
@@ -42,11 +43,12 @@
     <string name="title_share_button">Share</string>
     <string name="starting_debian">Started Debian…</string>
     <string name="stopping_debian">Stopped Debian…</string>
-
+    <string name="calculating_checksum">Calculating SHA1 checksum…</string>
+    <string name="checksum_complete">SHA1 checksum complete!</string>
     <!-- DO NOT TRANSLATE (these are just keys used in the programming) -->
     <string name="pref_start_on_mount_key">pref_start_on_mount_key</string>
     <string name="pref_prevent_sleep_key">pref_prevent_sleep_key</string>
+    <string name="pref_use_checksum_key">pref_use_checksum_key</string>
     <string name="pref_post_start_key">pref_post_start_key</string>
     <string name="pref_pre_stop_key">pref_pre_stop_key</string>
-
 </resources>
