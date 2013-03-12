@@ -80,7 +80,7 @@ elif [ -x $app_bin/e2fsck.static ]; then
     # filesystem being check is not currently mounted. on Android, /etc is
     # actually /system/etc, so in order to avoid modifying /system, we run
     # e2fsck.static in a special minimal chroot.
-    test -e $fsck_chroot || create_e2fsck_chroot
+    create_e2fsck_chroot
     imagedir=`dirname $imagefile`
     mount -o bind $app_bin $fsck_chroot/app_bin
     mount -o bind /dev $fsck_chroot/dev

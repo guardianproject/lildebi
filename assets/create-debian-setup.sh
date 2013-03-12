@@ -207,7 +207,10 @@ if [ -d /debian ]; then
     ln -s $app_bin/shell /data/local/bin/debian
 fi
 
-# set up chroot for e2fsck
+# Debian's e2fsck.static needs to check /etc/mtab to make sure the
+# filesystem being check is not currently mounted. on Android, /etc is
+# actually /system/etc, so in order to avoid modifying /system, we run
+# e2fsck.static in a special minimal chroot.
 echo "set up chroot for e2fsck"
 create_e2fsck_chroot
 

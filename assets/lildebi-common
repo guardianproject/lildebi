@@ -124,12 +124,18 @@ find_best_filesystem () {
 # is actually /system/etc, so in order to avoid modifying /system, we setup a
 # special minimal chroot just for running e2fsck.static
 
+test_or_create_dir () {
+    test -e $1 || mkdir -p $1
+}
+
 create_e2fsck_chroot () {
     echo "Setting up chroot for e2fsck.static"
-    mkdir -p $fsck_chroot/`dirname $imagefile`
-    mkdir $fsck_chroot/app_bin
-    mkdir $fsck_chroot/dev
-    mkdir $fsck_chroot/etc
-    mkdir $fsck_chroot/proc
-    ln -s /proc/mounts $fsck_chroot/etc/mtab
+    test_or_create_dir $fsck_chroot
+    test_or_create_dir $fsck_chroot/`dirname $imagefile`
+    test_or_create_dir $fsck_chroot/app_bin
+    test_or_create_dir $fsck_chroot/dev
+    test_or_create_dir $fsck_chroot/etc
+    test_or_create_dir $fsck_chroot/proc
+    test -e $fsck_chroot/etc/mtab || \
+        ln -s /proc/mounts $fsck_chroot/etc/mtab
 }
