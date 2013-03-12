@@ -133,7 +133,10 @@ mount -t sysfs sysfs $mnt/sys
 mount -t tmpfs tmpfs $mnt/tmp
 mount -o bind $sdcard $mnt/mnt/sdcard
 
-# mount other android mounts, these may vary, so test first
+# mount other android mounts, these may vary device to device, so test
+# first. These are manually listed out here rather than automatically greped
+# from /proc/mounts since some of the mounts should not be mounted as 'bind',
+# e.g. things like /proc, /sys, /dev/pts, etc.
 test_mount_bind /acct
 test_mount_bind /app-cache
 test_mount_bind /cache
@@ -148,6 +151,7 @@ test_mount_bind /mnt/secure/asec
 test_mount_bind /mnt/sdcard/external_sd
 test_mount_bind /mnt/sdcard/external_sd/.android_secure
 test_mount_bind /mnt/secure/.android_secure
+test_mount_bind /pds
 test_mount_bind /sqlite_stmt_journals
 test_mount_bind /sys/kernel/debug
 test_mount_bind /system
