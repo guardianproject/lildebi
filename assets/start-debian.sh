@@ -14,7 +14,7 @@ echo "./start-debian.sh"
 test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
-test-mount-bind() {
+test_mount_bind() {
     test -d $1 && \
         grep " $1 " /proc/mounts && \
         mount -o bind $1 $mnt/$1
@@ -134,23 +134,23 @@ mount -t tmpfs tmpfs $mnt/tmp
 mount -o bind $sdcard $mnt/mnt/sdcard
 
 # mount other android mounts, these may vary, so test first
-test-mount-bind /acct
-test-mount-bind /app-cache
-test-mount-bind /cache
-test-mount-bind /data
-test-mount-bind /dbdata
-test-mount-bind /dev/cpuctl
-test-mount-bind /efs
-test-mount-bind /mnt/.lfs
-test-mount-bind /mnt/asec
-test-mount-bind /mnt/obb
-test-mount-bind /mnt/secure/asec
-test-mount-bind /mnt/sdcard/external_sd
-test-mount-bind /mnt/sdcard/external_sd/.android_secure
-test-mount-bind /mnt/secure/.android_secure
-test-mount-bind /sqlite_stmt_journals
-test-mount-bind /sys/kernel/debug
-test-mount-bind /system
+test_mount_bind /acct
+test_mount_bind /app-cache
+test_mount_bind /cache
+test_mount_bind /data
+test_mount_bind /dbdata
+test_mount_bind /dev/cpuctl
+test_mount_bind /efs
+test_mount_bind /mnt/.lfs
+test_mount_bind /mnt/asec
+test_mount_bind /mnt/obb
+test_mount_bind /mnt/secure/asec
+test_mount_bind /mnt/sdcard/external_sd
+test_mount_bind /mnt/sdcard/external_sd/.android_secure
+test_mount_bind /mnt/secure/.android_secure
+test_mount_bind /sqlite_stmt_journals
+test_mount_bind /sys/kernel/debug
+test_mount_bind /system
 
 #------------------------------------------------------------------------------#
 # shortcuts for setting up the chroot in the terminal
