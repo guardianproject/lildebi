@@ -155,9 +155,14 @@ create_mountpoint /mnt/sdcard/external_sd/.android_secure
 create_mountpoint /mnt/secure
 create_mountpoint /mnt/secure/asec
 create_mountpoint /mnt/secure/.android_secure
+create_mountpoint /mnt/shell
+create_mountpoint /mnt/shell/emulated
 create_mountpoint /pds
 create_mountpoint /sqlite_stmt_journals
 create_mountpoint /storage
+create_mountpoint /storage/emulated
+create_mountpoint /storage/emulated/0
+create_mountpoint /storage/emulated/legacy
 create_mountpoint /storage/sdcard0
 create_mountpoint /storage/sdcard1
 create_mountpoint /storage/usbdisk
