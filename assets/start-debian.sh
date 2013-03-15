@@ -153,6 +153,9 @@ test_mount_bind /mnt/sdcard/external_sd/.android_secure
 test_mount_bind /mnt/secure/.android_secure
 test_mount_bind /pds
 test_mount_bind /sqlite_stmt_journals
+test_mount_bind /storage/sdcard0
+test_mount_bind /storage/sdcard1
+test_mount_bind /storage/usbdisk
 test_mount_bind /sys/kernel/debug
 test_mount_bind /system
 
