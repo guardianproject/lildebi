@@ -66,39 +66,9 @@ if [ -e $sha1file ]; then
     fi
 fi
 
-
+# use system or lildebi fsck to check Debian partition
 echo ""
-# use offical fsck if it exists, other use included one if it exists
-if [ -x /system/bin/e2fsck ]; then
-    fsck=/system/bin/e2fsck
-    echo "> $fsck -pv $imagefile"
-    $fsck -pv $imagefile
-    fsck_return=$?
-elif [ -x $app_bin/e2fsck.static ]; then
-    fsck=$app_bin/e2fsck.static
-    # Debian's e2fsck.static needs to check /etc/mtab to make sure the
-    # filesystem being check is not currently mounted. on Android, /etc is
-    # actually /system/etc, so in order to avoid modifying /system, we run
-    # e2fsck.static in a special minimal chroot.
-    create_e2fsck_chroot
-    imagedir=`dirname $imagefile`
-    mount -o bind $app_bin $fsck_chroot/app_bin
-    mount -o bind /dev $fsck_chroot/dev
-    mount -o bind /proc $fsck_chroot/proc
-    mount -o bind $imagedir $fsck_chroot/$imagedir
-    echo "> $fsck -pv $imagefile"
-    chroot $fsck_chroot /app_bin/`basename $fsck` -pv $imagefile
-    fsck_return=$?
-    umount $fsck_chroot/app_bin
-    umount $fsck_chroot/dev
-    umount $fsck_chroot/proc
-    umount $fsck_chroot/$imagedir
-else
-    echo "NO fsck FOUND, SKIPPING DISK CHECK!"
-    fsck_return=0
-fi
-
-test $fsck_return -lt 4 || exit $fsck_return
+find_and_run_fsck
 
 
 #------------------------------------------------------------------------------#
