@@ -106,7 +106,7 @@ echo "run debootstrap in two stages"
 
 sh_debootstrap="$app_bin/sh $mnt/usr/sbin/debootstrap"
 
-$sh_debootstrap --verbose $FIRST_KEYRING --arch armel --foreign $release $mnt $mirror || exit
+$sh_debootstrap --verbose --variant=minbase $FIRST_KEYRING --arch armel --foreign $release $mnt $mirror || exit
 
 # now we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
 # need a more Debian-ish PATH
@@ -115,7 +115,7 @@ unset DEBOOTSTRAP_DIR
 # the script will find the included busybox utils in /bin, a link to $app_bin
 export PATH=/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin
 
-chroot $mnt /debootstrap/debootstrap $SECOND_KEYRING --second-stage || exit
+chroot $mnt /debootstrap/debootstrap --variant=minbase $SECOND_KEYRING --second-stage || exit
 
 #------------------------------------------------------------------------------#
 # create mountpoints
@@ -233,7 +233,8 @@ chroot $mnt apt-get clean
 
 chroot $mnt apt-get update
 
-# install/configure a default locale first to tame the warnings
+# install/configure dialog and a default locale first to tame the warnings
+chroot $mnt apt-get -y install --no-install-recommends dialog
 chroot $mnt apt-get -y install locales
 
 # convert to ext3, if that's available. for some reason unknown to me, Android
