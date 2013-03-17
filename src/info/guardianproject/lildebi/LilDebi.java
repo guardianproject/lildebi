@@ -129,6 +129,11 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		unregisterRuntimeReceivers();
 	}
 
+	protected void onDestroy() {
+	    super.onDestroy();
+	    unregisterReceiver(mediaEjectReceiver);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
