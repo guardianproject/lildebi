@@ -1,7 +1,7 @@
 #!/bin/sh
 # this is the common settings for the various scripts here
 
-echo "Initialising shell variables"
+echo "----------------------------------------"
 
 export TERM=linux
 export HOME=/root
@@ -15,6 +15,8 @@ fi
 # use the included utilities first
 app_bin=$1
 export PATH=$app_bin:/usr/sbin:/usr/bin:/sbin:/bin:/system/sbin:/system/bin:/system/xbin
+
+echo `basename $0`
 
 if [ -z $sdcard ]; then
     sdcard=$2

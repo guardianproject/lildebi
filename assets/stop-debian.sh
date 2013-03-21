@@ -9,9 +9,6 @@
 # this script
 export PATH=$1:$PATH
 
-echo "----------------------------------------"
-echo "./stop-debian.sh"
-
 test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
