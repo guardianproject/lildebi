@@ -6,13 +6,11 @@
         android:key="@string/pref_start_on_mount_key"
         android:summary="@string/pref_start_on_mount_summary"
         android:title="@string/pref_start_on_mount_title" />
-
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="@string/pref_prevent_sleep_key"
         android:summary="@string/pref_prevent_sleep_summary"
         android:title="@string/pref_prevent_sleep_title" />
-
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="@string/pref_use_checksum_key"

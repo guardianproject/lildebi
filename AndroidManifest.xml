@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="info.guardianproject.lildebi" android:versionCode="5"
-	android:versionName="0.4">
-	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="17" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.WAKE_LOCK" />
-	<application android:label="LilDebi" android:icon="@drawable/icon" android:allowBackup="false">
-		<activity android:configChanges="keyboard|keyboardHidden|orientation"
-			android:label="@string/app_name" android:name="LilDebi">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-		<activity android:name="InstallActivity" />
-		<activity android:name="SelectRelease" />
-		<activity android:name="SelectMirror" />
-		<activity android:name="UnsupportedDeviceActivity" />
-		<activity android:name="PreferencesActivity" />
-		<activity android:name="InstallLogViewActivity" />
-		<service android:name="InstallService" />
-	</application>
-</manifest> 
+    package="info.guardianproject.lildebi"
+    android:versionCode="5"
+    android:versionName="0.4" >
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/icon"
+        android:label="LilDebi" >
+        <activity
+            android:name="LilDebi"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="InstallActivity" />
+        <activity android:name="SelectRelease" />
+        <activity android:name="SelectMirror" />
+        <activity android:name="UnsupportedDeviceActivity" />
+        <activity android:name="PreferencesActivity" />
+        <activity android:name="InstallLogViewActivity" />
+
+        <service android:name="InstallService" />
+    </application>
+
+</manifest>

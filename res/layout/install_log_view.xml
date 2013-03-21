@@ -13,8 +13,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/title_install_log_view"
             android:gravity="center"
+            android:text="@string/title_install_log_view"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
