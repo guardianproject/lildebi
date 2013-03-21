@@ -228,14 +228,14 @@ create_e2fsck_chroot
 # finish tweaking Debian install
 echo "finish tweaking Debian install"
 
-# purge install packages in cache
-chroot $mnt apt-get clean
-
 chroot $mnt apt-get update
 
 # install/configure dialog and a default locale first to tame the warnings
 chroot $mnt apt-get -y install --no-install-recommends dialog
 chroot $mnt apt-get -y install locales
+
+# purge install packages in cache
+chroot $mnt apt-get clean
 
 # convert to ext3, if that's available. for some reason unknown to me, Android
 # shows the loop devices as /dev/block/loop[0-7] while those same devices show
