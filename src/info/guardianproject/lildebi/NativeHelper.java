@@ -159,6 +159,8 @@ public class NativeHelper {
 		chmod(0644, new File(app_bin, "debootstrap.tar.bz2"));
 		chmod(0644, new File(app_bin, "lildebi-common"));
 		chmod(0755, new File(app_bin, "create-debian-setup.sh"));
+		chmod(0755, new File(app_bin, "complete-debian-setup.sh"));
+		chmod(0755, new File(app_bin, "unmounted-install-tweaks.sh"));
 		chmod(0755, new File(app_bin, "remove-debian-setup.sh"));
 		chmod(0755, new File(app_bin, "configure-downloaded-image.sh"));
 		chmod(0755, new File(app_bin, "start-debian.sh"));
