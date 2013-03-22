@@ -85,7 +85,7 @@ fi
 echo ""
 echo "root mount for everything Debian"
 # root mount for everything Debian
-mount $loopdev $mnt
+mount -t `find_best_filesystem` $loopdev $mnt
 
 # check error code for the above mount
 mounterr=$?
