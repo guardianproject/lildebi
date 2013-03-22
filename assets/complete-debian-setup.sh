@@ -27,6 +27,12 @@ chroot $mnt apt-get -y install --no-install-recommends \
 cp $app_bin/policy-rc.d $mnt/etc/policy-rc.d
 chmod 755 $mnt/etc/policy-rc.d
 
+# sometimes the ssh host keys don't get created, so try again
+test -e $mnt/etc/ssh/ssh_host_rsa_key || \
+    chroot $mnt ssh-keygen -f /etc/ssh/ssh_host_rsa_key -t rsa -N ''
+test -e $mnt/etc/ssh/ssh_host_dsa_key || \
+    chroot $mnt ssh-keygen -f /etc/ssh/ssh_host_dsa_key -t dsa -N ''
+
 # purge install packages in cache
 chroot $mnt apt-get clean
 
