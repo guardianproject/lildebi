@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/data/data/info.guardianproject.lildebi/app_bin/sh
 
 # many phones don't even include 'test', so set the path to our
 # busybox tools first, where we provide all the UNIX tools needed by
