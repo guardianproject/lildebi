@@ -82,15 +82,33 @@ find_mounted_loopdev () {
 
 find_free_loopdev () {
     # on Android 'losetup -f' doesn't reliably return a device that will
-    # actually work, so instead we query the existing loop devices to see if
-    # anything is attached, and return the first one found that has nothing
-    # attached
-    for loopdev in `$app_bin/ls -1 /dev/block/loop*`; do
-        if  ! `$app_bin/losetup $loopdev > /dev/null 2>&1`; then
-            echo $loopdev
-            return
-        fi
-    done
+    # actually work. So instead we iterate through the possible loop devices
+    # and query to see if anything is attached, and return the first one found
+    # that has nothing attached. Missing device files are created on the fly.
+    if [ -e /dev/block/loop0 ]; then
+        # only do this, if the loopback device files are in the location,
+        # we expect
+        i=0 # first device number is 0
+        while [ "$i" -le 255 ]; do # iterate through device numbers,
+                                   # until a free one is found (return below),
+                                   # or we run out of device numbers (255)
+            loopdev="/dev/block/loop$i"
+
+            # create the device file, if it does not yet exist
+            if [ ! -e "$loopdev" ]; then
+                mknod "$loopdev" b 7 $i > /dev/null 2>&1
+            fi
+
+            # check if it is unused; return it, if it's unused.
+            if ! `$app_bin/losetup "$loopdev" > /dev/null 2>&1`; then
+                echo "$loopdev"
+                return
+            fi
+
+            i=$((i+1)); # next device number
+        done
+    fi
+
     # if the above doesn't succeed, ask the system as a fallback
     echo `$app_bin/losetup -f`
 }
