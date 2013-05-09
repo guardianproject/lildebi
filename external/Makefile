@@ -15,12 +15,24 @@ PROJECT_ROOT = $(CWD)/..
 EXTERNAL_ROOT = $(PROJECT_ROOT)/external
 ASSETS = $(PROJECT_ROOT)/assets
 
+# Android now has 64-bit and 32-bit versions of the NDK for GNU/Linux.  We
+# assume that the build platform uses the appropriate version, otherwise the
+# user building this will have to manually set NDK_PROCESSOR or NDK_TOOLCHAIN.
+CPU := $(shell uname -m)
+ifeq ($(CPU),x86_64)
+ NDK_PROCESSOR=x86_64
+else
+ NDK_PROCESSOR=x86
+endif
+
 # Android NDK setup
-NDK_BASE ?=  /opt/android-ndk
+NDK_BASE ?= /opt/android-ndk
 NDK_PLATFORM_LEVEL ?= 9
-NDK_SYSROOT=$(NDK_BASE)/platforms/android-$(NDK_PLATFORM_LEVEL)/arch-arm
-NDK_UNAME := $(shell uname -s | tr '[A-Z]' '[a-z]')
-NDK_TOOLCHAIN=$(NDK_BASE)/toolchains/arm-linux-androideabi-4.4.3/prebuilt/$(NDK_UNAME)-x86
+NDK_ABI=arm
+NDK_SYSROOT=$(NDK_BASE)/platforms/android-$(NDK_PLATFORM_LEVEL)/arch-$(NDK_ABI)
+NDK_UNAME:=`uname -s | tr '[A-Z]' '[a-z]'`
+NDK_COMPILER_VERSION=4.6
+NDK_TOOLCHAIN=$(NDK_BASE)/toolchains/$(NDK_ABI)-linux-androideabi-$(NDK_COMPILER_VERSION)/prebuilt/$(NDK_UNAME)-$(NDK_PROCESSOR)
 
 # to use the real HOST tag, you need the latest libtool files:
 # http://stackoverflow.com/questions/4594736/configure-does-not-recognize-androideabi
