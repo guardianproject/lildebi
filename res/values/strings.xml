@@ -45,10 +45,4 @@
     <string name="stopping_debian">Stopped Debian…</string>
     <string name="calculating_checksum">Calculating SHA1 checksum…</string>
     <string name="checksum_complete">SHA1 checksum complete!</string>
-    <!-- DO NOT TRANSLATE (these are just keys used in the programming) -->
-    <string name="pref_start_on_mount_key">pref_start_on_mount_key</string>
-    <string name="pref_prevent_sleep_key">pref_prevent_sleep_key</string>
-    <string name="pref_use_checksum_key">pref_use_checksum_key</string>
-    <string name="pref_post_start_key">pref_post_start_key</string>
-    <string name="pref_pre_stop_key">pref_pre_stop_key</string>
 </resources>
