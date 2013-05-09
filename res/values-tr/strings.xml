@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="app_name">Lil\' Debi</string>
+  <string name="unsupported_device_body">Cihazınız Debian kurulumu için LilDebi tarafından desteklenmemektedir. LilDebi \"ext2\" dosya sistemini desteğine ve disk üzerindeki bağlanmış dosyaların döngü sınamasına ihtiyaç duyar. Bu nedenle, bu uygulama sizin için kullanışsız, uygulamayı kaldırmanızı öneririz.</string>
+  <string name="uninstall_button_title">Lil\' Debi\'yi kaldır</string>
+  <string name="pref_start_on_mount_title">bağlı olan SD karttan başlatılsın mı ?</string>
+  <string name="pref_start_on_mount_summary">SD kartınız bağlandığında Debian otomatik olarak başlatılır.</string>
+  <string name="pref_use_checksum_title">Başlangıçta imaj doğrulaması yapılsın mı?</string>
+  <string name="pref_use_checksum_summary">Başlatmadan önce , SHA1\'in görünüm bütünlük saglamlıgının tam oldugunu denetleyin.</string>
+  <string name="pref_post_start_title">Başlanıç Sonrası Betiği</string>
+  <string name="pref_post_start_summary">Debian başladıktan sonra betiği çalıştırın (varsayılan: /etc/init.d/ssh start)</string>
+  <string name="pref_pre_stop_title">Durdurma Öncesi Betiği</string>
+  <string name="pref_pre_stop_summary">Debian durdurulmadan önce betiği çalıştırın (varsayılan: /etc/init.d/ssh stop)</string>
+  <string name="default_post_start_script">/etc/init.d/ssh start</string>
+  <string name="default_pre_stop_script">/etc/init.d/ssh stop</string>
+  <string name="pref_prevent_sleep_title">Uyku moduna geçmeyi önleyin</string>
+  <string name="pref_prevent_sleep_summary">Debian çalışırken cihazın uyku moduna geçmesini engelleyin</string>
+  <string name="menu_preferences_title">Özellikler</string>
+  <string name="menu_install_log_title">Yükleme kaydını görün</string>
+  <string name="menu_delete_title">Hepsini sil</string>
+  <string name="title_start">Debian\'ı başlat</string>
+  <string name="title_stop">Debian\'ı durdur</string>
+  <string name="title_configure">Görüntü ayarla</string>
+  <string name="title_status">Durum:</string>
+  <string name="doit">Kurulumu sil</string>
+  <string name="cancel">İptal</string>
+  <string name="confirm_delete_message">Bütün Lil\' Debi kurulumunu silmek istediginizden emin misiniz ?</string>
+  <string name="install">Yükleniyor...</string>
+  <string name="uninstall">Kaldırılıyor...</string>
+  <string name="get_superuser">SuperUser edinin...</string>
+  <string name="needs_superuser_message">Lil\' Debi\'nin SuperUser erişimine ihtiyacı var , SuperUser uygulamasını yükleyin</string>
+  <string name="smaller_imagesize_message">Belirtilen görüntü boyutu için hafızada yeterince yer yok , SD Kart\'a sığdırmak için boyut küçültülüyor</string>
+  <string name="mounted_message">Debian bağlı durumda</string>
+  <string name="not_mounted_message">Debian bağlı durumda değil</string>
+  <string name="not_installed_message">Debian yüklü değil</string>
+  <string name="not_configured_message">Görüntü ayarlanmamış</string>
+  <string name="no_network_message">Yükleme için ağ gerekli</string>
+  <string name="no_ext2_message">/proc/filesystems does not list \'ext2\' as a supported filesystem</string>
+  <string name="no_sdcard_message">Harici Depolama SD Karta okuma/yazma için bağlanılamadı, Debian olmadan kuramaz ya da başlatamazınız.</string>
+  <string name="no_sdcard_status">(SD card mevcut değil)</string>
+  <string name="run_command_hint">root olarak komutları çalıştırın</string>
+  <string name="title_install_log_view">Kayıtları yükle</string>
+  <string name="title_share_button">Paylaş</string>
+  <string name="starting_debian">Debian başlatıldı...</string>
+  <string name="stopping_debian">Debian durduruldu....</string>
+  <string name="calculating_checksum">SHA1 sağlaması hesaplanıyor ...</string>
+  <string name="checksum_complete">SHA1 sağlaması hazır!</string>
+  <!--DO NOT TRANSLATE (these are just keys used in the programming)-->
+  <string name="pref_start_on_mount_key">pref_start_on_mount_key</string>
+  <string name="pref_prevent_sleep_key">pref_prevent_sleep_key</string>
+  <string name="pref_use_checksum_key">pref_use_checksum_key</string>
+  <string name="pref_post_start_key">pref_post_start_key</string>
+  <string name="pref_pre_stop_key">pref_pre_stop_key</string>
+</resources>
