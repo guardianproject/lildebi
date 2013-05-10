@@ -100,7 +100,9 @@ public class InstallService extends Service {
 				writeCommand(os, "./stop-debian.sh " + NativeHelper.args);
 				writeCommand(os, "./unmounted-install-tweaks.sh " + NativeHelper.args);
 				writeCommand(os, "./start-debian.sh " + NativeHelper.args);
-				writeCommand(os, "./complete-debian-setup.sh " + NativeHelper.args);
+				writeCommand(os, NativeHelper.app_bin + "/chroot " + NativeHelper.mnt
+						+ " " + NativeHelper.app_bin + "/complete-debian-setup.sh "
+						+ NativeHelper.args);
 				writeCommand(os, "exit");
 
 				sh.waitFor();
