@@ -156,7 +156,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int id) {
 									command = "./remove-debian-setup.sh "
-											+ NativeHelper.args;
+											+ NativeHelper.getArgs();
 									commandThread = new CommandThread();
 									commandThread.start();
 								}
@@ -224,7 +224,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	}
 
 	private void configureDownloadedImage () {
-		command = new String("./configure-downloaded-image.sh" + NativeHelper.args);
+		command = new String("./configure-downloaded-image.sh" + NativeHelper.getArgs());
 		commandThread = new CommandThread();
 		commandThread.start();
 	}
@@ -232,7 +232,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	private void startDebian() {
 		if (useWakeLock)
 			wl.acquire();
-		command = new String("./start-debian.sh" + NativeHelper.args
+		command = new String("./start-debian.sh" + NativeHelper.getArgs()
 				+ " && " + NativeHelper.app_bin + "/chroot "
 				+ NativeHelper.mnt + " /bin/bash -c \""
 				+ NativeHelper.postStartScript + "\"");
@@ -247,7 +247,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		command = new String(NativeHelper.app_bin + "/chroot "
 				+ NativeHelper.mnt
 				+ " /bin/bash -c \"" + NativeHelper.preStopScript
-				+ "\"; ./stop-debian.sh " + NativeHelper.args);
+				+ "\"; ./stop-debian.sh " + NativeHelper.getArgs());
 		commandThread = new CommandThread();
 		commandThread.start();
 		Toast.makeText(this, R.string.stopping_debian, Toast.LENGTH_LONG).show();

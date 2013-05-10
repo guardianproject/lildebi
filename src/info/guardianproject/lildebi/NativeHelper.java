@@ -31,7 +31,6 @@ public class NativeHelper {
 	public static String sdcard;
 	public static String image_path;
 	public static String mnt;
-	public static String args;
 
 	public static String postStartScript;
 	public static String preStopScript;
@@ -52,7 +51,12 @@ public class NativeHelper {
 		sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
 		image_path = sdcard + "/debian.img";
 		mnt = "/debian";
-		args = new String(" " + app_bin.getAbsolutePath() + " " + sdcard + " "
+
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+	}
+
+	public static String getArgs() {
+		return new String(" " + app_bin.getAbsolutePath() + " " + sdcard + " "
 				+ image_path + " " + mnt + " ");
 	}
 
