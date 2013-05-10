@@ -348,15 +348,17 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		if (! NativeHelper.sh.exists()) {
 			Log.i(TAG, "Installing busybox symlinks into " + NativeHelper.app_bin);
 			// setup busybox so we have the utils we need, guaranteed
-			String cmd = "su -c \"" + new File(NativeHelper.app_bin, "busybox").getAbsolutePath() 
-					+ " --install -s " + NativeHelper.app_bin.getAbsolutePath() + "\"\nexit\n";
-			log.append("# " + cmd);
+			String cmd = new File(NativeHelper.app_bin, "busybox").getAbsolutePath()
+					+ " --install -s " + NativeHelper.app_bin.getAbsolutePath();
+			Log.i(TAG, cmd);
+			log.append("# " + cmd + "\n\n");
 			try {
-				Process su = Runtime.getRuntime().exec("su");
-				OutputStream os = su.getOutputStream();
+				Process sh = Runtime.getRuntime().exec("/system/bin/sh");
+				OutputStream os = sh.getOutputStream();
 				os.write(cmd.getBytes("ASCII"));
+				os.write(";\nexit\n".getBytes("ASCII"));
 				BufferedReader in = new BufferedReader(
-						new InputStreamReader(su.getInputStream()));
+						new InputStreamReader(sh.getInputStream()));
 				String line = null;
 				while ((line = in.readLine()) != null)
 					log.append(line);
