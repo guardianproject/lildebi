@@ -8,8 +8,8 @@ export HOME=/root
 export HOSTNAME=debian
 
 if [ $# -lt 1 ]; then
-    echo "incorrect number of arguments, should be between 1 and 7:"
-    echo "    $0 app_bin [sdcard] [imagefile] [mnt] [release] [mirror] [imagesize]"
+    echo "incorrect number of arguments, should be between 1 and 8:"
+    echo "    $0 app_bin [sdcard] [imagefile] [mnt] [release] [mirror] [imagesize] [arch]"
 fi
 
 # use the included utilities first
@@ -36,6 +36,9 @@ fi
 if [ -z $imagesize ]; then
     imagesize=$7
 fi    
+if [ -z $arch ]; then
+    arch=$8
+fi
 
 test -d $app_bin || echo "app_bin: '$app_bin' not a directory"
 test -d $sdcard || echo "sdcard: '$sdcard' not a directory"

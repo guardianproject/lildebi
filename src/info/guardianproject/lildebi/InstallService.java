@@ -19,6 +19,7 @@ public class InstallService extends Service {
 
 	private String release;
 	private String mirror;
+	private String arch;
 	private String imagesize;
 
 	public class LocalBinder extends Binder {
@@ -57,6 +58,7 @@ public class InstallService extends Service {
 		synchronized (this) {
 			release = intent.getStringExtra(InstallActivity.RELEASE);
 			mirror = intent.getStringExtra(InstallActivity.MIRROR);
+			arch = intent.getStringExtra(InstallActivity.ARCH);
 			imagesize = intent.getStringExtra(InstallActivity.IMAGESIZE);
 			NativeHelper.isInstallRunning = true;
 			log = new StringBuffer();
@@ -94,7 +96,7 @@ public class InstallService extends Service {
 
 				writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
 				writeCommand(os, "./create-debian-setup.sh " + NativeHelper.args + release
-						+ " http://" + mirror + "/debian/ " + imagesize);
+						+ " http://" + mirror + "/debian/ " + imagesize + " " + arch);
 				writeCommand(os, "./stop-debian.sh " + NativeHelper.args);
 				writeCommand(os, "./unmounted-install-tweaks.sh " + NativeHelper.args);
 				writeCommand(os, "./start-debian.sh " + NativeHelper.args);

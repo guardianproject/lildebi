@@ -106,7 +106,7 @@ echo "run debootstrap in two stages"
 
 sh_debootstrap="$app_bin/sh $mnt/usr/sbin/debootstrap"
 
-$sh_debootstrap --verbose --variant=minbase $FIRST_KEYRING --arch armel --foreign $release $mnt $mirror || exit
+$sh_debootstrap --verbose --variant=minbase $FIRST_KEYRING --arch $arch --foreign $release $mnt $mirror || exit
 
 # now we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
 # need a more Debian-ish PATH

@@ -25,6 +25,7 @@
     <string name="confirm_delete_message">Are you sure you want to delete the whole Lil\' Debi setup?</string>
     <string name="release">Release:</string>
     <string name="mirror">Mirror:</string>
+    <string name="arch">Arch:</string>
     <string name="image_size">Image Size:</string>
     <string name="megabytes">MB</string>
     <string name="install">Install</string>
@@ -49,4 +50,5 @@
     <string name="checksum_complete">SHA1 checksum complete!</string>
     <string name="select_mirror">Select Mirror</string>
     <string name="select_release">Select Release</string>
+    <string name="select_arch">Select CPU Architecture</string>
 </resources>

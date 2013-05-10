@@ -37,10 +37,12 @@ import android.widget.Toast;
 public class InstallActivity extends Activity implements View.OnCreateContextMenuListener {
 	public static final String RELEASE = "RELEASE";
 	public static final String MIRROR = "MIRROR";
+	public static final String ARCH = "ARCH";
 	public static final String IMAGESIZE = "IMAGESIZE";
 
 	private TextView selectedRelease;
 	private TextView selectedMirror;
+	private TextView selectedArch;
 	private EditText imagesize;
 	private InstallService mBoundService;
 	private PowerManager.WakeLock wl;
@@ -87,6 +89,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		setContentView(R.layout.install_activity);
 		selectedRelease = (TextView) findViewById(R.id.selectedRelease);
 		selectedMirror = (TextView) findViewById(R.id.selectedMirror);
+		selectedArch = (TextView) findViewById(R.id.selectedArch);
 		imagesize = (EditText) findViewById(R.id.imagesize);
 		installButton = (Button) findViewById(R.id.installButton);
 		progressBar = findViewById(R.id.progressBar);
@@ -196,6 +199,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 				Intent intent = new Intent(InstallActivity.this, InstallService.class);
 				intent.putExtra(RELEASE, selectedRelease.getText().toString());
 				intent.putExtra(MIRROR, selectedMirror.getText().toString());
+				intent.putExtra(ARCH, selectedArch.getText().toString());
 				intent.putExtra(IMAGESIZE, imagesize.getText().toString());
 				startService(intent);
 				Log.i(LilDebi.TAG, "Starting install service");
@@ -216,6 +220,12 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		selectedMirror.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				SelectMirror.callMe(InstallActivity.this);
+			}
+		});
+
+		selectedArch.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				SelectArch.callMe(InstallActivity.this);
 			}
 		});
 
@@ -263,6 +273,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		selectedRelease.setEnabled(false);
 		selectedMirror.setEnabled(false);
 		selectedMirror.setOnClickListener(null);
+		selectedArch.setEnabled(false);
+		selectedArch.setOnClickListener(null);
 		imagesize.setEnabled(false);
 		installButton.setOnClickListener(null);
 		installButton.setVisibility(View.GONE);
@@ -279,12 +291,14 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		if (mBoundService != null && mBoundService.isRunning()) {
 			selectedRelease.setEnabled(false);
 			selectedMirror.setEnabled(false);
+			selectedArch.setEnabled(false);
 			imagesize.setEnabled(false);
 			installButton.setVisibility(View.GONE);
 			progressBar.setVisibility(View.VISIBLE);
 		} else {
 			selectedRelease.setEnabled(true);
 			selectedMirror.setEnabled(true);
+			selectedArch.setEnabled(true);
 			imagesize.setEnabled(true);
 			installButton.setVisibility(View.VISIBLE);
 			progressBar.setVisibility(View.GONE);
@@ -298,6 +312,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 				selectedRelease.setText(data.getStringExtra(RELEASE));
 			if (data.hasExtra(MIRROR))
 				selectedMirror.setText(data.getStringExtra(MIRROR));
+			if (data.hasExtra(ARCH))
+				selectedArch.setText(data.getStringExtra(ARCH));
 		}
 	}
 
