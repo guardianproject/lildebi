@@ -61,7 +61,6 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	};
 	private boolean mIsBound;
 	private Button installButton;
-	private View progressBar;
 	private TextView installLog;
 	private ScrollView textScroll;
 	private Handler handler;
@@ -92,7 +91,6 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		selectedArch = (TextView) findViewById(R.id.selectedArch);
 		imagesize = (EditText) findViewById(R.id.imagesize);
 		installButton = (Button) findViewById(R.id.installButton);
-		progressBar = findViewById(R.id.progressBar);
 		installLog = (TextView) findViewById(R.id.installLog);
 		textScroll = (ScrollView) findViewById(R.id.textScroll);
 		handler = new Handler();
@@ -278,7 +276,6 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		imagesize.setEnabled(false);
 		installButton.setOnClickListener(null);
 		installButton.setVisibility(View.GONE);
-		progressBar.setVisibility(View.GONE);
 	}
 
 	private void renameInstallButton(int resid) {
@@ -294,14 +291,12 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			selectedArch.setEnabled(false);
 			imagesize.setEnabled(false);
 			installButton.setVisibility(View.GONE);
-			progressBar.setVisibility(View.VISIBLE);
 		} else {
 			selectedRelease.setEnabled(true);
 			selectedMirror.setEnabled(true);
 			selectedArch.setEnabled(true);
 			imagesize.setEnabled(true);
 			installButton.setVisibility(View.VISIBLE);
-			progressBar.setVisibility(View.GONE);
 		}
 	}
 

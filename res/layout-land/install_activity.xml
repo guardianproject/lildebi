@@ -7,6 +7,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="100dp"
+        android:layout_margin="5sp"
         android:orientation="horizontal" >
 
         <LinearLayout
@@ -54,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.33"
+                android:gravity="left|center_vertical"
                 android:singleLine="true"
                 android:text="@string/default_debian_release"
                 android:textSize="25sp"
@@ -64,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.33"
+                android:gravity="left|center_vertical"
                 android:singleLine="true"
                 android:text="@string/default_mirror"
                 android:textSize="20sp"
@@ -74,41 +77,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.33"
+                android:gravity="left|center_vertical"
                 android:singleLine="true"
                 android:text="@string/default_arch"
                 android:textSize="25sp"
                 android:typeface="monospace" />
+
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="right|center_vertical"
-            android:text="@string/image_size"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_margin="25sp"
+            android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/imagesize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center|right"
-            android:inputType="number"
-            android:text="@string/default_image_size"
-            android:width="80dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/image_size"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/megabytes"
-            android:textSize="20sp" />
+            <EditText
+                android:id="@+id/imagesize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center|right"
+                android:inputType="number"
+                android:text="@string/default_image_size"
+                android:width="100dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/megabytes"
+                android:textSize="20sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <Button
