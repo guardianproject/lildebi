@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="stable"
+            android:text="@string/default_debian_release"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="ftp.us.debian.org"
+            android:text="@string/default_mirror"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -67,7 +67,7 @@
             android:layout_height="60sp"
             android:gravity="center|right"
             android:inputType="number"
-            android:text="600" />
+            android:text="@string/default_image_size" />
 
         <TextView
             android:layout_width="wrap_content"
