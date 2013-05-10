@@ -6,6 +6,7 @@ echo "----------------------------------------"
 export TERM=linux
 export HOME=/root
 export HOSTNAME=debian
+export DEBIAN_FRONTEND=noninteractive
 
 if [ $# -lt 1 ]; then
     echo "incorrect number of arguments, should be between 1 and 8:"

@@ -228,10 +228,9 @@ create_e2fsck_chroot
 # finish tweaking Debian install
 echo "finish tweaking Debian install"
 
-chroot $mnt apt-get update
+chroot $mnt apt-get -y update
 
-# install/configure dialog and a default locale first to tame the warnings
-chroot $mnt apt-get -y install --no-install-recommends dialog
+# install/configure a default locale first to tame the warnings
 chroot $mnt apt-get -y install locales
 
 # purge install packages in cache

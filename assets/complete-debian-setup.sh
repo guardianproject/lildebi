@@ -13,7 +13,7 @@ export PATH=$1:$PATH
 
 test -e $1/lildebi-common || exit
 . $1/lildebi-common
-
+export DEBIAN_FRONTEND=noninteractive
 
 # *  install and start sshd so you can easily log in, and before
 #    stop/start so the start script starts sshd.  Also,
