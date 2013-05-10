@@ -11,7 +11,8 @@ import android.widget.ListView;
 public class SelectRelease extends Activity {
 	private ListView releaseList;
 	private String[] releases =
-		new String[] { "oldstable", "stable", "testing", "unstable" };
+		new String[] { "oldstable", "stable", "testing", "unstable",
+			"squeeze", "wheezy", "jessie", "sid" };
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
