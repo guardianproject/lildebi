@@ -23,7 +23,11 @@
     <string name="doit">Delete Setup</string>
     <string name="cancel">Cancel</string>
     <string name="confirm_delete_message">Are you sure you want to delete the whole Lil\' Debi setup?</string>
-    <string name="install">Install…</string>
+    <string name="release">Release:</string>
+    <string name="mirror">Mirror:</string>
+    <string name="image_size">Image Size:</string>
+    <string name="megabytes">MB</string>
+    <string name="install">Install</string>
     <string name="uninstall">Uninstall…</string>
     <string name="get_superuser">Get SuperUser…</string>
     <string name="needs_superuser_message">Lil\' Debi needs SuperUser access, install the SuperUser app</string>
@@ -43,4 +47,6 @@
     <string name="stopping_debian">Stopped Debian…</string>
     <string name="calculating_checksum">Calculating SHA1 checksum…</string>
     <string name="checksum_complete">SHA1 checksum complete!</string>
+    <string name="select_mirror">Select Mirror</string>
+    <string name="select_release">Select Release</string>
 </resources>

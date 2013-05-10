@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Release: "
+            android:text="@string/release"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mirror: "
+            android:text="@string/mirror"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Image Size: "
+            android:text="@string/image_size"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -72,7 +72,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MB"
+            android:text="@string/megabytes"
             android:textSize="20sp" />
 
         <ProgressBar
@@ -90,13 +90,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
         android:padding="20sp"
-        android:text="Install"
+        android:text="@string/install"
         android:textSize="20sp" />
 
     <ScrollView
         android:id="@+id/textScroll"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dip"
         android:layout_weight="1" >
 
         <TextView
