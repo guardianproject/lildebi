@@ -49,25 +49,25 @@ export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 # create the image file
 echo "Create the image file:"
 
-test -e $imagefile || \
-    dd if=/dev/zero of=$imagefile seek=$imagesize bs=1M count=1
+test -e $image_path || \
+    dd if=/dev/zero of=$image_path seek=$imagesize bs=1M count=1
 # set them up
-if test -d $mnt && test -e $imagefile; then
-    mke2fs_options="-L debian_chroot -T `find_best_filesystem` -F $imagefile"
+if test -d $mnt && test -e $image_path; then
+    mke2fs_options="-L debian_chroot -T `find_best_filesystem` -F $image_path"
 # the built-in mke2fs seems to be more reliable when the busybox mke2fs fails
     if test -x /system/bin/mke2fs; then
         /system/bin/mke2fs $mke2fs_options
     else
         mke2fs $mke2fs_options
     fi
-    losetup $loopdev $imagefile
+    losetup $loopdev $image_path
     mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
     cd $mnt
     tar xjf $app_bin/debootstrap.tar.bz2
     cp $app_bin/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
     chmod 755 $DEBOOTSTRAP_DIR/pkgdetails
 else
-    echo "No mount dir found ($mnt) or no imagefile ($imagefile)"
+    echo "No mount dir found ($mnt) or no image_path ($image_path)"
     exit 1
 fi
 

@@ -13,7 +13,7 @@ test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
 echo "Checking for open files in Debian chroot..."
-openfiles=`lsof $mnt | grep -v $(basename $imagefile) | sed -n "s|.*\($mnt.*\)|\1|p"`
+openfiles=`lsof $mnt | grep -v $(basename $image_path) | sed -n "s|.*\($mnt.*\)|\1|p"`
 
 if [ ! -z "$openfiles" ]; then
     echo "Files that are still open:"
@@ -39,10 +39,10 @@ else
     echo ""
     echo "Debian chroot stopped and unmounted."
     if [ -e $sha1file ]; then
-        echo "Calculating new SHA1 checksum of $imagefile..."
-        $app_bin/sha1sum $imagefile > $sha1file
+        echo "Calculating new SHA1 checksum of $image_path..."
+        $app_bin/sha1sum $image_path > $sha1file
         chmod 0600 $sha1file
-        cp $sha1file `dirname $imagefile`
+        cp $sha1file `dirname $image_path`
         echo "Done!"
     fi
 fi

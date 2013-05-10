@@ -90,7 +90,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 		@Override
 		protected Void doInBackground(Boolean... values) {
 			String app_bin = NativeHelper.app_bin.getAbsolutePath();
-			File sha1file = new File(app_bin + "/../" + new File(NativeHelper.imagename + ".sha1").getName());
+			File sha1file = new File(app_bin + "/../" + new File(NativeHelper.image_path + ".sha1").getName());
 			String command;
 			try {
 				if (values[0]) {
@@ -102,7 +102,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 						Log.i(LilDebi.TAG, command);
 						Runtime.getRuntime().exec(command);
 					} else {
-						command = app_bin + "/sha1sum " + NativeHelper.imagename;
+						command = app_bin + "/sha1sum " + NativeHelper.image_path;
 						Log.i(LilDebi.TAG, command);
 						LilDebi.log.append(command + "\n");
 						Process p = Runtime.getRuntime().exec(command);

@@ -265,7 +265,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			startStopButton.setVisibility(View.GONE);
 			return;
 		}
-		if (new File(NativeHelper.imagename).exists()) {
+		if (new File(NativeHelper.image_path).exists()) {
 			if (!new File(NativeHelper.mnt).exists()) {
 				// we have a manually downloaded debian.img file, config for it
 				statusTitle.setVisibility(View.VISIBLE);
@@ -372,7 +372,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			mediaMountedReceiver = new BroadcastReceiver() {
 				@Override
 				public void onReceive(Context context, Intent intent) {
-					if (new File(NativeHelper.imagename).exists() && new File(NativeHelper.mnt).exists())
+					if (new File(NativeHelper.image_path).exists() && new File(NativeHelper.mnt).exists())
 						startDebian();
 				}
 			};

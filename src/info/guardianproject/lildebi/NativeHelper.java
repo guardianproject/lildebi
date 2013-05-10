@@ -29,7 +29,7 @@ public class NativeHelper {
 	public static File sh;
 	public static File versionFile;
 	public static String sdcard;
-	public static String imagename;
+	public static String image_path;
 	public static String mnt;
 	public static String args;
 
@@ -50,10 +50,10 @@ public class NativeHelper {
 		sh = new File(app_bin, "sh");
 		versionFile = new File(app_bin, "VERSION");
 		sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
-		imagename = sdcard + "/debian.img";
+		image_path = sdcard + "/debian.img";
 		mnt = "/debian";
 		args = new String(" " + app_bin.getAbsolutePath() + " " + sdcard + " "
-				+ imagename + " " + mnt + " ");
+				+ image_path + " " + mnt + " ");
 	}
 
 	private static int readVersionFile() {

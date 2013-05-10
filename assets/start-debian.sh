@@ -32,9 +32,9 @@ if [ ! -d $sdcard ]; then
     echo "Your Debian setup is missing sdcard: $sdcard"
     exit
 fi
-# test if $imagefile is a file
-if [ ! -f $imagefile ]; then
-    echo "Your Debian setup is missing imagefile: $imagefile"
+# test if $image_path is a file
+if [ ! -f $image_path ]; then
+    echo "Your Debian setup is missing image_path: $image_path"
     exit
 fi
 # test if $loopdev is a block device
@@ -48,13 +48,13 @@ echo "Configuration that will be started:"
 echo "app_bin: $app_bin"
 echo "mnt: $mnt"
 echo "sdcard: $sdcard"
-echo "imagefile: $imagefile"
+echo "image_path: $image_path"
 echo "sha1file: $sha1file"
 echo "loopdev: $loopdev"
 
 if [ -e $sha1file ]; then
-    echo "Checking SHA1 checksum of $imagefile..."
-    cp $sha1file `dirname $imagefile`
+    echo "Checking SHA1 checksum of $image_path..."
+    cp $sha1file `dirname $image_path`
     if `$app_bin/sha1sum -c $sha1file`; then
         echo "SHA1 checksum failed, exiting!"
         exit
@@ -72,8 +72,8 @@ find_and_run_fsck
 # mounts
 
 echo ""
-echo "> losetup $loopdev $imagefile"
-losetup $loopdev $imagefile
+echo "> losetup $loopdev $image_path"
+losetup $loopdev $image_path
 
 # some platforms need to have the ext2 module installed to get ext2 support
 if [ -z `grep ext2 /proc/filesystems` ]; then
