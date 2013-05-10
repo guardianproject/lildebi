@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
     <string name="app_name">Lil\' Debi</string>
-    <string name="unsupported_device_body">Your device is not supported by LilDebi for installing Debian.  It needs to support the "ext2" filesystem and loopback mounting of files as disks. Therefore, this app is useless to you, we recommend uninstalling it.</string>
-    <string name="uninstall_button_title">Uninstall LilDebi</string>
+    <string name="unsupported_device_body">Your device is not supported by Lil\' Debi for installing Debian.  It needs to support the "ext2" filesystem and loopback mounting of files as disks. Therefore, this app is useless to you, we recommend uninstalling it.</string>
+    <string name="uninstall_button_title">Uninstall Lil\' Debi</string>
     <string name="pref_start_on_mount_title">Start on SD Card Mount?</string>
     <string name="pref_start_on_mount_summary">Automatically start Debian whenever your SD Card is mounted</string>
     <string name="pref_use_checksum_title">Checksum Image on Start?</string>

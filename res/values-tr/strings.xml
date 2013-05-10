@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="app_name">Lil\' Debi</string>
-  <string name="unsupported_device_body">Cihazınız Debian kurulumu için LilDebi tarafından desteklenmemektedir. LilDebi \"ext2\" dosya sistemini desteğine ve disk üzerindeki bağlanmış dosyaların döngü sınamasına ihtiyaç duyar. Bu nedenle, bu uygulama sizin için kullanışsız, uygulamayı kaldırmanızı öneririz.</string>
+  <string name="unsupported_device_body">Cihazınız Debian kurulumu için Lil\' Debi tarafından desteklenmemektedir. Lil\' Debi \"ext2\" dosya sistemini desteğine ve disk üzerindeki bağlanmış dosyaların döngü sınamasına ihtiyaç duyar. Bu nedenle, bu uygulama sizin için kullanışsız, uygulamayı kaldırmanızı öneririz.</string>
   <string name="uninstall_button_title">Lil\' Debi\'yi kaldır</string>
   <string name="pref_start_on_mount_title">bağlı olan SD karttan başlatılsın mı ?</string>
   <string name="pref_start_on_mount_summary">SD kartınız bağlandığında Debian otomatik olarak başlatılır.</string>
