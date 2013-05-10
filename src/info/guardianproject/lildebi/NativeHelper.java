@@ -13,10 +13,12 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
 import android.os.Environment;
 import android.os.StatFs;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class NativeHelper {
@@ -30,6 +32,7 @@ public class NativeHelper {
 	public static File versionFile;
 	public static String sdcard;
 	public static String image_path;
+	public static String default_image_path;
 	public static String mnt;
 
 	public static String postStartScript;
@@ -49,10 +52,12 @@ public class NativeHelper {
 		sh = new File(app_bin, "sh");
 		versionFile = new File(app_bin, "VERSION");
 		sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
-		image_path = sdcard + "/debian.img";
 		mnt = "/debian";
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		default_image_path = sdcard + "/debian.img";
+		String prefName = context.getString(R.string.pref_image_path_key);
+		image_path = prefs.getString(prefName, default_image_path);
 	}
 
 	public static String getArgs() {

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
+
+<!-- this static default_image_path can be overridden by the dynamic NativeHelper.default_image_path -->
+    <string name="default_image_path">/sdcard/debian.img</string>
     <string name="default_post_start_script">/etc/init.d/ssh start</string>
     <string name="default_pre_stop_script">/etc/init.d/ssh stop</string>
 
@@ -7,4 +10,5 @@
     <string name="default_image_size">600</string>
     <string name="default_mirror">mirrors.ece.ubc.ca</string>
     <string name="default_debian_release">stable</string>
+
 </resources>

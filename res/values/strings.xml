@@ -7,6 +7,8 @@
     <string name="pref_start_on_mount_summary">Automatically start Debian whenever your SD Card is mounted</string>
     <string name="pref_use_checksum_title">Checksum Image on Start?</string>
     <string name="pref_use_checksum_summary">Before booting, check the SHA1 checksum of the image to verify its integrity.</string>
+    <string name="pref_image_path_title">Image Path</string>
+    <string name="pref_image_path_summary">The path to the disk image file that Debian is installed on (default: /sdcard/debian.img)</string>
     <string name="pref_post_start_title">Post-start Script</string>
     <string name="pref_post_start_summary">Script to run after Debian is started (default: /etc/init.d/ssh start)</string>
     <string name="pref_pre_stop_title">Pre-stop Script</string>
@@ -39,6 +41,10 @@
     <string name="not_configured_message">Image not configured</string>
     <string name="no_network_message">Network required for install</string>
     <string name="no_ext2_message">/proc/filesystems does not list \'ext2\' as a supported filesystem</string>
+
+    <string name="image_path_exists_message">Warning: there is already an existing file at the image path that you have selected!</string>
+    <string name="image_path_parent_does_not_exist_message">The folder you choose does not exist! Resetting to the default.</string>
+
     <string name="no_sdcard_message">The External Storage SD Card is not mounted read/write, cannot install or start Debian without it.</string>
     <string name="no_sdcard_status">(no SD card)</string>
     <string name="run_command_hint">run commands as root</string>

@@ -18,6 +18,12 @@
         android:title="@string/pref_use_checksum_title" />
 
     <EditTextPreference
+        android:defaultValue="@string/default_image_path"
+        android:inputType="textNoSuggestions"
+        android:key="@string/pref_image_path_key"
+        android:summary="@string/pref_image_path_summary"
+        android:title="@string/pref_image_path_title" />
+    <EditTextPreference
         android:defaultValue="@string/default_post_start_script"
         android:inputType="textNoSuggestions"
         android:key="@string/pref_post_start_key"
