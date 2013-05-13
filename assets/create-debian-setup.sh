@@ -66,6 +66,14 @@ if test -d $mnt && test -e $image_path; then
     tar xjf $app_bin/debootstrap.tar.bz2
     cp $app_bin/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
     chmod 755 $DEBOOTSTRAP_DIR/pkgdetails
+    # add missing symlinks, we're using an old debootstrap
+    cd $mnt/usr/share/debootstrap/scripts
+    test -e jessie || ln -s sid jessie
+    test -e oneiric || ln -s gutsy oneiric
+    test -e precise || ln -s gutsy precise
+    test -e quantal || ln -s gutsy quantal
+    test -e raring || ln -s gutsy raring
+    test -e saucy || ln -s gutsy saucy
 else
     echo "No mount dir found ($mnt) or no image_path ($image_path)"
     exit 1
