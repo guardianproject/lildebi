@@ -79,51 +79,6 @@ else
     exit 1
 fi
 
-#------------------------------------------------------------------------------#
-# looking for GPG keyring used to validate signatures on downloaded packages
-
-keyring_name=debian-archive-keyring.gpg
-keyring=$app_bin/$keyring_name
-if test -f $keyring; then
-	echo "Using keyring for validating packages: $keyring"
-	FIRST_KEYRING="--keyring=$keyring"
-
-# debootstrap needs gpgv for the second stage too, but the gpgv Debian
-# package is not installed yet, so install our included 'gpgv' and use
-# that for now
-    test -d $mnt/usr || mkdir $mnt/usr
-    test -d $mnt/usr/local || mkdir $mnt/usr/local
-    test -d $mnt/usr/local/bin || mkdir $mnt/usr/local/bin
-    cp $app_bin/gpgv $mnt/usr/local/bin/
-# we need a copy of the keyring in the chroot so the second stage of
-# debootstrap can find it once its chrooted
-    test -d $mnt/usr/local/share || mkdir $mnt/usr/local/share
-    test -d $mnt/usr/local/share/keyrings || mkdir $mnt/usr/local/share/keyrings
-    cp $keyring $mnt/usr/local/share/keyrings/
-    # TODO fix second stage validation, debootstrap fails saying it can't find gpgv
-	#SECOND_KEYRING="--keyring=/usr/local/share/keyrings/$keyring_name"
-	SECOND_KEYRING=
-else
-	echo "No keyring found, not validating packages! ($keyring)"
-	FIRST_KEYRING=
-	SECOND_KEYRING=
-fi
-
-#------------------------------------------------------------------------------#
-echo "run debootstrap in two stages"
-
-sh_debootstrap="$app_bin/sh $mnt/usr/sbin/debootstrap"
-
-$sh_debootstrap --verbose --variant=minbase $FIRST_KEYRING --arch $arch --foreign $release $mnt $mirror || exit
-
-# now we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
-# need a more Debian-ish PATH
-unset DEBOOTSTRAP_DIR
-# use Debian tools from chroot for following chrooted commands. the rest of
-# the script will find the included busybox utils in /bin, a link to $app_bin
-export PATH=/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin
-
-chroot $mnt /debootstrap/debootstrap --variant=minbase $SECOND_KEYRING --second-stage || exit
 
 #------------------------------------------------------------------------------#
 # create mountpoints
@@ -175,6 +130,55 @@ create_mountpoint /storage/sdcard0
 create_mountpoint /storage/sdcard1
 create_mountpoint /storage/usbdisk
 create_mountpoint /system
+
+
+#------------------------------------------------------------------------------#
+# looking for GPG keyring used to validate signatures on downloaded packages
+
+keyring_name=debian-archive-keyring.gpg
+keyring=$app_bin/$keyring_name
+if test -f $keyring; then
+	echo "Using keyring for validating packages: $keyring"
+	FIRST_KEYRING="--keyring=$keyring"
+
+# debootstrap needs gpgv for the second stage too, but the gpgv Debian
+# package is not installed yet, so install our included 'gpgv' and use
+# that for now
+    test -d $mnt/usr || mkdir $mnt/usr
+    test -d $mnt/usr/local || mkdir $mnt/usr/local
+    test -d $mnt/usr/local/bin || mkdir $mnt/usr/local/bin
+    cp $app_bin/gpgv $mnt/usr/local/bin/
+# we need a copy of the keyring in the chroot so the second stage of
+# debootstrap can find it once its chrooted
+    test -d $mnt/usr/local/share || mkdir $mnt/usr/local/share
+    test -d $mnt/usr/local/share/keyrings || mkdir $mnt/usr/local/share/keyrings
+    cp $keyring $mnt/usr/local/share/keyrings/
+    # TODO fix second stage validation, debootstrap fails saying it can't find gpgv
+	#SECOND_KEYRING="--keyring=/usr/local/share/keyrings/$keyring_name"
+	SECOND_KEYRING=
+else
+	echo "No keyring found, not validating packages! ($keyring)"
+	FIRST_KEYRING=
+	SECOND_KEYRING=
+fi
+
+
+#------------------------------------------------------------------------------#
+echo "run debootstrap in two stages"
+
+sh_debootstrap="$app_bin/sh $mnt/usr/sbin/debootstrap"
+
+$sh_debootstrap --verbose --variant=minbase $FIRST_KEYRING --arch $arch --foreign $release $mnt $mirror || exit
+
+# now we're in the chroot, so we don't need to set DEBOOTSTRAP_DIR, but we do
+# need a more Debian-ish PATH
+unset DEBOOTSTRAP_DIR
+# use Debian tools from chroot for following chrooted commands. the rest of
+# the script will find the included busybox utils in /bin, a link to $app_bin
+export PATH=/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin
+
+chroot $mnt /debootstrap/debootstrap --variant=minbase $SECOND_KEYRING --second-stage || exit
+
 
 #------------------------------------------------------------------------------#
 # create root symlinks that exist on the Android system
