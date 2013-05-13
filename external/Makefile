@@ -29,42 +29,35 @@ endif
 NDK_BASE ?= /opt/android-ndk
 NDK_PLATFORM_LEVEL ?= 9
 NDK_ABI=arm
-NDK_SYSROOT=$(NDK_BASE)/platforms/android-$(NDK_PLATFORM_LEVEL)/arch-$(NDK_ABI)
-NDK_UNAME:=`uname -s | tr '[A-Z]' '[a-z]'`
 NDK_COMPILER_VERSION=4.6
-NDK_TOOLCHAIN=$(NDK_BASE)/toolchains/$(NDK_ABI)-linux-androideabi-$(NDK_COMPILER_VERSION)/prebuilt/$(NDK_UNAME)-$(NDK_PROCESSOR)
+
+NDK_SYSROOT=$(NDK_BASE)/platforms/android-$(NDK_PLATFORM_LEVEL)/arch-$(NDK_ABI)
+NDK_UNAME := $(shell uname -s | tr '[A-Z]' '[a-z]')
+NDK_TOOLCHAIN = $(NDK_ABI)-linux-androideabi-$(NDK_COMPILER_VERSION)
+NDK_TOOLCHAIN_BASE=$(NDK_BASE)/toolchains/$(NDK_TOOLCHAIN)/prebuilt/$(NDK_UNAME)-$(NDK_PROCESSOR)
 
 # to use the real HOST tag, you need the latest libtool files:
 # http://stackoverflow.com/questions/4594736/configure-does-not-recognize-androideabi
 #HOST := arm-none-linux-gnueabi
 HOST := arm-linux-androideabi
 
-# install root for built files
-DESTDIR = $(CWD)
-# TODO try adding the Android-style /data/app.name here
-prefix = /data/data/info.guardianproject.lildebi/app_opt
-LOCAL := $(DESTDIR)$(prefix)
+PATH := ${PATH}:$(NDK_TOOLCHAIN_BASE)/bin
 
-PATH := ${PATH}:$(NDK_TOOLCHAIN)/bin:$(LOCAL)/bin
-
-CC := $(NDK_TOOLCHAIN)/bin/arm-linux-androideabi-gcc --sysroot=$(NDK_SYSROOT)
-CXX := $(NDK_TOOLCHAIN)/bin/arm-linux-androideabi-g++
-CPP := $(NDK_TOOLCHAIN)/bin/arm-linux-androideabi-cpp
-LD := $(NDK_TOOLCHAIN)/bin/arm-linux-androideabi-ld
-AR := $(NDK_TOOLCHAIN)/bin/arm-linux-androideabi-ar
-RANLIB := $(NDK_TOOLCHAIN)/bin/arm-linux-androideabi-ranlib
-STRIP := $(NDK_TOOLCHAIN)/bin/arm-linux-androideabi-strip \
+CC := $(NDK_TOOLCHAIN_BASE)/bin/$(HOST)-gcc --sysroot=$(NDK_SYSROOT)
+CXX := $(NDK_TOOLCHAIN_BASE)/bin/$(HOST)-g++
+CPP := $(NDK_TOOLCHAIN_BASE)/bin/$(HOST)-cpp
+LD := $(NDK_TOOLCHAIN_BASE)/bin/$(HOST)-ld
+AR := $(NDK_TOOLCHAIN_BASE)/bin/$(HOST)-ar
+RANLIB := $(NDK_TOOLCHAIN_BASE)/bin/$(HOST)-ranlib
+STRIP := $(NDK_TOOLCHAIN_BASE)/bin/$(HOST)-strip \
 	--strip-unneeded -R .note -R .comment
 
-ALL_CFLAGS = -DANDROID -I$(LOCAL)/include
-ALL_LDFLAGS = -L$(LOCAL)/lib -Wl,--rpath,$(LOCAL)/lib
-
 # build as small as possible, mostly useful for static binaries
-ALL_CFLAGS += -fdata-sections -ffunction-sections -Os
-ALL_LDFLAGS += -Wl,--gc-sections
+ALL_CFLAGS = -fdata-sections -ffunction-sections -Os
+ALL_LDFLAGS = -Wl,--gc-sections
 
 
-.PHONY = clean distclean assets
+.PHONY: all assets clean distclean
 
 all: $(EXTERNAL_ROOT)/pkgdetails/pkgdetails $(EXTERNAL_ROOT)/busybox/busybox
 	make -C $(EXTERNAL_ROOT)/debootstrap
@@ -109,6 +102,6 @@ clean:
 
 distclean: clean
 	rm -f -- $(ASSETS)/pkgdetails
-
-
-.PHONY: busybox
+	rm -f -- $(ASSETS)/busybox
+	rm -f -- $(ASSETS)/e2fsck.static
+	rm -f -- $(ASSETS)/debootstrap.tar.bz2

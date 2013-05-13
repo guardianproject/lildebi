@@ -73,6 +73,19 @@ install it via the terminal is to run:
   adb install bin/LilDebi-debug.apk
 
 
+NDK build options
+-----------------
+
+The following options can be set from the make command line to tailor the NDK
+build to your setup:
+
+ * NDK_BASE             (/path/to/your/android-ndk)
+ * NDK_PLATFORM_LEVEL   (7-17 as in android-17)
+ * NDK_ABI              (arm, mips, x86)
+ * NDK_COMPILER_VERSION (4.4.3, 4.6, 4.7, clang3.1, clang3.2)
+ * HOST                 (arm-linux-androideabi, mipsel-linux-android, x86)
+
+
 Original Sources
 ================
 
