@@ -148,14 +148,14 @@ if test -f $keyring; then
     test -d $mnt/usr/local || mkdir $mnt/usr/local
     test -d $mnt/usr/local/bin || mkdir $mnt/usr/local/bin
     cp $app_bin/gpgv $mnt/usr/local/bin/
+# gpgv is linked against libc.so, libz.so, libdl.so so it needs /system to run
+    mount -o bind /system $mnt/system
 # we need a copy of the keyring in the chroot so the second stage of
 # debootstrap can find it once its chrooted
     test -d $mnt/usr/local/share || mkdir $mnt/usr/local/share
     test -d $mnt/usr/local/share/keyrings || mkdir $mnt/usr/local/share/keyrings
     cp $keyring $mnt/usr/local/share/keyrings/
-    # TODO fix second stage validation, debootstrap fails saying it can't find gpgv
-	#SECOND_KEYRING="--keyring=/usr/local/share/keyrings/$keyring_name"
-	SECOND_KEYRING=
+	SECOND_KEYRING="--keyring=/usr/local/share/keyrings/$keyring_name"
 else
 	echo "No keyring found, not validating packages! ($keyring)"
 	FIRST_KEYRING=
@@ -257,3 +257,10 @@ if `grep -q -s ext3 /proc/filesystems`; then
     chroot $mnt tune2fs -j `echo $loopdev | sed s,block/,,`
     umount $mnt/proc
 fi
+
+
+#------------------------------------------------------------------------------#
+# clean up after debootstrap
+
+rm $mnt/usr/local/bin/gpgv
+rm $mnt/usr/local/share/keyrings/$keyring
