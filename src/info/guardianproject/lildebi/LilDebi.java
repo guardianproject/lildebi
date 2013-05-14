@@ -435,11 +435,4 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	}
 	// the saved state is restored in onCreate()
 
-	@Override
-	public void onRestoreInstanceState(Bundle savedInstanceState) {
-		super.onRestoreInstanceState(savedInstanceState);
-		// Restore UI state from the savedInstanceState.
-		// This bundle has also been passed to onCreate.
-		log.append(savedInstanceState.getString("log"));
-	}
 }
