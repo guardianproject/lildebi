@@ -12,6 +12,8 @@ git submodule init
 git submodule update
 make -C external/ assets
 
+cp ~/.android/ant.properties .
+
 ./update-ant-build.sh
 ant release
 
