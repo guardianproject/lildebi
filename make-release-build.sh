@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ~/.android/bashrc
+
 cd external/busybox
 git reset --hard
 git clean -fdx
