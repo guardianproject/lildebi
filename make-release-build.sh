@@ -17,4 +17,4 @@ cp ~/.android/ant.properties .
 ./update-ant-build.sh
 ant release
 
-gpg --detach-sign bin/LilDebi-release-unsigned.apk
+gpg --detach-sign bin/LilDebi-release.apk
