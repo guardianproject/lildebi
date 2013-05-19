@@ -50,7 +50,7 @@ export DEBOOTSTRAP_DIR=$mnt/usr/share/debootstrap
 echo "Create the image file:"
 
 test -e $image_path || \
-    dd if=/dev/zero of=$image_path seek=$imagesize bs=1M count=1
+    dd if=/dev/zero of=$image_path seek=$imagesize bs=1048576 count=1
 # set them up
 if test -d $mnt && test -e $image_path; then
     mke2fs_options="-L debian_chroot -T `find_best_filesystem` -F $image_path"
