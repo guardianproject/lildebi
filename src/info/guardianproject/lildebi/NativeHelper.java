@@ -231,8 +231,8 @@ public class NativeHelper {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 	}
 
-	public static long getSdCardFreeBytes() {
-		StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+	public static long getImagePathFreeBytes() {
+		StatFs stat = new StatFs(new File(image_path).getParent());
 		return (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
 	}
 }

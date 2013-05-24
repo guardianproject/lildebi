@@ -164,7 +164,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 
 	private void setImageSizeInMB(long requestedSize) {
 		// if the requested size is bigger than available space, adjust before prompting the user
-		long freeSize = NativeHelper.getSdCardFreeBytes() / 1024 / 1024;
+		long freeSize = NativeHelper.getImagePathFreeBytes() / 1024 / 1024;
 		if (freeSize < requestedSize) {
 			Toast.makeText(getApplicationContext(), R.string.smaller_imagesize_message,
 					Toast.LENGTH_LONG).show();
