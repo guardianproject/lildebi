@@ -206,6 +206,7 @@ touch $mnt/etc/resolv.conf
 echo 'nameserver 4.2.2.2' >> $mnt/etc/resolv.conf
 echo 'nameserver 8.8.8.8' >> $mnt/etc/resolv.conf
 echo 'nameserver 198.6.1.1' >> $mnt/etc/resolv.conf
+chmod 644 $mnt/etc/resolv.conf
 
 # create /etc/hosts
 cp /etc/hosts $mnt/etc/hosts
