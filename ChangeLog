@@ -1,0 +1,20 @@
+v0.4.3
++ made DNS resolving work for users (bug #54
++ fixed free space detection (bug #53)
++ added translations: Spanish, Polish, Romanian, Danish, French, German
+
+v0.4.2
++ added preference to set image file location
++ added Turkish translation
++ complete Debian package verification
++ choose the CPU arch: armhf or armel
++ improved loop device allocation
++ various GUI bugfixes and improvements
+
+v0.4.1
++ default to ext4 or ext3 for new installs
++ auto-detect best supported filesystem
++ include e2fsck, many phones do not have it (!!!)
++ new preference: enable SHA1 check of debian.img
++ included scripts are now editable
++ "app_bin" renamed on upgrade
