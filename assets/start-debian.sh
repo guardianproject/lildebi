@@ -123,6 +123,7 @@ test_mount_bind /pds
 test_mount_bind /sqlite_stmt_journals
 test_mount_bind /storage/emulated/0
 test_mount_bind /storage/emulated/legacy
+test_mount_bind /storage/extSdCard
 test_mount_bind /storage/sdcard0
 test_mount_bind /storage/sdcard1
 test_mount_bind /storage/usbdisk

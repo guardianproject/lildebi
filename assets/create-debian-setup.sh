@@ -126,6 +126,7 @@ create_mountpoint /storage
 create_mountpoint /storage/emulated
 create_mountpoint /storage/emulated/0
 create_mountpoint /storage/emulated/legacy
+create_mountpoint /storage/extSdCard
 create_mountpoint /storage/sdcard0
 create_mountpoint /storage/sdcard1
 create_mountpoint /storage/usbdisk
