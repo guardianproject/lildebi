@@ -100,7 +100,7 @@ find_free_loopdev () {
 
             # create the device file, if it does not yet exist
             if [ ! -e "$loopdev" ]; then
-                mknod "$loopdev" b 7 $i > /dev/null 2>&1
+                mknod -m 600 "$loopdev" b 7 $i > /dev/null 2>&1
             fi
 
             # check if it is unused; return it, if it's unused.
