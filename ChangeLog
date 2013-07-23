@@ -1,11 +1,16 @@
+v0.4.4
++ fixed install issues on some devices, bugs #56, #60
++ added /storage/extSDCard path
++ new translations: Dutch, Vietnamese
+
 v0.4.3
 + made DNS resolving work for users (bug #54
 + fixed free space detection (bug #53)
-+ added translations: Spanish, Polish, Romanian, Danish, French, German
++ new translations: Spanish, Polish, Romanian, Danish, French, German
 
 v0.4.2
 + added preference to set image file location
-+ added Turkish translation
++ new translation: Turkish
 + complete Debian package verification
 + choose the CPU arch: armhf or armel
 + improved loop device allocation
