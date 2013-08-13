@@ -29,7 +29,7 @@ endif
 NDK_BASE ?= /opt/android-ndk
 NDK_PLATFORM_LEVEL ?= 9
 NDK_ABI=arm
-NDK_COMPILER_VERSION=4.6
+NDK_COMPILER_VERSION=4.7
 
 NDK_SYSROOT=$(NDK_BASE)/platforms/android-$(NDK_PLATFORM_LEVEL)/arch-$(NDK_ABI)
 NDK_UNAME := $(shell uname -s | tr '[A-Z]' '[a-z]')
