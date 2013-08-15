@@ -51,7 +51,12 @@ public class NativeHelper {
 		publicFiles.mkdirs();
 		sh = new File(app_bin, "sh");
 		versionFile = new File(app_bin, "VERSION");
-		sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
+		try {
+			sdcard = Environment.getExternalStorageDirectory().getCanonicalPath();
+		} catch (IOException e) {
+			e.printStackTrace();
+			sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
+		}
 		mnt = "/debian";
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
