@@ -121,8 +121,6 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		if (!isExt2Supported()) {
 			unwireButtons();
 			renameInstallButton(R.string.uninstall);
-			// TODO focus the button otherwise the imagesize EditText focuses
-			// and pops up the keyboard
 			installButton.requestFocus();
 			installButton.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
@@ -153,6 +151,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			doBindService();
 			registerReceivers();
 			updateLog();
+			installButton.requestFocus();
 		}
 	}
 

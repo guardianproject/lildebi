@@ -116,6 +116,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
+        android:focusableInTouchMode="true"
         android:padding="20sp"
         android:text="@string/install"
         android:textSize="20sp" />
