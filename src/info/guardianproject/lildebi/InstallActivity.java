@@ -103,8 +103,10 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 				try {
 					long currentsize = Long.parseLong(imagesize.getText().toString());
 					setImageSizeInMB(currentsize);
+					installButton.setEnabled(true);
 				} catch (NumberFormatException e) {
-					// ignore, this means we got blank value or something like that
+					// this means we got blank value or something like that
+					installButton.setEnabled(false);
 				}
 			}
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
