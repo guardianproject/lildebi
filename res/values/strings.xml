@@ -40,6 +40,7 @@
     <string name="not_installed_message">Debian not installed</string>
     <string name="not_configured_message">Image not configured</string>
     <string name="no_network_message">Network required for install</string>
+    <string name="mount_point_not_found_format">The mount point \'%s\' does not exist!</string>
     <string name="no_ext2_message">/proc/filesystems does not list \'ext2\' as a supported filesystem</string>
 
     <string name="image_path_exists_message">Warning: there is already an existing file at the image path that you have selected!</string>

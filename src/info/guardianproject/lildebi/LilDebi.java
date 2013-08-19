@@ -268,6 +268,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		if (new File(NativeHelper.image_path).exists()) {
 			if (!new File(NativeHelper.mnt).exists()) {
 				// we have a manually downloaded debian.img file, config for it
+				LilDebi.log.append(String.format(
+						getString(R.string.mount_point_not_found_format),
+						NativeHelper.mnt));
 				statusTitle.setVisibility(View.VISIBLE);
 				statusText.setVisibility(View.VISIBLE);
 				statusText.setText(R.string.not_configured_message);
