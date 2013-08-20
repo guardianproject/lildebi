@@ -33,8 +33,11 @@ else
 
     umount -d $mnt || /system/bin/umount $mnt || echo "Failed to unmount $mnt!"
 
-    echo "Deleting loopback device..."
-    $losetup -d `find_attached_loopdev`
+    attached=`find_attached_loopdev`
+    if [ ! -z $attached ]; then
+        echo "Deleting loopback device..."
+        $losetup -d $attached
+    fi
     
     echo ""
     echo "Debian chroot stopped and unmounted."
