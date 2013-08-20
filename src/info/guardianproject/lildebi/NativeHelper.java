@@ -212,6 +212,8 @@ public class NativeHelper {
 
 	public static void chmod(int mode, File path) {
 		try {
+			if (!path.exists())
+				throw new IOException();
 			Class<?> fileUtils = Class.forName("android.os.FileUtils");
 			Method setPermissions = fileUtils.getMethod("setPermissions", String.class,
 					int.class, int.class, int.class);
@@ -229,6 +231,9 @@ public class NativeHelper {
 			Log.i(LilDebi.TAG, "android.os.FileUtils.setPermissions() failed - InvocationTargetException.");
 		} catch (NoSuchMethodException e) {
 			Log.i(LilDebi.TAG, "android.os.FileUtils.setPermissions() failed - NoSuchMethodException.");
+		} catch (IOException e) {
+			Log.e(LilDebi.TAG, path + " does not exist!");
+			e.printStackTrace();
 		}
 	}
 
