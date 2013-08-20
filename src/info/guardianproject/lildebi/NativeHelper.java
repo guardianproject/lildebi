@@ -185,7 +185,6 @@ public class NativeHelper {
 		chmod(0755, new File(app_bin, "test.sh"));
 		chmod(0755, new File(app_bin, "gpgv"));
 		chmod(0755, new File(app_bin, "busybox"));
-		chmod(0755, new File(app_bin, "e2fsck.static"));
 		writeVersionFile(context);
 	}
 

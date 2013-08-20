@@ -63,11 +63,9 @@ ALL_LDFLAGS = -Wl,--gc-sections
 
 all: $(EXTERNAL_ROOT)/busybox/busybox
 	make -C $(EXTERNAL_ROOT)/cdebootstrap
-	make -C $(EXTERNAL_ROOT)/e2fsck
 
 assets: all
 	install $(EXTERNAL_ROOT)/busybox/busybox \
-		$(EXTERNAL_ROOT)/e2fsck/e2fsck.static \
 		$(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar.bz2 \
 		$(ASSETS)/
 
@@ -93,9 +91,7 @@ clean:
 		patch -N -R -p1 --reject-file=- < ../003-mount-umount-fsck-df.patch
 	make -C $(EXTERNAL_ROOT)/busybox/ clean
 	make -C $(EXTERNAL_ROOT)/cdebootstrap/ clean
-	make -C $(EXTERNAL_ROOT)/e2fsck/ clean
 
 distclean: clean
 	rm -f -- $(ASSETS)/busybox
-	rm -f -- $(ASSETS)/e2fsck.static
 	rm -f -- $(ASSETS)/cdebootstrap.tar.bz2
