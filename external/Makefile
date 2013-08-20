@@ -61,21 +61,15 @@ ALL_LDFLAGS = -Wl,--gc-sections
 
 .PHONY: all assets clean distclean
 
-all: $(EXTERNAL_ROOT)/pkgdetails/pkgdetails $(EXTERNAL_ROOT)/busybox/busybox
+all: $(EXTERNAL_ROOT)/busybox/busybox
 	make -C $(EXTERNAL_ROOT)/cdebootstrap
 	make -C $(EXTERNAL_ROOT)/e2fsck
 
 assets: all
-	install $(EXTERNAL_ROOT)/pkgdetails/pkgdetails \
-		$(EXTERNAL_ROOT)/busybox/busybox \
+	install $(EXTERNAL_ROOT)/busybox/busybox \
 		$(EXTERNAL_ROOT)/e2fsck/e2fsck.static \
 		$(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar.bz2 \
 		$(ASSETS)/
-	$(STRIP) $(ASSETS)/pkgdetails
-
-
-$(EXTERNAL_ROOT)/pkgdetails/pkgdetails: $(EXTERNAL_ROOT)/pkgdetails/pkgdetails.c
-	$(CC) $(ALL_CFLAGS) $(CFLAGS) $(ALL_LDFLAGS) $(LDFLAGS) $< -o $@
 
 
 $(EXTERNAL_ROOT)/busybox/.config: $(EXTERNAL_ROOT)/busybox_config
@@ -93,7 +87,6 @@ $(EXTERNAL_ROOT)/busybox/busybox: $(EXTERNAL_ROOT)/busybox/.config
 	make -C $(EXTERNAL_ROOT)/busybox/
 
 clean: 
-	rm -f -- $(EXTERNAL_ROOT)/pkgdetails/pkgdetails
 	rm -f -- $(EXTERNAL_ROOT)/busybox/.config
 	rm -f -- $(EXTERNAL_ROOT)/busybox/busybox
 	-cd $(EXTERNAL_ROOT)/busybox/ && \
@@ -103,7 +96,6 @@ clean:
 	make -C $(EXTERNAL_ROOT)/e2fsck/ clean
 
 distclean: clean
-	rm -f -- $(ASSETS)/pkgdetails
 	rm -f -- $(ASSETS)/busybox
 	rm -f -- $(ASSETS)/e2fsck.static
 	rm -f -- $(ASSETS)/cdebootstrap.tar.bz2

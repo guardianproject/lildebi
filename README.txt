@@ -98,14 +98,6 @@ tar-bzipped into the included tarball assets/cdebootstrap.tar.bz2. See
 external/cdebootstrap/Makefile for details.
 
 
-pkgdetails
-----------
-https://dev.openwrt.org/browser/packages/utils/debootstrap/files/pkgdetails.c
-
-pkgdetails comes from OpenWRT's debootstrap and is included in this git repo
-and built using external/Makefile
-
-
 busybox
 -------
 git://busybox.net/busybox.git
