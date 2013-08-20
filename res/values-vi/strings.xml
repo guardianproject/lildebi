@@ -40,6 +40,7 @@
   <string name="not_installed_message">Debian chưa được cài đặt</string>
   <string name="not_configured_message">Ổ đĩa ảo chưa được cấu hình</string>
   <string name="no_network_message">Yêu cầu kết nối mạng khi cài</string>
+  <string name="mount_point_not_found_format">Điểm kết nối \'%s\' không tồn tại!</string>
   <string name="no_ext2_message">/proc/filesystems không liệt kê \'ext2\' dưới dạng tập tin được hỗ trợ bởi hệ thống</string>
   <string name="image_path_exists_message">Cảnh báo: đã tồn tại một tập tin trong đường dẫn đến ổ đĩa ảo mà bạn đã chọn!</string>
   <string name="image_path_parent_does_not_exist_message">Thư mục bạn chọn không tồn tại! Thiết lập lại thông số theo mặc định.</string>
