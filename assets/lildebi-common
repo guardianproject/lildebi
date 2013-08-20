@@ -68,6 +68,16 @@ remove_root_symlinks () {
     mount -oremount,ro rootfs /
 }
 
+find_losetup () {
+    if [ -x /system/xbin/losetup ]; then
+        echo /system/xbin/losetup
+    else
+        echo $app_bin/losetup
+    fi
+}
+
+losetup=`find_losetup`
+
 find_mounted_loopdev () {
     $app_bin/sed -n "s|^\(/dev/.*loop[0-9][0-9]*\) $mnt .*|\1|p" /proc/mounts
 }
@@ -92,7 +102,7 @@ find_free_loopdev () {
             fi
 
             # check if it is unused; return it, if it's unused.
-            if ! `$app_bin/losetup "$loopdev" > /dev/null 2>&1`; then
+            if ! `$losetup "$loopdev" > /dev/null 2>&1`; then
                 echo "$loopdev"
                 return
             fi
@@ -102,12 +112,12 @@ find_free_loopdev () {
     fi
 
     # if the above doesn't succeed, ask the system as a fallback
-    echo `$app_bin/losetup -f`
+    echo `$losetup -f`
 }
 
 find_attached_loopdev () {
     for loopdev in `$app_bin/ls -1 /dev/block/loop*`; do
-        if `$app_bin/losetup $loopdev 2>&1 | grep -q $image_path`; then
+        if `$losetup $loopdev 2>&1 | grep -q $image_path`; then
             echo $loopdev
             return
         fi

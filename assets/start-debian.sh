@@ -72,8 +72,8 @@ find_and_run_fsck
 # mounts
 
 echo ""
-echo "> losetup $loopdev $image_path"
-losetup $loopdev $image_path
+echo "> $losetup $loopdev $image_path"
+$losetup $loopdev $image_path
 
 # some platforms need to have the ext2 module installed to get ext2 support
 if [ -z `grep ext2 /proc/filesystems` ]; then

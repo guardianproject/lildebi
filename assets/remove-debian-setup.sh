@@ -17,7 +17,7 @@ set -x
 
 # force umount if stop-debian.sh failed
 test -d $mnt/usr && umount -f $mnt
-losetup -d $loopdev
+$losetup -d $loopdev
 
 rm $image_path
 rm $image_path.sha1

@@ -63,7 +63,11 @@ if test -d $mnt && test -e $image_path; then
     else
         mke2fs $mke2fs_options
     fi
-    losetup $loopdev $image_path
+    losetup
+    /system/xbin/losetup
+    $losetup $loopdev $image_path
+    losetup
+    /system/xbin/losetup
     mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
     cd $mnt
     tar xjf $app_bin/debootstrap.tar.bz2
