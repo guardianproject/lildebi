@@ -44,6 +44,17 @@ sha1file=`dirname $app_bin`/`basename $image_path.sha1`
 # keep all files private to this app
 umask 077
 
+
+make_debian_symlink () {
+    if [ ! -e /debian ]; then
+        mount -o remount,rw rootfs /
+        echo "No '/debian' found, linking it to the chroot."
+        cd /
+        ln -s $mnt /debian
+        mount -o remount,ro rootfs /
+    fi
+}
+
 make_root_symlinks () {
     wd=`pwd`
     cd /

@@ -59,7 +59,7 @@ public class NativeHelper {
 			e.printStackTrace();
 			sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
 		}
-		mnt = "/debian";
+		mnt = "/data/debian";
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		default_image_path = sdcard + "/debian.img";

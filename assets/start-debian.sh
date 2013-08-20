@@ -133,7 +133,10 @@ test_mount_bind /system
 #------------------------------------------------------------------------------#
 # shortcuts for setting up the chroot in the terminal
 
+make_debian_symlink
+
 if [ ! -e /debian/shell ]; then
+    echo "installing '/debian/shell' for easy way to get to chroot from term"
     ln -s $app_bin/shell /debian/shell
 fi
 

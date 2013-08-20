@@ -17,8 +17,9 @@ test -e $1/lildebi-common || exit
 # include installation-specific settings like mirror and arch
 . $app_bin/install.conf
 
+
 #------------------------------------------------------------------------------#
-# modify rootfs
+# cdebootstrap needs /bin to find it utils
 
 mount -o remount,rw rootfs /
 
@@ -29,13 +30,20 @@ if [ ! -e /bin ]; then
     ln -s $app_bin /bin
 fi
 
+mount -o remount,ro rootfs /
+
+
+#------------------------------------------------------------------------------#
+# create chroot mountpoint/directory
+
 if [ ! -e $mnt ]; then
     echo "Creating chroot mountpoint at $mnt"
     mkdir $mnt
     chmod 755 $mnt
 fi
 
-mount -o remount,ro rootfs /
+# create shortcut symlink to mountpoint
+make_debian_symlink
 
 
 #------------------------------------------------------------------------------#
@@ -194,15 +202,6 @@ if [ ! -e $mnt/etc/apt/sources.list]; then
     echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
 fi
 echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
-
-# install script that sets up a shell in the chroot for you
-echo "installing '/debian/shell' for easy way to get to chroot from term"
-if [ -d /debian ]; then
-    cp $app_bin/shell /debian/shell
-    chmod 755 /debian/shell
-    test -e /data/local/bin || mkdir /data/local/bin
-    ln -s $app_bin/shell /data/local/bin/debian
-fi
 
 # Debian's e2fsck.static needs to check /etc/mtab to make sure the
 # filesystem being check is not currently mounted. on Android, /etc is

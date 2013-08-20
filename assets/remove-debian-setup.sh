@@ -31,6 +31,11 @@ fi
 if [ -h /bin ]; then
     rm /bin
 fi
+
+# if the /debian symlink exists, delete it
+if [ -h /debian ]; then
+    rm /debian
+fi
 mount -o remount,ro rootfs /
 
 #------------------------------------------------------------------------------#
