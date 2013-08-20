@@ -10,6 +10,9 @@ proguard-project.txt
 assets/busybox
 assets/e2fsck.static
 assets/pkgdetails
+assets/cdebootstrap.tar.bz2
+external/cdebootstrap/cdebootstrap-static-0.*/
+external/cdebootstrap/cdebootstrap.tar.bz2
 assets/debootstrap.tar.bz2
 external/debootstrap/debootstrap-1.*/
 external/debootstrap/debootstrap.tar.bz2
