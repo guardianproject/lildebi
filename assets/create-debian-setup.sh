@@ -188,9 +188,11 @@ test -e $mnt/etc/mtab && rm $mnt/etc/mtab
 ln -s /proc/mounts $mnt/etc/mtab
 
 # apt sources
-test -e $mnt/etc/apt || mkdir $mnt/etc/apt
-touch $mnt/etc/apt/sources.list
-echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
+if [ ! -e $mnt/etc/apt/sources.list]; then
+    test -e $mnt/etc/apt || mkdir $mnt/etc/apt
+    touch $mnt/etc/apt/sources.list
+    echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
+fi
 echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
 
 # install script that sets up a shell in the chroot for you
