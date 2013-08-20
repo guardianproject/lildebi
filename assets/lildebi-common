@@ -28,18 +28,6 @@ fi
 if [ -z $mnt ]; then
     mnt=$4
 fi
-if [ -z $release ]; then
-    release=$5
-fi    
-if [ -z $mirror ]; then
-    mirror=$6
-fi    
-if [ -z $imagesize ]; then
-    imagesize=$7
-fi    
-if [ -z $arch ]; then
-    arch=$8
-fi
 
 test -d $app_bin || echo "app_bin: '$app_bin' not a directory"
 test -d $sdcard || echo "sdcard: '$sdcard' not a directory"

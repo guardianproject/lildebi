@@ -17,11 +17,6 @@ public class InstallService extends Service {
 
 	private StringBuffer log;
 
-	private String release;
-	private String mirror;
-	private String arch;
-	private String imagesize;
-
 	public class LocalBinder extends Binder {
 		public InstallService getService() {
 			return InstallService.this;
@@ -56,10 +51,6 @@ public class InstallService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		synchronized (this) {
-			release = intent.getStringExtra(InstallActivity.RELEASE);
-			mirror = intent.getStringExtra(InstallActivity.MIRROR);
-			arch = intent.getStringExtra(InstallActivity.ARCH);
-			imagesize = intent.getStringExtra(InstallActivity.IMAGESIZE);
 			NativeHelper.isInstallRunning = true;
 			log = new StringBuffer();
 			installThread = new InstallThread();
@@ -96,8 +87,7 @@ public class InstallService extends Service {
 
 				String stdArgs = NativeHelper.getArgs();
 				writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
-				writeCommand(os, "./create-debian-setup.sh " + stdArgs + release
-						+ " http://" + mirror + "/debian/ " + imagesize + " " + arch);
+				writeCommand(os, "./create-debian-setup.sh " + stdArgs);
 				writeCommand(os, "./stop-debian.sh " + stdArgs);
 				writeCommand(os, "./unmounted-install-tweaks.sh " + stdArgs);
 				writeCommand(os, "./start-debian.sh " + stdArgs);

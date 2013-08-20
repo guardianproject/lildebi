@@ -10,10 +10,13 @@ echo $1/lildebi-common
 test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
+. $app_bin/install.conf
+
 echo "app_bin: $app_bin"
 echo "sdcard: $sdcard"
 echo "image_path: $image_path"
 echo "mnt: $mnt"
 echo "release: $release"
 echo "mirror: $mirror"
+echo "arch: $arch"
 echo "imagesize: $imagesize"

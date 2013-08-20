@@ -29,6 +29,7 @@ public class NativeHelper {
 	public static File install_log;
 	public static File publicFiles;
 	public static File sh;
+	public static File install_conf;
 	public static File versionFile;
 	public static String sdcard;
 	public static String image_path;
@@ -50,6 +51,7 @@ public class NativeHelper {
 				"Android/data/" + context.getPackageName() + "/files/");
 		publicFiles.mkdirs();
 		sh = new File(app_bin, "sh");
+		install_conf = new File(app_bin, "install.conf");
 		versionFile = new File(app_bin, "VERSION");
 		try {
 			sdcard = Environment.getExternalStorageDirectory().getCanonicalPath();

@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+import org.apache.commons.io.FileUtils;
 import org.torproject.android.service.TorServiceUtils;
 
 import android.app.Activity;
@@ -35,6 +37,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class InstallActivity extends Activity implements View.OnCreateContextMenuListener {
+	public static final String TAG = "InstallActivity";
+
 	public static final String RELEASE = "RELEASE";
 	public static final String MIRROR = "MIRROR";
 	public static final String ARCH = "ARCH";
@@ -191,17 +195,31 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		}, 300);
 	}
 
+	private void writeInstallConf() {
+		String conf = new String();
+		conf += "release=" + selectedRelease.getText().toString() + "\n";
+		conf += "mirror=http://" + selectedMirror.getText().toString() + "/debian/\n";
+		conf += "arch=" + selectedArch.getText().toString() + "\n";
+		conf += "imagesize=" + imagesize.getText().toString() + "\n";
+
+		try {
+			FileUtils.writeStringToFile(NativeHelper.install_conf, conf);
+		} catch (IOException e) {
+			String msg = "Failed to write install config: "	+ NativeHelper.install_conf;
+			Log.e(TAG, msg);
+			LilDebi.log.append(msg + "\n");
+			e.printStackTrace();
+		}
+	}
+
 	private void wireButtons() {
 		installButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				setResult(NativeHelper.STARTING_INSTALL);
+				writeInstallConf();
 				Intent intent = new Intent(InstallActivity.this, InstallService.class);
-				intent.putExtra(RELEASE, selectedRelease.getText().toString());
-				intent.putExtra(MIRROR, selectedMirror.getText().toString());
-				intent.putExtra(ARCH, selectedArch.getText().toString());
-				intent.putExtra(IMAGESIZE, imagesize.getText().toString());
 				startService(intent);
-				Log.i(LilDebi.TAG, "Starting install service");
+				Log.i(TAG, "Starting install service");
 				handler.postDelayed(new Runnable() {
 					public void run() {
 						refreshButtons();
