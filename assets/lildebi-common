@@ -176,7 +176,13 @@ find_and_run_fsck () {
         echo "> $fsck $fsck_flags $image_path"
         $fsck $fsck_flags $image_path
         fsck_return=$?
-    elif [ -x $app_bin/e2fsck.static ]; then
+    elif [ ! -x $app_bin/e2fsck.static ]; then
+        echo "Installing e2fsck.static from Debian..."
+        chroot $mnt apt-get install e2fsck-static
+        cp $mnt/sbin/e2fsck.static $app_bin/
+    fi
+
+    if [ -x $app_bin/e2fsck.static ]; then
         fsck=$app_bin/e2fsck.static
     # Debian's e2fsck.static needs to check /etc/mtab to make sure the
     # filesystem being check is not currently mounted. on Android, /etc is
@@ -195,7 +201,7 @@ find_and_run_fsck () {
         umount $fsck_chroot/dev
         umount $fsck_chroot/proc
         umount $fsck_chroot/$imagedir
-    else
+    elif [ ! -x /system/bin/e2fsck ]; then
         echo "NO fsck FOUND, SKIPPING DISK CHECK!"
         fsck_return=0
     fi
