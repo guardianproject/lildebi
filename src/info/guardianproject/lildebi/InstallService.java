@@ -86,14 +86,15 @@ public class InstallService extends Service {
 				et.start();
 
 				String stdArgs = NativeHelper.getArgs();
-				writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
-				writeCommand(os, "./create-debian-setup.sh " + stdArgs);
-				writeCommand(os, "./stop-debian.sh " + stdArgs);
-				writeCommand(os, "./unmounted-install-tweaks.sh " + stdArgs);
-				writeCommand(os, "./start-debian.sh " + stdArgs);
-				writeCommand(os, NativeHelper.app_bin + "/chroot " + NativeHelper.mnt
+				String command = "./create-debian-setup.sh " + stdArgs;
+				command += "\\\n&& " + "./stop-debian.sh " + stdArgs;
+				command += "\\\n&& " + "./unmounted-install-tweaks.sh " + stdArgs;
+				command += "\\\n&& " + "./start-debian.sh " + stdArgs;
+				command += "\\\n&& " + NativeHelper.app_bin + "/chroot " + NativeHelper.mnt
 						+ " " + NativeHelper.app_bin + "/complete-debian-setup.sh "
-						+ stdArgs);
+						+ stdArgs;
+				writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
+				writeCommand(os, command);
 				writeCommand(os, "exit");
 
 				sh.waitFor();
