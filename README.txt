@@ -6,7 +6,7 @@ This is an app to setup and manage a Debian install in parallel on an Android
 phone.  It can build a Debian install from scratch or use an existing image.
 It manages the starting and stopping of the Debian install.
 
-It uses debootstrap to build up the disk image as a chroot, and then provides
+It uses cdebootstrap to build up the disk image as a chroot, and then provides
 start and stop methods for handling mounting, fsck, starting/stopping sshd,
 etc.
 
@@ -89,13 +89,13 @@ build to your setup:
 Original Sources
 ================
 
-debootstrap
+cdebootstrap
 -----------
-http://packages.debian.org/unstable/debootstrap
+http://packages.debian.org/unstable/cdebootstrap
 
-debootstrap is downloaded directly from Debian, extracted, patched, and then
-tar-bzipped into the included tarball assets/debootstrap.tar.bz2. See
-external/debootstrap/Makefile for details.
+cdebootstrap is downloaded directly from Debian, extracted, and then
+tar-bzipped into the included tarball assets/cdebootstrap.tar.bz2. See
+external/cdebootstrap/Makefile for details.
 
 
 pkgdetails
