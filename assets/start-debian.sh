@@ -148,6 +148,11 @@ if [ ! -e /data/local/bin/debian ]; then
     ln -s $app_bin/shell /data/local/bin/debian
 fi
 
+#
+if [ $install_fsck = yes ]; then
+    install_e2fsck_static
+fi
+
 #------------------------------------------------------------------------------#
 # ssh
 

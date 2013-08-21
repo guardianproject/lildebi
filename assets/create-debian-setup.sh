@@ -159,6 +159,10 @@ $mnt/usr/bin/cdebootstrap-static --verbose \
     --helperdir=$mnt/usr/share/cdebootstrap-static \
     --arch $arch $release $mnt $mirror || exit
 
+# figure out extra packages to include
+if [ ! -x /system/bin/e2fsck ]; then
+    install_e2fsck_static
+fi
 
 #------------------------------------------------------------------------------#
 # create root symlinks that exist on the Android system

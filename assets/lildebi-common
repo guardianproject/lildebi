@@ -38,6 +38,7 @@ busybox_path="$app_bin"
 busybox=$busybox_path/busybox
 
 fsck_chroot=`dirname $app_bin`/fsck-chroot
+install_fsck=no
 
 sha1file=`dirname $app_bin`/`basename $image_path.sha1`
 
@@ -187,18 +188,7 @@ find_and_run_fsck () {
     else
         fsck_flags=$1
     fi
-# use offical fsck if it exists, other use included one if it exists
-    if [ -x /system/bin/e2fsck ]; then
-        fsck=/system/bin/e2fsck
-        echo "> $fsck $fsck_flags $image_path"
-        $fsck $fsck_flags $image_path
-        fsck_return=$?
-    elif [ ! -x $app_bin/e2fsck.static ]; then
-        echo "Installing e2fsck.static from Debian..."
-        chroot $mnt apt-get install e2fsck-static
-        cp $mnt/sbin/e2fsck.static $app_bin/
-    fi
-
+# check for embedded fsck first, to allow overriding of Android's fsck
     if [ -x $app_bin/e2fsck.static ]; then
         fsck=$app_bin/e2fsck.static
     # Debian's e2fsck.static needs to check /etc/mtab to make sure the
@@ -218,10 +208,23 @@ find_and_run_fsck () {
         umount $fsck_chroot/dev
         umount $fsck_chroot/proc
         umount $fsck_chroot/$imagedir
-    elif [ ! -x /system/bin/e2fsck ]; then
+    elif [ -x /system/bin/e2fsck ]; then
+        fsck=/system/bin/e2fsck
+        echo "> $fsck $fsck_flags $image_path"
+        $fsck $fsck_flags $image_path
+        fsck_return=$?
+    else
         echo "NO fsck FOUND, SKIPPING DISK CHECK!"
         fsck_return=0
+        install_fsck=yes
     fi
 
     test $fsck_return -lt 4 || exit $fsck_return
+}
+
+install_e2fsck_static () {
+        echo "Installing e2fsck.static from Debian..."
+        PATH=/sbin:/bin:/usr/bin \
+            chroot $mnt /usr/bin/apt-get --no-install-recommends install e2fsck-static
+        cp $mnt/sbin/e2fsck.static $app_bin/
 }
