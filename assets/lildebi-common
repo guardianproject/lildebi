@@ -46,9 +46,15 @@ umask 077
 
 
 make_debian_symlink () {
+    if [ -d /debian ]; then
+        mount -o remount,rw rootfs /
+        umount /debian
+        rmdir /debian
+        mount -o remount,ro rootfs /
+    fi
     if [ ! -e /debian ]; then
         mount -o remount,rw rootfs /
-        echo "No '/debian' found, linking it to the chroot."
+        echo "'/debian' not found, making a symlink to the chroot."
         cd /
         ln -s $mnt /debian
         mount -o remount,ro rootfs /
