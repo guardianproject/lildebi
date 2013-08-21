@@ -42,20 +42,17 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	private ScrollView consoleScroll;
 	private TextView consoleText;
 
-	public static final String LOG_UPDATE = "LOG_UPDATE";
-	public static final String COMMAND_FINISHED = "COMMAND_FINISHED";
+	private static final int LOG_UPDATE = 654321;
+	private static final int COMMAND_FINISHED = 123456;
 
 	static StringBuffer log = null;
 
 	private CommandThread commandThread;
 	private Handler commandThreadHandler;
-	private static final int START_STOP_BUTTON_ENABLE = 123456;
 
 	private PowerManager.WakeLock wl;
 	private boolean useWakeLock;
 	// we have to keep a copy around of these to prevent them from being GCed
-	private BroadcastReceiver logUpdateReceiver = null;
-	private BroadcastReceiver commandFinishedReceiver = null;
 	private BroadcastReceiver mediaMountedReceiver = null;
 	private BroadcastReceiver mediaEjectReceiver = null;
 	public String command;
@@ -108,8 +105,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
 		commandThreadHandler = new Handler() {
 			public void handleMessage(Message msg) {
-				if (msg.arg1 == START_STOP_BUTTON_ENABLE)
-					startStopButton.setEnabled(true);
+				if (msg.arg1 == COMMAND_FINISHED)
+					updateScreenStatus();
+				else if (msg.arg1 == LOG_UPDATE)
+					updateLog();
 			}
 		};
 	}
@@ -125,7 +124,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			return;
 		}
 		updateScreenStatus();
-		registerRuntimeReceivers();
 		updateLog();
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -133,12 +131,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			registerMediaMountedReceiver();
 		else
 			unregisterMediaMountedReceiver();
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		unregisterRuntimeReceivers();
 	}
 
 	protected void onDestroy() {
@@ -182,7 +174,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		}
 		return false;
 	}
-
+	
 	class CommandThread extends Thread {
 		private LogUpdate logUpdate;
 
@@ -217,7 +209,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				Message msg = commandThreadHandler.obtainMessage();
 				msg.arg1 = COMMAND_FINISHED;
 				commandThreadHandler.sendMessage(msg);
-				sendBroadcast(new Intent(COMMAND_FINISHED));
 			}
 		}
 	}
@@ -229,7 +220,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		@Override
 		public void update(String val) {
 			log.append(val);
-			sendBroadcast(new Intent(LOG_UPDATE));
+			Message msg = commandThreadHandler.obtainMessage();
+			msg.arg1 = LOG_UPDATE;
+			commandThreadHandler.sendMessage(msg);
 		}
 	}
 
@@ -272,6 +265,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	}
 
 	private void updateScreenStatus() {
+		startStopButton.setEnabled(true);
 		String state = Environment.getExternalStorageState();
 		NativeHelper.mounted = false;
 		if (!Environment.MEDIA_MOUNTED.equals(state)) {
@@ -380,6 +374,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 					+ " --install -s " + NativeHelper.app_bin.getAbsolutePath();
 			Log.i(TAG, cmd);
 			log.append("# " + cmd + "\n\n");
+			// this can't use CommandThread because CommandThread depends on busybox sh
 			try {
 				Process sh = Runtime.getRuntime().exec("/system/bin/sh");
 				OutputStream os = sh.getOutputStream();
@@ -424,33 +419,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				Log.w(TAG, "Android project issue 6191 workaround:");
 				e.printStackTrace();
 			}
-	}
-
-	// these receivers are only used when the app is running in the foreground
-	private void registerRuntimeReceivers() {
-		logUpdateReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				updateLog();
-			}
-		};
-		registerReceiver(logUpdateReceiver, new IntentFilter(LilDebi.LOG_UPDATE));
-
-		commandFinishedReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				updateScreenStatus();
-			}
-		};
-		registerReceiver(commandFinishedReceiver, new IntentFilter(
-				LilDebi.COMMAND_FINISHED));
-	}
-
-	private void unregisterRuntimeReceivers() {
-		if (logUpdateReceiver != null)
-			unregisterReceiver(logUpdateReceiver);
-		if (commandFinishedReceiver != null)
-			unregisterReceiver(commandFinishedReceiver);
 	}
 
 	@Override
