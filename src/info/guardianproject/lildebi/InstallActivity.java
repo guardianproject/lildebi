@@ -30,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -61,6 +62,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		public void onServiceDisconnected(ComponentName className) {
 			mBoundService = null;
 			unwireButtons();
+			setProgressBarIndeterminateVisibility(false);
 		}
 	};
 	private boolean mIsBound;
@@ -89,6 +91,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.install_activity);
 		selectedRelease = (TextView) findViewById(R.id.selectedRelease);
 		selectedMirror = (TextView) findViewById(R.id.selectedMirror);
@@ -215,6 +218,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private void wireButtons() {
 		installButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
+				setProgressBarIndeterminateVisibility(true);
 				setResult(NativeHelper.STARTING_INSTALL);
 				writeInstallConf();
 				Intent intent = new Intent(InstallActivity.this, InstallService.class);

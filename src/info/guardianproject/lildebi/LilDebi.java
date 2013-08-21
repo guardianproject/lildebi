@@ -28,6 +28,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -62,6 +63,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		super.onCreate(savedInstanceState);
 		NativeHelper.setup(getApplicationContext());
 
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.lildebi);
 		statusTitle = (TextView) findViewById(R.id.statusTitle);
 		statusText = (TextView) findViewById(R.id.statusText);
@@ -233,6 +235,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
 	private void configureDownloadedImage () {
 		startStopButton.setEnabled(false);
+		setProgressBarIndeterminateVisibility(true);
 		command = new String("./configure-downloaded-image.sh" + NativeHelper.getArgs());
 		commandThread = new CommandThread();
 		commandThread.start();
@@ -240,6 +243,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
 	private void startDebian() {
 		startStopButton.setEnabled(false);
+		setProgressBarIndeterminateVisibility(true);
 		if (useWakeLock)
 			wl.acquire();
 		command = new String("./start-debian.sh" + NativeHelper.getArgs()
@@ -253,6 +257,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
 	private void stopDebian() {
 		startStopButton.setEnabled(false);
+		setProgressBarIndeterminateVisibility(true);
 		if (wl.isHeld())
 			wl.release();
 		command = new String(NativeHelper.app_bin + "/chroot "
@@ -266,6 +271,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
 	private void updateScreenStatus() {
 		startStopButton.setEnabled(true);
+		setProgressBarIndeterminateVisibility(false);
 		String state = Environment.getExternalStorageState();
 		NativeHelper.mounted = false;
 		if (!Environment.MEDIA_MOUNTED.equals(state)) {
