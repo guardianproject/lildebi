@@ -18,6 +18,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -46,6 +48,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	static StringBuffer log = null;
 
 	private CommandThread commandThread;
+	private Handler commandThreadHandler;
+	private static final int START_STOP_BUTTON_ENABLE = 123456;
+
 	private PowerManager.WakeLock wl;
 	private boolean useWakeLock;
 	// we have to keep a copy around of these to prevent them from being GCed
@@ -100,6 +105,13 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		eject.addDataScheme("file");
 		eject.addAction(Intent.ACTION_MEDIA_EJECT);
 		registerReceiver(mediaEjectReceiver, eject);
+
+		commandThreadHandler = new Handler() {
+			public void handleMessage(Message msg) {
+				if (msg.arg1 == START_STOP_BUTTON_ENABLE)
+					startStopButton.setEnabled(true);
+			}
+		};
 	}
 
 	@Override
@@ -202,6 +214,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				synchronized (LilDebi.this) {
 					commandThread = null;
 				}
+				Message msg = commandThreadHandler.obtainMessage();
+				msg.arg1 = COMMAND_FINISHED;
+				commandThreadHandler.sendMessage(msg);
 				sendBroadcast(new Intent(COMMAND_FINISHED));
 			}
 		}
@@ -224,12 +239,14 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	}
 
 	private void configureDownloadedImage () {
+		startStopButton.setEnabled(false);
 		command = new String("./configure-downloaded-image.sh" + NativeHelper.getArgs());
 		commandThread = new CommandThread();
 		commandThread.start();
 	}
 
 	private void startDebian() {
+		startStopButton.setEnabled(false);
 		if (useWakeLock)
 			wl.acquire();
 		command = new String("./start-debian.sh" + NativeHelper.getArgs()
@@ -242,6 +259,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	}
 
 	private void stopDebian() {
+		startStopButton.setEnabled(false);
 		if (wl.isHeld())
 			wl.release();
 		command = new String(NativeHelper.app_bin + "/chroot "
