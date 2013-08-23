@@ -47,7 +47,7 @@ umask 077
 
 
 make_debian_symlink () {
-    if [ -d /debian ]; then
+    if [ -d /debian ] && ! [ -h /debian ]; then
         mount -o remount,rw rootfs /
         umount /debian
         rmdir /debian
