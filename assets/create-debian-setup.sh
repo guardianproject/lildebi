@@ -39,8 +39,8 @@ mount -o remount,ro rootfs /
 if [ ! -e $mnt ]; then
     echo "Creating chroot mountpoint at $mnt"
     mkdir $mnt
-    chmod 755 $mnt
 fi
+chmod 755 $mnt
 
 # create shortcut symlink to mountpoint
 make_debian_symlink

@@ -26,6 +26,7 @@ if [ ! -d $mnt ]; then
     echo "Your Debian setup is missing mountpoint."
     echo "    mkdir $mnt"
     mkdir $mnt
+    chmod 755 $mnt
     exit
 fi
 if [ ! -d $sdcard ]; then
