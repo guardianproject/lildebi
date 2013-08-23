@@ -36,6 +36,11 @@ fi
 if [ -h /debian ]; then
     rm /debian
 fi
+
+# if the old /debian mount dir exists, delete it
+if [ -d /debian ]; then
+    rmdir /debian
+fi
 mount -o remount,ro rootfs /
 
 #------------------------------------------------------------------------------#
