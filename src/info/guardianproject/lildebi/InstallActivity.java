@@ -337,6 +337,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 
 	private boolean isExt2Supported() {
 		Context context = getApplicationContext();
+		boolean foundExt2 = false;
 		try {
 			FileInputStream fstream = new FileInputStream("/proc/filesystems");
 			DataInputStream in = new DataInputStream(fstream);
@@ -344,17 +345,20 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			String line;
 			while ((line = br.readLine()) != null) {
 				if (line.contains("ext2")) {
-					return true;
+					foundExt2 = true;
+					break;
 				}
 			}
+			br.close();
+			fstream.close();
 			if (new File("/system/lib/modules/ext2.ko").exists())
-				return true;
+				foundExt2 = true;
 			Toast.makeText(context, R.string.no_ext2_message, Toast.LENGTH_LONG).show();
 			return false;
 		} catch (Exception e) {
 			Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-			return false;
 		}
+		return foundExt2;
 	}
 
 	public static void writeCommand(OutputStream os, String command) throws Exception {
