@@ -69,6 +69,7 @@ if test -d $mnt && test -e $image_path; then
     else
         mke2fs $mke2fs_options
     fi
+    # run native and busybox losetup to test outputs
     losetup
     /system/xbin/losetup
     $losetup $loopdev $image_path
@@ -200,7 +201,7 @@ test -e $mnt/etc/mtab && rm $mnt/etc/mtab
 ln -s /proc/mounts $mnt/etc/mtab
 
 # apt sources
-if [ ! -e $mnt/etc/apt/sources.list]; then
+if [ ! -e $mnt/etc/apt/sources.list ]; then
     test -e $mnt/etc/apt || mkdir $mnt/etc/apt
     touch $mnt/etc/apt/sources.list
     echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
