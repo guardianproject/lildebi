@@ -61,7 +61,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		NativeHelper.setup(getApplicationContext());
 
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.lildebi);
