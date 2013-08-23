@@ -353,11 +353,11 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			fstream.close();
 			if (new File("/system/lib/modules/ext2.ko").exists())
 				foundExt2 = true;
-			Toast.makeText(context, R.string.no_ext2_message, Toast.LENGTH_LONG).show();
-			return false;
 		} catch (Exception e) {
 			Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
 		}
+		if (! foundExt2)
+			Toast.makeText(context, R.string.no_ext2_message, Toast.LENGTH_LONG).show();
 		return foundExt2;
 	}
 
