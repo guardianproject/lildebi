@@ -36,7 +36,12 @@ mount -o remount,ro rootfs /
 #------------------------------------------------------------------------------#
 # create chroot mountpoint/directory
 
-if [ ! -e $mnt ]; then
+if [ -d $mnt ]; then
+    echo "WARNING: Mountpoint directory '$mnt' exists! Using this folder!"
+elif [ -e $mnt ]; then
+    echo "ERROR: Mountpoint directory '$mnt' exists as a file! Exiting install..."
+    exit 1
+else
     echo "Creating chroot mountpoint at $mnt"
     mkdir $mnt
 fi

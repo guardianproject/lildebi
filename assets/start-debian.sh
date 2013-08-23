@@ -22,10 +22,10 @@ export HOME=/root
 # set the path to use the included utils first
 export PATH=$app_bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
 
-if [ ! -d $mnt ]; then
+if [ ! -e $mnt ]; then
     echo "Your Debian setup is missing mountpoint."
     echo "    mkdir $mnt"
-    mkdir $mnt
+    mkdir $mnt || exit
     chmod 755 $mnt
     exit
 fi
