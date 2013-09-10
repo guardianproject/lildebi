@@ -211,7 +211,11 @@ if [ ! -e $mnt/etc/apt/sources.list ]; then
     touch $mnt/etc/apt/sources.list
     echo "deb $mirror $release main" >> $mnt/etc/apt/sources.list
 fi
-echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
+
+# sid does not have security updates, everything else should
+if [ $release != "sid" ] && [ $release != "unstable" ]; then
+    echo "deb http://security.debian.org/ $release/updates main" >> $mnt/etc/apt/sources.list
+fi
 
 # Debian's e2fsck.static needs to check /etc/mtab to make sure the
 # filesystem being check is not currently mounted. on Android, /etc is
