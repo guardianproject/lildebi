@@ -40,6 +40,7 @@
   <string name="not_installed_message">Debian yüklü değil</string>
   <string name="not_configured_message">Görüntü ayarlanmamış</string>
   <string name="no_network_message">Yükleme için internet ağı gerekli</string>
+  <string name="mount_point_not_found_format">Bağlantı noktası \'%s\' mevcut değil!</string>
   <string name="no_ext2_message">/proc/filesystems does not list \'ext2\' as a supported filesystem</string>
   <string name="image_path_exists_message">Uyarı: Önceden seçilmiş olan imaj uzantı yolu zaten mevcut !</string>
   <string name="image_path_parent_does_not_exist_message">Seçtiğiniz klasör bulunamamaktadır! Varsayılanı yeniden oluşturunuz .</string>
