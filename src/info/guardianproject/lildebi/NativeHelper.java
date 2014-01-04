@@ -53,12 +53,19 @@ public class NativeHelper {
 		sh = new File(app_bin, "sh");
 		install_conf = new File(app_bin, "install.conf");
 		versionFile = new File(app_bin, "VERSION");
+		// they did a real hackjob with the "external storage" aka SD Card path
+		// in 4.3/4.4, so we have to add this kludge to make sure we have a path
+		// we can work with.
+		File dir = new File(System.getenv("EXTERNAL_STORAGE"));
+		if (!dir.exists())
+			dir = Environment.getExternalStorageDirectory();
 		try {
-			sdcard = Environment.getExternalStorageDirectory().getCanonicalPath();
+			sdcard = dir.getCanonicalPath();
 		} catch (IOException e) {
 			e.printStackTrace();
-			sdcard = Environment.getExternalStorageDirectory().getAbsolutePath();
+			sdcard = dir.getAbsolutePath();
 		}
+
 		mnt = "/debian";
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
