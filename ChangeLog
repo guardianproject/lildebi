@@ -1,3 +1,9 @@
+v0.4.5
++ fix bad path to SD Card on 4.3, #64
++ support lzma and xz since sid/unstable uses it, #70
++ new translations: Brazilian Portuguese, Norwegian Bokmål, Polish, Simplified Chinese, Slovenian, Vietnamese
++ fix Android 2.2 support
+
 v0.4.4
 + fixed install issues on some devices, bugs #56, #60
 + added /storage/extSDCard path
