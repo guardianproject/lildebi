@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Lil\' Debi</string>
-  <string name="unsupported_device_body">Ihr Gerät wird von Lil\'Debi nicht unterstützt. Um Debian installieren zu können, muss Ihr Gerät das \'ext2\'-Dateisystem und das Mounten von Dateien als Festplatten unterstützen. Diese Anwendung ist demnach unnütz, wir empfehlen, sie zu deinstallieren.</string>
-  <string name="uninstall_button_title">Lil\'Debi deinstallieren</string>
+  <string name="app_name">Debilein</string>
+  <string name="unsupported_device_body">Ihr Gerät wird von Debilein nicht unterstützt. Um Debian installieren zu können, muss Ihr Gerät das \'ext2\'-Dateisystem und das Mounten von Dateien als Festplatten unterstützen. Diese Anwendung ist demnach unnütz, wir empfehlen, sie zu deinstallieren.</string>
+  <string name="uninstall_button_title">Debilein deinstallieren</string>
   <string name="pref_start_on_mount_title">Von SD Karte starten?</string>
   <string name="pref_start_on_mount_summary">Debian immer automatisch starten wenn die SD Karte gemountet ist</string>
   <string name="pref_use_checksum_title">Prüfsumme des Abbilds beim Starten verifizieren?</string>
@@ -24,7 +24,7 @@
   <string name="title_status">Status:</string>
   <string name="doit">Eingestellungen löschen</string>
   <string name="cancel">Abbrechen</string>
-  <string name="confirm_delete_message">Sind Sie sich sicher, dass Sie die gesamte Lil\' Debi-Installation löschen möchten?</string>
+  <string name="confirm_delete_message">Sind Sie sich sicher, dass Sie die gesamte Debilein-Installation löschen möchten?</string>
   <string name="release">Release:</string>
   <string name="mirror">Spiegelserver:</string>
   <string name="arch">Architektur:</string>

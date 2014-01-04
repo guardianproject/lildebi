@@ -40,6 +40,7 @@
   <string name="not_installed_message">Debian er ikke installeret</string>
   <string name="not_configured_message">Aftryk er ikke konfigureret</string>
   <string name="no_network_message">Netværk krævet for installation</string>
+  <string name="mount_point_not_found_format">Monteringspunktet »%s« findes ikke!</string>
   <string name="no_ext2_message">/proc/filesystems angiver ikke »ext2« som et understøttet filsystem</string>
   <string name="image_path_exists_message">Advarsel: Der er allerede en eksisterende fil på den valgte aftrykssti!</string>
   <string name="image_path_parent_does_not_exist_message">Mappen du valgte findes ikke! Nulstiller til standarden.</string>

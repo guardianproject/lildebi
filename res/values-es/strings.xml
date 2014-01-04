@@ -40,6 +40,7 @@
   <string name="not_installed_message">Debian no instalado</string>
   <string name="not_configured_message">Imagen no configurada</string>
   <string name="no_network_message">Se necesita conexión a la red para instalar</string>
+  <string name="mount_point_not_found_format">¡El punto de montaje \'%s\' no existe!</string>
   <string name="no_ext2_message">/proc/filesystems no lista \'ext2\' como sistema de ficheros soportado</string>
   <string name="image_path_exists_message">Advertencia: ¡ya existe un archivo de imagen en la ruta que ha seleccionado!</string>
   <string name="image_path_parent_does_not_exist_message">¡La carpeta que ha escogido no existe! Restableciendo al valor predeterminado.</string>
