@@ -158,7 +158,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			Intent i = new Intent("jackpal.androidterm.RUN_SCRIPT");
 			i.addCategory(Intent.CATEGORY_DEFAULT);
 			i.putExtra("jackpal.androidterm.iInitialCommand", "su -c \""
-					+ NativeHelper.app_bin + "/chroot /debian /bin/bash\"");
+					+ NativeHelper.app_bin + "/chroot /debian /bin/bash -l\"");
 			startActivity(i);
 			return true;
 		case R.id.menu_delete:
