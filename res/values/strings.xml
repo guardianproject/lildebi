@@ -15,6 +15,7 @@
     <string name="pref_pre_stop_summary">Script to run before Debian is stopped (default: /etc/init.d/ssh stop)</string>
     <string name="pref_prevent_sleep_title">Prevent Sleep</string>
     <string name="pref_prevent_sleep_summary">prevent the device from sleeping while Debian is running</string>
+    <string name="menu_jackpal_terminal_title">Open Terminal…</string>
     <string name="menu_preferences_title">Preferences</string>
     <string name="menu_install_log_title">View Install Log</string>
     <string name="menu_delete_title">Delete All</string>

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +15,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -143,6 +146,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.options_menu, menu);
+		menu.findItem(R.id.menu_jackpal_terminal).setVisible(
+				isIntentAvailable("jackpal.androidterm.RUN_SCRIPT"));
 		return true;
 	}
 
@@ -154,6 +159,13 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			return true;
 		case R.id.menu_install_log:
 			startActivity(new Intent(this, InstallLogViewActivity.class));
+			return true;
+		case R.id.menu_jackpal_terminal:
+			Intent i = new Intent("jackpal.androidterm.RUN_SCRIPT");
+			i.addCategory(Intent.CATEGORY_DEFAULT);
+			i.putExtra("jackpal.androidterm.iInitialCommand", "su -c \""
+					+ NativeHelper.app_bin + "/chroot /debian /bin/bash\"");
+			startActivity(i);
 			return true;
 		case R.id.menu_delete:
 			new AlertDialog.Builder(this).setMessage(R.string.confirm_delete_message)
@@ -436,4 +448,12 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	}
 	// the saved state is restored in onCreate()
 
+
+	private boolean isIntentAvailable(String action) {
+		final PackageManager packageManager = getPackageManager();
+		final Intent intent = new Intent(action);
+		List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
+				PackageManager.MATCH_DEFAULT_ONLY);
+		return list.size() > 0;
+	}
 }

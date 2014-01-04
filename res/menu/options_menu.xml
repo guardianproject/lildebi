@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/menu_jackpal_terminal"
+        android:visible="false"
+        android:title="@string/menu_jackpal_terminal_title"/>
+    <item
         android:id="@+id/menu_preferences"
         android:title="@string/menu_preferences_title"/>
     <item
