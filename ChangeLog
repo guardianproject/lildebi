@@ -1,3 +1,8 @@
+v0.4.6
++ fix issues finding SD Card path on 4.3 and newer, #66
++ added menu item to launch Debian shell in Terminal Emulator
++ updated translations: Danish, German, Spanish, French, Dutch, Chinese
+
 v0.4.5
 + fix bad path to SD Card on 4.3, #64
 + support lzma and xz since sid/unstable uses it, #70
