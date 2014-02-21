@@ -114,6 +114,7 @@ create_mountpoint /dev/cpuctl
 create_mountpoint /efs
 create_mountpoint /mnt/.lfs
 create_mountpoint /mnt/asec
+create_mountpoint /mnt/emmc
 create_mountpoint /mnt/obb
 create_mountpoint /mnt/sdcard
 create_mountpoint /mnt/sdcard/external_sd
