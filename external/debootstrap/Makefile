@@ -20,7 +20,7 @@ debootstrap.tar: $(DL_DIR)/usr/sbin/debootstrap \
 		| sort --zero-terminated \
 		| tar --no-recursion --null --files-from - \
 			--owner=1000 --group=1000 --numeric-owner --format=gnu \
-			-cpf ../debootstrap.tar
+			--create --file ../debootstrap.tar
 	touch --date="$(TIMESTAMP)" debootstrap.tar
 
 $(DL_DIR)/usr/sbin/debootstrap: $(DL_DIR)/usr/share/debootstrap/scripts \
