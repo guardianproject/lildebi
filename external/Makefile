@@ -69,7 +69,7 @@ assets: all
 	install $(EXTERNAL_ROOT)/pkgdetails/pkgdetails \
 		$(EXTERNAL_ROOT)/busybox/busybox \
 		$(EXTERNAL_ROOT)/e2fsck/e2fsck.static \
-		$(EXTERNAL_ROOT)/debootstrap/debootstrap.tar.bz2 \
+		$(EXTERNAL_ROOT)/debootstrap/debootstrap.tar \
 		$(ASSETS)/
 	$(STRIP) $(ASSETS)/pkgdetails
 
@@ -106,4 +106,4 @@ distclean: clean
 	rm -f -- $(ASSETS)/pkgdetails
 	rm -f -- $(ASSETS)/busybox
 	rm -f -- $(ASSETS)/e2fsck.static
-	rm -f -- $(ASSETS)/debootstrap.tar.bz2
+	rm -f -- $(ASSETS)/debootstrap.tar

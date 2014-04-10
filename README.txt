@@ -94,7 +94,7 @@ debootstrap
 http://packages.debian.org/unstable/debootstrap
 
 debootstrap is downloaded directly from Debian, extracted, patched, and then
-tar-bzipped into the included tarball assets/debootstrap.tar.bz2. See
+tared into the included tarball assets/debootstrap.tar. See
 external/debootstrap/Makefile for details.
 
 
