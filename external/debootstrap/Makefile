@@ -10,10 +10,14 @@ DL_DIR=$(PKG_NAME)-$(PKG_VERSION)
 
 all: debootstrap.tar
 
+TIMESTAMP=`stat $(DL_DIR) | sed -n 's,Modify: \(.*\),\1,p'`
 debootstrap.tar: $(DL_DIR)/usr/sbin/debootstrap \
 			     $(DL_DIR)/usr/share/debootstrap/functions
+	echo "TIMESTAMP: $(TIMESTAMP)"
+	for f in `find $(DL_DIR)`; do touch --date="$(TIMESTAMP)" "$$f"; done
 	cd $(DL_DIR) && \
 		tar cpf ../debootstrap.tar usr/
+	touch --date="$(TIMESTAMP)" debootstrap.tar
 
 $(DL_DIR)/usr/sbin/debootstrap: $(DL_DIR)/usr/share/debootstrap/scripts \
 				patches/02-remove-check_sane_mount.diff
