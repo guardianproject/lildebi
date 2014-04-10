@@ -66,7 +66,7 @@ if test -d $mnt && test -e $image_path; then
     losetup $loopdev $image_path
     mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
     cd $mnt
-    tar xjf $app_bin/debootstrap.tar.bz2
+    tar xf $app_bin/debootstrap.tar
     cp $app_bin/pkgdetails $DEBOOTSTRAP_DIR/pkgdetails
     chmod 755 $DEBOOTSTRAP_DIR/pkgdetails
     # add missing symlinks, we're using an old debootstrap

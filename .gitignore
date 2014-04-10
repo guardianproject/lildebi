@@ -12,7 +12,7 @@ assets/e2fsck.static
 assets/pkgdetails
 assets/debootstrap.tar.bz2
 external/debootstrap/debootstrap-1.*/
-external/debootstrap/debootstrap.tar.bz2
+external/debootstrap/debootstrap.tar
 external/e2fsck/e2fsck-static-1.41.12
 external/e2fsck/e2fsck.static
 external/pkgdetails/pkgdetails
