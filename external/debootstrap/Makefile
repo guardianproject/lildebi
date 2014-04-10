@@ -16,7 +16,11 @@ debootstrap.tar: $(DL_DIR)/usr/sbin/debootstrap \
 	echo "TIMESTAMP: $(TIMESTAMP)"
 	for f in `find $(DL_DIR)`; do touch --date="$(TIMESTAMP)" "$$f"; done
 	cd $(DL_DIR) && \
-		tar cpf ../debootstrap.tar usr/
+		find usr/ -type f -print0 -o -type l -print0 \
+		| sort --zero-terminated \
+		| tar --no-recursion --null --files-from - \
+			--owner=1000 --group=1000 --numeric-owner --format=gnu \
+			-cpf ../debootstrap.tar
 	touch --date="$(TIMESTAMP)" debootstrap.tar
 
 $(DL_DIR)/usr/sbin/debootstrap: $(DL_DIR)/usr/share/debootstrap/scripts \
