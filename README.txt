@@ -77,6 +77,29 @@ install it via the terminal is to run:
   adb install bin/LilDebi-debug.apk
 
 
+Deterministic Release
+---------------------
+
+Having a deterministic, repeatable build process that produces the exact same
+APK wherever it is run has a lot of benefits:
+
+* makes it easy for anyone to verify that the official APKs are indeed
+  generated only from the sources in git
+
+* makes it possible for FDroid to distribute APKs with the upstream
+  developer's signature instead of the FDroid's signature
+
+To increase the likelyhood of producing a deterministic build of LilDebi, run
+the java build with `faketime`.  The rest is already included in the
+Makefiles.  This is also included in the ./make-release-build.sh
+script. Running a program with `faketime` causes that program to recent a
+fixed time based on the timestamp provided to `faketime`.  This ensures that
+the timestamps in the files are always the same.
+
+  faketime "`git log -n1 --date=iso | sed -n 's,^Date:\s\s*\(.*\),\1,p'`" \
+    ant clean debug
+
+
 NDK build options
 -----------------
 

@@ -2,6 +2,8 @@
 
 . ~/.android/bashrc
 
+TIMESTAMP=`git log -n1 --date=iso | sed -n 's,^Date:\s\s*\(.*\),\1,p'`
+
 cd external/busybox
 git reset --hard
 git clean -fdx
@@ -15,6 +17,6 @@ make -C external/ assets
 cp ~/.android/ant.properties .
 
 ./update-ant-build.sh
-ant release
+faketime "$TIMESTAMP" ant release
 
 gpg --detach-sign bin/LilDebi-release.apk
