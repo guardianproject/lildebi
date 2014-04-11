@@ -42,10 +42,11 @@ Build Setup
 On Debian/Ubuntu/Mint/etc.:
 
   sudo apt-get install autoconf automake libtool transfig wget patch \
-       texinfo ant make openjdk-6-jdk
+       texinfo ant make openjdk-7-jdk faketime
 
 On Mac OS X, you will need Fink, MacPorts, or Brew to install some of these
-dependencies.  For example GNU tar is required, OS X's tar will not work.
+dependencies.  For example, GNU tar is required, OS X's tar will not work.
+Also, faketime is needed to make repeatable builds of busybox.
 
 Both the Android SDK and the Android NDK are needed:
 

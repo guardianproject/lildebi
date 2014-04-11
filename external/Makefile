@@ -58,6 +58,10 @@ STRIP := $(NDK_TOOLCHAIN_BASE)/bin/$(HOST)-strip \
 ALL_CFLAGS = -fdata-sections -ffunction-sections -Os
 ALL_LDFLAGS = -Wl,--gc-sections
 
+# this is a string that is given as a make variable to a command line, then it
+# is expanded as part of the command line, then executed all together with the
+# command line
+TIMESTAMP="`cd busybox && git log -n1 --date=iso | sed -n 's,^Date:\s\s*\(.*\),\1,p')`"
 
 .PHONY: all assets clean distclean
 
@@ -73,9 +77,9 @@ assets: all
 		$(ASSETS)/
 	$(STRIP) $(ASSETS)/pkgdetails
 
-
 $(EXTERNAL_ROOT)/pkgdetails/pkgdetails: $(EXTERNAL_ROOT)/pkgdetails/pkgdetails.c
-	$(CC) $(ALL_CFLAGS) $(CFLAGS) $(ALL_LDFLAGS) $(LDFLAGS) $< -o $@
+	faketime $(TIMESTAMP) \
+		$(CC) $(ALL_CFLAGS) $(CFLAGS) $(ALL_LDFLAGS) $(LDFLAGS) $< -o $@
 
 
 $(EXTERNAL_ROOT)/busybox/.config: $(EXTERNAL_ROOT)/busybox_config
@@ -90,7 +94,8 @@ $(EXTERNAL_ROOT)/busybox/busybox: $(EXTERNAL_ROOT)/busybox/.config
 # could happen unnoticed.
 	-cd $(EXTERNAL_ROOT)/busybox/ && \
 		patch -N -p1 --reject-file=- < ../003-mount-umount-fsck-df.patch
-	make -C $(EXTERNAL_ROOT)/busybox/
+	echo "TIMESTAMP: $(TIMESTAMP)"
+	faketime $(TIMESTAMP) make -C $(EXTERNAL_ROOT)/busybox/
 
 clean: 
 	rm -f -- $(EXTERNAL_ROOT)/pkgdetails/pkgdetails
