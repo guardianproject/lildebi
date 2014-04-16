@@ -33,7 +33,8 @@ $(DL_DIR)/usr/share/debootstrap/functions: $(DL_DIR)/usr/share/debootstrap/scrip
 
 $(DL_DIR)/usr/share/debootstrap/scripts: $(DL_DIR)/$(PKG_SOURCE)
 	cd $(DL_DIR) && \
-		(ar -p $(PKG_SOURCE) data.tar.gz | tar -xzf -)
+		(ar -p $(PKG_SOURCE) data.tar.gz \
+			| tar --preserve-permissions --extract --gunzip --file -)
 
 $(DL_DIR)/$(PKG_SOURCE): $(DL_DIR)
 	cd $(DL_DIR) && \
