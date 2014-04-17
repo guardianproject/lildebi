@@ -9,14 +9,19 @@ DL_DIR=$(PKG_NAME)-$(PKG_VERSION)
 
 all: cdebootstrap.tar
 
+TIMESTAMP="`stat $(DL_DIR) | sed -n 's,Modify: \(.*\),\1,p'`"
 cdebootstrap.tar: $(DL_DIR)/usr/bin/cdebootstrap-static
+	echo "TIMESTAMP: $(TIMESTAMP)"
+	for f in `find $(DL_DIR)`; do touch --date=$(TIMESTAMP) "$$f"; done
 	cd $(DL_DIR) && \
 		tar --create --file ../cdebootstrap.tar usr/
+	touch --date=$(TIMESTAMP) cdebootstrap.tar
 
 $(DL_DIR)/usr/bin/cdebootstrap-static: $(DL_DIR)/$(PKG_SOURCE)
 	cd $(DL_DIR) && \
 		(ar -p $(PKG_SOURCE) data.tar.gz | \
-			tar --exclude=usr/share/man --exclude=usr/share/doc -xzf -)
+			tar --exclude=usr/share/man --exclude=usr/share/doc \
+				--preserve-permissions --extract --gunzip --file -)
 # I haven't found a reliable way to install/uninstall a patch from a Makefile,
 # so just always try to apply it, and ignore it if it fails. Works fine unless
 # the files being patched have changed, in which cause a partial application
