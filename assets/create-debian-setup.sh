@@ -82,7 +82,7 @@ if test -d $mnt && test -e $image_path; then
     /system/xbin/losetup
     mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
     cd $mnt
-    tar xjf $app_bin/cdebootstrap.tar.bz2
+    tar xf $app_bin/cdebootstrap.tar
 else
     echo "No mount dir found ($mnt) or no image_path ($image_path)"
     exit 1

@@ -179,7 +179,7 @@ public class NativeHelper {
 		} catch (IOException e) {
 			Log.e(LilDebi.TAG, "Can't unzip", e);
 		}
-		chmod(0644, new File(app_bin, "cdebootstrap.tar.bz2"));
+		chmod(0644, new File(app_bin, "cdebootstrap.tar"));
 		chmod(0644, new File(app_bin, "lildebi-common"));
 		chmod(0755, new File(app_bin, "create-debian-setup.sh"));
 		chmod(0755, new File(app_bin, "complete-debian-setup.sh"));

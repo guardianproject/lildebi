@@ -66,7 +66,7 @@ all: $(EXTERNAL_ROOT)/busybox/busybox
 
 assets: all
 	install $(EXTERNAL_ROOT)/busybox/busybox \
-		$(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar.bz2 \
+		$(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar \
 		$(ASSETS)/
 
 
@@ -94,4 +94,4 @@ clean:
 
 distclean: clean
 	rm -f -- $(ASSETS)/busybox
-	rm -f -- $(ASSETS)/cdebootstrap.tar.bz2
+	rm -f -- $(ASSETS)/cdebootstrap.tar

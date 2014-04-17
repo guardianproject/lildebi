@@ -94,7 +94,7 @@ cdebootstrap
 http://packages.debian.org/unstable/cdebootstrap
 
 cdebootstrap is downloaded directly from Debian, extracted, and then
-tar-bzipped into the included tarball assets/cdebootstrap.tar.bz2. See
+tar'ed into the included tarball assets/cdebootstrap.tar. See
 external/cdebootstrap/Makefile for details.
 
 

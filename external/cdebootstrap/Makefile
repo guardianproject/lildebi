@@ -7,12 +7,11 @@ PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/c/cdebootstrap
 
 DL_DIR=$(PKG_NAME)-$(PKG_VERSION)
 
-all: cdebootstrap.tar.bz2
+all: cdebootstrap.tar
 
-
-cdebootstrap.tar.bz2: $(DL_DIR)/usr/bin/cdebootstrap-static
+cdebootstrap.tar: $(DL_DIR)/usr/bin/cdebootstrap-static
 	cd $(DL_DIR) && \
-		tar cjpf ../cdebootstrap.tar.bz2 usr/
+		tar --create --file ../cdebootstrap.tar usr/
 
 $(DL_DIR)/usr/bin/cdebootstrap-static: $(DL_DIR)/$(PKG_SOURCE)
 	cd $(DL_DIR) && \
@@ -37,6 +36,6 @@ $(DL_DIR):
 
 clean:
 	-rm -rf -- $(DL_DIR)
-	-rm -f -- cdebootstrap.tar.bz2
+	-rm -f -- cdebootstrap.tar
 
 .PHONY: clean
