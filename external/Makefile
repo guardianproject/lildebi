@@ -58,10 +58,13 @@ STRIP := $(NDK_TOOLCHAIN_BASE)/bin/$(HOST)-strip \
 ALL_CFLAGS = -fdata-sections -ffunction-sections -Os
 ALL_LDFLAGS = -Wl,--gc-sections
 
-# this is a string that is given as a make variable to a command line, then it
-# is expanded as part of the command line, then executed all together with the
-# command line
-TIMESTAMP="`cd busybox && git log -n1 --date=iso | sed -n 's,^Date:\s\s*\(.*\),\1,p')`"
+# faketime needs to have a very specific timestamp format in order to freeze
+# time.  The time needs to be frozen so that the timestamps don't depend on
+# the speed of the machine that the build process is running on.  See `man
+# faketime` for more info on the "advanced timestamp format".  Also, force
+# time to UTC so its always the same on all machines.
+TIMESTAMP="$(shell faketime "`git log -n1 --date=iso | sed -n 's,^Date:\s\s*\(.*\),\1,p'`" \
+				date --utc '+%Y-%m-%d %H:%M:%S')"
 
 .PHONY: all assets clean distclean
 
