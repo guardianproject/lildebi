@@ -11,3 +11,4 @@ assets/busybox
 assets/cdebootstrap.tar
 external/cdebootstrap/cdebootstrap-static-0.*/
 external/cdebootstrap/cdebootstrap.tar
+external/debian-archive-keyring/debian-archive-keyring-201*/

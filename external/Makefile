@@ -63,6 +63,7 @@ ALL_LDFLAGS = -Wl,--gc-sections
 
 all: $(EXTERNAL_ROOT)/busybox/busybox
 	make -C $(EXTERNAL_ROOT)/cdebootstrap
+	make -C $(EXTERNAL_ROOT)/debian-archive-keyring
 
 assets: all
 	install $(EXTERNAL_ROOT)/busybox/busybox \
