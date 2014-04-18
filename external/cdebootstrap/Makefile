@@ -3,7 +3,7 @@ PKG_NAME:=cdebootstrap-static
 PKG_VERSION:=0.5.10
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION)_armel.deb
-PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/c/cdebootstrap
+PKG_SOURCE_URL:=https://mirrors.kernel.org/debian/pool/main/c/cdebootstrap
 
 DL_DIR=$(PKG_NAME)-$(PKG_VERSION)
 
