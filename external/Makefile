@@ -81,6 +81,9 @@ assets: all
 		$(EXTERNAL_ROOT)/debootstrap/debootstrap.tar \
 		$(ASSETS)/
 	$(STRIP) $(ASSETS)/pkgdetails
+	for f in $(ASSETS)/*; do \
+		touch --date=$(TIMESTAMP) "$$f"; \
+	done
 
 $(EXTERNAL_ROOT)/pkgdetails/pkgdetails: $(EXTERNAL_ROOT)/pkgdetails/pkgdetails.c
 	faketime -f $(TIMESTAMP) \
