@@ -91,7 +91,7 @@ $(EXTERNAL_ROOT)/busybox/busybox: $(EXTERNAL_ROOT)/busybox/.config
 	-cd $(EXTERNAL_ROOT)/busybox/ && \
 		patch -N -p1 --reject-file=- < ../003-mount-umount-fsck-df.patch
 	echo "TIMESTAMP: $(TIMESTAMP)"
-	faketime $(TIMESTAMP) make -C $(EXTERNAL_ROOT)/busybox/
+	faketime -f $(TIMESTAMP) make -C $(EXTERNAL_ROOT)/busybox/
 
 clean: 
 	rm -f -- $(EXTERNAL_ROOT)/busybox/.config
