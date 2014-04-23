@@ -34,8 +34,8 @@ test -e /etc/ssh/ssh_host_dsa_key || \
 apt-get clean
 
 # run 'apt-get upgrade' to get the security updates
-apt-get -fy update
-apt-get -y upgrade
+apt-get --yes update
+apt-get --yes --fix-broken upgrade
 
 # purge upgrade packages in cache
 apt-get clean
