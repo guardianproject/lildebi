@@ -45,7 +45,7 @@
   <string name="image_path_parent_does_not_exist_message">De map die u heeft gekozen bestaat niet! Gebruikt nu de standaard-map.</string>
   <string name="no_sdcard_message">De SD-kaart voor externe opslag is niet \'gemount\' om te kunnen lezen en schrijven, can Debian niet installeren of starten totdat dit wel zo is.</string>
   <string name="no_sdcard_status">(geen SD kaart)</string>
-  <string name="run_command_hint">voer commando\'s uit als root</string>
+
   <string name="title_install_log_view">Installatie Logboek</string>
   <string name="title_share_button">Delen</string>
   <string name="starting_debian">Debian is gestart</string>

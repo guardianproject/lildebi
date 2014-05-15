@@ -49,7 +49,6 @@
     <string name="image_path_parent_does_not_exist_message">The folder you choose does not exist! Resetting to the default.</string>
     <string name="no_sdcard_message">The External Storage SD Card is not mounted read/write, cannot install or start Debian without it.</string>
     <string name="no_sdcard_status">(no SD card)</string>
-    <string name="run_command_hint">run commands as root</string>
     <string name="title_install_log_view">Install Log</string>
     <string name="title_share_button">Share</string>
     <string name="starting_debian">Started Debian…</string>

@@ -45,7 +45,7 @@
   <string name="image_path_parent_does_not_exist_message">Le dossier cible n\'existe pas ! Utilisation du dossier par défaut.</string>
   <string name="no_sdcard_message">La carte SD externe n\'est pas montée avec les droits en lecture/écriture. Impossible d\'installer ou de démarrer Debian sans ces droits.</string>
   <string name="no_sdcard_status">(pas de carte SD)</string>
-  <string name="run_command_hint">éxecuter les commandes en tant que root</string>
+
   <string name="title_install_log_view">Log d\'installation</string>
   <string name="title_share_button">Partager</string>
   <string name="starting_debian">Démarrage de Debian…</string>

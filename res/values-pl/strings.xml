@@ -46,7 +46,7 @@
   <string name="image_path_parent_does_not_exist_message">Wybrany katalog nie istnieje. Wracanie do wartości domyślnej.</string>
   <string name="no_sdcard_message">Zewnętrzna karta SD nie jest zamontowana do odczytu i zapisu, bez niej nie można zainstalować ani uruchomić Debiana</string>
   <string name="no_sdcard_status">(brak karty SD)</string>
-  <string name="run_command_hint">uruchom polecenia jako root</string>
+
   <string name="title_install_log_view">Dziennik instalacji</string>
   <string name="title_share_button">Podziel się</string>
   <string name="starting_debian">Uruchamianie Debiana…</string>

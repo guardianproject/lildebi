@@ -45,7 +45,7 @@
   <string name="image_path_parent_does_not_exist_message">Mappen du valgte findes ikke! Nulstiller til standarden.</string>
   <string name="no_sdcard_message">Der kan ikke læses/skrives til det eksterne SD-kort, kan ikke installere eller starte Debian uden denne funktionalitet.</string>
   <string name="no_sdcard_status">(intet SD-kort)</string>
-  <string name="run_command_hint">kør kommandoer som root</string>
+
   <string name="title_install_log_view">Installer log</string>
   <string name="title_share_button">Del</string>
   <string name="starting_debian">Startede Debian …</string>

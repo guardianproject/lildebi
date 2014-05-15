@@ -46,7 +46,7 @@
   <string name="image_path_parent_does_not_exist_message">A pasta que você selecionou não existe! Voltando ao padrão.</string>
   <string name="no_sdcard_message">O cartão SD externo não esta motado para ler/escrever, não pode instalar ou iniciar o Debian sem ele.</string>
   <string name="no_sdcard_status">(Sem cartão SD)</string>
-  <string name="run_command_hint">executar comandos como administrador</string>
+
   <string name="title_install_log_view">Registro de instalação</string>
   <string name="title_share_button">Compartilhar</string>
   <string name="starting_debian">Debian iniciado…</string>

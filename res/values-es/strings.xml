@@ -45,7 +45,7 @@
   <string name="image_path_parent_does_not_exist_message">¡La carpeta que ha escogido no existe! Restableciendo al valor predeterminado.</string>
   <string name="no_sdcard_message">La tarjeta SD externa no está montada con acceso lectura/escritura, no se puede instalar o iniciar Debian sin él.</string>
   <string name="no_sdcard_status">(no hay tarjeta SD)</string>
-  <string name="run_command_hint">ejecutar las órdenes como administrador</string>
+
   <string name="title_install_log_view">Registro de instalación</string>
   <string name="title_share_button">Compartir</string>
   <string name="starting_debian">Debian iniciado…</string>

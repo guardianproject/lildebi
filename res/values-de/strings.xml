@@ -45,7 +45,7 @@
   <string name="image_path_parent_does_not_exist_message">Der ausgewählte Ordner existiert nicht! Zurückgesetzt auf die Standard-Einstellung.</string>
   <string name="no_sdcard_message">Die externe SD-Karte ist nicht les-/schreibbar, Debian kann nicht installiert oder gestartet werden.</string>
   <string name="no_sdcard_status">(keine SD-Karte)</string>
-  <string name="run_command_hint">Befehle als root ausführen</string>
+
   <string name="title_install_log_view">Installationslog</string>
   <string name="title_share_button">Teilen</string>
   <string name="starting_debian">Debian gestartet…</string>
