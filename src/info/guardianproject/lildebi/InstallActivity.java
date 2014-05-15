@@ -173,11 +173,37 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private void setImageSizeInMB(long requestedSize) {
 		// if the requested size is bigger than available space, adjust before prompting the user
 		long freeSize = NativeHelper.getImagePathFreeBytes() / 1024 / 1024;
-		if (freeSize < requestedSize) {
-			Toast.makeText(getApplicationContext(), R.string.smaller_imagesize_message,
-					Toast.LENGTH_LONG).show();
-			requestedSize = freeSize - 10; // leave 10MB free
-			imagesize.setText(String.valueOf(requestedSize));
+		long maxSizeOfImage;
+		String fileSystem = NativeHelper.fileSystemType();
+
+		if (fileSystem == null)
+			maxSizeOfImage = freeSize;
+		else if (fileSystem.compareTo("fat") == 0)
+			maxSizeOfImage = 4096;
+		else if (fileSystem.compareTo("vfat") == 0)
+			maxSizeOfImage = 4096;
+		else
+			maxSizeOfImage = freeSize;
+
+		// upper limit for requestedSize is freeSize
+		if (freeSize <= maxSizeOfImage) {
+			if (freeSize < requestedSize) {
+				Toast.makeText(getApplicationContext(), R.string.smaller_imagesize_message,
+						Toast.LENGTH_LONG).show();
+				requestedSize = freeSize - 10; // leave 10MB free
+				imagesize.setText(String.valueOf(requestedSize));
+			}
+			//else input is fine
+		}
+		// upper limit for requestedSize is MaxSizeOfImage ex. 4GB for FAT
+		else {
+			if (maxSizeOfImage < requestedSize) {
+				Toast.makeText(getApplicationContext(), R.string.maximum_filesize_support,
+						Toast.LENGTH_LONG).show();
+				requestedSize = maxSizeOfImage - 10; //leave 10MB free
+				imagesize.setText(String.valueOf(requestedSize));
+			}
+			//else input is fine
 		}
 	}
 

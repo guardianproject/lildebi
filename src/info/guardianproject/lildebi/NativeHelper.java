@@ -1,11 +1,15 @@
 package info.guardianproject.lildebi;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -193,6 +197,64 @@ public class NativeHelper {
 		chmod(0755, new File(app_bin, "gpgv"));
 		chmod(0755, new File(app_bin, "busybox"));
 		writeVersionFile(context);
+	}
+
+	public static String fileSystemType() {
+		try {
+			String imageDir = (new File(image_path).getParent()).toString();
+			String command = app_bin +"/df "+ imageDir;
+			Process p = Runtime.getRuntime().exec(command);
+			InputStreamReader isr = new InputStreamReader(p.getInputStream());
+			BufferedReader br = new BufferedReader(isr);
+
+			int read;
+			char[] buffer = new char[4096];
+			StringBuffer outStringBuffer = new StringBuffer();
+
+			while ((read = br.read(buffer)) > 0)
+				outStringBuffer.append(buffer, 0, read);
+
+			br.close();
+			p.waitFor();
+
+			String outString = outStringBuffer.toString();
+
+			/* Example Output:
+			 * Filesystem             1K-blocks    Used Available Use% Mounted on
+			 * /dev/block/vold/179:18   9341608   3456192   5885416  37% /mnt/sdcard
+			 */
+
+			outString = outString.substring(outString.indexOf("\n"));			//Removing top line
+			String device = outString.substring(0, outString.indexOf(' ')).trim();		//get device info
+			String mountPoint = outString.substring(outString.lastIndexOf(' ')).trim();	//get mount point info
+
+			FileInputStream fstream = new FileInputStream("/proc/mounts");
+			DataInputStream in = new DataInputStream(fstream);
+			br = new BufferedReader(new InputStreamReader(in), 8192);
+			String find= device + " " + mountPoint + " ";
+
+			while ((outString = br.readLine()) != null) {
+				if(outString.contains(find))
+					break;
+			}
+			br.close();
+			fstream.close();
+
+			/* Example Output for '/dev/block/vold/179:18' device:
+			 * /dev/block/vold/179:18 /mnt/sdcard vfat rw,dirsync,nosuid,nodev,noexec,relatime,uid=1000,gid=1015,fmask=0702,dmask=0702,allow_utime=0020,codepage=cp437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro 0 0
+			 */
+
+			int startPoint = outString.indexOf(find) + find.length();
+			int endPoint = outString.indexOf(" ", startPoint);
+			String fileSystemName = outString.substring (startPoint, endPoint).trim();
+
+			return fileSystemName;
+		} catch (Exception e) {
+			String msg = e.getLocalizedMessage();
+			LilDebi.log.append("Error while getting filesystem type: " + msg);
+			Log.e(LilDebi.TAG, "Error while getting filesystem type: " + msg);
+			return null;
+		}
 	}
 
 	public static void installOrUpgradeAppBin(Context context) {
