@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
+
     <string name="app_name">Lil\' Debi</string>
     <string name="unsupported_device_body">Your device is not supported by Lil\' Debi for installing Debian.  It needs to support the "ext2" filesystem and loopback mounting of files as disks. Therefore, this app is useless to you, we recommend uninstalling it.</string>
     <string name="uninstall_button_title">Uninstall Lil\' Debi</string>
@@ -25,6 +26,7 @@
     <string name="title_status">Status:</string>
     <string name="doit">Delete Setup</string>
     <string name="cancel">Cancel</string>
+    <string name="blank">(blank)</string>
     <string name="confirm_delete_message">Are you sure you want to delete the whole Lil\' Debi setup?</string>
     <string name="release">Release:</string>
     <string name="mirror">Mirror:</string>
@@ -43,10 +45,8 @@
     <string name="no_network_message">Network required for install</string>
     <string name="mount_point_not_found_format">The mount point \'%s\' does not exist!</string>
     <string name="no_ext2_message">/proc/filesystems does not list \'ext2\' as a supported filesystem</string>
-
     <string name="image_path_exists_message">Warning: there is already an existing file at the image path that you have selected!</string>
     <string name="image_path_parent_does_not_exist_message">The folder you choose does not exist! Resetting to the default.</string>
-
     <string name="no_sdcard_message">The External Storage SD Card is not mounted read/write, cannot install or start Debian without it.</string>
     <string name="no_sdcard_status">(no SD card)</string>
     <string name="run_command_hint">run commands as root</string>
@@ -59,4 +59,5 @@
     <string name="select_mirror">Select Mirror</string>
     <string name="select_release">Select Release</string>
     <string name="select_arch">Select CPU Architecture</string>
+
 </resources>

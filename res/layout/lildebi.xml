@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="(blank)"
+            android:text="@string/blank"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
