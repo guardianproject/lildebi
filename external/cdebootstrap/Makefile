@@ -14,7 +14,11 @@ cdebootstrap.tar: $(DL_DIR)/usr/bin/cdebootstrap-static
 	echo "TIMESTAMP: $(TIMESTAMP)"
 	for f in `find $(DL_DIR)`; do touch --date=$(TIMESTAMP) "$$f"; done
 	cd $(DL_DIR) && \
-		tar --create --file ../cdebootstrap.tar usr/
+		find usr/ -type f -print0 -o -type l -print0 \
+		| sort --zero-terminated \
+		| tar --no-recursion --null --files-from - \
+			--owner=1000 --group=1000 --numeric-owner --format=gnu \
+			--create --file ../cdebootstrap.tar
 	touch --date=$(TIMESTAMP) cdebootstrap.tar
 
 $(DL_DIR)/usr/bin/cdebootstrap-static: $(DL_DIR)/$(PKG_SOURCE)

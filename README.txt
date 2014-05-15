@@ -44,6 +44,9 @@ On Debian/Ubuntu/Mint/etc.:
   sudo apt-get install autoconf automake libtool transfig wget patch \
        texinfo ant make openjdk-6-jdk
 
+On Mac OS X, you will need Fink, MacPorts, or Brew to install some of these
+dependencies.  For example, GNU tar is required, OS X's tar will not work.
+
 Both the Android SDK and the Android NDK are needed:
 
 SDK: http://developer.android.com/sdk/
