@@ -31,7 +31,7 @@
   <string name="image_size">Abbild-Größe:</string>
   <string name="megabytes">MB</string>
   <string name="install">Installieren</string>
-  <string name="uninstall">Deinstallieren...</string>
+  <string name="uninstall">Deinstallieren…</string>
   <string name="get_superuser">Werde SuperUser</string>
   <string name="needs_superuser_message">Lil\' Debi benötigt SuperUser-Zugriff, installiere die SuperUser app</string>
   <string name="smaller_imagesize_message">Nicht genug Speicherplatz für das Abbild, Grösse wird reduziert, um auf die SD-Karte zu passen</string>
@@ -48,9 +48,9 @@
   <string name="run_command_hint">Befehle als root ausführen</string>
   <string name="title_install_log_view">Installationslog</string>
   <string name="title_share_button">Teilen</string>
-  <string name="starting_debian">Debian gestartet...</string>
-  <string name="stopping_debian">Debian angehalten...</string>
-  <string name="calculating_checksum">Berechne SHA1-Prüfsumme...</string>
+  <string name="starting_debian">Debian gestartet…</string>
+  <string name="stopping_debian">Debian angehalten…</string>
+  <string name="calculating_checksum">Berechne SHA1-Prüfsumme…</string>
   <string name="checksum_complete">SHA1-Prüfsumme komplett!</string>
   <string name="select_mirror">Spiegelserver auswählen</string>
   <string name="select_release">Release auswählen</string>

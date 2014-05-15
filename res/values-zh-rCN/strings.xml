@@ -31,8 +31,8 @@
   <string name="image_size">映像大小:</string>
   <string name="megabytes">MB</string>
   <string name="install">安装</string>
-  <string name="uninstall">卸载...</string>
-  <string name="get_superuser">获取 SuperUser...</string>
+  <string name="uninstall">卸载…</string>
+  <string name="get_superuser">获取 SuperUser…</string>
   <string name="needs_superuser_message">Lil\' Debi 需要超级用户访问权限，请安装 SuperUser 程序</string>
   <string name="smaller_imagesize_message">没有足够的空间建立指定大小的映像，请减小体积以适合 SD 卡的空间</string>
   <string name="mounted_message">Debian 已挂载</string>
@@ -48,9 +48,9 @@
   <string name="run_command_hint">以 root 身份运行命令</string>
   <string name="title_install_log_view">安装日志</string>
   <string name="title_share_button">分享</string>
-  <string name="starting_debian">已启动 Debian ...</string>
-  <string name="stopping_debian">已关闭 Debian ...</string>
-  <string name="calculating_checksum">正在计算 SHA1 校验值...</string>
+  <string name="starting_debian">已启动 Debian …</string>
+  <string name="stopping_debian">已关闭 Debian …</string>
+  <string name="calculating_checksum">正在计算 SHA1 校验值…</string>
   <string name="checksum_complete">SHA1 校验完成!</string>
   <string name="select_mirror">选择镜像服务器</string>
   <string name="select_release">选择发行版</string>

@@ -31,8 +31,8 @@
   <string name="image_size">Velikost slike:</string>
   <string name="megabytes">MB</string>
   <string name="install">Namesti</string>
-  <string name="uninstall">Odstranjevanje ...</string>
-  <string name="get_superuser">Pridobi SuperUser ...</string>
+  <string name="uninstall">Odstranjevanje …</string>
+  <string name="get_superuser">Pridobi SuperUser …</string>
   <string name="needs_superuser_message">Lil\' Debi potrebuje nadzorniški dostop, namesti SuperUser aplikacijo</string>
   <string name="smaller_imagesize_message">Ni dovolj prostora na SD kartici za želeno velikost slike, samodejno bo prilagojena - zmanjšana</string>
   <string name="mounted_message">Debian priklopljen</string>
@@ -49,9 +49,9 @@
   <string name="run_command_hint">zaženik ukaz kot skrbnik</string>
   <string name="title_install_log_view">Namestitveni dnevnik</string>
   <string name="title_share_button">Deli</string>
-  <string name="starting_debian">Debian zagnan ...</string>
-  <string name="stopping_debian">Debian zaustavljen ...</string>
-  <string name="calculating_checksum">Računam SHA1 rezultat ...</string>
+  <string name="starting_debian">Debian zagnan …</string>
+  <string name="stopping_debian">Debian zaustavljen …</string>
+  <string name="calculating_checksum">Računam SHA1 rezultat …</string>
   <string name="checksum_complete">SHA1 rezultat izračunan!</string>
   <string name="select_mirror">Izberi zrcalni strežnik</string>
   <string name="select_release">Izberi izdajo</string>

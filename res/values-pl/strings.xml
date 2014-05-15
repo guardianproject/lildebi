@@ -31,8 +31,8 @@
   <string name="image_size">Rozmiar obrazu:</string>
   <string name="megabytes">MB</string>
   <string name="install">Instaluj</string>
-  <string name="uninstall">Odinstaluj...</string>
-  <string name="get_superuser">Pozyskaj prawa administratora...</string>
+  <string name="uninstall">Odinstaluj…</string>
+  <string name="get_superuser">Pozyskaj prawa administratora…</string>
   <string name="needs_superuser_message">Lil\' Debi wymaga dostępu administracyjnego, proszę zainstalować program SuperUser</string>
   <string name="smaller_imagesize_message">Brak miejsca dla danego rozmiaru obrazu, zmniejszanie obrazu w celu zmieszczenia go na karcie SD</string>
   <string name="mounted_message">Debian jest zamontowany</string>
@@ -49,8 +49,8 @@
   <string name="run_command_hint">uruchom polecenia jako root</string>
   <string name="title_install_log_view">Dziennik instalacji</string>
   <string name="title_share_button">Podziel się</string>
-  <string name="starting_debian">Uruchamianie Debiana...</string>
-  <string name="stopping_debian">Zatrzymywanie Debiana...</string>
+  <string name="starting_debian">Uruchamianie Debiana…</string>
+  <string name="stopping_debian">Zatrzymywanie Debiana…</string>
   <string name="calculating_checksum">Obliczanie sumy kontrolnej SHA1</string>
   <string name="checksum_complete">Obliczono sumę kontrolną SHA1!</string>
   <string name="select_mirror">Wybierz serwer lustrzany</string>

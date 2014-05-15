@@ -32,7 +32,7 @@
   <string name="megabytes">MegaByte</string>
   <string name="install">Yükle</string>
   <string name="uninstall">Kaldır</string>
-  <string name="get_superuser">Ayrıcalıklı Kullanıcılık edinin...</string>
+  <string name="get_superuser">Ayrıcalıklı Kullanıcılık edinin…</string>
   <string name="needs_superuser_message">Lil\' Debi\'nin SuperUser erişimine ihtiyacı var , SuperUser uygulamasını yükleyin</string>
   <string name="smaller_imagesize_message">Belirtilen görüntü boyutu için hafızada yeterince yer yok , SD Kart\'a sığdırmak için boyut küçültülüyor</string>
   <string name="mounted_message">Debian bağlı durumda</string>
@@ -49,9 +49,9 @@
   <string name="run_command_hint">Komutları root gibi çalıştırın</string>
   <string name="title_install_log_view">Kayıtları yükle</string>
   <string name="title_share_button">Paylaş</string>
-  <string name="starting_debian">Debian başlatıldı...</string>
-  <string name="stopping_debian">Debian durduruldu....</string>
-  <string name="calculating_checksum">SHA1 sağlaması hesaplanıyor ...</string>
+  <string name="starting_debian">Debian başlatıldı…</string>
+  <string name="stopping_debian">Debian durduruldu….</string>
+  <string name="calculating_checksum">SHA1 sağlaması hesaplanıyor …</string>
   <string name="checksum_complete">SHA1 sağlaması hazır!</string>
   <string name="select_mirror">Yansımayı seçiniz</string>
   <string name="select_release">Sürüm seçiniz</string>

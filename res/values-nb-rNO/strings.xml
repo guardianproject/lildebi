@@ -31,8 +31,8 @@
   <string name="image_size">Billedstørrelse:</string>
   <string name="megabytes">MB</string>
   <string name="install">Installér</string>
-  <string name="uninstall">Avinstallér...</string>
-  <string name="get_superuser">Elevér rettigheter...</string>
+  <string name="uninstall">Avinstallér…</string>
+  <string name="get_superuser">Elevér rettigheter…</string>
   <string name="needs_superuser_message">Lil\' Debi trenger priviligerte tilgangsrettigheter, installér \'superbruker\'-applikasjonen.</string>
   <string name="smaller_imagesize_message"> Forespeilet avtrykksstørrelse for stor for SD-kortet, reduserer størrelse for å få plass.</string>
   <string name="mounted_message">Debian montert</string>
@@ -48,9 +48,9 @@
   <string name="run_command_hint">kjør priviligerte kommandoer</string>
   <string name="title_install_log_view">Installasjonslog</string>
   <string name="title_share_button">Del</string>
-  <string name="starting_debian">Debian startet...</string>
-  <string name="stopping_debian">Debian stoppet...</string>
-  <string name="calculating_checksum">Kalkulerer SHA1 kontrollsum...</string>
+  <string name="starting_debian">Debian startet…</string>
+  <string name="stopping_debian">Debian stoppet…</string>
+  <string name="calculating_checksum">Kalkulerer SHA1 kontrollsum…</string>
   <string name="checksum_complete">SHA1 kontrollsum ferdig!</string>
   <string name="select_mirror">Velg speil</string>
   <string name="select_release">Velg utgivelse</string>

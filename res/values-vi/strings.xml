@@ -31,8 +31,8 @@
   <string name="image_size">Kích thước ổ đĩa ảo:</string>
   <string name="megabytes">MB</string>
   <string name="install">Cài đặt</string>
-  <string name="uninstall">Gỡ cài đặt...</string>
-  <string name="get_superuser">Quyền SuperUser...</string>
+  <string name="uninstall">Gỡ cài đặt…</string>
+  <string name="get_superuser">Quyền SuperUser…</string>
   <string name="needs_superuser_message">Lil\' Debi cần quyền truy cập SuperUser, cài ứng dụng SuperUser vào</string>
   <string name="smaller_imagesize_message">Không đủ chỗ trống cho định dạng ổ đĩa, giảm kích thước để có thể chứa vào thẻ nhớ</string>
   <string name="mounted_message">Đã kết nối với Debian</string>
@@ -49,9 +49,9 @@
   <string name="run_command_hint">chạy dòng lệnh dưới dạng root</string>
   <string name="title_install_log_view">Nhật ký cài đặt</string>
   <string name="title_share_button">Chia sẻ</string>
-  <string name="starting_debian">Đã bắt đầu Debian...</string>
-  <string name="stopping_debian">Đã dừng lại Debian...</string>
-  <string name="calculating_checksum">Đang tính toán checksum SHA1...</string>
+  <string name="starting_debian">Đã bắt đầu Debian…</string>
+  <string name="stopping_debian">Đã dừng lại Debian…</string>
+  <string name="calculating_checksum">Đang tính toán checksum SHA1…</string>
   <string name="checksum_complete">Đã hoàn tất việc kiểm tra checksum SHA1!</string>
   <string name="select_mirror">Chọn bản sao</string>
   <string name="select_release">Chọn phiên bản</string>

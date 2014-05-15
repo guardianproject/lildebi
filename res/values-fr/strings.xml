@@ -31,8 +31,8 @@
   <string name="image_size">Taille de l\'image :</string>
   <string name="megabytes">MB</string>
   <string name="install">Installer</string>
-  <string name="uninstall">Désinstallation...</string>
-  <string name="get_superuser">Obtention de SuperUser...</string>
+  <string name="uninstall">Désinstallation…</string>
+  <string name="get_superuser">Obtention de SuperUser…</string>
   <string name="needs_superuser_message">Lil\' Debi nécessite l\'accès à SuperUser, installez l\'application SuperUser</string>
   <string name="smaller_imagesize_message">L\'espace mémoire est insuffisant pour cette image. Réduction de la taille pour s\'adapter à celle disponible sur la carte SD</string>
   <string name="mounted_message">Debian est montée</string>
@@ -48,9 +48,9 @@
   <string name="run_command_hint">éxecuter les commandes en tant que root</string>
   <string name="title_install_log_view">Log d\'installation</string>
   <string name="title_share_button">Partager</string>
-  <string name="starting_debian">Démarrage de Debian...</string>
-  <string name="stopping_debian">Exctinction de Debian...</string>
-  <string name="calculating_checksum">Calcul de la somme de contrôle SHA1...</string>
+  <string name="starting_debian">Démarrage de Debian…</string>
+  <string name="stopping_debian">Exctinction de Debian…</string>
+  <string name="calculating_checksum">Calcul de la somme de contrôle SHA1…</string>
   <string name="checksum_complete">Calcul de la somme de contrôle SHA1 terminée !</string>
   <string name="select_mirror">Sélectionner un miroir</string>
   <string name="select_release">Sélectionner une distribution</string>

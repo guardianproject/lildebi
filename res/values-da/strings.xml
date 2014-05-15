@@ -31,8 +31,8 @@
   <string name="image_size">Aftryksstørrelse:</string>
   <string name="megabytes">MB</string>
   <string name="install">Installer</string>
-  <string name="uninstall">Afinstaller ...</string>
-  <string name="get_superuser">Hent superbruger ...</string>
+  <string name="uninstall">Afinstaller …</string>
+  <string name="get_superuser">Hent superbruger …</string>
   <string name="needs_superuser_message">Lil\' Debi skal bruge superbrugeradgang, installer app\'en SuperUser</string>
   <string name="smaller_imagesize_message">Ikke nok plads for angivet aftryksstørrelse, reducerer størrelse for at passe på et SD-kort</string>
   <string name="mounted_message">Debian monteret</string>
@@ -48,9 +48,9 @@
   <string name="run_command_hint">kør kommandoer som root</string>
   <string name="title_install_log_view">Installer log</string>
   <string name="title_share_button">Del</string>
-  <string name="starting_debian">Startede Debian ...</string>
-  <string name="stopping_debian">Stoppede Debian ...</string>
-  <string name="calculating_checksum">Beregner SHA1-kontrolsum ...</string>
+  <string name="starting_debian">Startede Debian …</string>
+  <string name="stopping_debian">Stoppede Debian …</string>
+  <string name="calculating_checksum">Beregner SHA1-kontrolsum …</string>
   <string name="checksum_complete">SHA1-kontrolsum færdig!</string>
   <string name="select_mirror">Vælg spejl</string>
   <string name="select_release">Vælg udgivelse</string>

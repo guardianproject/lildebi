@@ -31,8 +31,8 @@
   <string name="image_size">Marimea Imaginii:</string>
   <string name="megabytes">MB</string>
   <string name="install">Instaleaza</string>
-  <string name="uninstall">Dezinstaleaza...</string>
-  <string name="get_superuser">Obtine SuperUser...</string>
+  <string name="uninstall">Dezinstaleaza…</string>
+  <string name="get_superuser">Obtine SuperUser…</string>
   <string name="needs_superuser_message">Lil\' Debi necesita acces SuperUser, instalati aplicatia SuperUser</string>
   <string name="smaller_imagesize_message">Nu este suficient spatiu pentru marimea de imagine aleasa, reduc imaginea pentru a incapea pe SD Card</string>
   <string name="mounted_message">Debian montat</string>
@@ -48,9 +48,9 @@
   <string name="run_command_hint">ruleaza comenzi ca root</string>
   <string name="title_install_log_view">Log de instalare</string>
   <string name="title_share_button">Partajeaza</string>
-  <string name="starting_debian">Debian a fost pornit...</string>
-  <string name="stopping_debian">Debian a fost oprit...</string>
-  <string name="calculating_checksum">Calculez suma SHA1...</string>
+  <string name="starting_debian">Debian a fost pornit…</string>
+  <string name="stopping_debian">Debian a fost oprit…</string>
+  <string name="calculating_checksum">Calculez suma SHA1…</string>
   <string name="checksum_complete">Calcularea sumei SHA1 este completa!</string>
   <string name="select_mirror">Alege Sursa de Pachete</string>
   <string name="select_release">Alege Versiune</string>
