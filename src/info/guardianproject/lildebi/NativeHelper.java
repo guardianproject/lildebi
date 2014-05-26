@@ -88,7 +88,7 @@ public class NativeHelper {
 			versionCode = Integer.parseInt(in.next());
 			in.close();
 		} catch (Exception e) {
-			LilDebi.log.append("Can't read app version file: " + e.getLocalizedMessage() + "\n");
+			LilDebiAction.log.append("Can't read app version file: " + e.getLocalizedMessage() + "\n");
 		}
 		return versionCode;
 	}
@@ -102,7 +102,7 @@ public class NativeHelper {
 			out.close();
 			fos.close();
 		} catch (Exception e) {
-			LilDebi.log.append("Can't write app version file: " + e.getLocalizedMessage() + "\n");
+			LilDebiAction.log.append("Can't write app version file: " + e.getLocalizedMessage() + "\n");
 		}
 	}
 
@@ -111,7 +111,7 @@ public class NativeHelper {
 			PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
 			return pInfo.versionCode;
 		} catch (Exception e) {
-			LilDebi.log.append("Can't get app version: " + e.getLocalizedMessage() + "\n");
+			LilDebiAction.log.append("Can't get app version: " + e.getLocalizedMessage() + "\n");
 			return 0;
 		}
 	}
@@ -126,7 +126,7 @@ public class NativeHelper {
 			moveTo += ".build" + String.valueOf(version);
 		}
 		moveTo += "." + String.valueOf(now.getTimeInMillis());
-		LilDebi.log.append("Moving '" + app_bin + "' to '" + moveTo + "'\n");
+		LilDebiAction.log.append("Moving '" + app_bin + "' to '" + moveTo + "'\n");
 		app_bin.renameTo(new File(moveTo));
 		app_bin.mkdir(); // Android normally creates this at onCreate()
 	}
@@ -157,7 +157,7 @@ public class NativeHelper {
 
 				if (file.exists()) {
 					file.delete();
-					LilDebi.log.append("DebiHelper.unzipDebiFiles() deleting " + file.getAbsolutePath() + "\n");
+					LilDebiAction.log.append("DebiHelper.unzipDebiFiles() deleting " + file.getAbsolutePath() + "\n");
 				}
 
 				FileOutputStream fos = new FileOutputStream(file);
@@ -198,7 +198,7 @@ public class NativeHelper {
 	public static void installOrUpgradeAppBin(Context context) {
 		if (versionFile.exists()) {
 			if (getCurrentVersionCode(context) > readVersionFile()) {
-				LilDebi.log.append("Upgrading '" + app_bin + "'\n");
+				LilDebiAction.log.append("Upgrading '" + app_bin + "'\n");
 				// upgrade, rename current app_bin, then unpack
 				renameOldAppBin();
 				unzipDebiFiles(context);
@@ -208,10 +208,10 @@ public class NativeHelper {
 		} else {
 			File[] list = app_bin.listFiles();
 			if (list == null || list.length > 0) {
-				LilDebi.log.append("Old, unversioned app_bin dir, upgrading.\n");
+				LilDebiAction.log.append("Old, unversioned app_bin dir, upgrading.\n");
 				renameOldAppBin();
 			} else {
-				LilDebi.log.append("Fresh app_bin install.\n");
+				LilDebiAction.log.append("Fresh app_bin install.\n");
 			}
 			unzipDebiFiles(context);
 		}

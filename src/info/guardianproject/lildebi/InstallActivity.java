@@ -210,7 +210,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		} catch (IOException e) {
 			String msg = "Failed to write install config: "	+ NativeHelper.install_conf;
 			Log.e(TAG, msg);
-			LilDebi.log.append(msg + "\n");
+			LilDebiAction.log.append(msg + "\n");
 			e.printStackTrace();
 		}
 	}

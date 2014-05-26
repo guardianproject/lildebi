@@ -134,7 +134,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 					} else {
 						command = app_bin + "/sha1sum " + NativeHelper.image_path;
 						Log.i(LilDebi.TAG, command);
-						LilDebi.log.append(command + "\n");
+						LilDebiAction.log.append(command + "\n");
 						Process p = Runtime.getRuntime().exec(command);
 						p.waitFor();
 						InputStreamReader isr = new InputStreamReader(p.getInputStream());
@@ -150,7 +150,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 				}
 			} catch (Exception e) {
 				String msg = e.getLocalizedMessage();
-				LilDebi.log.append("Error with checksum file: " + msg);
+				LilDebiAction.log.append("Error with checksum file: " + msg);
 				Log.e(LilDebi.TAG, "Error with checksum file: " + msg);
 			}
 			return null;
