@@ -1,5 +1,6 @@
 package info.guardianproject.lildebi;
 
+import java.io.File;
 import java.io.OutputStream;
 
 import android.content.Context;
@@ -124,9 +125,11 @@ public class LilDebiAction {
 				synchronized (LilDebiAction.this) {
 					commandThread = null;
 				}
-				Message msg = commandThreadHandler.obtainMessage();
-				msg.arg1 = COMMAND_FINISHED;
-				commandThreadHandler.sendMessage(msg);
+				if (commandThreadHandler != null) {
+					Message msg = commandThreadHandler.obtainMessage();
+					msg.arg1 = COMMAND_FINISHED;
+					commandThreadHandler.sendMessage(msg);
+				}
 			}
 		}
 	}
@@ -139,14 +142,14 @@ public class LilDebiAction {
 
 	class LogUpdate extends StreamThread.StreamUpdate {
 
-		StringBuffer sb = new StringBuffer();
-
 		@Override
 		public void update(String val) {
 			log.append(val);
-			Message msg = commandThreadHandler.obtainMessage();
-			msg.arg1 = LilDebiAction.LOG_UPDATE;
-			commandThreadHandler.sendMessage(msg);
+			if (commandThreadHandler != null) {
+				Message msg = commandThreadHandler.obtainMessage();
+				msg.arg1 = LilDebiAction.LOG_UPDATE;
+				commandThreadHandler.sendMessage(msg);
+			}
 		}
 	}
 }

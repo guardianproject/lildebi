@@ -40,7 +40,6 @@ public class NativeHelper {
 	public static String preStopScript;
 
 	public static boolean isInstallRunning = false;
-	public static boolean mounted = false;
 
 	public static void setup(Context context) {
 		app_bin = context.getDir("bin", Context.MODE_PRIVATE).getAbsoluteFile();
@@ -72,6 +71,13 @@ public class NativeHelper {
 		default_image_path = sdcard + "/debian.img";
 		String prefName = context.getString(R.string.pref_image_path_key);
 		image_path = prefs.getString(prefName, default_image_path);
+	}
+
+	public static boolean isMounted() {
+		if (new File(NativeHelper.mnt + "/etc").exists())
+			return true;
+		else
+			return false;
 	}
 
 	public static String getArgs() {

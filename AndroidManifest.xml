@@ -47,6 +47,28 @@
         <activity android:name="InstallLogViewActivity" />
 
         <service android:name="InstallService" />
+
+        <receiver android:name="MediaMountedReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <data android:scheme="file" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="MediaUnmountedReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+                <data android:scheme="file" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="MediaUnmountedReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <data android:scheme="file" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -124,7 +124,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 			String command;
 			try {
 				if (values[0]) {
-					if (NativeHelper.mounted) {
+					if (NativeHelper.isMounted()) {
 						// if mounted, just make a blank file, then stop-debian.sh
 						// will do the sha1sum
 						sha1file.createNewFile();

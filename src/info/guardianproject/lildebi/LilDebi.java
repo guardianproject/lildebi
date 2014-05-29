@@ -9,12 +9,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
@@ -23,7 +20,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,10 +43,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
 	private Handler commandThreadHandler;
 	private LilDebiAction action;
-
-	// we have to keep a copy around of these to prevent them from being GCed
-	private BroadcastReceiver mediaMountedReceiver = null;
-	private BroadcastReceiver mediaEjectReceiver = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,22 +74,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
 		NativeHelper.installOrUpgradeAppBin(this);
 		installBusyboxSymlinks();
-
-		// if the user tries to unmount the SD Card, try to stop Debian first
-		mediaEjectReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				if (NativeHelper.mounted) {
-					startStopButton.setEnabled(false);
-					setProgressBarIndeterminateVisibility(true);
-					action.stopDebian();
-				}
-			}
-		};
-		IntentFilter eject = new IntentFilter();
-		eject.addDataScheme("file");
-		eject.addAction(Intent.ACTION_MEDIA_EJECT);
-		registerReceiver(mediaEjectReceiver, eject);
 	}
 
 	@Override
@@ -112,17 +88,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		}
 		updateScreenStatus();
 		updateLog();
-
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		if (prefs.getBoolean(getString(R.string.pref_start_on_mount_key), false))
-			registerMediaMountedReceiver();
-		else
-			unregisterMediaMountedReceiver();
 	}
 
 	protected void onDestroy() {
 	    super.onDestroy();
-	    unregisterReceiver(mediaEjectReceiver);
 	}
 
 	@Override
@@ -172,7 +141,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		startStopButton.setEnabled(true);
 		setProgressBarIndeterminateVisibility(false);
 		String state = Environment.getExternalStorageState();
-		NativeHelper.mounted = false;
 		if (!Environment.MEDIA_MOUNTED.equals(state)) {
 			Toast.makeText(getApplicationContext(), R.string.no_sdcard_message,
 					Toast.LENGTH_LONG).show();
@@ -200,9 +168,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 						action.configureDownloadedImage();
 					}
 				});
-			} else if (new File(NativeHelper.mnt + "/etc").exists()) {
+			} else if (NativeHelper.isMounted()) {
 				// we have a configured and mounted Debian setup, stop it
-				NativeHelper.mounted = true;
 				statusTitle.setVisibility(View.GONE);
 				statusText.setVisibility(View.GONE);
 				statusText.setText(R.string.mounted_message);
@@ -301,38 +268,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				LilDebiAction.log.append("Exception triggered by " + cmd);
 			}
 		}
-	}
-
-	void registerMediaMountedReceiver() {
-		if (mediaMountedReceiver == null) {
-			mediaMountedReceiver = new BroadcastReceiver() {
-				@Override
-				public void onReceive(Context context, Intent intent) {
-					if (new File(NativeHelper.image_path).exists() && new File(NativeHelper.mnt).exists()) {
-						startStopButton.setEnabled(false);
-						setProgressBarIndeterminateVisibility(true);
-						action.startDebian();
-					}
-				}
-			};
-			IntentFilter filter = new IntentFilter();
-			filter.addDataScheme("file");
-			filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
-			registerReceiver(mediaMountedReceiver, filter);
-			mediaMountedReceiver.setDebugUnregister(true);
-		}
-	}
-
-	void unregisterMediaMountedReceiver() {
-		if (mediaMountedReceiver != null)
-			try {
-				unregisterReceiver(mediaMountedReceiver);
-			} catch (IllegalArgumentException e) {
-				// ugly workaround for bug in Android 2.1 and maybe higher
-				// http://code.google.com/p/android/issues/detail?id=6191
-				Log.w(TAG, "Android project issue 6191 workaround:");
-				e.printStackTrace();
-			}
 	}
 
 	@Override
