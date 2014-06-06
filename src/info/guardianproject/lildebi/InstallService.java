@@ -95,6 +95,8 @@ public class InstallService extends Service {
 						+ stdArgs;
 				writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
 				writeCommand(os, command);
+				// Avoid keeping the resource mounted because of some failure
+				writeCommand(os, "./stop-debian.sh " + stdArgs);
 				writeCommand(os, "exit");
 
 				sh.waitFor();
