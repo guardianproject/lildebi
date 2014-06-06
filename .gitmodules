@@ -1,3 +1,4 @@
 [submodule "external/busybox"]
 	path = external/busybox
 	url = git://busybox.net/busybox.git
+	ignore = dirty
