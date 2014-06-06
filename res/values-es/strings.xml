@@ -15,6 +15,7 @@
   <string name="pref_pre_stop_summary">Guión de órdenes que se ejecutarán antes de que Debian se pare (predeterminado: /etc/init.d/ssh stop)</string>
   <string name="pref_prevent_sleep_title">Evitar inactividad</string>
   <string name="pref_prevent_sleep_summary">evitar que el dispositivo entre en inactividad mientras está ejecutando Debian</string>
+  <string name="menu_jackpal_terminal_title">Abrir terminal…</string>
   <string name="menu_preferences_title">Preferencias</string>
   <string name="menu_install_log_title">Ver el registro de instalación</string>
   <string name="menu_delete_title">Eliminar todo</string>
@@ -24,6 +25,7 @@
   <string name="title_status">Estado:</string>
   <string name="doit">Eliminar instalación</string>
   <string name="cancel">Cancelar</string>
+  <string name="blank">(vacío)</string>
   <string name="confirm_delete_message">¿Está seguro de que desea eliminar toda la instalación de Lil\' Debi?</string>
   <string name="release">Versión:</string>
   <string name="mirror">Réplica:</string>
@@ -40,12 +42,12 @@
   <string name="not_installed_message">Debian no instalado</string>
   <string name="not_configured_message">Imagen no configurada</string>
   <string name="no_network_message">Se necesita conexión a la red para instalar</string>
+  <string name="mount_point_not_found_format">¡El punto de montaje \'%s\' no existe!</string>
   <string name="no_ext2_message">/proc/filesystems no lista \'ext2\' como sistema de ficheros soportado</string>
   <string name="image_path_exists_message">Advertencia: ¡ya existe un archivo de imagen en la ruta que ha seleccionado!</string>
   <string name="image_path_parent_does_not_exist_message">¡La carpeta que ha escogido no existe! Restableciendo al valor predeterminado.</string>
   <string name="no_sdcard_message">La tarjeta SD externa no está montada con acceso lectura/escritura, no se puede instalar o iniciar Debian sin él.</string>
   <string name="no_sdcard_status">(no hay tarjeta SD)</string>
-
   <string name="title_install_log_view">Registro de instalación</string>
   <string name="title_share_button">Compartir</string>
   <string name="starting_debian">Debian iniciado…</string>

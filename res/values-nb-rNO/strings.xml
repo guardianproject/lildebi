@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="app_name">Lil\' Debi</string>
-  <string name="unsupported_device_body">Lil\' Debi kan ikke Installére Debian på din enhet. Støtte for filsystemet \"ext2\" og filmontering av avspeilinger som volum er påkrevet. Derav er denne applikasjonen ubrukelig for deg, vi anbefaler avinstallasjon.</string>
-  <string name="uninstall_button_title">Avinstallér Lil\' Debi</string>
+  <string name="unsupported_device_body">Lil\' Debi kan ikke Installere Debian på din enhet. Støtte for filsystemet \"ext2\" og filmontering av avspeilinger som volum er påkrevet. Derav er denne applikasjonen ubrukelig for deg, vi anbefaler avinstallasjon.</string>
+  <string name="uninstall_button_title">Avinstaller Lil\' Debi</string>
   <string name="pref_start_on_mount_title">Start ved montering av SD-kort?</string>
   <string name="pref_start_on_mount_summary">Start Debian automatisk når SD-kortet blir montert</string>
   <string name="pref_use_checksum_title">Sjekk kontrollsum av fil-avspeiling ved oppstart?</string>
@@ -15,6 +15,7 @@
   <string name="pref_pre_stop_summary">Skript som kjøres når Debian blir stoppet (default: /etc/init.d/ssh stop)</string>
   <string name="pref_prevent_sleep_title">Forhindre dvaletilstand</string>
   <string name="pref_prevent_sleep_summary">forhindre enheten fra å gå i dvalemodus når Debian kjører</string>
+  <string name="menu_jackpal_terminal_title">Åpne terminal…</string>
   <string name="menu_preferences_title">Innstillinger</string>
   <string name="menu_install_log_title">Se installasjonslogg</string>
   <string name="menu_delete_title">Slett alt</string>
@@ -24,6 +25,7 @@
   <string name="title_status">Status:</string>
   <string name="doit">Slett oppsett</string>
   <string name="cancel">Avbryt</string>
+  <string name="blank">(tom)</string>
   <string name="confirm_delete_message">Er du sikker på at du vil slette hele Lil\' Debi oppsettet?</string>
   <string name="release">Utgivelse:</string>
   <string name="mirror">Speil:</string>
@@ -31,21 +33,21 @@
   <string name="image_size">Billedstørrelse:</string>
   <string name="megabytes">MB</string>
   <string name="install">Installér</string>
-  <string name="uninstall">Avinstallér…</string>
+  <string name="uninstall">Avinstaller…</string>
   <string name="get_superuser">Elevér rettigheter…</string>
   <string name="needs_superuser_message">Lil\' Debi trenger priviligerte tilgangsrettigheter, installér \'superbruker\'-applikasjonen.</string>
   <string name="smaller_imagesize_message"> Forespeilet avtrykksstørrelse for stor for SD-kortet, reduserer størrelse for å få plass.</string>
   <string name="mounted_message">Debian montert</string>
   <string name="not_mounted_message">Debian ikke montert</string>
-  <string name="not_installed_message">Debian ikke Installért</string>
+  <string name="not_installed_message">Debian ikke Installert</string>
   <string name="not_configured_message">Fil-avspeiling ikke konfigurert</string>
   <string name="no_network_message">Nettverk påkrevd for installasjon</string>
+  <string name="mount_point_not_found_format">Monteringspunktet \'%s\' eksisterer ikke!</string>
   <string name="no_ext2_message">/proc/-filsystem har ikke oppføring for \'ext2\' som støttet filsystem</string>
   <string name="image_path_exists_message">Advarsel: det finnes allerede en eksisterende fil på stien du har valgt!</string>
   <string name="image_path_parent_does_not_exist_message">Mappen du valgte finnes ikke! Returnerer til forvalg.</string>
   <string name="no_sdcard_message">Det eksterne SD-kortet er ikke montert les/skriv, kan ikke Installére eller starte Debian foruten.</string>
   <string name="no_sdcard_status">(inget SD-kort)</string>
-
   <string name="title_install_log_view">Installasjonslog</string>
   <string name="title_share_button">Del</string>
   <string name="starting_debian">Debian startet…</string>
