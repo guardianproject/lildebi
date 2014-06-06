@@ -1,17 +1,24 @@
 #!/bin/sh
 
-. ~/.android/bashrc
+if [ -z $ANDROID_HOME ]; then
+    if [ -e ~/.android/bashrc ]; then
+        . ~/.android/bashrc
+    else
+        echo "ANDROID_HOME must be set!"
+        exit
+    fi
+fi
 
 TIMESTAMP=`git log -n1 --date=iso | sed -n 's,^Date:\s\s*\(.*\),\1,p'`
 
-cd external/busybox
 git reset --hard
 git clean -fdx
-cd ../..
-git reset --hard
-git clean -fdx
-git submodule init
-git submodule update
+git submodule foreach --recursive git reset --hard
+git submodule foreach --recursive git clean -fdx
+git submodule sync --recursive
+git submodule foreach --recursive git submodule sync
+git submodule update --init --recursive
+
 make -C external/ assets
 
 cp ~/.android/ant.properties .
