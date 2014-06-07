@@ -1,3 +1,7 @@
++ new repeatable, deterministic build process!
+   https://github.com/guardianproject/lildebi/wiki/Deterministic-Builds
++ reduced APK size by half
+
 v0.4.6
 + fix issues finding SD Card path on 4.3 and newer, #66
 + added menu item to launch Debian shell in Terminal Emulator
