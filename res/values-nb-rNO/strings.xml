@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">Avtrykksfilbane</string>
   <string name="pref_image_path_summary">Filbanen til oppstartsfilen for Debian (default: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Etterstartelsesskript</string>
-  <string name="pref_post_start_summary">Skript som kjører etter Debian starter (default: /etc/init.d/ssh start)</string>
+  <string name="pref_post_start_summary">Skript som kjører etter Debian starter (default: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Førstoppelsesskript</string>
-  <string name="pref_pre_stop_summary">Skript som kjøres når Debian blir stoppet (default: /etc/init.d/ssh stop)</string>
+  <string name="pref_pre_stop_summary">Skript som kjøres når Debian blir stoppet (default: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Forhindre dvaletilstand</string>
   <string name="pref_prevent_sleep_summary">forhindre enheten fra å gå i dvalemodus når Debian kjører</string>
   <string name="menu_jackpal_terminal_title">Åpne terminal…</string>

@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">Đường dẫn ổ đĩa ảo</string>
   <string name="pref_image_path_summary">Đường dẫn tới tập tin ổ đĩa ảo mà Debian được cài đặt vào (mặc định: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Script trước-khởi động</string>
-  <string name="pref_post_start_summary">Script để chạy sau khi Debian được khởi động (mặc định: /etc/init.d/ssh start)</string>
+  <string name="pref_post_start_summary">Script để chạy sau khi Debian được khởi động (mặc định: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Script trước khi-dừng lại</string>
-  <string name="pref_pre_stop_summary">Script để chạy trước khi Debian được dừng lại (mặc định: /etc/init.d/ssh stop)</string>
+  <string name="pref_pre_stop_summary">Script để chạy trước khi Debian được dừng lại (mặc định: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Ngăn cản chế độ tắt màn hình</string>
   <string name="pref_prevent_sleep_summary">ngăn cản thiết bị tắt màn hình khi Debian đang chạy</string>
   <string name="menu_preferences_title">Tùy biến</string>

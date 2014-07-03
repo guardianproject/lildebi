@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">Pfad zum Abbild</string>
   <string name="pref_image_path_summary">Der Pfad zum Festplattenabbild auf welchem Debian installiert ist (Standard: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Skript nach Start</string>
-  <string name="pref_post_start_summary">Auszuführendes Skript nachdem Debian gestartet wurde (Standard: /etc/init.d/ssh start)</string>
+  <string name="pref_post_start_summary">Auszuführendes Skript nachdem Debian gestartet wurde (Standard: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Skript vor Halt</string>
-  <string name="pref_pre_stop_summary">Auszuführendes Skript nachdem Debian angehalten wurde (Standard: /etc/init.d/ssh stop)</string>
+  <string name="pref_pre_stop_summary">Auszuführendes Skript nachdem Debian angehalten wurde (Standard: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Ruhezustand verhindern</string>
   <string name="pref_prevent_sleep_summary">Das Gerät nicht in den Ruhezustand versetzen während Debian läuft</string>
   <string name="menu_preferences_title">Einstellungen</string>

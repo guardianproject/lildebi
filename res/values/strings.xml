@@ -11,9 +11,9 @@
     <string name="pref_image_path_title">Image Path</string>
     <string name="pref_image_path_summary">The path to the disk image file that Debian is installed on (default: /sdcard/debian.img)</string>
     <string name="pref_post_start_title">Post-start Script</string>
-    <string name="pref_post_start_summary">Script to run after Debian is started (default: /etc/init.d/ssh start)</string>
+    <string name="pref_post_start_summary">Script to run after Debian is started (default: /etc/init.d/rc 2)</string>
     <string name="pref_pre_stop_title">Pre-stop Script</string>
-    <string name="pref_pre_stop_summary">Script to run before Debian is stopped (default: /etc/init.d/ssh stop)</string>
+    <string name="pref_pre_stop_summary">Script to run before Debian is stopped (default: /etc/init.d/rc 0)</string>
     <string name="pref_prevent_sleep_title">Prevent Sleep</string>
     <string name="pref_prevent_sleep_summary">prevent the device from sleeping while Debian is running</string>
     <string name="menu_jackpal_terminal_title">Open Terminal…</string>

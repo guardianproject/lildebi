@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">Image Pad:</string>
   <string name="pref_image_path_summary">Het pad naar het schijf-image bestand waar Debian is geinstalleerd (standaard: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Post-start Script</string>
-  <string name="pref_post_start_summary">Script om uit te voeren nadat Debian is gestart (standaard: /etc/init.d/ssh start)</string>
+  <string name="pref_post_start_summary">Script om uit te voeren nadat Debian is gestart (standaard: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Pre-stop Script</string>
-  <string name="pref_pre_stop_summary">Script om uit te voeren voordat Debian wordt gestopt (standaard: /etc/init.d/ssh stop)</string>
+  <string name="pref_pre_stop_summary">Script om uit te voeren voordat Debian wordt gestopt (standaard: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Voorkom slaap-stand</string>
   <string name="pref_prevent_sleep_summary">voorkom dat het apparaat in de slaapstand gaat terwijl Debian draait.</string>
   <string name="menu_preferences_title">Voorkeuren</string>

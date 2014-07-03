@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">Ścieżka do obrazu</string>
   <string name="pref_image_path_summary">Ścieżka do pliku obrazu dysku z zainstalowanym Debianem (domyślnie: </string>
   <string name="pref_post_start_title">Skrypty pouruchomieniowe</string>
-  <string name="pref_post_start_summary">Skrypty włączane po uruchomieniu Debiana (domyślnie: </string>
+  <string name="pref_post_start_summary">Skrypty włączane po uruchomieniu Debiana (domyślnie: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Skrypty końcowe</string>
-  <string name="pref_pre_stop_summary">Skrypty uruchamiane przed wyłączeniem Debiana (domyślnie </string>
+  <string name="pref_pre_stop_summary">Skrypty uruchamiane przed wyłączeniem Debiana (domyślnie: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Nie usypiaj</string>
   <string name="pref_prevent_sleep_summary">zapobiega usypianiu urządzenia przy działającym Debianie</string>
   <string name="menu_preferences_title">Preferencje</string>

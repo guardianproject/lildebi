@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">Aftrykssti</string>
   <string name="pref_image_path_summary">Stien til diskaftryksfilen som Debian er installeret på (standard: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Post-start-skript</string>
-  <string name="pref_post_start_summary">Skript der skal køres efter at Debian er startet (standard: /etc/init.d/ssh start)</string>
+  <string name="pref_post_start_summary">Skript der skal køres efter at Debian er startet (standard: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Pre-stop-skript</string>
-  <string name="pref_pre_stop_summary">Skript der skal køres før Debian stoppes (standard: /etc/init.d/ssh stop)</string>
+  <string name="pref_pre_stop_summary">Skript der skal køres før Debian stoppes (standard: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Forhindr sovetilstand</string>
   <string name="pref_prevent_sleep_summary">forhindr at enheden går i sovetilstand når Debian kører</string>
   <string name="menu_preferences_title">Indstillinger</string>

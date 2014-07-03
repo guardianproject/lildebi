@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">Ruta a la imagen</string>
   <string name="pref_image_path_summary">La ruta hacia el fichero de imagen de disco donde Debian está instalado (predeterminado: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Guión de órdenes tras el inicio</string>
-  <string name="pref_post_start_summary">Guión de órdenes que se ejecutará tras iniciar Debian (predeterminado: /etc/init.d/ssh start)</string>
+  <string name="pref_post_start_summary">Guión de órdenes que se ejecutará tras iniciar Debian (predeterminado: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Guión de órdenes antes de la parada</string>
-  <string name="pref_pre_stop_summary">Guión de órdenes que se ejecutarán antes de que Debian se pare (predeterminado: /etc/init.d/ssh stop)</string>
+  <string name="pref_pre_stop_summary">Guión de órdenes que se ejecutarán antes de que Debian se pare (predeterminado: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Evitar inactividad</string>
   <string name="pref_prevent_sleep_summary">evitar que el dispositivo entre en inactividad mientras está ejecutando Debian</string>
   <string name="menu_jackpal_terminal_title">Abrir terminal…</string>

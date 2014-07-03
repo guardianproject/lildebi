@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">映像位置</string>
   <string name="pref_image_path_summary">安装了 Debian 的磁盘映像文件的路径(默认：/sdcard/debian.img)</string>
   <string name="pref_post_start_title">”启动后“脚本</string>
-  <string name="pref_post_start_summary">Debian 启动后运行的脚本(默认：/etc/init.d/ssh start)</string>
+  <string name="pref_post_start_summary">Debian 启动后运行的脚本(默认：/etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">“关闭前”脚本</string>
-  <string name="pref_pre_stop_summary">Debian 关闭前运行的脚本(默认：/etc/init.d/ssh stop)</string>
+  <string name="pref_pre_stop_summary">Debian 关闭前运行的脚本(默认：/etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">阻止休眠</string>
   <string name="pref_prevent_sleep_summary">Debian 运行时阻止设备休眠</string>
   <string name="menu_preferences_title">偏好设置</string>

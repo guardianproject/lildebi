@@ -234,6 +234,13 @@ chroot $mnt apt-get -y update
 # purge install packages in cache
 chroot $mnt apt-get clean
 
+# remove stop scripts
+chroot $mnt /usr/sbin/update-rc.d -f halt remove
+chroot $mnt /usr/sbin/update-rc.d -f reboot remove
+chroot $mnt /usr/sbin/update-rc.d -f sendsigs remove
+chroot $mnt /usr/sbin/update-rc.d -f umountfs remove
+chroot $mnt /usr/sbin/update-rc.d -f umountroot remove
+
 # convert to ext3, if that's available. for some reason unknown to me, Android
 # shows the loop devices as /dev/block/loop[0-7] while those same devices show
 # up as /dev/loop[0-7] un Debian. tune2fs needs /proc mounted so it can read

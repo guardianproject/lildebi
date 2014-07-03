@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">cesta k obrazu</string>
   <string name="pref_image_path_summary">Cesta k súboru an disku, na ktorom je Debian nainštalovaný (predvolené: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Post-štartovací skript</string>
-  <string name="pref_post_start_summary">Skript, ktorý sa má spustiť po Debiane je spustený (predvolené: /etc /init.d/ssh start)</string>
+  <string name="pref_post_start_summary">Skript, ktorý sa má spustiť po Debiane je spustený (predvolené: /etc /init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Pre-stop skript</string>
-  <string name="pref_pre_stop_summary">Skript, ktorý sa má spustiť pred Debianom je zastavený (predvolené: /etc/init.d/ssh stop) </string>
+  <string name="pref_pre_stop_summary">Skript, ktorý sa má spustiť pred Debianom je zastavený (predvolené: /etc/init.d/rc 0) </string>
   <string name="pref_prevent_sleep_title">Opatriť proti zaspatiu</string>
   <string name="pref_prevent_sleep_summary">opatriť zariadenie proti zaspaniu pokiaľ bude Debian zapnutý</string>
   <string name="menu_preferences_title">Nastavenia</string>

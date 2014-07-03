@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">Pot do slike</string>
   <string name="pref_image_path_summary">Pot do slike diska, kjer je nameščen Debian (privzeta: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Pozagonska skripta</string>
-  <string name="pref_post_start_summary">Skripta, ki se zažene po zagonu Debiana (privzeta: /etc/init.d/ssh start)</string>
+  <string name="pref_post_start_summary">Skripta, ki se zažene po zagonu Debiana (privzeta: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Skripta pred zaustavitvijo</string>
-  <string name="pref_pre_stop_summary">Skripta, ki se zažene pred zaustavitvijo Debiana (privzeta: /etc/init.d/ssh stop)</string>
+  <string name="pref_pre_stop_summary">Skripta, ki se zažene pred zaustavitvijo Debiana (privzeta: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Prepreči spanje</string>
   <string name="pref_prevent_sleep_summary">Prepreči napravi, da bi šla v spanje medtem kot je Debian zagnan</string>
   <string name="menu_preferences_title">Možnosti</string>

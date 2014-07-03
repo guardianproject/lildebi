@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">Endereço da Imagem</string>
   <string name="pref_image_path_summary">O caminho para o disco de imagem onde o Debian esta instalado (padrão:/sdcard/debian.img)</string>
   <string name="pref_post_start_title">Script executado após inicio</string>
-  <string name="pref_post_start_summary">Script a ser executado após o inicio do Debian (padrão: /etc/init.d/ssh start)</string>
+  <string name="pref_post_start_summary">Script a ser executado após o inicio do Debian (padrão: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Script executado antes de parar</string>
-  <string name="pref_pre_stop_summary">Script a ser executado antes da parada do Debian (padrão: /etc/init.d/ssh stop)</string>
+  <string name="pref_pre_stop_summary">Script a ser executado antes da parada do Debian (padrão: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Previnir inatividade</string>
   <string name="pref_prevent_sleep_summary">Previnir o dispositivo de entrar em inatividade enquanto o Debian esta sendo executado</string>
   <string name="menu_preferences_title">Preferencias</string>

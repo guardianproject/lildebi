@@ -10,9 +10,9 @@
   <string name="pref_image_path_title">İmaj yolu</string>
   <string name="pref_image_path_summary">Debian\'ın yüklendigi disk imaj uzantısı (Varsayılan: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Başlanıç Sonrası Betiği</string>
-  <string name="pref_post_start_summary">Debian başladıktan sonra betiği çalıştırın (varsayılan: /etc/init.d/ssh start)</string>
+  <string name="pref_post_start_summary">Debian başladıktan sonra betiği çalıştırın (varsayılan: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Durdurma Öncesi Betiği</string>
-  <string name="pref_pre_stop_summary">Debian durdurulmadan önce betiği çalıştırın (varsayılan: /etc/init.d/ssh stop)</string>
+  <string name="pref_pre_stop_summary">Debian durdurulmadan önce betiği çalıştırın (varsayılan: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Uyku moduna geçmeyi önleyin</string>
   <string name="pref_prevent_sleep_summary">Debian çalışırken cihazın uyku moduna geçmesini engelleyin</string>
   <string name="menu_preferences_title">Özellikler</string>

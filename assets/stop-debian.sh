@@ -12,6 +12,17 @@ export PATH=$1:$PATH
 test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
+# kill all processes
+for root in /proc/*/root; do
+  if [ ! -r "$root" ] || [ ! "`readlink -f "$root"`" = "$mnt" ]; then
+    continue
+  fi
+  pid="${root#/proc/}"
+  pid="${pid%/root}"
+  ps -p "$pid" -o pid= -o cmd= || true
+  kill -KILL "$pid" 2>/dev/null || true
+done
+
 echo "Checking for open files in Debian chroot..."
 openfiles=`lsof $mnt | grep -v $(basename $image_path) | sed -n "s|.*\($mnt.*\)|\1|p"`
 
