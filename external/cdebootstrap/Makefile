@@ -1,6 +1,6 @@
 
 PKG_NAME:=cdebootstrap-static
-PKG_VERSION:=0.5.10
+PKG_VERSION:=0.6.0
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION)_armel.deb
 PKG_SOURCE_URL:=https://mirrors.kernel.org/debian/pool/main/c/cdebootstrap
@@ -23,14 +23,14 @@ cdebootstrap.tar: $(DL_DIR)/usr/bin/cdebootstrap-static
 
 $(DL_DIR)/usr/bin/cdebootstrap-static: $(DL_DIR)/$(PKG_SOURCE)
 	cd $(DL_DIR) && \
-		(ar -p $(PKG_SOURCE) data.tar.gz | \
+		(ar -p $(PKG_SOURCE) data.tar.xz | \
 			tar --exclude=usr/share/man --exclude=usr/share/doc \
-				--preserve-permissions --extract --gunzip --file -)
+				--preserve-permissions --extract --xz --file -)
 # I haven't found a reliable way to install/uninstall a patch from a Makefile,
 # so just always try to apply it, and ignore it if it fails. Works fine unless
 # the files being patched have changed, in which cause a partial application
 # could happen unnoticed.
-	patch -N -p0 --reject-file=- < add-missing-releases.patch
+#	patch -N -p0 --reject-file=- < add-missing-releases.patch
 
 $(DL_DIR)/$(PKG_SOURCE): $(DL_DIR)
 	cd $(DL_DIR) && \
