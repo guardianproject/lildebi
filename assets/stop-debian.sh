@@ -14,12 +14,11 @@ test -e $1/lildebi-common || exit
 
 # kill all processes
 for root in /proc/*/root; do
-  if [ ! -r "$root" ] || [ ! "`readlink -f "$root"`" = "$mnt" ]; then
+  if [ ! -r "$root" ] || [ ! "`readlink "$root"`" = "$mnt" ]; then
     continue
   fi
   pid="${root#/proc/}"
   pid="${pid%/root}"
-  ps -p "$pid" -o pid= -o cmd= || true
   kill -KILL "$pid" 2>/dev/null || true
 done
 
