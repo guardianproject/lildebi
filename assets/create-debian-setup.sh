@@ -160,11 +160,14 @@ fi
 #------------------------------------------------------------------------------#
 echo "run cdebootstrap in one stage"
 
-$mnt/usr/bin/cdebootstrap-static --verbose \
+$mnt/usr/bin/cdebootstrap-static --verbose --foreign\
     --flavour=minimal --include=locales $KEYRING \
     --configdir=$mnt/usr/share/cdebootstrap-static \
     --helperdir=$mnt/usr/share/cdebootstrap-static \
     --arch $arch $release $mnt $mirror || exit
+
+mount -o bind /system $mnt/system
+chroot $mnt /sbin/cdebootstrap-foreign --second-stage
 
 # figure out extra packages to include
 if [ ! -x /system/bin/e2fsck ]; then
@@ -256,3 +259,4 @@ fi
 # clean up after debootstrap
 
 chroot $mnt dpkg --purge cdebootstrap-helper-rc.d
+umount $mnt/system
