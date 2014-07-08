@@ -26,6 +26,11 @@ $(DL_DIR)/usr/bin/cdebootstrap-static: $(DL_DIR)/$(PKG_SOURCE)
 		(ar -p $(PKG_SOURCE) data.tar.xz | \
 			tar --exclude=usr/share/man --exclude=usr/share/doc \
 				--preserve-permissions --extract --xz --file -)
+# I haven't found a reliable way to install/uninstall a patch from a Makefile,
+# so just always try to apply it, and ignore it if it fails. Works fine unless
+# the files being patched have changed, in which cause a partial application
+# could happen unnoticed.
+	patch -N -p0 --reject-file=- < add-missing-ubuntu-releases.patch
 
 $(DL_DIR)/$(PKG_SOURCE): $(DL_DIR)
 	cd $(DL_DIR) && \

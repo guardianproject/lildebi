@@ -1,0 +1,37 @@
+--- cdebootstrap-static-0.6.1-old/usr/share/cdebootstrap-static/suites	2014-07-07 18:22:27.000000000 -0400
++++ cdebootstrap-static-0.6.1/usr/share/cdebootstrap-static/suites	2014-07-08 17:07:57.976326272 -0400
+@@ -50,6 +50,34 @@
+ Config: generic-ubuntu
+ Keyring: ubuntu-archive-keyring.gpg
+ 
++Suite: oneiric
++Config: generic-ubuntu
++Keyring: ubuntu-archive-keyring.gpg
++
++Suite: precise
++Config: generic-ubuntu
++Keyring: ubuntu-archive-keyring.gpg
++
++Suite: quantal
++Config: generic-ubuntu
++Keyring: ubuntu-archive-keyring.gpg
++
++Suite: raring
++Config: generic-ubuntu
++Keyring: ubuntu-archive-keyring.gpg
++
++Suite: saucy
++Config: generic-ubuntu
++Keyring: ubuntu-archive-keyring.gpg
++
++Suite: trusty
++Config: generic-ubuntu
++Keyring: ubuntu-archive-keyring.gpg
++
++Suite: utopic
++Config: generic-ubuntu
++Keyring: ubuntu-archive-keyring.gpg
++
+ Suite: oldstable
+ Keyring: debian-archive-keyring.gpg
+ 
