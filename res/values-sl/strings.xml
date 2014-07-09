@@ -46,7 +46,6 @@
   <string name="image_path_parent_does_not_exist_message">Datoteka, ki ste jo izbrali ne obstaja! Ponastavljam na privzeto.</string>
   <string name="no_sdcard_message">Zunanja SD kartica ni priklopljena, ni moč namestiti ali zagnati Debiana brez priklopa.</string>
   <string name="no_sdcard_status">(ni SD kartice)</string>
-
   <string name="title_install_log_view">Namestitveni dnevnik</string>
   <string name="title_share_button">Deli</string>
   <string name="starting_debian">Debian zagnan …</string>

@@ -40,12 +40,12 @@
   <string name="not_installed_message">Debian 未安装</string>
   <string name="not_configured_message">映像尚未配置</string>
   <string name="no_network_message">安装需要网络连接</string>
+  <string name="mount_point_not_found_format">挂载点“%s”不存在! </string>
   <string name="no_ext2_message">/proc/filesystems 未将 \'ext2\' 列为支持的文件系统</string>
   <string name="image_path_exists_message">警告: 您所选择的映像位置已存在文件!</string>
   <string name="image_path_parent_does_not_exist_message">您选择的文件夹不存在! 已恢复默认值。</string>
   <string name="no_sdcard_message">外部存储 SD 卡没有按可读可写模式挂载，权限不对无法安装或启动 Debian。</string>
   <string name="no_sdcard_status">(无 SD 卡)</string>
-
   <string name="title_install_log_view">安装日志</string>
   <string name="title_share_button">分享</string>
   <string name="starting_debian">已启动 Debian …</string>

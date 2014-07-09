@@ -45,7 +45,6 @@
   <string name="image_path_parent_does_not_exist_message">Folderul pe care l-ati ales nu exista! Revin la cel implicit.</string>
   <string name="no_sdcard_message">SD Card-ul de stocare externa nu este montat pentru citire/scriere, nu pot instala sau porni debian.</string>
   <string name="no_sdcard_status">(fara SD card)</string>
-
   <string name="title_install_log_view">Log de instalare</string>
   <string name="title_share_button">Partajeaza</string>
   <string name="starting_debian">Debian a fost pornit…</string>

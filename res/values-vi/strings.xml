@@ -46,7 +46,6 @@
   <string name="image_path_parent_does_not_exist_message">Thư mục bạn chọn không tồn tại! Thiết lập lại thông số theo mặc định.</string>
   <string name="no_sdcard_message">Thẻ nhớ không thể tiếp cận ổ đĩa ảo, không thể cài đặt hoặc khởi động Debian mà không có phần này.</string>
   <string name="no_sdcard_status">(không có thẻ nhớ)</string>
-
   <string name="title_install_log_view">Nhật ký cài đặt</string>
   <string name="title_share_button">Chia sẻ</string>
   <string name="starting_debian">Đã bắt đầu Debian…</string>

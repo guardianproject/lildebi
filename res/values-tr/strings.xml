@@ -46,7 +46,6 @@
   <string name="image_path_parent_does_not_exist_message">Seçtiğiniz klasör bulunamamaktadır! Varsayılanı yeniden oluşturunuz .</string>
   <string name="no_sdcard_message">Harici Depolama SD Karta okuma/yazma için bağlanılamadı, Debian olmadan kuramaz ya da başlatamazınız.</string>
   <string name="no_sdcard_status">(SD card mevcut değil)</string>
-
   <string name="title_install_log_view">Kayıtları yükle</string>
   <string name="title_share_button">Paylaş</string>
   <string name="starting_debian">Debian başlatıldı…</string>

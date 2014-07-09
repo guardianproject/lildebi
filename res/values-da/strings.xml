@@ -15,6 +15,7 @@
   <string name="pref_pre_stop_summary">Skript der skal køres før Debian stoppes (standard: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Forhindr sovetilstand</string>
   <string name="pref_prevent_sleep_summary">forhindr at enheden går i sovetilstand når Debian kører</string>
+  <string name="menu_jackpal_terminal_title">Åbn terminal …</string>
   <string name="menu_preferences_title">Indstillinger</string>
   <string name="menu_install_log_title">Vis installationslog</string>
   <string name="menu_delete_title">Slet alle</string>
@@ -24,6 +25,7 @@
   <string name="title_status">Status:</string>
   <string name="doit">Slet opsætning</string>
   <string name="cancel">Afbryd</string>
+  <string name="blank">(tom)</string>
   <string name="confirm_delete_message">Er du sikker på, at du ønsker at slette hele Lil\' Debi-opsætningen?</string>
   <string name="release">Udgivelse:</string>
   <string name="mirror">Spejl:</string>
@@ -40,6 +42,7 @@
   <string name="not_installed_message">Debian er ikke installeret</string>
   <string name="not_configured_message">Aftryk er ikke konfigureret</string>
   <string name="no_network_message">Netværk krævet for installation</string>
+  <string name="mount_point_not_found_format">Monteringspunktet »%s« findes ikke!</string>
   <string name="no_ext2_message">/proc/filesystems angiver ikke »ext2« som et understøttet filsystem</string>
   <string name="image_path_exists_message">Advarsel: Der er allerede en eksisterende fil på den valgte aftrykssti!</string>
   <string name="image_path_parent_does_not_exist_message">Mappen du valgte findes ikke! Nulstiller til standarden.</string>

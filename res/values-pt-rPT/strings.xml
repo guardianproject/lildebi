@@ -9,12 +9,13 @@
   <string name="pref_use_checksum_summary">Antes de arrancar, verificar Teste por Soma SHA1 da imagem para verificar a sua integridade.</string>
   <string name="pref_image_path_title">Caminho da Imagem</string>
   <string name="pref_image_path_summary">O caminho para o ficheiro da imagem de disco em que o Debian está instalado (predefinição: /sdcard/debian.img)</string>
-  <string name="pref_post_start_title">Script executado após inicio</string>
-  <string name="pref_post_start_summary">Script a ser executado após o inicio do Debian (padrão: /etc/init.d/rc 2)</string>
+  <string name="pref_post_start_title">Script executado após início</string>
+  <string name="pref_post_start_summary">Script a ser executado após o início do Debian (padrão: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Script executado antes de parar</string>
   <string name="pref_pre_stop_summary">Script a ser executado antes da parada do Debian (padrão: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Evitar Hibernação</string>
   <string name="pref_prevent_sleep_summary">evitar que o dispositivo hiberne durante a execuçã do Debian</string>
+  <string name="menu_jackpal_terminal_title">Abrir terminal</string>
   <string name="menu_preferences_title">Preferências</string>
   <string name="menu_install_log_title">Visualizar Registo da Instalção</string>
   <string name="menu_delete_title">Apagar Tudo</string>
@@ -24,6 +25,7 @@
   <string name="title_status">Estado:</string>
   <string name="doit">Apagar Configuração</string>
   <string name="cancel">Cancelar</string>
+  <string name="blank">(vazio)</string>
   <string name="confirm_delete_message">Deseja apagar toda a configuração do Lil\' Debi?</string>
   <string name="release">Lançamento:</string>
   <string name="mirror">Site da Imagem:</string>

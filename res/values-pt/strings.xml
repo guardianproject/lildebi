@@ -9,12 +9,13 @@
   <string name="pref_use_checksum_summary">Antes de iniciar, verificar erros SHA1 da imagem para verificar sua integridade.</string>
   <string name="pref_image_path_title">Endereço da Imagem</string>
   <string name="pref_image_path_summary">O caminho para o disco de imagem onde o Debian esta instalado (padrão:/sdcard/debian.img)</string>
-  <string name="pref_post_start_title">Script executado após inicio</string>
-  <string name="pref_post_start_summary">Script a ser executado após o inicio do Debian (padrão: /etc/init.d/rc 2)</string>
+  <string name="pref_post_start_title">Script executado após início</string>
+  <string name="pref_post_start_summary">Script a ser executado após o início do Debian (padrão: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Script executado antes de parar</string>
   <string name="pref_pre_stop_summary">Script a ser executado antes da parada do Debian (padrão: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Previnir inatividade</string>
   <string name="pref_prevent_sleep_summary">Previnir o dispositivo de entrar em inatividade enquanto o Debian esta sendo executado</string>
+  <string name="menu_jackpal_terminal_title">Abrir terminal</string>
   <string name="menu_preferences_title">Preferencias</string>
   <string name="menu_install_log_title">Ver o registro de instalação</string>
   <string name="menu_delete_title">Deletar todos</string>
@@ -24,6 +25,7 @@
   <string name="title_status">Estado:</string>
   <string name="doit">Deletar configurações</string>
   <string name="cancel">Cancelar</string>
+  <string name="blank">(vazio)</string>
   <string name="confirm_delete_message">Você tem certeza de que deseja deletar todas as configurações do Lil\' Debi?</string>
   <string name="release">Versão:</string>
   <string name="mirror">Réplica:</string>
@@ -41,12 +43,11 @@
   <string name="not_configured_message">Imagem não configurada</string>
   <string name="no_network_message">Conexão a internet requerida para instalar</string>
   <string name="mount_point_not_found_format">O ponto de montagem \'%s\' não existe!</string>
-  <string name="no_ext2_message">/proc/filesystems não lista \'ext2\' como um um sistema de documentos suportado</string>
+  <string name="no_ext2_message">/proc/filesystems não lista \'ext2\' como um sistema de documentos suportado</string>
   <string name="image_path_exists_message">Atenção: Já existe um arquivo no endereço de imagem que você selecionou!</string>
   <string name="image_path_parent_does_not_exist_message">A pasta que você selecionou não existe! Voltando ao padrão.</string>
   <string name="no_sdcard_message">O cartão SD externo não esta motado para ler/escrever, não pode instalar ou iniciar o Debian sem ele.</string>
   <string name="no_sdcard_status">(Sem cartão SD)</string>
-
   <string name="title_install_log_view">Registro de instalação</string>
   <string name="title_share_button">Compartilhar</string>
   <string name="starting_debian">Debian iniciado…</string>

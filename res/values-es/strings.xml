@@ -9,10 +9,10 @@
   <string name="pref_use_checksum_summary">Antes de iniciar, hacer una comprobación de errores SHA1 de la imagen para verificar su integridad.</string>
   <string name="pref_image_path_title">Ruta a la imagen</string>
   <string name="pref_image_path_summary">La ruta hacia el fichero de imagen de disco donde Debian está instalado (predeterminado: /sdcard/debian.img)</string>
-  <string name="pref_post_start_title">Guión de órdenes tras el inicio</string>
-  <string name="pref_post_start_summary">Guión de órdenes que se ejecutará tras iniciar Debian (predeterminado: /etc/init.d/rc 2)</string>
-  <string name="pref_pre_stop_title">Guión de órdenes antes de la parada</string>
-  <string name="pref_pre_stop_summary">Guión de órdenes que se ejecutarán antes de que Debian se pare (predeterminado: /etc/init.d/rc 0)</string>
+  <string name="pref_post_start_title">Guion de órdenes tras el inicio</string>
+  <string name="pref_post_start_summary">Script a ejecutar después de que Debian se inicie (por defecto: /etc/init.d/rc.2)</string>
+  <string name="pref_pre_stop_title">Guion de órdenes antes de la parada</string>
+  <string name="pref_pre_stop_summary">Script a ejecutar después de que Debian se detenga (por defecto: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Evitar inactividad</string>
   <string name="pref_prevent_sleep_summary">evitar que el dispositivo entre en inactividad mientras está ejecutando Debian</string>
   <string name="menu_jackpal_terminal_title">Abrir terminal…</string>
@@ -57,4 +57,5 @@
   <string name="select_mirror">Seleccionar réplica</string>
   <string name="select_release">Seleccionar versión</string>
   <string name="select_arch">Seleccionar arquitectura CPU</string>
+  <string name="app_description">¿Quiere conseguir fácilmente una Debian ejecutándose en chroot en la que pueda confiar? Instale Lil\' Debi, y podrá tener una instalación de Debian ejecutándose con un clic. Construye una Debian en chroot completa en su teléfono usando únicamente debootstrap. Elija la versión, servidor réplica (mirror), y tamaño de la imagen en disco, para ponerlo en marcha. Puede llevar hasta una hora en un equipo lento, luego estará listo. El paquete completo se construye desde código fuente, usando compilaciones reproducibles disponibles públicamente. Incluso valida cada paquete usando las claves de los repositorios oficiales de Debian, que están incluidas en la aplicación.</string>
 </resources>

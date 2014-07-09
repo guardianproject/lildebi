@@ -15,6 +15,7 @@
   <string name="pref_pre_stop_summary">Auszuführendes Skript nachdem Debian angehalten wurde (Standard: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Ruhezustand verhindern</string>
   <string name="pref_prevent_sleep_summary">Das Gerät nicht in den Ruhezustand versetzen während Debian läuft</string>
+  <string name="menu_jackpal_terminal_title">Terminal öffnen…</string>
   <string name="menu_preferences_title">Einstellungen</string>
   <string name="menu_install_log_title">Installationslog anzeigen</string>
   <string name="menu_delete_title">Alles löschen</string>
@@ -24,6 +25,7 @@
   <string name="title_status">Status:</string>
   <string name="doit">Eingestellungen löschen</string>
   <string name="cancel">Abbrechen</string>
+  <string name="blank">(leer)</string>
   <string name="confirm_delete_message">Sind Sie sich sicher, dass Sie die gesamte Debilein-Installation löschen möchten?</string>
   <string name="release">Release:</string>
   <string name="mirror">Spiegelserver:</string>

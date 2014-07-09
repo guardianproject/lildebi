@@ -32,10 +32,10 @@
   <string name="arch">Arkitektur:</string>
   <string name="image_size">Billedstørrelse:</string>
   <string name="megabytes">MB</string>
-  <string name="install">Installér</string>
+  <string name="install">Installer</string>
   <string name="uninstall">Avinstaller…</string>
   <string name="get_superuser">Elevér rettigheter…</string>
-  <string name="needs_superuser_message">Lil\' Debi trenger priviligerte tilgangsrettigheter, installér \'superbruker\'-applikasjonen.</string>
+  <string name="needs_superuser_message">Lil\' Debi trenger priviligerte tilgangsrettigheter, installer \'superbruker\'-applikasjonen.</string>
   <string name="smaller_imagesize_message"> Forespeilet avtrykksstørrelse for stor for SD-kortet, reduserer størrelse for å få plass.</string>
   <string name="mounted_message">Debian montert</string>
   <string name="not_mounted_message">Debian ikke montert</string>
@@ -46,7 +46,7 @@
   <string name="no_ext2_message">/proc/-filsystem har ikke oppføring for \'ext2\' som støttet filsystem</string>
   <string name="image_path_exists_message">Advarsel: det finnes allerede en eksisterende fil på stien du har valgt!</string>
   <string name="image_path_parent_does_not_exist_message">Mappen du valgte finnes ikke! Returnerer til forvalg.</string>
-  <string name="no_sdcard_message">Det eksterne SD-kortet er ikke montert les/skriv, kan ikke Installére eller starte Debian foruten.</string>
+  <string name="no_sdcard_message">Det eksterne SD-kortet er ikke montert les/skriv, kan ikke Installere eller starte Debian foruten.</string>
   <string name="no_sdcard_status">(inget SD-kort)</string>
   <string name="title_install_log_view">Installasjonslog</string>
   <string name="title_share_button">Del</string>
@@ -57,4 +57,5 @@
   <string name="select_mirror">Velg speil</string>
   <string name="select_release">Velg utgivelse</string>
   <string name="select_arch">Velg CPU-arkitektur</string>
+  <string name="app_description">Behov for en pålitelig Debian chroot? Installer Lil\' Debi og du kan ha Debian oppe å gå ved et enkelt tastetrykk. En hel debian chroot vil bli opprettet på din telefon bare ved bruk av debootstrap. Du velger utgave, speil og størrelse på installasjonen, og ferdig arbeid. Det kan ta opptil en time på en treg enhet, men så er den ferdig til bruk. Hele pakken er bygd ved bruk av fritt tilgjengelige, reproduserbare byggversjoner. Hver pakke blir faktisk sjekket opp mot Debians offisielle pakebrønn-nøkler, som er inkludert i app-en.</string>
 </resources>
