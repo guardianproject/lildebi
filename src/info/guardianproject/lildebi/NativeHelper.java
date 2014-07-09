@@ -40,6 +40,7 @@ public class NativeHelper {
 	public static String preStopScript;
 
 	public static boolean isInstallRunning = false;
+	public static boolean installInInternalStorage = false;
 
 	public static void setup(Context context) {
 		app_bin = context.getDir("bin", Context.MODE_PRIVATE).getAbsoluteFile();
@@ -73,11 +74,18 @@ public class NativeHelper {
 		image_path = prefs.getString(prefName, default_image_path);
 	}
 
-	public static boolean isMounted() {
-		if (new File(NativeHelper.mnt + "/etc").exists())
+	public static boolean isStarted() {
+		if (new File(NativeHelper.mnt + "/system/bin").exists())
 			return true;
 		else
 			return false;
+	}
+	
+	public static boolean isInstalled() {
+		if (installInInternalStorage)
+			return (new File(NativeHelper.mnt + "/etc").exists());
+		else
+			return (new File(NativeHelper.image_path).exists());
 	}
 
 	public static String getArgs() {

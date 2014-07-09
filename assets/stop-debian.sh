@@ -41,7 +41,9 @@ else
         $busybox_path/umount -f $mount
     done
 
-    umount -d $mnt || /system/bin/umount $mnt || echo "Failed to unmount $mnt!"
+    if [ x"$install_on_internal_storage" = xno ]; then
+        umount -d $mnt || /system/bin/umount $mnt || echo "Failed to unmount $mnt!"
+    fi
 
     attached=`find_attached_loopdev`
     if [ ! -z $attached ]; then

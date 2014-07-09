@@ -34,12 +34,19 @@ if [ ! -d $sdcard ]; then
     exit
 fi
 # test if $image_path is a file
-if [ ! -f $image_path ]; then
-    echo "Your Debian setup is missing image_path: $image_path"
-    exit
+if [ x"$install_on_internal_storage" = xyes ]; then
+    if [ ! -d $image_path ]; then
+        echo "image_path ($image_path) does not exist or is not a directory"
+        exit
+    fi
+else
+    if [ ! -f $image_path ]; then
+        echo "image_path ($image_path) does not exist or is not a regular file"
+        exit
+    fi
 fi
 # test if $loopdev is a block device
-if [ ! -b $loopdev ]; then
+if [ x"$install_on_internal_storage" = xno ] && [ ! -b $loopdev ]; then
     echo "Your Debian setup is missing loopdev: $loopdev"
     exit
 fi
@@ -50,50 +57,53 @@ echo "app_bin: $app_bin"
 echo "mnt: $mnt"
 echo "sdcard: $sdcard"
 echo "image_path: $image_path"
-echo "sha1file: $sha1file"
-echo "loopdev: $loopdev"
 
-if [ -e $sha1file ]; then
-    echo "Checking SHA1 checksum of $image_path..."
-    cp $sha1file `dirname $image_path`
-    if `$app_bin/sha1sum -c $sha1file`; then
-        echo "SHA1 checksum failed, exiting!"
-        exit
-    else
-        echo "Done!"
+if [ x"$install_on_internal_storage" = xno ]; then
+    echo "sha1file: $sha1file"
+    echo "loopdev: $loopdev"
+
+    if [ -e $sha1file ]; then
+        echo "Checking SHA1 checksum of $image_path..."
+        cp $sha1file `dirname $image_path`
+        if `$app_bin/sha1sum -c $sha1file`; then
+            echo "SHA1 checksum failed, exiting!"
+            exit
+        else
+            echo "Done!"
+        fi
     fi
-fi
 
-# use system or lildebi fsck to check Debian partition
-echo ""
-find_and_run_fsck
+    # use system or lildebi fsck to check Debian partition
+    echo ""
+    find_and_run_fsck
 
 
 #------------------------------------------------------------------------------#
 # mounts
 
-echo ""
-echo "> $losetup $loopdev $image_path"
-$losetup $loopdev $image_path
-
-# some platforms need to have the ext2 module installed to get ext2 support
-if [ -z `grep ext2 /proc/filesystems` ]; then
     echo ""
-    echo "Loading ext2 kernel module:"
-    modprobe ext2
-fi
+    echo "> $losetup $loopdev $image_path"
+    $losetup $loopdev $image_path
 
-echo ""
-echo "root mount for everything Debian"
-# root mount for everything Debian
-echo "> mount -t `find_best_filesystem` $loopdev $mnt"
-mount -t `find_best_filesystem` $loopdev $mnt
+    # some platforms need to have the ext2 module installed to get ext2 support
+    if [ -z `grep ext2 /proc/filesystems` ]; then
+        echo ""
+        echo "Loading ext2 kernel module:"
+        modprobe ext2
+    fi
 
-# check error code for the above mount
-mounterr=$?
-if [ $mounterr -ne 0 ] ; then
-    echo "Mounting '$mnt' failed, returned $mounterr"
-    exit
+    echo ""
+    echo "root mount for everything Debian"
+    # root mount for everything Debian
+    echo "> mount -t `find_best_filesystem` $loopdev $mnt"
+    mount -t `find_best_filesystem` $loopdev $mnt
+
+    # check error code for the above mount
+    mounterr=$?
+    if [ $mounterr -ne 0 ] ; then
+        echo "Mounting '$mnt' failed, returned $mounterr"
+        exit
+    fi
 fi
 
 mount -t devpts devpts $mnt/dev/pts
@@ -111,6 +121,13 @@ test_mount_bind /app-cache
 test_mount_bind /cache
 test_mount_bind /data
 test_mount_bind /dbdata
+
+# only bind mount /dev when installing into /data since /data is mounted nodev.  When
+# installing into an image file, then it can maintain its own /dev, and that means that
+# Debian won't be able to modify Android's /dev.
+if [ x"$install_on_internal_storage" = xyes ]; then
+    test_mount_bind /dev
+fi
 test_mount_bind /dev/cpuctl
 test_mount_bind /efs
 test_mount_bind /mnt/.lfs

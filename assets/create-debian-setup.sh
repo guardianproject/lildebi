@@ -61,33 +61,35 @@ fi
 
 #------------------------------------------------------------------------------#
 # create the image file
-echo "Create the image file:"
+if [ x"$install_on_internal_storage" = xno ]; then
+    echo "Create the image file:"
 
-test -e $image_path || \
-    dd if=/dev/zero of=$image_path seek=$imagesize bs=1M count=1
-# set them up
-if test -d $mnt && test -e $image_path; then
-    mke2fs_options="-L debian_chroot -T `find_best_filesystem` -F $image_path"
-# the built-in mke2fs seems to be more reliable when the busybox mke2fs fails
-    if test -x /system/bin/mke2fs; then
-        /system/bin/mke2fs $mke2fs_options
+    test -e $image_path || \
+        dd if=/dev/zero of=$image_path seek=$imagesize bs=1M count=1
+    # set them up
+    if test -d $mnt && test -e $image_path; then
+        mke2fs_options="-L debian_chroot -T `find_best_filesystem` -F $image_path"
+    # the built-in mke2fs seems to be more reliable when the busybox mke2fs fails
+        if test -x /system/bin/mke2fs; then
+            /system/bin/mke2fs $mke2fs_options
+        else
+            mke2fs $mke2fs_options
+        fi
+        # run native and busybox losetup to test outputs
+        losetup
+        /system/xbin/losetup
+        $losetup $loopdev $image_path
+        losetup
+        /system/xbin/losetup
+        mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
     else
-        mke2fs $mke2fs_options
+        echo "No mount dir found ($mnt) or no image_path ($image_path)"
+        exit 1
     fi
-    # run native and busybox losetup to test outputs
-    losetup
-    /system/xbin/losetup
-    $losetup $loopdev $image_path
-    losetup
-    /system/xbin/losetup
-    mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
-    cd $mnt
-    tar xf $app_bin/cdebootstrap.tar
-else
-    echo "No mount dir found ($mnt) or no image_path ($image_path)"
-    exit 1
 fi
 
+    cd $mnt
+    tar xf $app_bin/cdebootstrap.tar
 
 #------------------------------------------------------------------------------#
 # create mountpoints
@@ -167,6 +169,7 @@ $mnt/usr/bin/cdebootstrap-static --verbose --foreign\
     --arch $arch $release $mnt $mirror || exit
 
 mount -o bind /system $mnt/system
+mount -o bind /dev $mnt/dev
 chroot $mnt /sbin/cdebootstrap-foreign --second-stage
 
 # figure out extra packages to include
@@ -260,3 +263,4 @@ fi
 
 chroot $mnt dpkg --purge cdebootstrap-helper-rc.d
 umount $mnt/system
+umount $mnt/dev

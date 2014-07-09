@@ -16,7 +16,7 @@ public class MediaMountedReceiver extends BroadcastReceiver {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 
-		if (!NativeHelper.isMounted()) {
+		if (!NativeHelper.installInInternalStorage && !NativeHelper.isStarted()) {
 			if (prefs.getBoolean(
 					context.getString(R.string.pref_start_on_mount_key), false)) {
 				if (new File(NativeHelper.image_path).exists()

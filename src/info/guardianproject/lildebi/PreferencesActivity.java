@@ -18,6 +18,7 @@ import android.widget.Toast;
 public class PreferencesActivity extends android.preference.PreferenceActivity
 		implements OnSharedPreferenceChangeListener {
 	CheckBoxPreference useChecksumCheckBox;
+	CheckBoxPreference installOnInternalStorageBox;
 	EditTextPreference imagepathEditText;
 	EditTextPreference postStartEditText;
 	EditTextPreference preStopEditText;
@@ -55,6 +56,22 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 				Toast.makeText(this, R.string.calculating_checksum,
 						Toast.LENGTH_LONG).show();
 			new ShellAsyncTask().execute(checked);
+		} else if (key.equals(getString(R.string.pref_install_on_internal_storage_key))) {
+			Boolean checked = prefs.getBoolean(
+					getString(R.string.pref_install_on_internal_storage_key), false);
+
+			if (checked) {
+				NativeHelper.installInInternalStorage = true;
+				NativeHelper.image_path = "/data/debian";
+				useChecksumCheckBox.setEnabled(false);
+				imagepathEditText.setEnabled(false);
+			} else {
+				NativeHelper.installInInternalStorage = false;
+				NativeHelper.image_path = NativeHelper.default_image_path;
+				useChecksumCheckBox.setEnabled(true);
+				imagepathEditText.setEnabled(true);
+			}
+			setSummaries();
 		}
 	}
 
@@ -66,6 +83,19 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 		postStartEditText = (EditTextPreference) findPreference(getString(R.string.pref_post_start_key));
 		preStopEditText = (EditTextPreference) findPreference(getString(R.string.pref_pre_stop_key));
 		useChecksumCheckBox = (CheckBoxPreference) findPreference(getString(R.string.pref_use_checksum_key));
+		installOnInternalStorageBox = (CheckBoxPreference) findPreference(getString(R.string.pref_use_checksum_key));
+
+		SharedPreferences prefs = getPreferenceScreen().getSharedPreferences();
+		Boolean checked = prefs.getBoolean(
+				getString(R.string.pref_install_on_internal_storage_key), false);
+
+		if (checked) {
+			NativeHelper.installInInternalStorage = true;
+			NativeHelper.image_path = "/data/debian";
+			useChecksumCheckBox.setEnabled(false);
+			imagepathEditText.setEnabled(false);
+			setSummaries();
+		}
 	}
 
 	@Override
@@ -88,7 +118,10 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 		// statically in preferences.xml, but the actual default image_path is based on
 		// the "external storage" location, which might not always be /sdcard. Also
 		// some devices don't have the /sdcard symlink.
-		if (NativeHelper.image_path.equals(NativeHelper.default_image_path)
+		if (NativeHelper.installInInternalStorage) {
+			imagepathEditText.setSummary(getString(R.string.install_in_internal_storage_summary));
+		}
+		else if (NativeHelper.image_path.equals(NativeHelper.default_image_path)
 				|| NativeHelper.image_path.equals(getString(R.string.default_image_path))) {
 			imagepathEditText
 					.setSummary(getString(R.string.pref_image_path_summary));
@@ -124,8 +157,9 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 			String command;
 			try {
 				if (values[0]) {
-					if (NativeHelper.isMounted()) {
-						// if mounted, just make a blank file, then stop-debian.sh
+					if (NativeHelper.isStarted()) {
+						// if mounted, just make a blank file, then
+						// stop-debian.sh
 						// will do the sha1sum
 						sha1file.createNewFile();
 						command = app_bin + "/chmod 0600 " + sha1file;

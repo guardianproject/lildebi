@@ -19,7 +19,11 @@ set -x
 test -d $mnt/usr && umount -f $mnt
 $losetup -d $loopdev
 
-rm $image_path
+if [ x"$install_on_internal_storage" = xno ]; then
+    rm $image_path
+else
+    rm -r $image_path
+fi
 rm $image_path.sha1
 
 mount -o remount,rw rootfs /

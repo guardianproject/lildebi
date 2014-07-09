@@ -7,5 +7,6 @@
     <string name="pref_image_path_key">pref_image_path_key</string>
     <string name="pref_post_start_key">pref_post_start_key</string>
     <string name="pref_pre_stop_key">pref_pre_stop_key</string>
+    <string name="pref_install_on_internal_storage_key">pref_install_on_internal_storage_key</string>
 
 </resources>

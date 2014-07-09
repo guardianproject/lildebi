@@ -150,7 +150,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			startStopButton.setVisibility(View.GONE);
 			return;
 		}
-		if (new File(NativeHelper.image_path).exists()) {
+		if (NativeHelper.isInstalled()) {
 			if (!new File(NativeHelper.mnt).exists()) {
 				// we have a manually downloaded debian.img file, config for it
 				LilDebiAction.log.append(String.format(
@@ -168,7 +168,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 						action.configureDownloadedImage();
 					}
 				});
-			} else if (NativeHelper.isMounted()) {
+			} else if (NativeHelper.isStarted()) {
 				// we have a configured and mounted Debian setup, stop it
 				statusTitle.setVisibility(View.GONE);
 				statusText.setVisibility(View.GONE);

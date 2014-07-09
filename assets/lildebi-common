@@ -29,6 +29,12 @@ if [ -z $mnt ]; then
     mnt=$4
 fi
 
+if [ x"$mnt" = x"$image_path" ]; then
+    install_on_internal_storage=yes
+else
+    install_on_internal_storage=no
+fi
+
 test -d $app_bin || echo "app_bin: '$app_bin' not a directory"
 test -d $sdcard || echo "sdcard: '$sdcard' not a directory"
 test -z $image_path && echo "image_path: '$image_path' is empty"

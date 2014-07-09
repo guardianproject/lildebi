@@ -101,6 +101,12 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		installLog = (TextView) findViewById(R.id.installLog);
 		textScroll = (ScrollView) findViewById(R.id.textScroll);
 		handler = new Handler();
+		
+		if(NativeHelper.installInInternalStorage)
+			imagesize.setEnabled(false);
+		else
+			imagesize.setEnabled(true);
+		
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "InstallWakeLock");
 
@@ -153,7 +159,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			});
 		} else {
 			// make sure the default image size isn't larger than the SDcard's free space
-			setImageSizeInMB(Integer.parseInt(imagesize.getText().toString()));
+			if(!NativeHelper.installInInternalStorage)
+				setImageSizeInMB(Integer.parseInt(imagesize.getText().toString()));
 			refreshButtons();
 			doBindService();
 			registerReceivers();
@@ -318,7 +325,10 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			selectedRelease.setEnabled(true);
 			selectedMirror.setEnabled(true);
 			selectedArch.setEnabled(true);
-			imagesize.setEnabled(true);
+			if(NativeHelper.installInInternalStorage)
+				imagesize.setEnabled(false);
+			else
+				imagesize.setEnabled(true);
 			installButton.setVisibility(View.VISIBLE);
 		}
 	}

@@ -17,5 +17,7 @@ test -e $1/lildebi-common || exit
 # run fsck to set up ext3 journaling, if it was configed successfully. Try the
 # safe fsck first, then force it. Otherwise this install will be dead in the
 # water if fsck throws a "manual intervention" error.
-find_and_run_fsck -pfv
-find_and_run_fsck -y
+if [ x"$install_on_internal_storage" = xno ]
+    find_and_run_fsck -pfv
+    find_and_run_fsck -y
+fi
