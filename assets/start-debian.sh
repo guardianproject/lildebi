@@ -33,15 +33,15 @@ if [ ! -d $sdcard ]; then
     echo "Your Debian setup is missing sdcard: $sdcard"
     exit
 fi
-# test if $image_path is a file
+# test if $install_path is a file
 if [ x"$install_on_internal_storage" = xyes ]; then
-    if [ ! -d $image_path ]; then
-        echo "image_path ($image_path) does not exist or is not a directory"
+    if [ ! -d $install_path ]; then
+        echo "install_path ($install_path) does not exist or is not a directory"
         exit
     fi
 else
-    if [ ! -f $image_path ]; then
-        echo "image_path ($image_path) does not exist or is not a regular file"
+    if [ ! -f $install_path ]; then
+        echo "install_path ($install_path) does not exist or is not a regular file"
         exit
     fi
 fi
@@ -56,15 +56,15 @@ echo "Configuration that will be started:"
 echo "app_bin: $app_bin"
 echo "mnt: $mnt"
 echo "sdcard: $sdcard"
-echo "image_path: $image_path"
+echo "install_path: $install_path"
 
 if [ x"$install_on_internal_storage" = xno ]; then
     echo "sha1file: $sha1file"
     echo "loopdev: $loopdev"
 
     if [ -e $sha1file ]; then
-        echo "Checking SHA1 checksum of $image_path..."
-        cp $sha1file `dirname $image_path`
+        echo "Checking SHA1 checksum of $install_path..."
+        cp $sha1file `dirname $install_path`
         if `$app_bin/sha1sum -c $sha1file`; then
             echo "SHA1 checksum failed, exiting!"
             exit
@@ -82,8 +82,8 @@ if [ x"$install_on_internal_storage" = xno ]; then
 # mounts
 
     echo ""
-    echo "> $losetup $loopdev $image_path"
-    $losetup $loopdev $image_path
+    echo "> $losetup $loopdev $install_path"
+    $losetup $loopdev $install_path
 
     # some platforms need to have the ext2 module installed to get ext2 support
     if [ -z `grep ext2 /proc/filesystems` ]; then

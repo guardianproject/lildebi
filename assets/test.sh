@@ -14,7 +14,7 @@ test -e $1/lildebi-common || exit
 
 echo "app_bin: $app_bin"
 echo "sdcard: $sdcard"
-echo "image_path: $image_path"
+echo "install_path: $install_path"
 echo "mnt: $mnt"
 echo "release: $release"
 echo "mirror: $mirror"

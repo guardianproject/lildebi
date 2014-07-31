@@ -10,7 +10,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 if [ $# -lt 1 ]; then
     echo "incorrect number of arguments, should be between 1 and 8:"
-    echo "    $0 app_bin [sdcard] [image_path] [mnt] [release] [mirror] [imagesize] [arch]"
+    echo "    $0 app_bin [sdcard] [install_path] [mnt] [release] [mirror] [imagesize] [arch]"
 fi
 
 # use the included utilities first
@@ -22,14 +22,14 @@ echo `basename $0`
 if [ -z $sdcard ]; then
     sdcard=$2
 fi
-if [ -z $image_path ]; then
-    image_path=$3
+if [ -z $install_path ]; then
+    install_path=$3
 fi
 if [ -z $mnt ]; then
     mnt=$4
 fi
 
-if [ x"$mnt" = x"$image_path" ]; then
+if [ x"$mnt" = x"$install_path" ]; then
     install_on_internal_storage=yes
 else
     install_on_internal_storage=no
@@ -37,7 +37,7 @@ fi
 
 test -d $app_bin || echo "app_bin: '$app_bin' not a directory"
 test -d $sdcard || echo "sdcard: '$sdcard' not a directory"
-test -z $image_path && echo "image_path: '$image_path' is empty"
+test -z $install_path && echo "install_path: '$install_path' is empty"
 test -z $mnt && echo "mnt: '$mnt' is empty"
 
 busybox_path="$app_bin"
@@ -46,7 +46,7 @@ busybox=$busybox_path/busybox
 fsck_chroot=`dirname $app_bin`/fsck-chroot
 install_fsck=no
 
-sha1file=`dirname $app_bin`/`basename $image_path.sha1`
+sha1file=`dirname $app_bin`/`basename $install_path.sha1`
 
 # keep all files private to this app
 umask 077
@@ -141,7 +141,7 @@ find_free_loopdev () {
 
 find_attached_loopdev () {
     for loopdev in `$app_bin/ls -1 /dev/block/loop*`; do
-        if `$losetup $loopdev 2>&1 | grep -q $image_path`; then
+        if `$losetup $loopdev 2>&1 | grep -q $install_path`; then
             echo $loopdev
             return
         fi
@@ -179,7 +179,7 @@ test_or_create_dir () {
 create_e2fsck_chroot () {
     echo "Setting up chroot for e2fsck.static"
     test_or_create_dir $fsck_chroot
-    test_or_create_dir $fsck_chroot/`dirname $image_path`
+    test_or_create_dir $fsck_chroot/`dirname $install_path`
     test_or_create_dir $fsck_chroot/app_bin
     test_or_create_dir $fsck_chroot/dev
     test_or_create_dir $fsck_chroot/etc
@@ -202,13 +202,13 @@ find_and_run_fsck () {
     # actually /system/etc, so in order to avoid modifying /system, we run
     # e2fsck.static in a special minimal chroot.
         create_e2fsck_chroot
-        imagedir=`dirname $image_path`
+        imagedir=`dirname $install_path`
         mount -o bind $app_bin $fsck_chroot/app_bin
         mount -o bind /dev $fsck_chroot/dev
         mount -o bind /proc $fsck_chroot/proc
         mount -o bind $imagedir $fsck_chroot/$imagedir
-        echo "> $fsck $fsck_flags $image_path"
-        chroot $fsck_chroot /app_bin/`basename $fsck` $fsck_flags $image_path
+        echo "> $fsck $fsck_flags $install_path"
+        chroot $fsck_chroot /app_bin/`basename $fsck` $fsck_flags $install_path
         fsck_return=$?
         umount $fsck_chroot/app_bin
         umount $fsck_chroot/dev
@@ -216,8 +216,8 @@ find_and_run_fsck () {
         umount $fsck_chroot/$imagedir
     elif [ -x /system/bin/e2fsck ]; then
         fsck=/system/bin/e2fsck
-        echo "> $fsck $fsck_flags $image_path"
-        $fsck $fsck_flags $image_path
+        echo "> $fsck $fsck_flags $install_path"
+        $fsck $fsck_flags $install_path
         fsck_return=$?
     else
         echo "NO fsck FOUND, SKIPPING DISK CHECK!"

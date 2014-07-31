@@ -23,7 +23,7 @@ for root in /proc/*/root; do
 done
 
 echo "Checking for open files in Debian chroot..."
-openfiles=`lsof $mnt | grep -v $(basename $image_path) | sed -n "s|.*\($mnt.*\)|\1|p"`
+openfiles=`lsof $mnt | grep -v $(basename $install_path) | sed -n "s|.*\($mnt.*\)|\1|p"`
 
 if [ ! -z "$openfiles" ]; then
     echo "Files that are still open:"
@@ -54,10 +54,10 @@ else
     echo ""
     echo "Debian chroot stopped and unmounted."
     if [ -e $sha1file ]; then
-        echo "Calculating new SHA1 checksum of $image_path..."
-        $app_bin/sha1sum $image_path > $sha1file
+        echo "Calculating new SHA1 checksum of $install_path..."
+        $app_bin/sha1sum $install_path > $sha1file
         chmod 0600 $sha1file
-        cp $sha1file `dirname $image_path`
+        cp $sha1file `dirname $install_path`
         echo "Done!"
     fi
 fi

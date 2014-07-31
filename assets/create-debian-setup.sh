@@ -64,11 +64,11 @@ fi
 if [ x"$install_on_internal_storage" = xno ]; then
     echo "Create the image file:"
 
-    test -e $image_path || \
-        dd if=/dev/zero of=$image_path seek=$imagesize bs=1M count=1
+    test -e $install_path || \
+        dd if=/dev/zero of=$install_path seek=$imagesize bs=1M count=1
     # set them up
-    if test -d $mnt && test -e $image_path; then
-        mke2fs_options="-L debian_chroot -T `find_best_filesystem` -F $image_path"
+    if test -d $mnt && test -e $install_path; then
+        mke2fs_options="-L debian_chroot -T `find_best_filesystem` -F $install_path"
     # the built-in mke2fs seems to be more reliable when the busybox mke2fs fails
         if test -x /system/bin/mke2fs; then
             /system/bin/mke2fs $mke2fs_options
@@ -78,12 +78,12 @@ if [ x"$install_on_internal_storage" = xno ]; then
         # run native and busybox losetup to test outputs
         losetup
         /system/xbin/losetup
-        $losetup $loopdev $image_path
+        $losetup $loopdev $install_path
         losetup
         /system/xbin/losetup
         mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
     else
-        echo "No mount dir found ($mnt) or no image_path ($image_path)"
+        echo "No mount dir found ($mnt) or no install_path ($install_path)"
         exit 1
     fi
 fi
