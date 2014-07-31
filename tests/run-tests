@@ -1,0 +1,18 @@
+#!/bin/bash
+
+projectdir=`cd $(dirname $0) && pwd`/..
+assets=$projectdir/assets
+
+exitstatus=0
+# use bash to check that the syntax is correct
+for f in $assets/*.sh $assets/lildebi-common $assets/shell; do
+    echo "Checking syntax in $f:"
+    if bash -n $f; then
+        : # success! do nothing
+    else
+        echo "FAILED!"
+        exitstatus=1
+    fi
+done
+
+exit $exitstatus

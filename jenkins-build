@@ -28,3 +28,5 @@ sed -i \
 make -C external/ clean
 make -C external/ assets
 ./update-ant-build.sh
+
+./tests/run-tests
