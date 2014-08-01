@@ -3,9 +3,9 @@
 
     <CheckBoxPreference
         android:defaultValue="false"
-        android:key="@string/pref_start_on_mount_key"
+        android:key="@string/pref_start_automatically_key"
         android:summary="@string/pref_start_on_mount_summary"
-        android:title="@string/pref_start_on_mount_title" />
+        android:title="@string/pref_start_automatically_title" />
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="@string/pref_prevent_sleep_key"

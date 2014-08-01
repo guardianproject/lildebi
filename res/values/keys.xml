@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="pref_start_on_mount_key">pref_start_on_mount_key</string>
+    <string name="pref_start_automatically_key">pref_start_automatically_key</string>
     <string name="pref_prevent_sleep_key">pref_prevent_sleep_key</string>
     <string name="pref_use_checksum_key">pref_use_checksum_key</string>
     <string name="pref_image_path_key">pref_image_path_key</string>

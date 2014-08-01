@@ -4,8 +4,9 @@
     <string name="app_name">Lil\' Debi</string>
     <string name="unsupported_device_body">Your device is not supported by Lil\' Debi for installing Debian.  It needs to support the "ext2" filesystem and loopback mounting of files as disks. Therefore, this app is useless to you, we recommend uninstalling it.</string>
     <string name="uninstall_button_title">Uninstall Lil\' Debi</string>
-    <string name="pref_start_on_mount_title">Start on SD Card Mount?</string>
+    <string name="pref_start_automatically_title">Start Automatically?</string>
     <string name="pref_start_on_mount_summary">Automatically start Debian whenever your SD Card is mounted</string>
+    <string name="pref_start_on_boot_summary">Automatically start Debian whenever Android is booted</string>
     <string name="pref_use_checksum_title">Checksum Image on Start?</string>
     <string name="pref_use_checksum_summary">Before booting, check the SHA1 checksum of the image to verify its integrity.</string>
     <string name="pref_image_path_title">Image Path</string>

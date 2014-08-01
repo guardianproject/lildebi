@@ -69,6 +69,13 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name="BootCompletedReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_BOOT_COMPLETED" />
+                <data android:scheme="file" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

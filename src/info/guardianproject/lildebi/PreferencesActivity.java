@@ -19,6 +19,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 		implements OnSharedPreferenceChangeListener {
 	CheckBoxPreference useChecksumCheckBox;
 	CheckBoxPreference installOnInternalStorageBox;
+	CheckBoxPreference startAutomatically;
 	EditTextPreference imagepathEditText;
 	EditTextPreference postStartEditText;
 	EditTextPreference preStopEditText;
@@ -79,6 +80,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences);
+		startAutomatically = (CheckBoxPreference) findPreference(getString(R.string.pref_start_automatically_key));
 		imagepathEditText = (EditTextPreference) findPreference(getString(R.string.pref_image_path_key));
 		postStartEditText = (EditTextPreference) findPreference(getString(R.string.pref_post_start_key));
 		preStopEditText = (EditTextPreference) findPreference(getString(R.string.pref_pre_stop_key));
@@ -96,6 +98,10 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 			imagepathEditText.setEnabled(false);
 			setSummaries();
 		}
+
+		if (NativeHelper.installInInternalStorage)
+			startAutomatically
+					.setSummary(getString(R.string.pref_start_on_boot_summary));
 	}
 
 	@Override
@@ -120,13 +126,19 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 		// some devices don't have the /sdcard symlink.
 		if (NativeHelper.installInInternalStorage) {
 			imagepathEditText.setSummary(getString(R.string.install_in_internal_storage_summary));
+			startAutomatically
+					.setSummary(getString(R.string.pref_start_on_boot_summary));
 		}
 		else if (NativeHelper.image_path.equals(NativeHelper.default_image_path)
 				|| NativeHelper.image_path.equals(getString(R.string.default_image_path))) {
 			imagepathEditText
 					.setSummary(getString(R.string.pref_image_path_summary));
+			startAutomatically
+					.setSummary(getString(R.string.pref_start_on_mount_summary));
 		} else {
 			imagepathEditText.setSummary(NativeHelper.image_path);
+			startAutomatically
+					.setSummary(getString(R.string.pref_start_on_mount_summary));
 		}
 		if (NativeHelper.postStartScript
 				.equals(getString(R.string.default_post_start_script))) {
