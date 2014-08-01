@@ -168,9 +168,10 @@ $mnt/usr/bin/cdebootstrap-static --verbose --foreign\
     --helperdir=$mnt/usr/share/cdebootstrap-static \
     --arch $arch $release $mnt $mirror || exit
 
-mount -o bind /system $mnt/system
-mount -o bind /dev $mnt/dev
-chroot $mnt /sbin/cdebootstrap-foreign --second-stage
+if [ x"$install_on_internal_storage" = xyes ]; then
+    mount -o bind /dev $mnt/dev
+fi
+SHELL=/bin/sh chroot $mnt /sbin/cdebootstrap-foreign --second-stage
 
 # figure out extra packages to include
 if [ ! -x /system/bin/e2fsck ]; then
@@ -262,5 +263,6 @@ fi
 # clean up after debootstrap
 
 chroot $mnt dpkg --purge cdebootstrap-helper-rc.d
-umount $mnt/system
-umount $mnt/dev
+if [ x"$install_on_internal_storage" = xyes ]; then
+    umount $mnt/dev
+fi
