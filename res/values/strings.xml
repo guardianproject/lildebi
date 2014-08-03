@@ -64,5 +64,7 @@
     <string name="pref_install_on_internal_storage_summary">Internal Storage: /data/debian</string>
     <string name="pref_install_on_internal_storage_title">Install on Internal Storage</string>
     <string name="install_in_internal_storage_summary">Install Debian into Internal Storage: /data/debian</string>
+    <string name="minimum_free_size">minimum free size should be greater than 230 MB for installation</string>
+    <string name="minimum_image_size">minimum image size should be greater than 230 MB for installation</string>
 
 </resources>

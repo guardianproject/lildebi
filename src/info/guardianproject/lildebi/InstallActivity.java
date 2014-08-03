@@ -51,6 +51,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private EditText imagesize;
 	private InstallService mBoundService;
 	private PowerManager.WakeLock wl;
+	private static int MinimumFreeSize = 230;
 
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
@@ -179,7 +180,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 
 	private void setImageSizeInMB(long requestedSize) {
 		// if the requested size is bigger than available space, adjust before prompting the user
-		long freeSize = NativeHelper.getImagePathFreeBytes() / 1024 / 1024;
+		long freeSize = NativeHelper.getInstallPathFreeBytes() / 1024 / 1024;
 		if (freeSize < requestedSize) {
 			Toast.makeText(getApplicationContext(), R.string.smaller_imagesize_message,
 					Toast.LENGTH_LONG).show();
@@ -225,6 +226,25 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private void wireButtons() {
 		installButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
+				long requestedSize;
+				Context context = getApplicationContext();
+
+				if (NativeHelper.installInInternalStorage) {
+					requestedSize = NativeHelper.getInstallPathFreeBytes();
+					if (requestedSize < MinimumFreeSize) {
+						Toast.makeText(context, R.string.minimum_free_size,
+								Toast.LENGTH_LONG).show();
+						return;
+					}
+				} else {
+					requestedSize = Long.parseLong(imagesize.getText()
+							.toString());
+					if (requestedSize < MinimumFreeSize) {
+						Toast.makeText(context, R.string.minimum_image_size,
+								Toast.LENGTH_LONG).show();
+						return;
+					}
+				}
 				setProgressBarIndeterminateVisibility(true);
 				setResult(NativeHelper.STARTING_INSTALL);
 				writeInstallConf();
