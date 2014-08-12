@@ -164,7 +164,6 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 				setImageSizeInMB(Integer.parseInt(imagesize.getText().toString()));
 			refreshButtons();
 			doBindService();
-			registerReceivers();
 			updateLog();
 			installButton.requestFocus();
 		}
@@ -174,7 +173,6 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	protected void onPause() {
 		super.onPause();
 		doUnbindService();
-		unregisterReceivers();
 		wl.release();
 	}
 
@@ -245,6 +243,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 						return;
 					}
 				}
+				registerReceivers();
 				setProgressBarIndeterminateVisibility(true);
 				setResult(NativeHelper.STARTING_INSTALL);
 				writeInstallConf();
@@ -301,6 +300,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 					intent.setClass(getApplicationContext(), LilDebi.class);
 					startActivity(intent);
 					finish();
+					unregisterReceivers();
 				}
 			};
 
