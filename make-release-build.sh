@@ -9,6 +9,8 @@ if [ -z $ANDROID_HOME ]; then
     fi
 fi
 
+# standardize timezone to reduce build differences
+export TZ=UTC
 TIMESTAMP=`git log -n1 --format=format:%ai`
 
 git reset --hard
