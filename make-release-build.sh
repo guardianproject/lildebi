@@ -9,7 +9,7 @@ if [ -z $ANDROID_HOME ]; then
     fi
 fi
 
-TIMESTAMP=`git log -n1 --date=iso | sed -n 's,^Date:\s\s*\(.*\),\1,p'`
+TIMESTAMP=`git log -n1 --format=format:%ai`
 
 git reset --hard
 git clean -fdx

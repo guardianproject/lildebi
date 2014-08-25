@@ -96,7 +96,7 @@ script. Running a program with `faketime` causes that program to recent a
 fixed time based on the timestamp provided to `faketime`.  This ensures that
 the timestamps in the files are always the same.
 
-  faketime "`git log -n1 --date=iso | sed -n 's,^Date:\s\s*\(.*\),\1,p'`" \
+  faketime "`git log -n1 --format=format:%ai`" \
     ant clean debug
 
 

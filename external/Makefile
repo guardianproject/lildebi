@@ -63,7 +63,7 @@ ALL_LDFLAGS = -Wl,--gc-sections
 # the speed of the machine that the build process is running on.  See `man
 # faketime` for more info on the "advanced timestamp format".  Also, force
 # time to UTC so its always the same on all machines.
-TIMESTAMP="$(shell faketime "`git log -n1 --date=iso | sed -n 's,^Date:\s\s*\(.*\),\1,p'`" \
+TIMESTAMP="$(shell faketime "`git log -n1 --format=format:%ai`" \
 				date --utc '+%Y-%m-%d %H:%M:%S')"
 export TZ=UTC
 
