@@ -28,4 +28,4 @@ cp ~/.android/ant.properties .
 ./update-ant-build.sh
 faketime "$TIMESTAMP" ant release
 
-gpg --detach-sign bin/LilDebi-release.apk
+gpg --detach-sign bin/LilDebi-[0-9].*-release.apk
