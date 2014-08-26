@@ -1,6 +1,8 @@
 #!/bin/sh
 
-. ~/.android/bashrc
+if [ -f ~/.android/bashrc ]; then
+  . ~/.android/bashrc
+fi
 
 TIMESTAMP=`git log -n1 --date=iso | sed -n 's,^Date:\s\s*\(.*\),\1,p'`
 
