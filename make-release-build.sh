@@ -26,6 +26,6 @@ make -C external/ assets
 cp ~/.android/ant.properties .
 
 ./update-ant-build.sh
-faketime "$TIMESTAMP" ant release
+faketime -f "@$TIMESTAMP x0.05" ant release
 
 gpg --detach-sign bin/LilDebi-[0-9].*-release.apk
