@@ -28,4 +28,12 @@ cp ~/.android/ant.properties .
 ./setup-ant
 faketime -f "@$TIMESTAMP x0.05" ant release
 
-gpg --detach-sign bin/LilDebi-[0-9].*-release.apk
+if which gpg > /dev/null; then
+    if [ -z "`gpg --list-secret-keys`" ]; then
+        echo "No GPG secret keys found, not signing APK"
+    else
+        gpg --detach-sign bin/LilDebi-[0-9].*-release.apk
+    fi
+else
+    echo "gpg not found, not signing APK"
+fi
