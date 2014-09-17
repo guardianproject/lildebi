@@ -67,7 +67,7 @@ in the terminal:
   git submodule init
   git submodule update
   make NDK_BASE=/path/to/your/android-ndk -C external assets
-  ./update-ant-build.sh
+  ./setup-ant
   ant debug
 
 Once that has completed, you can install it however you would normally install
