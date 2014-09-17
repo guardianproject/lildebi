@@ -2,6 +2,7 @@
 bin/
 gen/
 build.xml
+ant.properties
 default.properties
 local.properties
 proguard.cfg
