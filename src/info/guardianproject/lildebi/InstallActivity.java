@@ -48,6 +48,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private TextView selectedRelease;
 	private TextView selectedMirror;
 	private TextView selectedArch;
+	private TextView imageSizeText;
+	private TextView megaBytes;
 	private EditText imagesize;
 	private InstallService mBoundService;
 	private PowerManager.WakeLock wl;
@@ -97,17 +99,24 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		selectedRelease = (TextView) findViewById(R.id.selectedRelease);
 		selectedMirror = (TextView) findViewById(R.id.selectedMirror);
 		selectedArch = (TextView) findViewById(R.id.selectedArch);
+		imageSizeText = (TextView) findViewById(R.id.imagesizetext);
 		imagesize = (EditText) findViewById(R.id.imagesize);
+		megaBytes = (TextView) findViewById(R.id.megabytes);
 		installButton = (Button) findViewById(R.id.installButton);
 		installLog = (TextView) findViewById(R.id.installLog);
 		textScroll = (ScrollView) findViewById(R.id.textScroll);
 		handler = new Handler();
 		
-		if(NativeHelper.installInInternalStorage)
-			imagesize.setEnabled(false);
-		else
-			imagesize.setEnabled(true);
-		
+		if (NativeHelper.installInInternalStorage) {
+			imageSizeText.setVisibility(View.GONE);
+			imagesize.setVisibility(View.GONE);
+			megaBytes.setVisibility(View.GONE);
+		} else {
+			imageSizeText.setVisibility(View.VISIBLE);
+			imagesize.setVisibility(View.VISIBLE);
+			megaBytes.setVisibility(View.VISIBLE);
+		}
+
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "InstallWakeLock");
 
@@ -345,10 +354,15 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			selectedRelease.setEnabled(true);
 			selectedMirror.setEnabled(true);
 			selectedArch.setEnabled(true);
-			if(NativeHelper.installInInternalStorage)
-				imagesize.setEnabled(false);
-			else
-				imagesize.setEnabled(true);
+			if (NativeHelper.installInInternalStorage) {
+				imageSizeText.setVisibility(View.GONE);
+				imagesize.setVisibility(View.GONE);
+				megaBytes.setVisibility(View.GONE);
+			} else {
+				imageSizeText.setVisibility(View.VISIBLE);
+				imagesize.setVisibility(View.VISIBLE);
+				megaBytes.setVisibility(View.VISIBLE);
+			}
 			installButton.setVisibility(View.VISIBLE);
 		}
 	}
