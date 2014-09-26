@@ -40,7 +40,7 @@ public class NativeHelper {
 	public static String preStopScript;
 
 	public static boolean isInstallRunning = false;
-	public static boolean installInInternalStorage = false;
+	public static boolean installInInternalStorage;
 
 	public static void setup(Context context) {
 		app_bin = context.getDir("bin", Context.MODE_PRIVATE).getAbsoluteFile();
@@ -72,6 +72,8 @@ public class NativeHelper {
 		default_image_path = sdcard + "/debian.img";
 		String prefName = context.getString(R.string.pref_image_path_key);
 		image_path = prefs.getString(prefName, default_image_path);
+        prefName = context.getString(R.string.pref_install_on_internal_storage_key);
+        installInInternalStorage = prefs.getBoolean(prefName, false);
 	}
 
 	public static boolean isStarted() {
