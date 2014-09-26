@@ -6,6 +6,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -40,12 +42,16 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	private ScrollView consoleScroll;
 	private TextView consoleText;
 
+	private PackageManager pm;
+
 	private Handler commandThreadHandler;
 	private LilDebiAction action;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		pm = getPackageManager();
 
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.lildebi);
@@ -170,7 +176,34 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			startStopButton.setVisibility(View.GONE);
 			return;
 		}
-		if (NativeHelper.isInstalled()) {
+		boolean foundSU = false;
+        try {
+            pm.getPackageInfo("com.koushikdutta.superuser", PackageManager.GET_ACTIVITIES);
+            foundSU = true;
+        } catch (NameNotFoundException e) {
+            try {
+                pm.getPackageInfo("com.noshufou.android.su", PackageManager.GET_ACTIVITIES);
+                foundSU = true;
+            } catch (NameNotFoundException e1) {
+            }
+        }
+        if (!foundSU) {
+            statusTitle.setVisibility(View.VISIBLE);
+            statusText.setVisibility(View.VISIBLE);
+            statusText.setText(R.string.needs_superuser_message);
+            startStopButton.setVisibility(View.VISIBLE);
+            startStopButton.setText(R.string.get_superuser);
+            startStopButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    final String APP_MARKET_URL = "market://details?id=com.koushikdutta.superuser";
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri
+                            .parse(APP_MARKET_URL));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        } else if (NativeHelper.isInstalled()) {
 			if (!new File(NativeHelper.mnt).exists()) {
 				// we have a manually downloaded debian.img file, config for it
 				LilDebiAction.log.append(String.format(

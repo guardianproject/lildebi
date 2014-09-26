@@ -1,16 +1,5 @@
 package info.guardianproject.lildebi;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-
-import org.apache.commons.io.FileUtils;
-import org.torproject.android.service.TorServiceUtils;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -18,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -36,6 +24,16 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.apache.commons.io.FileUtils;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 public class InstallActivity extends Activity implements View.OnCreateContextMenuListener {
 	public static final String TAG = "InstallActivity";
@@ -148,23 +146,6 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			installButton.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
 					UnsupportedDeviceActivity.callMe(InstallActivity.this);
-				}
-			});
-		} else if (!TorServiceUtils.checkRootAccess()) {
-			Toast.makeText(getApplicationContext(), R.string.needs_superuser_message,
-					Toast.LENGTH_LONG).show();
-			unwireButtons();
-			renameInstallButton(R.string.get_superuser);
-			installButton.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View view) {
-					// http://stackoverflow.com/questions/2518740/launch-market-place-with-id-of-an-application-that-doesnt-exist-in-the-android-m
-					// final String APP_MARKET_URL =
-					// "market://search?q=pname:com.noshufou.android.su";
-					final String APP_MARKET_URL = "market://details?q=id:com.noshufou.android.su";
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri
-							.parse(APP_MARKET_URL));
-					startActivity(intent);
-					finish();
 				}
 			});
 		} else {
