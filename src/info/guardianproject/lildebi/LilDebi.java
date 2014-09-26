@@ -1,21 +1,14 @@
 package info.guardianproject.lildebi;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -31,6 +24,12 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	public static final String TAG = "LilDebi";
@@ -98,8 +97,6 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.options_menu, menu);
-		menu.findItem(R.id.menu_jackpal_terminal).setVisible(
-				isIntentAvailable("jackpal.androidterm.RUN_SCRIPT"));
 		return true;
 	}
 
@@ -114,11 +111,33 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			return true;
 		case R.id.menu_jackpal_terminal:
 			Intent i = new Intent("jackpal.androidterm.RUN_SCRIPT");
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			i.addCategory(Intent.CATEGORY_DEFAULT);
 			i.putExtra("jackpal.androidterm.iInitialCommand",
 			        "su -c \"PATH=" + NativeHelper.app_bin + ":$PATH "
 					 + "chroot /debian /bin/bash -l\"");
-			startActivity(i);
+                try {
+                    startActivity(i);
+                } catch (ActivityNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, R.string.terminal_emulator_not_installed,
+                            Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("market://details?id=jackpal.androidterm"));
+                    startActivity(intent);
+                } catch (SecurityException e) {
+                    /*
+                     * For jackpal.androidterm.permission.RUN_SCRIPT to be set
+                     * up in Android, Terminal Emulator must have been run
+                     * at least once.  A fresh install has never been run.
+                     */
+                    e.printStackTrace();
+                    Toast.makeText(this, R.string.terminal_emulator_never_ran,
+                            Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("market://details?id=jackpal.androidterm"));
+                    startActivity(intent);
+                }
 			return true;
 		case R.id.menu_delete:
 			new AlertDialog.Builder(this).setMessage(R.string.confirm_delete_message)
@@ -280,13 +299,4 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		super.onSaveInstanceState(savedInstanceState);
 	}
 	// the saved state is restored in onCreate()
-
-
-	private boolean isIntentAvailable(String action) {
-		final PackageManager packageManager = getPackageManager();
-		final Intent intent = new Intent(action);
-		List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
-				PackageManager.MATCH_DEFAULT_ONLY);
-		return list.size() > 0;
-	}
 }
