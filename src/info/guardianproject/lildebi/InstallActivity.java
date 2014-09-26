@@ -185,16 +185,27 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		wl.release();
 	}
 
-	private void setImageSizeInMB(long requestedSize) {
-		// if the requested size is bigger than available space, adjust before prompting the user
-		long freeSize = NativeHelper.getInstallPathFreeBytes() / 1024 / 1024;
-		if (freeSize < requestedSize) {
-			Toast.makeText(getApplicationContext(), R.string.smaller_imagesize_message,
-					Toast.LENGTH_LONG).show();
-			requestedSize = freeSize - 10; // leave 10MB free
-			imagesize.setText(String.valueOf(requestedSize));
-		}
-	}
+    private void setImageSizeInMB(long requestedSize) {
+        boolean changedSize = false;
+        // adjust size is request is bigger than available space
+        int resId = R.string.smaller_imagesize_message;
+        long freeSize = NativeHelper.getInstallPathFreeBytes() / 1024 / 1024;
+        if (freeSize < requestedSize) {
+            requestedSize = freeSize - 10; // leave 10MB free
+            changedSize = true;
+        }
+        // FAT has a 4gb - 1 byte file size limit
+        long sizeLimit = (4 * 1024) - 1;
+        if (NativeHelper.limitTo4GB && requestedSize > sizeLimit) {
+            resId = R.string.image_size_limit_message;
+            requestedSize = sizeLimit;
+            changedSize = true;
+        }
+        if (changedSize) {
+            Toast.makeText(getApplicationContext(), resId, Toast.LENGTH_LONG).show();
+            imagesize.setText(String.valueOf(requestedSize));
+        }
+    }
 
 	private void updateLog() {
 		handler.post(new Runnable() {

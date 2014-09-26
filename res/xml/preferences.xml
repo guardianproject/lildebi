@@ -17,6 +17,11 @@
         android:summary="@string/pref_install_on_internal_storage_summary"
         android:title="@string/pref_install_on_internal_storage_title" />
     <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_limit_to_4gb_key"
+        android:summary="@string/pref_limit_to_4gb_summary"
+        android:title="@string/pref_limit_to_4gb_title" />
+    <CheckBoxPreference
         android:defaultValue="false"
         android:key="@string/pref_use_checksum_key"
         android:summary="@string/pref_use_checksum_summary"

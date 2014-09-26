@@ -19,6 +19,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 		implements OnSharedPreferenceChangeListener {
 	CheckBoxPreference useChecksumCheckBox;
 	CheckBoxPreference installOnInternalStorageBox;
+	CheckBoxPreference limitTo4gbCheckBox;
 	CheckBoxPreference startAutomatically;
 	EditTextPreference imagepathEditText;
 	EditTextPreference postStartEditText;
@@ -64,11 +65,13 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 			if (checked) {
 				NativeHelper.installInInternalStorage = true;
 				NativeHelper.image_path = "/data/debian";
+				limitTo4gbCheckBox.setEnabled(false);
 				useChecksumCheckBox.setEnabled(false);
 				imagepathEditText.setEnabled(false);
 			} else {
 				NativeHelper.installInInternalStorage = false;
 				NativeHelper.image_path = NativeHelper.default_image_path;
+				limitTo4gbCheckBox.setEnabled(true);
 				useChecksumCheckBox.setEnabled(true);
 				imagepathEditText.setEnabled(true);
 			}
@@ -86,6 +89,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 		preStopEditText = (EditTextPreference) findPreference(getString(R.string.pref_pre_stop_key));
 		useChecksumCheckBox = (CheckBoxPreference) findPreference(getString(R.string.pref_use_checksum_key));
 		installOnInternalStorageBox = (CheckBoxPreference) findPreference(getString(R.string.pref_use_checksum_key));
+        limitTo4gbCheckBox = (CheckBoxPreference) findPreference(getString(R.string.pref_limit_to_4gb_key));
 
 		SharedPreferences prefs = getPreferenceScreen().getSharedPreferences();
 		Boolean checked = prefs.getBoolean(
@@ -96,6 +100,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 			NativeHelper.image_path = "/data/debian";
 			useChecksumCheckBox.setEnabled(false);
 			imagepathEditText.setEnabled(false);
+			limitTo4gbCheckBox.setEnabled(false);
 			setSummaries();
 		}
 

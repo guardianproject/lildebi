@@ -41,6 +41,7 @@ public class NativeHelper {
 
 	public static boolean isInstallRunning = false;
 	public static boolean installInInternalStorage;
+	public static boolean limitTo4GB;
 
 	public static void setup(Context context) {
 		app_bin = context.getDir("bin", Context.MODE_PRIVATE).getAbsoluteFile();
@@ -74,6 +75,8 @@ public class NativeHelper {
 		image_path = prefs.getString(prefName, default_image_path);
         prefName = context.getString(R.string.pref_install_on_internal_storage_key);
         installInInternalStorage = prefs.getBoolean(prefName, false);
+        prefName = context.getString(R.string.pref_limit_to_4gb_key);
+        limitTo4GB = prefs.getBoolean(prefName, true);
 	}
 
 	public static boolean isStarted() {

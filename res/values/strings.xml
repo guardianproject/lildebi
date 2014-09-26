@@ -9,6 +9,8 @@
     <string name="pref_start_on_boot_summary">Automatically start Debian whenever Android is booted</string>
     <string name="pref_use_checksum_title">Checksum Image on Start?</string>
     <string name="pref_use_checksum_summary">Before booting, check the SHA1 checksum of the image to verify its integrity.</string>
+    <string name="pref_limit_to_4gb_title">4GB Image Limit</string>
+    <string name="pref_limit_to_4gb_summary">Most SD Cards have FAT filesystems, which have a file size limit of 4GB.</string>
     <string name="pref_image_path_title">Image Path</string>
     <string name="pref_image_path_summary">The path to the disk image file that Debian is installed on (default: /sdcard/debian.img)</string>
     <string name="pref_post_start_title">Post-start Script</string>
@@ -39,6 +41,7 @@
     <string name="get_superuser">Get SuperUser…</string>
     <string name="needs_superuser_message">Lil\' Debi needs SuperUser access, install the SuperUser app</string>
     <string name="smaller_imagesize_message">Not enough space for specified image size, reducing size to fit on SD Card</string>
+    <string name="image_size_limit_message">SD Cards usually cannot support files larger than 4GB!  You can turn off this limit in the Settings.</string>
     <string name="mounted_message">Debian mounted</string>
     <string name="not_mounted_message">Debian not mounted</string>
     <string name="not_installed_message">Debian not installed</string>
