@@ -264,10 +264,7 @@ public class NativeHelper {
 
 	public static long getInstallPathFreeBytes() {
 		StatFs stat;
-		if (NativeHelper.installInInternalStorage)
-			stat = new StatFs(new File(image_path).getAbsolutePath());
-		else
-			stat = new StatFs(new File(image_path).getParent());
+		stat = new StatFs(new File(image_path).getParent());
 		return (long) stat.getAvailableBlocks() * (long) stat.getBlockSize();
 	}
 }
