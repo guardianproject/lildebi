@@ -262,9 +262,17 @@ public class NativeHelper {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 	}
 
-	public static long getInstallPathFreeBytes() {
-		StatFs stat;
-		stat = new StatFs(new File(image_path).getParent());
-		return (long) stat.getAvailableBlocks() * (long) stat.getBlockSize();
-	}
+    public static long getInstallPathFreeBytes() {
+        String path;
+        StatFs stat;
+        File parent = new File(image_path).getParentFile();
+        try {
+            path = parent.getCanonicalPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+            path = parent.getAbsolutePath();
+        }
+        stat = new StatFs(path);
+        return (long) stat.getAvailableBlocks() * (long) stat.getBlockSize();
+    }
 }
