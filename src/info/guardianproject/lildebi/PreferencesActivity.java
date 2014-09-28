@@ -76,6 +76,9 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 				imagepathEditText.setEnabled(true);
 			}
 			setSummaries();
+		} else if (key.equals(getString(R.string.pref_limit_to_4gb_key))) {
+			NativeHelper.limitTo4GB = prefs.getBoolean(
+					getString(R.string.pref_limit_to_4gb_key), true);
 		}
 	}
 
