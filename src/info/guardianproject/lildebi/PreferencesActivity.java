@@ -70,7 +70,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 				imagepathEditText.setEnabled(false);
 			} else {
 				NativeHelper.installInInternalStorage = false;
-				NativeHelper.image_path = NativeHelper.default_image_path;
+				NativeHelper.image_path = imagepathEditText.getText();
 				limitTo4gbCheckBox.setEnabled(true);
 				useChecksumCheckBox.setEnabled(true);
 				imagepathEditText.setEnabled(true);
