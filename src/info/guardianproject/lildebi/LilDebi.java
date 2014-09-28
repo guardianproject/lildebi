@@ -1,5 +1,6 @@
 package info.guardianproject.lildebi;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -106,7 +107,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 		return true;
 	}
 
-	@Override
+	@SuppressLint("InlinedApi")
+    @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_preferences:
@@ -134,14 +136,16 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                 } catch (SecurityException e) {
                     /*
                      * For jackpal.androidterm.permission.RUN_SCRIPT to be set
-                     * up in Android, Terminal Emulator must have been run
-                     * at least once.  A fresh install has never been run.
+                     * up in Android, Terminal Emulator must have been installed
+                     * before Lil' Debi was installed. That's just a limitation
+                     * of the permissions system...
                      */
                     e.printStackTrace();
-                    Toast.makeText(this, R.string.terminal_emulator_never_ran,
+                    Toast.makeText(this, R.string.terminal_emulator_installed_after_lildebi,
                             Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse("market://details?id=jackpal.androidterm"));
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=info.guardianproject.lildebi"));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
 			return true;
