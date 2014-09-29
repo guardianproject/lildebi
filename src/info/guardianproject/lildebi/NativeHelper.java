@@ -267,9 +267,10 @@ public class NativeHelper {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 	}
 
-    public static long getInstallPathFreeBytes() {
+    public static long getInstallPathFreeMegaBytes() {
         String path;
         StatFs stat;
+        long freeSizeInBytes;
         File parent = new File(image_path).getParentFile();
         try {
             path = parent.getCanonicalPath();
@@ -278,6 +279,7 @@ public class NativeHelper {
             path = parent.getAbsolutePath();
         }
         stat = new StatFs(path);
-        return (long) stat.getAvailableBlocks() * (long) stat.getBlockSize();
+        freeSizeInBytes = stat.getAvailableBlocks() * (long) stat.getBlockSize();
+        return freeSizeInBytes / 1024 / 1024;
     }
 }

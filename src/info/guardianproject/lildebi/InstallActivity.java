@@ -51,7 +51,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private EditText imagesize;
 	private InstallService mBoundService;
 	private PowerManager.WakeLock wl;
-	private static int MinimumFreeSize = 230;
+	private static int MinimumFreeSize = 250;
+	private String installButtonText;
 
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
@@ -101,6 +102,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		imagesize = (EditText) findViewById(R.id.imagesize);
 		megaBytes = (TextView) findViewById(R.id.megabytes);
 		installButton = (Button) findViewById(R.id.installButton);
+		installButtonText = installButton.getText().toString();
 		installLog = (TextView) findViewById(R.id.installLog);
 		textScroll = (ScrollView) findViewById(R.id.textScroll);
 		handler = new Handler();
@@ -122,9 +124,12 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		imagesize.addTextChangedListener(new TextWatcher() {
 			public void afterTextChanged(Editable s) {
 				try {
-					long currentsize = Long.parseLong(imagesize.getText().toString());
-					setImageSizeInMB(currentsize);
 					installButton.setEnabled(true);
+					if (NativeHelper.installInInternalStorage)
+					    minimumFreeSizeTest(NativeHelper.getInstallPathFreeMegaBytes());
+					else
+					    setImageSizeInMB(Long.parseLong(imagesize.getText().toString()));
+
 				} catch (NumberFormatException e) {
 					// this means we got blank value or something like that
 					installButton.setEnabled(false);
@@ -150,7 +155,9 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			});
 		} else {
 			// make sure the default image size isn't larger than the SDcard's free space
-			if(!NativeHelper.installInInternalStorage)
+			if (NativeHelper.installInInternalStorage)
+				minimumFreeSizeTest(NativeHelper.getInstallPathFreeMegaBytes());
+			else
 				setImageSizeInMB(Integer.parseInt(imagesize.getText().toString()));
 			refreshButtons();
 			doBindService();
@@ -170,7 +177,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
         boolean changedSize = false;
         // adjust size is request is bigger than available space
         int resId = R.string.smaller_imagesize_message;
-        long freeSize = NativeHelper.getInstallPathFreeBytes() / 1024 / 1024;
+        long freeSize = NativeHelper.getInstallPathFreeMegaBytes();
         if (freeSize < requestedSize) {
             requestedSize = freeSize - 10; // leave 10MB free
             changedSize = true;
@@ -186,7 +193,19 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
             Toast.makeText(getApplicationContext(), resId, Toast.LENGTH_LONG).show();
             imagesize.setText(String.valueOf(requestedSize));
         }
+
+		minimumFreeSizeTest(requestedSize);
     }
+
+	private void minimumFreeSizeTest(long requestedSize) {
+		if (requestedSize < MinimumFreeSize) {
+			installButton.setEnabled(false);
+			installButton.setText(R.string.not_enough_space);
+		} else {
+			installButton.setEnabled(true);
+			installButton.setText(installButtonText);
+		}
+	}
 
 	private void updateLog() {
 		handler.post(new Runnable() {
@@ -225,25 +244,6 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	private void wireButtons() {
 		installButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				long requestedSize;
-				Context context = getApplicationContext();
-
-				if (NativeHelper.installInInternalStorage) {
-					requestedSize = NativeHelper.getInstallPathFreeBytes();
-					if (requestedSize < MinimumFreeSize) {
-						Toast.makeText(context, R.string.minimum_free_size,
-								Toast.LENGTH_LONG).show();
-						return;
-					}
-				} else {
-					requestedSize = Long.parseLong(imagesize.getText()
-							.toString());
-					if (requestedSize < MinimumFreeSize) {
-						Toast.makeText(context, R.string.minimum_image_size,
-								Toast.LENGTH_LONG).show();
-						return;
-					}
-				}
 				registerReceivers();
 				setProgressBarIndeterminateVisibility(true);
 				setResult(NativeHelper.STARTING_INSTALL);
