@@ -81,7 +81,11 @@ if [ x"$install_on_internal_storage" = xno ]; then
         $losetup $loopdev $install_path
         losetup
         /system/xbin/losetup
-        mount -o loop,noatime,errors=remount-ro $loopdev $mnt || exit
+        mount -o loop,noatime,errors=remount-ro $loopdev $mnt
+        if $? -ne 0; then
+            echo "Unable to mount loopback image!"
+            exit 1
+        fi
     else
         echo "No mount dir found ($mnt) or no install_path ($install_path)"
         exit 1
