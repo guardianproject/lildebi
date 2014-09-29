@@ -38,8 +38,8 @@
     <string name="megabytes">MB</string>
     <string name="install">Install</string>
     <string name="uninstall">Uninstall…</string>
-    <string name="get_superuser">Get SuperUser…</string>
-    <string name="needs_superuser_message">Lil\' Debi needs SuperUser access, install the SuperUser app</string>
+    <string name="get_superuser">Get Superuser…</string>
+    <string name="needs_superuser_message">Lil\' Debi needs root access, install Superuser</string>
     <string name="smaller_imagesize_message">Not enough space for specified image size, reducing size to fit on SD Card</string>
     <string name="image_size_limit_message">SD Cards usually cannot support files larger than 4GB!  You can turn off this limit in the Settings.</string>
     <string name="mounted_message">Debian mounted</string>
