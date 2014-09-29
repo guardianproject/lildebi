@@ -199,6 +199,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                 }
             }
         }
+        if (Build.DISPLAY.contains("cyanogen")
+				|| (Build.DISPLAY.contains("cm_")))
+			foundSU = true;
+
         if (!foundSU) {
             statusTitle.setVisibility(View.VISIBLE);
             statusText.setVisibility(View.VISIBLE);
