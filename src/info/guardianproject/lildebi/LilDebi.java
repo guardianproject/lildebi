@@ -12,6 +12,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -189,6 +190,13 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                 pm.getPackageInfo("com.noshufou.android.su", PackageManager.GET_ACTIVITIES);
                 foundSU = true;
             } catch (NameNotFoundException e1) {
+                try {
+                    pm.getPackageInfo("eu.chainfire.supersu", PackageManager.GET_ACTIVITIES);
+                    // SuperSU requires weird tricks to access mounts on 4.2/17 and above
+                    if (Build.VERSION.SDK_INT < 17)
+                        foundSU = true;
+                } catch (NameNotFoundException e2) {
+                }
             }
         }
         if (!foundSU) {
