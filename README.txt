@@ -99,6 +99,21 @@ the timestamps in the files are always the same.
   faketime "`git log -n1 --format=format:%ai`" \
     ant clean debug
 
+The actual process that is used for making the release builds is the included
+`./make-release-build` script.  To reproduce the official releases, run this
+script. But be aware, it will delete all changes in the git repo that it is
+run in, so it is probably best to run it in a clean clone.  Then you can
+compare your release build to the official release using the included
+`./compare-to-official-release` script.  It requires a few utilities to work.
+All of them are Debian/Ubuntu packages except for `apktool`.  Here's what to
+install:
+
+  apt-get install unzip meld bsdmainutils
+
+Or on OSX with brew:
+
+  brew install apktool unzip
+
 
 NDK build options
 -----------------
