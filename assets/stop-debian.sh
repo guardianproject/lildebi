@@ -12,7 +12,7 @@ export PATH=$1:$PATH
 test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
-# kill all processes
+echo -n "Killing all processes..."
 for root in /proc/*/root; do
   if [ ! -r "$root" ] || [ ! "`readlink "$root"`" = "$mnt" ]; then
     continue
@@ -21,9 +21,11 @@ for root in /proc/*/root; do
   pid="${pid%/root}"
   kill -KILL "$pid" 2>/dev/null || true
 done
+echo "done"
 
-echo "Checking for open files in Debian chroot..."
+echo -n "Checking for open files in Debian chroot..."
 openfiles=`lsof $mnt | grep -v $(basename $install_path) | sed -n "s|.*\($mnt.*\)|\1|p"`
+echo "done"
 
 if [ ! -z "$openfiles" ]; then
     echo "Files that are still open:"
@@ -35,7 +37,7 @@ if [ ! -z "$openfiles" ]; then
     echo "Not stopping debian because of open files, quit all processes and running shell sessions!"
     exit 1
 else
-    echo "unmounting everything"
+    echo -n "Unmounting everything..."
     # sort reverse so it gets the nested mounts first
     for mount in `cut -d ' ' -f 2 /proc/mounts | grep $mnt/ | sort -r`; do
         $busybox_path/umount -f $mount
@@ -44,17 +46,19 @@ else
     if [ x"$install_on_internal_storage" = xno ]; then
         umount -d $mnt || /system/bin/umount $mnt || echo "Failed to unmount $mnt!"
     fi
+    echo "done"
 
     attached=`find_attached_loopdev`
     if [ ! -z $attached ]; then
-        echo "Deleting loopback device..."
+        echo -n "Deleting loopback device..."
         $losetup -d $attached
+        echo "done"
     fi
     
     echo ""
     echo "Debian chroot stopped and unmounted."
     if [ -e $sha1file ]; then
-        echo "Calculating new SHA1 checksum of $install_path..."
+        echo -n "Calculating new SHA1 checksum of $install_path..."
         $app_bin/sha1sum $install_path > $sha1file
         chmod 0600 $sha1file
         cp $sha1file `dirname $install_path`
