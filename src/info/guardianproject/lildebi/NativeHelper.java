@@ -73,10 +73,17 @@ public class NativeHelper {
 		default_image_path = sdcard + "/debian.img";
 		String prefName = context.getString(R.string.pref_image_path_key);
 		image_path = prefs.getString(prefName, default_image_path);
-        prefName = context.getString(R.string.pref_install_on_internal_storage_key);
-        installInInternalStorage = prefs.getBoolean(prefName, false);
         prefName = context.getString(R.string.pref_limit_to_4gb_key);
         limitTo4GB = prefs.getBoolean(prefName, true);
+
+        boolean detectedInternalInstall = false;
+        /* attempt to auto-detect existing internal install */
+        if (!isStarted()
+                && new File(NativeHelper.mnt + "/etc").exists()
+                && !new File(image_path).exists())
+            detectedInternalInstall = true;
+        prefName = context.getString(R.string.pref_install_on_internal_storage_key);
+        installInInternalStorage = prefs.getBoolean(prefName, detectedInternalInstall);
         if (installInInternalStorage)
             NativeHelper.image_path = NativeHelper.mnt;
 	}
