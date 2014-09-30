@@ -77,6 +77,8 @@ public class NativeHelper {
         installInInternalStorage = prefs.getBoolean(prefName, false);
         prefName = context.getString(R.string.pref_limit_to_4gb_key);
         limitTo4GB = prefs.getBoolean(prefName, true);
+        if (installInInternalStorage)
+            NativeHelper.image_path = NativeHelper.mnt;
 	}
 
 	public static boolean isStarted() {

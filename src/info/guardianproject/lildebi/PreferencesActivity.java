@@ -64,7 +64,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 
 			if (checked) {
 				NativeHelper.installInInternalStorage = true;
-				NativeHelper.image_path = "/data/debian";
+				NativeHelper.image_path = NativeHelper.mnt;
 				limitTo4gbCheckBox.setEnabled(false);
 				useChecksumCheckBox.setEnabled(false);
 				imagepathEditText.setEnabled(false);
@@ -100,7 +100,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
 
 		if (checked) {
 			NativeHelper.installInInternalStorage = true;
-			NativeHelper.image_path = "/data/debian";
+			NativeHelper.image_path = NativeHelper.mnt;
 			useChecksumCheckBox.setEnabled(false);
 			imagepathEditText.setEnabled(false);
 			limitTo4gbCheckBox.setEnabled(false);
