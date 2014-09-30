@@ -10,10 +10,10 @@ username=`$app_bin/whoami`
 id=`$app_bin/id -u`
 if [ "$id" -eq 0 ]; then
 # try using the chroot included in LilDebi, otherwise fail over to a possible system one
-    $app_bin/chroot /debian /bin/bash --login -i \
+    PATH=$app_bin $app_bin/chroot /debian /bin/bash --login -i \
         || chroot /debian /bin/bash --login -i
 elif grep "^${username}:" /debian/etc/passwd > /dev/null; then
-    su -c "$app_bin/chroot /debian /bin/su $username --login"
+    su -c "PATH=$app_bin $app_bin/chroot /debian /bin/su $username --login"
 else
-    su -c "$app_bin/chroot /debian /bin/bash --login -i"
+    su -c "PATH=$app_bin $app_bin/chroot /debian /bin/bash --login -i"
 fi
