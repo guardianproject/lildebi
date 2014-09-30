@@ -177,6 +177,15 @@ if [ x"$install_on_internal_storage" = xyes ]; then
 fi
 SHELL=/bin/sh chroot $mnt /sbin/cdebootstrap-foreign --second-stage
 
+# This package sets up all the Android app users and permissions groups.  It
+# needs to be installed as early as possible to claim the uids for group names
+# like 'bluetooth' that also exist in Debian. (installing it like this is a
+# temporary workaround until this package is included in Debian).
+if [ -r $app_bin/android-permissions_0.1_all.deb ]; then
+    cp $app_bin/android-permissions_0.1_all.deb $mnt/root/
+    SHELL=/bin/sh chroot $mnt /usr/bin/dpkg -i /root/android-permissions_0.1_all.deb
+fi
+
 # figure out extra packages to include
 if [ ! -x /system/bin/e2fsck ]; then
     install_e2fsck_static
