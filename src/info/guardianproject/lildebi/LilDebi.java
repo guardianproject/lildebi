@@ -14,7 +14,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -171,8 +170,8 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	private void updateScreenStatus() {
 		startStopButton.setEnabled(true);
 		setProgressBarIndeterminateVisibility(false);
-		String state = Environment.getExternalStorageState();
-		if (!Environment.MEDIA_MOUNTED.equals(state)) {
+		if (!NativeHelper.isSdCardPresent()
+				&& !NativeHelper.installInInternalStorage) {
 			Toast.makeText(getApplicationContext(), R.string.no_sdcard_message,
 					Toast.LENGTH_LONG).show();
 			statusTitle.setVisibility(View.VISIBLE);
