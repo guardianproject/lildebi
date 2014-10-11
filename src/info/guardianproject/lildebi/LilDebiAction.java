@@ -1,6 +1,5 @@
 package info.guardianproject.lildebi;
 
-import java.io.File;
 import java.io.OutputStream;
 
 import android.content.Context;
