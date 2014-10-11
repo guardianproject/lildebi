@@ -62,8 +62,10 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="MediaUnmountedReceiver" >
+        <receiver android:name="MediaEjectReceiver" >
             <intent-filter>
+                <action android:name="android.intent.action.ACTION_EJECT" />
+                <action android:name="android.intent.action.ACTION_MEDIA_BUTTON" />
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
                 <data android:scheme="file" />
             </intent-filter>
