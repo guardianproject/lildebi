@@ -67,6 +67,7 @@
                 <action android:name="android.intent.action.ACTION_EJECT" />
                 <action android:name="android.intent.action.ACTION_MEDIA_BUTTON" />
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <action android:name="android.intent.action.MEDIA_SHARED" />
                 <data android:scheme="file" />
             </intent-filter>
         </receiver>
