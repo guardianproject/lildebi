@@ -121,9 +121,14 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			Intent i = new Intent("jackpal.androidterm.RUN_SCRIPT");
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			i.addCategory(Intent.CATEGORY_DEFAULT);
-			i.putExtra("jackpal.androidterm.iInitialCommand",
-			        "su -c \"PATH=" + NativeHelper.app_bin + ":$PATH "
-					 + "chroot /debian /bin/bash -l\"");
+			if (NativeHelper.isStarted())
+				i.putExtra("jackpal.androidterm.iInitialCommand",
+						"su -c \"PATH=" + NativeHelper.app_bin + ":$PATH "
+								+ "chroot /debian /bin/bash -l\"");
+			else
+				i.putExtra("jackpal.androidterm.iInitialCommand",
+						"echo \"Lil'Debi not running\"");
+
                 try {
                     startActivity(i);
                 } catch (ActivityNotFoundException e) {
