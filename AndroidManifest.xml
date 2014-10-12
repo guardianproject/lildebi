@@ -64,8 +64,8 @@
 
         <receiver android:name="MediaEjectReceiver" >
             <intent-filter>
-                <action android:name="android.intent.action.ACTION_EJECT" />
-                <action android:name="android.intent.action.ACTION_MEDIA_BUTTON" />
+                <action android:name="android.intent.action.MEDIA_EJECT" />
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
                 <action android:name="android.intent.action.MEDIA_SHARED" />
                 <data android:scheme="file" />
@@ -74,7 +74,7 @@
 
         <receiver android:name="BootCompletedReceiver" >
             <intent-filter>
-                <action android:name="android.intent.action.ACTION_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <data android:scheme="file" />
             </intent-filter>
         </receiver>
