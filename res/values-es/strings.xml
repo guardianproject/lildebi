@@ -3,10 +3,13 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">Su dispositivo no está soportado por Lil\' Debi para instalar Debian. Necesita soportar el sistema de archivos «ext2» y capacidad para montar ficheros como discos. Por tanto esta aplicación no sirve para usted, le recomendamos desinstalarla.</string>
   <string name="uninstall_button_title">Desinstalar Lil\' Debi</string>
-  <string name="pref_start_on_mount_title">¿Iniciar al montar la tarjeta SD?</string>
+  <string name="pref_start_automatically_title">¿Iniciar automáticamente?</string>
   <string name="pref_start_on_mount_summary">Iniciar automáticamente Debian cuando se monte la tarjeta SD</string>
+  <string name="pref_start_on_boot_summary">Iniciar Debian automáticamente cuando se arranque Android</string>
   <string name="pref_use_checksum_title">¿Comprobación de errores de la imagen al inicio?</string>
   <string name="pref_use_checksum_summary">Antes de iniciar, hacer una comprobación de errores SHA1 de la imagen para verificar su integridad.</string>
+  <string name="pref_limit_to_4gb_title">Límite de imagen de 4 GB</string>
+  <string name="pref_limit_to_4gb_summary">La mayoría de las tarjetas SD tienen sistemas de ficheros FAT, que tienen un límite de tamaño de ficheros de 4 GB.</string>
   <string name="pref_image_path_title">Ruta a la imagen</string>
   <string name="pref_image_path_summary">La ruta hacia el fichero de imagen de disco donde Debian está instalado (predeterminado: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Guion de órdenes tras el inicio</string>
@@ -16,7 +19,7 @@
   <string name="pref_prevent_sleep_title">Evitar inactividad</string>
   <string name="pref_prevent_sleep_summary">evitar que el dispositivo entre en inactividad mientras está ejecutando Debian</string>
   <string name="menu_jackpal_terminal_title">Abrir terminal…</string>
-  <string name="menu_preferences_title">Preferencias</string>
+  <string name="menu_preferences_title">Configuración</string>
   <string name="menu_install_log_title">Ver el registro de instalación</string>
   <string name="menu_delete_title">Eliminar todo</string>
   <string name="title_start">Iniciar Debian</string>
@@ -37,6 +40,7 @@
   <string name="get_superuser">Obtener SupeUser…</string>
   <string name="needs_superuser_message">Lil\' Debi necesita acceso de superusuario, instale la aplicación SuperUser</string>
   <string name="smaller_imagesize_message">No hay espacio suficiente para el tamaño de imagen especificado, reduciendo el tamaño para ajustarla a la tarjeta SD</string>
+  <string name="image_size_limit_message">¡Las tarjetas SD generalmente no soportan ficheros mayores de 4 GB! Puede desactivar este límite en la Configuración.</string>
   <string name="mounted_message">Debian montado</string>
   <string name="not_mounted_message">Debian no montado</string>
   <string name="not_installed_message">Debian no instalado</string>
@@ -48,6 +52,8 @@
   <string name="image_path_parent_does_not_exist_message">¡La carpeta que ha escogido no existe! Restableciendo al valor predeterminado.</string>
   <string name="no_sdcard_message">La tarjeta SD externa no está montada con acceso lectura/escritura, no se puede instalar o iniciar Debian sin él.</string>
   <string name="no_sdcard_status">(no hay tarjeta SD)</string>
+  <string name="terminal_emulator_not_installed">¡Android Terminal Emulator no instalado! Para usar esta característica, tiene que instalarlo.</string>
+  <string name="terminal_emulator_never_ran">ERROR: ¡Android Terminal Emulator nunca ha sido ejecutado! Para usar esta característica, primero tiene que abrir Terminal Emulator al menos una vez.</string>
   <string name="title_install_log_view">Registro de instalación</string>
   <string name="title_share_button">Compartir</string>
   <string name="starting_debian">Debian iniciado…</string>
@@ -58,4 +64,9 @@
   <string name="select_release">Seleccionar versión</string>
   <string name="select_arch">Seleccionar arquitectura CPU</string>
   <string name="app_description">¿Quiere conseguir fácilmente una Debian ejecutándose en chroot en la que pueda confiar? Instale Lil\' Debi, y podrá tener una instalación de Debian ejecutándose con un clic. Construye una Debian en chroot completa en su teléfono usando únicamente debootstrap. Elija la versión, servidor réplica (mirror), y tamaño de la imagen en disco, para ponerlo en marcha. Puede llevar hasta una hora en un equipo lento, luego estará listo. El paquete completo se construye desde código fuente, usando compilaciones reproducibles disponibles públicamente. Incluso valida cada paquete usando las claves de los repositorios oficiales de Debian, que están incluidas en la aplicación.</string>
+  <string name="pref_install_on_internal_storage_summary">Almacenamiento interno: /data/debian</string>
+  <string name="pref_install_on_internal_storage_title">Instalar en el almacenamiento interno</string>
+  <string name="install_in_internal_storage_summary">Instalar Debian en el almacenamiento interno: /data/debian</string>
+  <string name="minimum_free_size">el tamaño del espacio libre mínimo debe ser mayor de 230 MB para la instalación</string>
+  <string name="minimum_image_size">el tamaño mínimo de la imagen debe ser mayor de 230 MB para la instalación</string>
 </resources>

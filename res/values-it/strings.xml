@@ -3,8 +3,9 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">Il tuo device non è supportato da Lil\' Debi per installarci Debian. E\' necessario il supporto al filesystem \"ext2\" e la possibilità di montare in loopback files come dischi. Di conseguenza quest\'app non ha alcuna utilità, ti consigliamo di disinstallarla.</string>
   <string name="uninstall_button_title">Disinstalla Lil\' Debi</string>
-  <string name="pref_start_on_mount_title">Avvia dopo il montaggio scheda SD?</string>
+  <string name="pref_start_automatically_title">Avvio Automatico?</string>
   <string name="pref_start_on_mount_summary">Avvia automaticamente Debian ogni volta che la tua scheda SD è montata</string>
+  <string name="pref_start_on_boot_summary">Avvio automatico di Debian all\'accensione del dispositivo</string>
   <string name="pref_use_checksum_title">Checksum dell\'Immagine all\'Avvio?</string>
   <string name="pref_use_checksum_summary">Prima di fare il boot, controlla il checksum SHA1 dell\'immagine per verificarne l\'integrità.</string>
   <string name="pref_image_path_title">Percorso Immagine</string>
@@ -15,7 +16,7 @@
   <string name="pref_pre_stop_summary">Script da eseguire prima dell\'arresto di Debian (predefinito: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Impedisci lo stand-by</string>
   <string name="pref_prevent_sleep_summary">impedisce al device di andare in stand-by mentre Debian è in esecuzione</string>
-  <string name="menu_preferences_title">Preferenze</string>
+  <string name="menu_jackpal_terminal_title">Apertura Terminale...</string>
   <string name="menu_install_log_title">Visualizza Registro Installazione</string>
   <string name="menu_delete_title">Elimina Tutto</string>
   <string name="title_start">Avvia Debian</string>
@@ -55,4 +56,10 @@
   <string name="select_mirror">Seleziona server Mirror</string>
   <string name="select_release">Seleziona Rilascio</string>
   <string name="select_arch">Seleziona Architettura CPU</string>
+  <string name="app_description">Vuoi un facile chroot di Debian funzionante, che ci si può fidare? Installare Lil \'Debi, e si può avere una installazione Debian in esecuzione con un solo clic di un pulsante. Si costruisce un intero chroot Debian sul vostro telefono interamente utilizzando debootstrap. Si sceglie il rilascio, specchio, e la dimensione dell\'immagine del disco, e lontano va. Si potrebbe richiedere fino a un\'ora su un dispositivo lento, quindi il suo fare. L\'intero pacchetto è costruito dalla sorgente usando pubblicamente disponibili, ripetibile costruisce. Si convalida anche ogni pacchetto utilizzando i tasti ufficiali repository di Debian, che sono incluse in app.</string>
+  <string name="pref_install_on_internal_storage_summary">Internal Storage: /data/debian</string>
+  <string name="pref_install_on_internal_storage_title">Installa sulla memoria interna</string>
+  <string name="install_in_internal_storage_summary">Installa Debian nella memoria interna: /data/debian</string>
+  <string name="minimum_free_size">dimensione minima per l\'installazione: 230 MB</string>
+  <string name="minimum_image_size">dimensione minima per l\'installazione: 230 MB</string>
 </resources>

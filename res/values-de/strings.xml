@@ -3,7 +3,7 @@
   <string name="app_name">Debilein</string>
   <string name="unsupported_device_body">Ihr Gerät wird von Debilein nicht unterstützt. Um Debian installieren zu können, muss Ihr Gerät das \'ext2\'-Dateisystem und das Mounten von Dateien als Festplatten unterstützen. Diese Anwendung ist demnach unnütz, wir empfehlen, sie zu deinstallieren.</string>
   <string name="uninstall_button_title">Debilein deinstallieren</string>
-  <string name="pref_start_on_mount_title">Von SD Karte starten?</string>
+  <string name="pref_start_automatically_title">Automatisch starten?</string>
   <string name="pref_start_on_mount_summary">Debian immer automatisch starten wenn die SD Karte gemountet ist</string>
   <string name="pref_use_checksum_title">Prüfsumme des Abbilds beim Starten verifizieren?</string>
   <string name="pref_use_checksum_summary">Vor dem Hochfahren die SHA1 Prüfsumme des Abbilds auf Integrität überprüfen.</string>
@@ -16,7 +16,6 @@
   <string name="pref_prevent_sleep_title">Ruhezustand verhindern</string>
   <string name="pref_prevent_sleep_summary">Das Gerät nicht in den Ruhezustand versetzen während Debian läuft</string>
   <string name="menu_jackpal_terminal_title">Terminal öffnen…</string>
-  <string name="menu_preferences_title">Einstellungen</string>
   <string name="menu_install_log_title">Installationslog anzeigen</string>
   <string name="menu_delete_title">Alles löschen</string>
   <string name="title_start">Debian starten</string>
@@ -57,4 +56,5 @@
   <string name="select_mirror">Spiegelserver auswählen</string>
   <string name="select_release">Release auswählen</string>
   <string name="select_arch">CPU-Architektur auswählen</string>
+  <string name="pref_install_on_internal_storage_summary">Interner Speicher: /data/debian</string>
 </resources>

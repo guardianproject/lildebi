@@ -3,8 +3,9 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">To urządzenie nie jest obsługiwane przez Lil\' Debi w celu instalacji Debiana. Wymagana jest obsługa systemu plików \"ext2\" oraz ponowne montowanie plików jako dyski. Z tego powodu ta aplikacja jest bezużyteczna i zaleca się odinstalowanie jej.</string>
   <string name="uninstall_button_title">Odinstaluj Lil\' Debi</string>
-  <string name="pref_start_on_mount_title">Uruchomić na zamontowanej karcie SD?</string>
+  <string name="pref_start_automatically_title">Rozpocząć automatycznie?</string>
   <string name="pref_start_on_mount_summary">Uruchamia Debiana automatycznie jeśli tylko zamontowana jest karta SD</string>
+  <string name="pref_start_on_boot_summary">Automatycznie startuj Debiana gdy tylko Android zostanie uruchomiony</string>
   <string name="pref_use_checksum_title">Sprawdzić sumę kontrolną obrazu przy starcie?</string>
   <string name="pref_use_checksum_summary">Przed uruchomieniem sprawdza sumę kontrolną SHA1 obrazu, aby zweryfikować jego integralność.</string>
   <string name="pref_image_path_title">Ścieżka do obrazu</string>
@@ -15,7 +16,6 @@
   <string name="pref_pre_stop_summary">Skrypty uruchamiane przed wyłączeniem Debiana (domyślnie: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Nie usypiaj</string>
   <string name="pref_prevent_sleep_summary">zapobiega usypianiu urządzenia przy działającym Debianie</string>
-  <string name="menu_preferences_title">Preferencje</string>
   <string name="menu_install_log_title">Przeglądnij dziennik instalacji</string>
   <string name="menu_delete_title">Usuń wszystko</string>
   <string name="title_start">Uruchom Debiana</string>
@@ -46,7 +46,6 @@
   <string name="image_path_parent_does_not_exist_message">Wybrany katalog nie istnieje. Wracanie do wartości domyślnej.</string>
   <string name="no_sdcard_message">Zewnętrzna karta SD nie jest zamontowana do odczytu i zapisu, bez niej nie można zainstalować ani uruchomić Debiana</string>
   <string name="no_sdcard_status">(brak karty SD)</string>
-
   <string name="title_install_log_view">Dziennik instalacji</string>
   <string name="title_share_button">Podziel się</string>
   <string name="starting_debian">Uruchamianie Debiana…</string>

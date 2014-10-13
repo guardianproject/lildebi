@@ -3,7 +3,6 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">Uw apparaat wordt niet ondersteund door Lil\' Debi. Uw apparaat dient het \"ext2\" bestands-systeem te ondersteunen en het \'loopback mounten\' van bestanden als schijven. Deze app is dus nutteloos voor u en we raden u aan het te verwijderen.</string>
   <string name="uninstall_button_title">Verwijder Lil\' Debi</string>
-  <string name="pref_start_on_mount_title">Start zodra SD-kaart gekoppeld is?</string>
   <string name="pref_start_on_mount_summary">Start Debian automatisch zodra uw SD Card gekoppeld is.</string>
   <string name="pref_use_checksum_title">Image-bestand verifiëren bij starten?</string>
   <string name="pref_use_checksum_summary">Voor het starten de SHA1-checksum van het image-bestand controleren om zijn integriteit te waarborgen.</string>
@@ -15,7 +14,7 @@
   <string name="pref_pre_stop_summary">Script om uit te voeren voordat Debian wordt gestopt (standaard: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Voorkom slaapstand</string>
   <string name="pref_prevent_sleep_summary">voorkom dat het apparaat in slaapstand gaat terwijl Debian draait.</string>
-  <string name="menu_preferences_title">Voorkeuren</string>
+  <string name="menu_jackpal_terminal_title">Open Terminal…</string>
   <string name="menu_install_log_title">Bekijk installatie-log</string>
   <string name="menu_delete_title">Alles verwijderen</string>
   <string name="title_start">Debian starten</string>
