@@ -3,7 +3,6 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">Lil\' Debi kan ikke Installere Debian på din enhet. Støtte for filsystemet \"ext2\" og filmontering av avspeilinger som volum er påkrevet. Derav er denne applikasjonen ubrukelig for deg, vi anbefaler avinstallasjon.</string>
   <string name="uninstall_button_title">Avinstaller Lil\' Debi</string>
-  <string name="pref_start_on_mount_title">Start ved montering av SD-kort?</string>
   <string name="pref_start_on_mount_summary">Start Debian automatisk når SD-kortet blir montert</string>
   <string name="pref_use_checksum_title">Sjekk kontrollsum av fil-avspeiling ved oppstart?</string>
   <string name="pref_use_checksum_summary">Før oppstart, sjekk at SHA1-kontrollsummen av fil-avspeilingen stemmer.</string>
@@ -16,7 +15,6 @@
   <string name="pref_prevent_sleep_title">Forhindre dvaletilstand</string>
   <string name="pref_prevent_sleep_summary">forhindre enheten fra å gå i dvalemodus når Debian kjører</string>
   <string name="menu_jackpal_terminal_title">Åpne terminal…</string>
-  <string name="menu_preferences_title">Innstillinger</string>
   <string name="menu_install_log_title">Se installasjonslogg</string>
   <string name="menu_delete_title">Slett alt</string>
   <string name="title_start">Start Debian</string>

@@ -3,7 +3,6 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body"> Lil\' Debi 不支持在您的设备上安装 Debian。 \n它必须支持 \"ext2\" 文件系统及 loopback 设备挂载文件为磁盘。因此，本程序对您无用，建议卸载。</string>
   <string name="uninstall_button_title">卸载 Lil\' Debi</string>
-  <string name="pref_start_on_mount_title">SD 卡挂载时启动?</string>
   <string name="pref_start_on_mount_summary">插入 SD 卡时自动启动 Debian</string>
   <string name="pref_use_checksum_title">启动时校验映像?</string>
   <string name="pref_use_checksum_summary">启动前，检查映像的 SHA1 校验值，验证映像的完整性。</string>
@@ -15,7 +14,6 @@
   <string name="pref_pre_stop_summary">Debian 关闭前运行的脚本(默认：/etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">阻止休眠</string>
   <string name="pref_prevent_sleep_summary">Debian 运行时阻止设备休眠</string>
-  <string name="menu_preferences_title">偏好设置</string>
   <string name="menu_install_log_title">查看安装日志</string>
   <string name="menu_delete_title">删除全部</string>
   <string name="title_start">启动 Debian</string>

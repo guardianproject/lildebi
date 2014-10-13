@@ -3,7 +3,6 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">Aparatul dumneavoastra nu este suportat de Lil\' Debi pentru a instala Debian. Trebuie sa suporte sistemul de fisiere \"ext2\" si montarea loopback de fisiere ca discuri. Astfel, aplicatia aceasta va este inutila, recomandam sa o dezinstalati.</string>
   <string name="uninstall_button_title">Dezinstaleaza Lil\' Debi</string>
-  <string name="pref_start_on_mount_title">Porneste cand SD Card-ul este montat?</string>
   <string name="pref_start_on_mount_summary">Porneste Debian automat cand SD card-ul este montat</string>
   <string name="pref_use_checksum_title">Verifica Imaginea la Pornire?</string>
   <string name="pref_use_checksum_summary">Inainte de bootare, verifica suma SHA1 a imaginii pentru a verifica integritatea ei.</string>
@@ -15,7 +14,6 @@
   <string name="pref_pre_stop_summary">Script de rulat inainte ca Debian sa fie oprit (implicit: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Previne Oprirea Ecranului</string>
   <string name="pref_prevent_sleep_summary">previne oprirea ecranului cat timp Debian este pornit</string>
-  <string name="menu_preferences_title">Preferinte</string>
   <string name="menu_install_log_title">Vezi Jurnalul Instalarii</string>
   <string name="menu_delete_title">Sterge Tot</string>
   <string name="title_start">Porneste Debian</string>

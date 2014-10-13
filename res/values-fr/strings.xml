@@ -3,7 +3,6 @@
   <string name="app_name">P\'tite Debi</string>
   <string name="unsupported_device_body">Votre appareil n\'est pas pris en charge par P\'tite Debi pour l\'installation de Debian. Le support du système de fichier \"ext2\" et du montage des fichiers en loopback est nécessaire. Par conséquent, cette application vous est inutile. Nous vous recommandons de la désinstaller.</string>
   <string name="uninstall_button_title">Désinstaller P\'tite Debi</string>
-  <string name="pref_start_on_mount_title">Démarrer lors du montage de la carte SD ?</string>
   <string name="pref_start_on_mount_summary">Démarrer automatiquement Debian lorsque la carte SD est montée</string>
   <string name="pref_use_checksum_title">Vérifier la somme de contrôle de l\'image au démarrage ?</string>
   <string name="pref_use_checksum_summary">Avant l\'amorçage, vérifier l\'intégrité de l\'image grâce à la somme de contrôle SHA1.</string>
@@ -16,7 +15,6 @@
   <string name="pref_prevent_sleep_title">Empêcher la mise en veille</string>
   <string name="pref_prevent_sleep_summary">Empêcher la mise en veille lorsque Debian s\'exécute</string>
   <string name="menu_jackpal_terminal_title">Ouverture du Terminal…</string>
-  <string name="menu_preferences_title">Préférences</string>
   <string name="menu_install_log_title">Voir le journal d\'installation</string>
   <string name="menu_delete_title">Tout supprimer</string>
   <string name="title_start">Démarrer Debian</string>

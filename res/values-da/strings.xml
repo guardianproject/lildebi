@@ -3,7 +3,6 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">Din enhed er ikke understøttet af Lil\' Debi for installation af Debian. Enhed skal have understøttelse af »ext2-filsystemet« og loopback-montering af filer som diske. Derfor er denne app ubrugelig for dig, vi anbefaler at du afinstallerer den.</string>
   <string name="uninstall_button_title">Afinstaller Lil\' Debi</string>
-  <string name="pref_start_on_mount_title">Start på SD Card Mount?</string>
   <string name="pref_start_on_mount_summary">Start automatisk Debian når dit SD-kort er monteret</string>
   <string name="pref_use_checksum_title">Kontroller aftryk ved start?</string>
   <string name="pref_use_checksum_summary">Før opstart, så kontroller SHA1-kontrolsum for aftrykket for at verificere dets integritet.</string>
@@ -16,7 +15,6 @@
   <string name="pref_prevent_sleep_title">Forhindr sovetilstand</string>
   <string name="pref_prevent_sleep_summary">forhindr at enheden går i sovetilstand når Debian kører</string>
   <string name="menu_jackpal_terminal_title">Åbn terminal …</string>
-  <string name="menu_preferences_title">Indstillinger</string>
   <string name="menu_install_log_title">Vis installationslog</string>
   <string name="menu_delete_title">Slet alle</string>
   <string name="title_start">Start Debian</string>
@@ -48,7 +46,6 @@
   <string name="image_path_parent_does_not_exist_message">Mappen du valgte findes ikke! Nulstiller til standarden.</string>
   <string name="no_sdcard_message">Der kan ikke læses/skrives til det eksterne SD-kort, kan ikke installere eller starte Debian uden denne funktionalitet.</string>
   <string name="no_sdcard_status">(intet SD-kort)</string>
-
   <string name="title_install_log_view">Installer log</string>
   <string name="title_share_button">Del</string>
   <string name="starting_debian">Startede Debian …</string>

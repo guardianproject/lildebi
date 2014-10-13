@@ -3,7 +3,6 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">Lil\' Debi ne podpira vaše naprave. Mora podpirati \"ext2\" datotečni sistem in povratno priklapljanje datotek kot diskov. Zato smatramo, da je ta aplikacija za vas neuporabna in vam svetujemo, da jo odstranite.</string>
   <string name="uninstall_button_title">Odstrani Lil\' Debi</string>
-  <string name="pref_start_on_mount_title">Začnem s priklopom SD kartice?</string>
   <string name="pref_start_on_mount_summary">Samodejno zaženi Debian ob priklopu SD kartice</string>
   <string name="pref_use_checksum_title">Izračunam kontrolni seštevek slike ob začetku? </string>
   <string name="pref_use_checksum_summary">Pred zagonom preveri integriteto slike s primerjavo SHA1 rezultatov.</string>
@@ -15,7 +14,6 @@
   <string name="pref_pre_stop_summary">Skripta, ki se zažene pred zaustavitvijo Debiana (privzeta: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Prepreči spanje</string>
   <string name="pref_prevent_sleep_summary">Prepreči napravi, da bi šla v spanje medtem kot je Debian zagnan</string>
-  <string name="menu_preferences_title">Možnosti</string>
   <string name="menu_install_log_title">Prikaži namestitveni dnevnik</string>
   <string name="menu_delete_title">Zbriši vse</string>
   <string name="title_start">Zaženi Debian</string>

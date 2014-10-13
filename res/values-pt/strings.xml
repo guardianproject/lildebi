@@ -3,7 +3,6 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">O seu dispositivo não suporta o Lil\' Debi para instalar o Debian. Ele precisa de suporte ao sistema de arquivos \"ext2\" e criar documentos como discos.</string>
   <string name="uninstall_button_title">Desinstalar Lil\' Debi</string>
-  <string name="pref_start_on_mount_title">Iniciar ao montar o cartão SD?</string>
   <string name="pref_start_on_mount_summary">Iniciar o Debian automaticamente sempre que o cartão SD estiver montado</string>
   <string name="pref_use_checksum_title">Verificar erros da Imagem ao iniciar?</string>
   <string name="pref_use_checksum_summary">Antes de iniciar, verificar erros SHA1 da imagem para verificar sua integridade.</string>
@@ -16,7 +15,6 @@
   <string name="pref_prevent_sleep_title">Previnir inatividade</string>
   <string name="pref_prevent_sleep_summary">Previnir o dispositivo de entrar em inatividade enquanto o Debian esta sendo executado</string>
   <string name="menu_jackpal_terminal_title">Abrir terminal</string>
-  <string name="menu_preferences_title">Preferencias</string>
   <string name="menu_install_log_title">Ver o registro de instalação</string>
   <string name="menu_delete_title">Deletar todos</string>
   <string name="title_start">Iniciar Debian</string>

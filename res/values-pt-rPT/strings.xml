@@ -3,7 +3,6 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">O seu dispositivo não é suportado pelo Lil\' Debi para a instalação do Debian.  Este precisa de suportar o sistema de ficheiro \"ext2\" e montagem \"loopback\" dos ficheiros como discos. Por isso, esta app é inútil para si, nós recomendamos a sua desinstalação.</string>
   <string name="uninstall_button_title">Desinstalar Lil\' Debi</string>
-  <string name="pref_start_on_mount_title">Iniciar na Montagem do Cartão SD?</string>
   <string name="pref_start_on_mount_summary">Iniciar automaticamente o Debian quer o seu Cartão SD esteja ou não montado</string>
   <string name="pref_use_checksum_title">Teste por Soma da Imagem no Arranque?</string>
   <string name="pref_use_checksum_summary">Antes de arrancar, verificar Teste por Soma SHA1 da imagem para verificar a sua integridade.</string>
@@ -16,7 +15,6 @@
   <string name="pref_prevent_sleep_title">Evitar Hibernação</string>
   <string name="pref_prevent_sleep_summary">evitar que o dispositivo hiberne durante a execuçã do Debian</string>
   <string name="menu_jackpal_terminal_title">Abrir terminal</string>
-  <string name="menu_preferences_title">Preferências</string>
   <string name="menu_install_log_title">Visualizar Registo da Instalção</string>
   <string name="menu_delete_title">Apagar Tudo</string>
   <string name="title_start">Iniciar Debian</string>
