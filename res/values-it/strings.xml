@@ -16,7 +16,7 @@
   <string name="pref_pre_stop_summary">Script da eseguire prima dell\'arresto di Debian (predefinito: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Impedisci lo stand-by</string>
   <string name="pref_prevent_sleep_summary">impedisce al device di andare in stand-by mentre Debian è in esecuzione</string>
-  <string name="menu_jackpal_terminal_title">Apertura Terminale...</string>
+  <string name="menu_jackpal_terminal_title">Apertura Terminale…</string>
   <string name="menu_install_log_title">Visualizza Registro Installazione</string>
   <string name="menu_delete_title">Elimina Tutto</string>
   <string name="title_start">Avvia Debian</string>

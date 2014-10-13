@@ -16,7 +16,7 @@
   <string name="pref_pre_stop_summary">Скрипт, который нужно запустить до того, как остановить Debian (default: /etc/init.d/rc 0) </string>
   <string name="pref_prevent_sleep_title">Предотвращение перехода в режим сна</string>
   <string name="pref_prevent_sleep_summary">предотвратить переход устройства в режим сна, когда работает Debian</string>
-  <string name="menu_jackpal_terminal_title">Открыть Терминал...</string>
+  <string name="menu_jackpal_terminal_title">Открыть Терминал…</string>
   <string name="menu_install_log_title">Открыть журнал установки</string>
   <string name="menu_delete_title">Удалить всё</string>
   <string name="title_start">Запустить Debian</string>
@@ -50,8 +50,8 @@
   <string name="no_sdcard_status">(нет карты SD)</string>
   <string name="title_install_log_view">Журнал установки</string>
   <string name="title_share_button">Поделиться</string>
-  <string name="starting_debian">Запуск Debian...</string>
-  <string name="stopping_debian">Остановка Debian...</string>
+  <string name="starting_debian">Запуск Debian…</string>
+  <string name="stopping_debian">Остановка Debian…</string>
   <string name="calculating_checksum">Вычисляется контрольная сумма SHA1 …</string>
   <string name="checksum_complete">Контрольная сумма SHA1 вычислена!</string>
   <string name="select_mirror">Выберите зеркало</string>

@@ -14,7 +14,7 @@
   <string name="pref_pre_stop_summary">Debian durdurulmadan önce betiği çalıştırın (varsayılan: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Uyku moduna geçmeyi önleyin</string>
   <string name="pref_prevent_sleep_summary">Debian çalışırken cihazın uyku moduna geçmesini engelleyin</string>
-  <string name="menu_jackpal_terminal_title">Terminal Aç...</string>
+  <string name="menu_jackpal_terminal_title">Terminal Aç…</string>
   <string name="menu_install_log_title">Yükleme kaydını görün</string>
   <string name="menu_delete_title">Hepsini sil</string>
   <string name="title_start">Debian\'ı başlat</string>
