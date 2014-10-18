@@ -13,6 +13,10 @@ test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
 echo -n "Killing all processes..."
+# /debian/shell starts outside of the chroot, so it must be killed separately
+for pid in `ps | grep '/[d]ebian/shell' | cut -b1-5`; do
+    kill -TERM $pid
+done
 for root in /proc/*/root; do
   if [ ! -r "$root" ] || [ ! "`readlink "$root"`" = "$mnt" ]; then
     continue
@@ -20,6 +24,9 @@ for root in /proc/*/root; do
   pid="${root#/proc/}"
   pid="${pid%/root}"
   kill -KILL "$pid" 2>/dev/null || true
+done
+for pid in `ps | grep '/[d]ebian/shell' | cut -b1-5`; do
+    kill -KILL $pid
 done
 echo "done"
 
