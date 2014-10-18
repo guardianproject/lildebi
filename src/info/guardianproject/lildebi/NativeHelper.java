@@ -75,6 +75,12 @@ public class NativeHelper {
 		image_path = prefs.getString(prefName, default_image_path);
         prefName = context.getString(R.string.pref_limit_to_4gb_key);
         limitTo4GB = prefs.getBoolean(prefName, true);
+        postStartScript = prefs.getString(
+                context.getString(R.string.pref_post_start_key),
+                context.getString(R.string.default_post_start_script));
+        preStopScript = prefs.getString(
+                context.getString(R.string.pref_pre_stop_key),
+                context.getString(R.string.default_pre_stop_script));
 
         boolean detectedInternalInstall = false;
         /* attempt to auto-detect existing internal install */

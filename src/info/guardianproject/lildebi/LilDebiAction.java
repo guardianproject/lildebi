@@ -35,12 +35,6 @@ public class LilDebiAction {
 
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
-		NativeHelper.postStartScript = prefs.getString(
-				context.getString(R.string.pref_post_start_key),
-				context.getString(R.string.default_post_start_script));
-		NativeHelper.preStopScript = prefs.getString(
-				context.getString(R.string.pref_pre_stop_key),
-				context.getString(R.string.default_pre_stop_script));
 		useWakeLock = prefs.getBoolean(
 				context.getString(R.string.pref_prevent_sleep_key), false);
 
