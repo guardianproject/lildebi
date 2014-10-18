@@ -5,15 +5,18 @@ export HOSTNAME=debian
 export HOME=/root
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/system/xbin:/system/bin
 app_bin=/data/data/info.guardianproject.lildebi/app_bin
+export USER=root
 
 username=`$app_bin/whoami`
 id=`$app_bin/id -u`
 if [ "$id" -eq 0 ]; then
 # try using the chroot included in LilDebi, otherwise fail over to a possible system one
-    PATH=$app_bin $app_bin/chroot /debian /bin/bash --login -i \
+    PATH=$app_bin SHELL=/bin/bash $app_bin/chroot /debian /bin/bash --login -i \
         || chroot /debian /bin/bash --login -i
 elif grep "^${username}:" /debian/etc/passwd > /dev/null; then
-    su -c "PATH=$app_bin $app_bin/chroot /debian /bin/su $username --login"
+    su -c "PATH=$app_bin SHELL=/bin/sh TERMINFO=/lib/terminfo USER=$username \
+             $app_bin/chroot /debian /bin/su $username --login"
 else
-    su -c "PATH=$app_bin $app_bin/chroot /debian /bin/bash --login -i"
+    su -c "HOME=/root PATH=$app_bin SHELL=/bin/bash TERMINFO=/lib/terminfo \
+             $app_bin/chroot /debian /bin/bash --login -i"
 fi
