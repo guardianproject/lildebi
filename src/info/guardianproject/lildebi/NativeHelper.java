@@ -94,12 +94,23 @@ public class NativeHelper {
             NativeHelper.image_path = NativeHelper.mnt;
 	}
 
-	public static boolean isStarted() {
-		if (new File(NativeHelper.mnt + "/system/bin").exists())
-			return true;
-		else
-			return false;
-	}
+    public static boolean isStarted() {
+        if (installInInternalStorage) {
+            /*
+             * When installed on the internal storage, the "started" state means
+             * that the bind mounts are setup, so this checks for a directory
+             * that will only exist if the bind mount is setup.
+             */
+            return new File(NativeHelper.mnt + "/system/bin").exists();
+        } else {
+            /*
+             * When installed on a loopback image file, then the "started" state
+             * means that the loopback image file is mounted, so this checks for
+             * a file that can only be in the loopback image.
+             */
+            return new File(NativeHelper.mnt + "/etc").exists();
+        }
+    }
 	
 	public static boolean isInstalled() {
 		if (installInInternalStorage)
