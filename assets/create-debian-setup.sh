@@ -256,7 +256,7 @@ chroot $mnt apt-get clean
 
 # remove stop scripts
 chroot $mnt /usr/sbin/update-rc.d -f halt remove
-chroot $mnt /usr/sbin/update-rc.d -f hwclock.sh
+chroot $mnt /usr/sbin/update-rc.d -f hwclock.sh remove
 chroot $mnt /usr/sbin/update-rc.d -f reboot remove
 chroot $mnt /usr/sbin/update-rc.d -f sendsigs remove
 chroot $mnt /usr/sbin/update-rc.d -f umountfs remove
