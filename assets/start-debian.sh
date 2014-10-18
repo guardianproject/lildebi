@@ -172,6 +172,20 @@ if [ $install_fsck = yes ]; then
     install_e2fsck_static
 fi
 
+
+#------------------------------------------------------------------------------#
+# remove rc.d scripts from Debian for things that Android handles
+for script in halt hwclock.sh sendsigs umountfs umountroot; do
+    test -e $mnt/etc/rc0.d/*$script && \
+        chroot $mnt /usr/sbin/update-rc.d -f $script remove && \
+        echo "Removed '$script' from /etc/rc?.d/"
+done
+test -e /etc/rc6.d/*reboot && \
+    chroot $mnt /usr/sbin/update-rc.d -f reboot remove && \
+    echo "Removed 'reboot' from /etc/rc?.d/"
+
+
+
 #------------------------------------------------------------------------------#
 # ssh
 
