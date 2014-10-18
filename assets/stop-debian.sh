@@ -12,20 +12,35 @@ export PATH=$1:$PATH
 test -e $1/lildebi-common || exit
 . $1/lildebi-common
 
-echo -n "Killing all processes..."
-# /debian/shell starts outside of the chroot, so it must be killed separately
-for pid in `ps | grep '/[d]ebian/shell' | cut -b1-5`; do
-    kill -TERM $pid
-done
+echo -n "Asking all processes to terminate..."
+# first send TERM
 for root in /proc/*/root; do
   if [ ! -r "$root" ] || [ ! "`readlink "$root"`" = "$mnt" ]; then
     continue
   fi
   pid="${root#/proc/}"
   pid="${pid%/root}"
+  kill -TERM "$pid" 2>/dev/null || true
+done
+# /debian/shell starts outside of the chroot, so it must be killed separately
+for pid in `ps | grep '/[d]ebian/shell' | cut -b1-5`; do
+    kill -TERM $pid
+done
+sleep 1
+echo "done"
+# then send KILL to force the rest to die
+echo "Killing remaining processes:"
+for root in /proc/*/root; do
+  if [ ! -r "$root" ] || [ ! "`readlink "$root"`" = "$mnt" ]; then
+    continue
+  fi
+  pid="${root#/proc/}"
+  pid="${pid%/root}"
+  echo "$pid `readlink $(dirname $root)/exe`"
   kill -KILL "$pid" 2>/dev/null || true
 done
 for pid in `ps | grep '/[d]ebian/shell' | cut -b1-5`; do
+    echo "$pid /debian/shell"
     kill -KILL $pid
 done
 echo "done"
