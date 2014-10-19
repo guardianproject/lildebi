@@ -1,5 +1,5 @@
 v0.5.1
-+ new dev: SDKie aka Kumar Sukhani
++ new dev: SDkie aka Kumar Sukhani
 + complete boot integration: Debian process runs on start/stop
 + Android permissions integrated by default in new installs
 + beta support for installing Debian on internal storage
