@@ -1,6 +1,6 @@
 
 PKG_NAME:=debian-archive-keyring
-PKG_VERSION:=2012.4
+PKG_VERSION:=2014.1
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION)_all.deb
 PKG_SOURCE_URL:=https://mirrors.kernel.org/debian/pool/main/d/debian-archive-keyring
@@ -13,8 +13,8 @@ compare: $(DL_DIR)/usr/share/keyrings/debian-archive-keyring.gpg
 
 $(DL_DIR)/usr/share/keyrings/debian-archive-keyring.gpg: $(DL_DIR)/$(PKG_SOURCE)
 	cd $(DL_DIR) && \
-		(ar -p $(PKG_SOURCE) data.tar.gz | \
-			tar --preserve-permissions --extract --gunzip --file - )
+		(ar -p $(PKG_SOURCE) data.tar.xz | \
+			tar --preserve-permissions --extract --xz --file - )
 
 $(DL_DIR)/$(PKG_SOURCE): $(DL_DIR)
 	cd $(DL_DIR) && \
