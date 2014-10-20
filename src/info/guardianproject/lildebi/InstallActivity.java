@@ -31,6 +31,8 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -175,8 +177,22 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
             }
 			refreshButtons();
 			doBindService();
-			updateLog();
 			installButton.requestFocus();
+            /* display existing log file */
+            StringBuilder log = new StringBuilder();
+            try {
+                BufferedReader r = new BufferedReader(new FileReader(NativeHelper.install_log));
+                String line;
+                while ((line = r.readLine()) != null) {
+                    log.append(line + "\n");
+                }
+                r.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            installLog.setText(log.toString());
 		}
 	}
 
@@ -219,23 +235,6 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			installButton.setEnabled(true);
 			installButton.setText(installButtonText);
 		}
-	}
-
-	private void updateLog() {
-		handler.post(new Runnable() {
-			public void run() {
-				if (mBoundService != null) {
-					final String log = mBoundService.dumpLog();
-					if (log != null && log.trim().length() > 0)
-						installLog.setText(log);
-				}
-			}
-		});
-		handler.postDelayed(new Runnable() {
-			public void run() {
-				textScroll.scrollTo(0, installLog.getHeight());
-			}
-		}, 300);
 	}
 
 	private void writeInstallConf() {
@@ -295,19 +294,16 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	}
 
 	private void registerReceivers() {
-		{
 			installLogUpdateRec = new BroadcastReceiver() {
 				@Override
 				public void onReceive(Context context, Intent intent) {
-					updateLog();
+                    installLog.append(intent.getExtras().getString(Intent.EXTRA_TEXT));
+                    textScroll.fullScroll(View.FOCUS_DOWN);
 				}
 			};
+			registerReceiver(installLogUpdateRec,
+			        new IntentFilter(InstallService.INSTALL_LOG_UPDATE));
 
-			IntentFilter filter = new IntentFilter(InstallService.INSTALL_LOG_UPDATE);
-			registerReceiver(installLogUpdateRec, filter);
-		}
-
-		{
 			installFinishedRec = new BroadcastReceiver() {
 				@Override
 				public void onReceive(Context context, Intent intent) {
@@ -318,10 +314,8 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 					unregisterReceivers();
 				}
 			};
-
-			IntentFilter filter = new IntentFilter(InstallService.INSTALL_FINISHED);
-			registerReceiver(installFinishedRec, filter);
-		}
+			registerReceiver(installFinishedRec,
+			        new IntentFilter(InstallService.INSTALL_FINISHED));
 	}
 
 	private void unregisterReceivers() {

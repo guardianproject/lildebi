@@ -9,6 +9,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStream;
 
 public class InstallService extends Service {
@@ -57,7 +58,6 @@ public class InstallService extends Service {
         startForeground(13117, builder.build());
 		synchronized (this) {
 			NativeHelper.isInstallRunning = true;
-			log = new StringBuffer();
 			installThread = new InstallThread();
 			installThread.start();
 		}
@@ -71,13 +71,14 @@ public class InstallService extends Service {
 
 		public void writeCommand(OutputStream os, String command) throws Exception {
 			Log.i(LilDebi.TAG, "writeCommand: " + command);
-			log.append("# " + command + "\n");
+			logUpdate.update("# " + command + "\n");
 			os.write((command + "\n").getBytes("ASCII"));
 		}
 
 		@Override
 		public void run() {
 			logUpdate = new LogUpdate();
+			logUpdate.open();
 			try {
 				String suCmd = "su -s " + NativeHelper.sh.getAbsolutePath();
 				Log.i(LilDebi.TAG, "exec: " + suCmd);
@@ -109,6 +110,7 @@ public class InstallService extends Service {
 			} catch (Exception e) {
 				Log.e(LilDebi.TAG, "Error!!!", e);
 			} finally {
+	            logUpdate.close();
 				stopSelf();
 				synchronized (InstallService.this) {
 					installThread = null;
@@ -116,24 +118,42 @@ public class InstallService extends Service {
 				NativeHelper.isInstallRunning = false;
 				sendBroadcast(new Intent(INSTALL_FINISHED));
 			}
-			try {
-				FileWriter logfile = new FileWriter(NativeHelper.install_log);
-				logfile.append(dumpLog());
-				logfile.close();
-			} catch (Exception e) {
-				Log.e(LilDebi.TAG, "Error writing install log file: " + NativeHelper.install_log, e);
-			}
 		}
 	}
 
 	class LogUpdate extends StreamThread.StreamUpdate {
 
 		StringBuffer sb = new StringBuffer();
+		FileWriter logWriter;
+
+		public void open() {
+		    try {
+                logWriter = new FileWriter(NativeHelper.install_log);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+		}
+
+		public void close() {
+		    try {
+                logWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+		}
 
 		@Override
-		public void update(String val) {
-			log.append(val);
-			sendBroadcast(new Intent(INSTALL_LOG_UPDATE));
+		public void update(String value) {
+            if (logWriter != null) {
+                try {
+                    logWriter.append(value);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+			Intent intent = new Intent(INSTALL_LOG_UPDATE);
+			intent.putExtra(Intent.EXTRA_TEXT, value);
+			sendBroadcast(intent);
 		}
 	}
 }
