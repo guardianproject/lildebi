@@ -100,12 +100,18 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	    super.onDestroy();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.options_menu, menu);
-		return true;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.menu_install_log).setEnabled(NativeHelper.install_log.exists());
+        return true;
+    }
 
 	@SuppressLint("InlinedApi")
     @Override
