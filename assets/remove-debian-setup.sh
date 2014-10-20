@@ -26,6 +26,11 @@ else
 fi
 rm $install_path.sha1
 
+# delete the log from previous install
+if [ -f $app_bin/../app_log/install.log ]; then
+    rm $app_bin/../app_log/install.log
+fi
+
 mount -o remount,rw rootfs /
 if [ -d $mnt ]; then
     rmdir $mnt
