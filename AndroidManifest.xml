@@ -39,7 +39,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="InstallActivity" />
+        <activity android:name="InstallActivity"
+                  android:launchMode="singleTask" />
         <activity android:name="SelectRelease" />
         <activity android:name="SelectMirror" />
         <activity android:name="SelectArch" />
