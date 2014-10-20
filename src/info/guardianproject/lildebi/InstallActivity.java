@@ -154,22 +154,24 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 				}
 			});
 		} else {
-			// make sure the default image size isn't larger than the SDcard's free space
-            if (NativeHelper.installInInternalStorage) {
-                minimumFreeSizeTest(NativeHelper.getInstallPathFreeMegaBytes());
-            } else {
-                long size = 0;
-                try {
-                    size = Integer.parseInt(imagesize.getText().toString());
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                    /*
-                     * This means we got blank value or something like that, and
-                     * the install button should already have been disabled
-                     * before the Activity was paused.
-                     */
+            if (!NativeHelper.isInstallRunning) {
+                // make sure the default image size isn't larger than the SDcard's free space
+                if (NativeHelper.installInInternalStorage) {
+                    minimumFreeSizeTest(NativeHelper.getInstallPathFreeMegaBytes());
+                } else {
+                    long size = 0;
+                    try {
+                        size = Integer.parseInt(imagesize.getText().toString());
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        /*
+                         * This means we got blank value or something like that, and
+                         * the install button should already have been disabled
+                         * before the Activity was paused.
+                         */
+                    }
+                    setImageSizeInMB(size);
                 }
-                setImageSizeInMB(size);
             }
 			refreshButtons();
 			doBindService();
