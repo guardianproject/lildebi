@@ -1,13 +1,15 @@
 package info.guardianproject.lildebi;
 
-import java.io.FileWriter;
-import java.io.OutputStream;
-
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import java.io.FileWriter;
+import java.io.OutputStream;
 
 public class InstallService extends Service {
 	private InstallThread installThread;
@@ -15,17 +17,9 @@ public class InstallService extends Service {
 	public static final String INSTALL_LOG_UPDATE = "INSTALL_LOG_UPDATE";
 	public static final String INSTALL_FINISHED = "INSTALL_FINISHED";
 
-	private StringBuffer log;
-
 	public class LocalBinder extends Binder {
 		public InstallService getService() {
 			return InstallService.this;
-		}
-	}
-
-	public String dumpLog() {
-		synchronized (this) {
-			return log == null ? null : log.toString();
 		}
 	}
 
@@ -50,6 +44,17 @@ public class InstallService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+	    Intent i = new Intent(this, InstallActivity.class);
+	    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+	    PendingIntent pi = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.icon)
+                .setContentTitle(getString(R.string.title_install_log_view))
+                .setContentIntent(pi)
+                .setLights(0xffff00ff, 1, 0)
+                .setOngoing(true);
+        startForeground(13117, builder.build());
 		synchronized (this) {
 			NativeHelper.isInstallRunning = true;
 			log = new StringBuffer();
