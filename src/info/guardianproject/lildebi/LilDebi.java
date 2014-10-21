@@ -109,6 +109,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.menu_jackpal_terminal).setEnabled(NativeHelper.isStarted());
         menu.findItem(R.id.menu_install_log).setEnabled(NativeHelper.install_log.exists());
         return true;
     }
