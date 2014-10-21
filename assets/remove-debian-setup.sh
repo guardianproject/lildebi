@@ -8,7 +8,7 @@ export PATH=$1:$PATH
 echo "========================================"
 echo "./remove-debian-setup.sh"
 
-test -e $1/lildebi-common || exit
+test -e $1/lildebi-common || exit 1
 . $1/lildebi-common
 
 $1/stop-debian.sh

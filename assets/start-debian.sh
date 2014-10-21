@@ -8,7 +8,7 @@
 # this script
 export PATH=$1:$PATH
 
-test -e $1/lildebi-common || exit
+test -e $1/lildebi-common || exit 1
 . $1/lildebi-common
 
 test_mount_bind() {

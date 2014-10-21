@@ -9,7 +9,7 @@
 # this script
 export PATH=$1:$PATH
 
-test -e $1/lildebi-common || exit
+test -e $1/lildebi-common || exit 1
 . $1/lildebi-common
 
 echo -n "Asking all processes to terminate..."

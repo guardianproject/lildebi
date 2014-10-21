@@ -11,7 +11,7 @@ set -x
 # this script
 export PATH=$1:$PATH
 
-test -e $1/lildebi-common || exit
+test -e $1/lildebi-common || exit 1
 . $1/lildebi-common
 
 # run fsck to set up ext3 journaling, if it was configed successfully. Try the

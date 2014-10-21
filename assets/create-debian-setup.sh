@@ -11,7 +11,7 @@ set -x
 # this script
 export PATH=$1:$PATH
 
-test -e $1/lildebi-common || exit
+test -e $1/lildebi-common || exit 1
 . $1/lildebi-common
 
 # include installation-specific settings like mirror and arch
