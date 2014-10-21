@@ -197,6 +197,12 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 	}
 
 	@Override
+	public void onBackPressed() {
+	    if (!NativeHelper.isInstallRunning)
+	        super.onBackPressed();
+	}
+
+	@Override
 	protected void onPause() {
 		super.onPause();
 		doUnbindService();
