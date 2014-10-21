@@ -3,15 +3,16 @@
 # see lildebi-common for arguments, the args are converted to vars there.  The
 # first arg is the "app payload" directory where the included scripts are kept
 
+app_bin=$1
+
 echo "----------------------------------------"
-echo `basename $0`
+echo `$app_bin/basename $0`
 
 # get full debug output
 set -x
 
 # this script runs in Debian, so force the path we use the Debian utilities
 # rather than the busybox ones.
-app_bin=$1
 export PATH=/usr/sbin:/usr/bin:/sbin:/bin
 export DEBIAN_FRONTEND=noninteractive
 
