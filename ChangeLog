@@ -1,3 +1,8 @@
+v0.5.2
++ notification when install process is running
++ drastically improved install logging performance
++ lots of bug fixes
+
 v0.5.1
 + new dev: SDkie aka Kumar Sukhani
 + complete boot integration: Debian process runs on start/stop
