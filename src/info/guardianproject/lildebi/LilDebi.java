@@ -37,11 +37,12 @@ import java.io.OutputStream;
 public class LilDebi extends Activity implements OnCreateContextMenuListener {
 	public static final String TAG = "LilDebi";
 
-	private TextView statusTitle;
-	private TextView statusText;
-	private Button startStopButton;
-	private ScrollView consoleScroll;
+	private static TextView statusTitle;
+	private static TextView statusText;
+	private static Button startStopButton;
+	private static ScrollView consoleScroll;
 	private TextView consoleText;
+	private static int savedStatus = -1;
 
 	private PackageManager pm;
 
@@ -189,6 +190,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			statusTitle.setVisibility(View.VISIBLE);
 			statusText.setVisibility(View.VISIBLE);
 			statusText.setText(R.string.no_sdcard_status);
+			savedStatus = R.string.no_sdcard_status;
 			startStopButton.setVisibility(View.GONE);
 			return;
 		}
@@ -218,6 +220,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
             statusTitle.setVisibility(View.VISIBLE);
             statusText.setVisibility(View.VISIBLE);
             statusText.setText(R.string.needs_superuser_message);
+            savedStatus = R.string.needs_superuser_message;
             startStopButton.setVisibility(View.VISIBLE);
             startStopButton.setText(R.string.get_superuser);
             startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +242,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				statusTitle.setVisibility(View.VISIBLE);
 				statusText.setVisibility(View.VISIBLE);
 				statusText.setText(R.string.not_configured_message);
+				savedStatus = R.string.not_configured_message;
 				startStopButton.setVisibility(View.VISIBLE);
 				startStopButton.setText(R.string.title_configure);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -253,6 +257,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				statusTitle.setVisibility(View.GONE);
 				statusText.setVisibility(View.GONE);
 				statusText.setText(R.string.mounted_message);
+				savedStatus = R.string.mounted_message;
 				startStopButton.setVisibility(View.VISIBLE);
 				startStopButton.setText(R.string.title_stop);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -267,6 +272,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 				statusTitle.setVisibility(View.VISIBLE);
 				statusText.setVisibility(View.VISIBLE);
 				statusText.setText(R.string.not_mounted_message);
+				savedStatus = R.string.not_mounted_message;
 				startStopButton.setVisibility(View.VISIBLE);
 				startStopButton.setText(R.string.title_start);
 				startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -281,12 +287,14 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 			statusTitle.setVisibility(View.VISIBLE);
 			statusText.setVisibility(View.VISIBLE);
 			statusText.setText(R.string.no_network_message);
+			savedStatus = R.string.no_network_message;
 			startStopButton.setVisibility(View.GONE);
 		} else {
 			// we've got nothing, run the install
 			statusTitle.setVisibility(View.VISIBLE);
 			statusText.setVisibility(View.VISIBLE);
 			statusText.setText(R.string.not_installed_message);
+			savedStatus = R.string.not_installed_message;
 			startStopButton.setVisibility(View.VISIBLE);
 			startStopButton.setText(R.string.install);
 			startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -297,6 +305,41 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 					return;
 				}
 			});
+		}
+	}
+
+	public static void sdcardUnmounted() {
+		if (startStopButton != null && !NativeHelper.isSdCardPresent()) {
+			statusTitle.setVisibility(View.VISIBLE);
+			statusText.setVisibility(View.VISIBLE);
+			statusText.setText(R.string.no_sdcard_status);
+			startStopButton.setVisibility(View.GONE);
+		}
+	}
+
+	public static void sdcardMounted() {
+		if (startStopButton != null && NativeHelper.isSdCardPresent()) {
+
+			if (NativeHelper.isStarted()) {
+				// lildebi started after sdcard mounted
+				savedStatus = R.string.mounted_message;
+				startStopButton.setText(R.string.title_stop);
+			} else if (savedStatus == R.string.mounted_message) {
+				// lildebi was running before sdcard unmounted
+				savedStatus = R.string.not_mounted_message;
+				startStopButton.setText(R.string.title_start);
+			}
+
+			if (savedStatus != -1) {
+				statusTitle.setVisibility(View.VISIBLE);
+				statusText.setVisibility(View.VISIBLE);
+				statusText.setText(savedStatus);
+			} else {
+				// we don't know current status
+				statusTitle.setVisibility(View.GONE);
+				statusText.setVisibility(View.GONE);
+			}
+			startStopButton.setVisibility(View.VISIBLE);
 		}
 	}
 

@@ -16,5 +16,7 @@ public class MediaUnmountedReceiver extends BroadcastReceiver {
 			action = new LilDebiAction(context, null);
 			action.stopDebian();
 		}
+		if (!NativeHelper.installInInternalStorage)
+			LilDebi.sdcardUnmounted();
 	}
 }
