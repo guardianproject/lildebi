@@ -6,6 +6,8 @@
   <string name="pref_start_on_mount_summary">Démarrer automatiquement Debian lorsque la carte SD est montée</string>
   <string name="pref_use_checksum_title">Vérifier la somme de contrôle de l\'image au démarrage ?</string>
   <string name="pref_use_checksum_summary">Avant l\'amorçage, vérifier l\'intégrité de l\'image grâce à la somme de contrôle SHA1.</string>
+  <string name="pref_limit_to_4gb_title">Limite de l\'image de 4GB</string>
+  <string name="pref_limit_to_4gb_summary">La plupart des cartes SD utilise le système de fichiers FAT, qui a une limite de taille de 4GB par fichier.</string>
   <string name="pref_image_path_title">Chemin de l\'image</string>
   <string name="pref_image_path_summary">Le chemin de l\'image disque sur laquelle Debian est installée (par défaut : /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Script post-démarrage</string>
@@ -56,4 +58,8 @@
   <string name="select_release">Choisir une version</string>
   <string name="select_arch">Choisir l\'architecture processeur</string>
   <string name="app_description">Vous cherchez à mettre en place facilement un chroot de Debian auquel vous pouvez faire confiance ? Installez P\'tite Debi et vous obtiendrez une installation fonctionnelle de Debian en un clic. P\'tite Debi permet d\'obtenir un environnement chroot complet pour Debian sur votre téléphone en utilisant uniquement debootstrap. Vous n\'avez plus qu\'à choisir votre distrib, le miroir utilisé et la taille de l\'image disque ! NB: L\'installation peut prendre jusqu\'à 1 heure sur des appareils peu performants. L\'ensemble du paquettage est compilé à partir du code source disponible publiquement. Tous les paquets sont vérifiés en utilisant les clés de dépôt officielle de Debian inclues dans l\'application.</string>
+  <string name="pref_install_on_internal_storage_summary">Stockage interne : /data/debian (Beta)</string>
+  <string name="pref_install_on_internal_storage_title">Installer dans le stockage interne</string>
+  <string name="install_in_internal_storage_summary">Installer Debian dans le stockage interne: /data/debian</string>
+  <string name="not_enough_space">Pas assez d'espace (&lt; 250MB)</string>
 </resources>
