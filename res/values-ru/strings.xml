@@ -8,6 +8,8 @@
   <string name="pref_start_on_boot_summary">Автоматически запускать Debian при загрузке Android</string>
   <string name="pref_use_checksum_title">Проверить контрольную сумму образа при запуске?</string>
   <string name="pref_use_checksum_summary">Перед загрузкой, проверьте контрольную сумму SHA1 образа, для того чтобы удостовериться в его целостности.</string>
+  <string name="pref_limit_to_4gb_title">Ограничение размера образа: 4 Гб</string>
+  <string name="pref_limit_to_4gb_summary">Большинство карт памяти SD отформатировано под файловую систему FAT, в которой размер каждого отдельного файла не может превышать 4 Гб.</string>
   <string name="pref_image_path_title">Путь к образу</string>
   <string name="pref_image_path_summary">Путь к файлу образа диска, куда установлен Debian (по умолчанию: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Сценарий после запуска</string>
@@ -17,6 +19,7 @@
   <string name="pref_prevent_sleep_title">Предотвращение перехода в режим сна</string>
   <string name="pref_prevent_sleep_summary">предотвратить переход устройства в режим сна, когда работает Debian</string>
   <string name="menu_jackpal_terminal_title">Открыть Терминал…</string>
+  <string name="menu_preferences_title">Настройки</string>
   <string name="menu_install_log_title">Открыть журнал установки</string>
   <string name="menu_delete_title">Удалить всё</string>
   <string name="title_start">Запустить Debian</string>
@@ -34,9 +37,10 @@
   <string name="megabytes">МБ</string>
   <string name="install">Установить</string>
   <string name="uninstall">Выполняется удаление …</string>
-  <string name="get_superuser">Становимся суперпользователем …</string>
-  <string name="needs_superuser_message">Малышу Деби нужны права доступа SuperUser. Установите приложение SuperUser.</string>
+  <string name="get_superuser">Получить права Суперпользователя….</string>
+  <string name="needs_superuser_message">Малышу Деби нужны права доступа root, устанавливаем Суперпользователя</string>
   <string name="smaller_imagesize_message">Недостаточно места для указанного размера образа, уменьшите размер для того, чтобы файл образа поместился на SD  карту.</string>
+  <string name="image_size_limit_message">Обычно карты памяти SD не поддерживают файлы, размером более 4 Гб! Вы можете отключить это ограничение в настройках.</string>
   <string name="mounted_message">Debian смонтирован</string>
   <string name="not_mounted_message">Debian не смонтирован</string>
   <string name="not_installed_message">Debian не установлен</string>
@@ -48,6 +52,8 @@
   <string name="image_path_parent_does_not_exist_message">Каталог, который вы выбрали, не существует! Восстанавливаем выбор по умолчанию.</string>
   <string name="no_sdcard_message">Внешнее хранилище на SD карте не смонтировано в режим чтения/записи. Без этого установка или запуск Debian невозможны.</string>
   <string name="no_sdcard_status">(нет карты SD)</string>
+  <string name="terminal_emulator_not_installed">Приложение Android Terminal Emulator не установлено! Для использования этой функции вы должны удалить Малыша Деби, установить эмулятор терминала, и затем переустановить Малыша Деби.</string>
+  <string name="terminal_emulator_installed_after_lildebi">ОШИБКА: Приложение Android Terminal Emulator было установлено после установки Малыша Деби! Для использования этой функции, вы должны удалить, а затем переустановить Малыша Деби.</string>
   <string name="title_install_log_view">Журнал установки</string>
   <string name="title_share_button">Поделиться</string>
   <string name="starting_debian">Запуск Debian…</string>
@@ -58,9 +64,8 @@
   <string name="select_release">Выберите выпуск</string>
   <string name="select_arch">Выберите архитектуру ЦП</string>
   <string name="app_description">Хотите иметь легкий и надежный способ установить Debian в измененный корневой каталог - chroot? Установите Малыша Деби и у вас будет Debian, запускающийся по одному нажатию кнопки. Он создаст весь Debian chroot на вашем смартфоне, полностью используя debootstrap. Выберите версию, зеркало и размер образа диска, и все остальное приложение сделает самостоятельно. На медленных устройствах процесс может занять до часа. Весь пакет собирается из доступного, открытого источника с возможностью повторной сборки. Также каждый каждый пакет проверяется используя ключи официального репозитария Debian, которые имеются в приложении.</string>
-  <string name="pref_install_on_internal_storage_summary">Внутреннее хранилище: /data/debian</string>
+  <string name="pref_install_on_internal_storage_summary">Внутреннее хранилище: /data/debian (Beta)</string>
   <string name="pref_install_on_internal_storage_title">Установить во внутреннее хранилище</string>
   <string name="install_in_internal_storage_summary">Установить Debian во внутреннее хранилище: /data/debian</string>
-  <string name="minimum_free_size">минимальный размер свободного пространства должен быть больше, чем необходимые для инсталляции 230 Мб</string>
-  <string name="minimum_image_size">минимальный размер образа должен быть больше, чем необходимые для инсталляции 230 Мб</string>
+  <string name="not_enough_space">Недостаточно свободного места (&lt; 250Мб)</string>
 </resources>

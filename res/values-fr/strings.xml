@@ -3,9 +3,13 @@
   <string name="app_name">P\'tite Debi</string>
   <string name="unsupported_device_body">Votre appareil n\'est pas pris en charge par P\'tite Debi pour l\'installation de Debian. Le support du système de fichier \"ext2\" et du montage des fichiers en loopback est nécessaire. Par conséquent, cette application vous est inutile. Nous vous recommandons de la désinstaller.</string>
   <string name="uninstall_button_title">Désinstaller P\'tite Debi</string>
+  <string name="pref_start_automatically_title">Démarrez automatiquement ?</string>
   <string name="pref_start_on_mount_summary">Démarrer automatiquement Debian lorsque la carte SD est montée</string>
+  <string name="pref_start_on_boot_summary">Démarre automatiquement Debian chaque fois que Android est démarré</string>
   <string name="pref_use_checksum_title">Vérifier la somme de contrôle de l\'image au démarrage ?</string>
   <string name="pref_use_checksum_summary">Avant l\'amorçage, vérifier l\'intégrité de l\'image grâce à la somme de contrôle SHA1.</string>
+  <string name="pref_limit_to_4gb_title">Limite de l\'image de 4GB</string>
+  <string name="pref_limit_to_4gb_summary">La plupart des cartes SD utilise le système de fichiers FAT, qui a une limite de taille de 4GB par fichier.</string>
   <string name="pref_image_path_title">Chemin de l\'image</string>
   <string name="pref_image_path_summary">Le chemin de l\'image disque sur laquelle Debian est installée (par défaut : /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Script post-démarrage</string>
@@ -14,7 +18,8 @@
   <string name="pref_pre_stop_summary">Script à éxécuter avant l\'extinction de Debian (par défaut : /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Empêcher la mise en veille</string>
   <string name="pref_prevent_sleep_summary">Empêcher la mise en veille lorsque Debian s\'exécute</string>
-  <string name="menu_jackpal_terminal_title">Ouverture du Terminal…</string>
+  <string name="menu_jackpal_terminal_title">Ouverture du terminal…</string>
+  <string name="menu_preferences_title">Paramètres</string>
   <string name="menu_install_log_title">Voir le journal d\'installation</string>
   <string name="menu_delete_title">Tout supprimer</string>
   <string name="title_start">Démarrer Debian</string>
@@ -32,8 +37,8 @@
   <string name="megabytes">Mo</string>
   <string name="install">Installer</string>
   <string name="uninstall">Désinstallation…</string>
-  <string name="get_superuser">Obtention de SuperUser …</string>
-  <string name="needs_superuser_message">P\'tite Debi nécessite l\'accès superutilisateur, installez l\'appli SuperUser</string>
+  <string name="get_superuser">Obtenir SuperUser…</string>
+  <string name="needs_superuser_message">Lil\' Debi nécessite les droits root, installer SuperUser</string>
   <string name="smaller_imagesize_message">Espace insuffisant pour l\'image spécifiée. Réduction de la taille pour s\'adapter à celle disponible sur la carte SD</string>
   <string name="mounted_message">Debian est montée</string>
   <string name="not_mounted_message">Debian n\'est pas montée</string>
@@ -46,6 +51,8 @@
   <string name="image_path_parent_does_not_exist_message">Le dossier cible n\'existe pas ! Utilisation du dossier par défaut.</string>
   <string name="no_sdcard_message">La carte SD externe n\'est pas montée avec les droits en lecture/écriture. Impossible d\'installer ou de démarrer Debian sans cela.</string>
   <string name="no_sdcard_status">(aucune carte SD)</string>
+  <string name="terminal_emulator_not_installed">L\'émulateur de terminal Android n\'est pas installé ! Pour utiliser cette fonctionnalité, vous devez désinstaller Lil\' Debi, installer l\'émulateur de terminal, puis réinstaller Lil\' Debi.</string>
+  <string name="terminal_emulator_installed_after_lildebi">ERREUR : L\'émulateur de terminal Android a été installé après Lil\' Debi ! Pour utiliser cette fonctionnalité, vous devez désinstaller puis réinstaller Lil\' Debi.</string>
   <string name="title_install_log_view">Journal d\'installation</string>
   <string name="title_share_button">Partager</string>
   <string name="starting_debian">Debian a démarré…</string>
@@ -56,4 +63,8 @@
   <string name="select_release">Choisir une version</string>
   <string name="select_arch">Choisir l\'architecture processeur</string>
   <string name="app_description">Vous cherchez à mettre en place facilement un chroot de Debian auquel vous pouvez faire confiance ? Installez P\'tite Debi et vous obtiendrez une installation fonctionnelle de Debian en un clic. P\'tite Debi permet d\'obtenir un environnement chroot complet pour Debian sur votre téléphone en utilisant uniquement debootstrap. Vous n\'avez plus qu\'à choisir votre distrib, le miroir utilisé et la taille de l\'image disque ! NB: L\'installation peut prendre jusqu\'à 1 heure sur des appareils peu performants. L\'ensemble du paquettage est compilé à partir du code source disponible publiquement. Tous les paquets sont vérifiés en utilisant les clés de dépôt officielle de Debian inclues dans l\'application.</string>
+  <string name="pref_install_on_internal_storage_summary">Stockage interne : /data/debian (Bêta)</string>
+  <string name="pref_install_on_internal_storage_title">Installer dans le stockage interne</string>
+  <string name="install_in_internal_storage_summary">Installer Debian sur le stockage interne : /data/debian</string>
+  <string name="not_enough_space">Pas assez d\'espace (&lt; 250MB)</string>
 </resources>
