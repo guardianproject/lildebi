@@ -3,9 +3,13 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">Cihazınız Debian kurulumu için Lil\' Debi tarafından desteklenmemektedir. Lil\' Debi \"ext2\" dosya sistemini desteğine ve disk üzerindeki bağlanmış dosyaların döngü sınamasına ihtiyaç duyar. Bu nedenle, bu uygulama sizin için kullanışsız, uygulamayı kaldırmanızı öneririz.</string>
   <string name="uninstall_button_title">Lil\' Debi\'yi kaldır</string>
+  <string name="pref_start_automatically_title">Otomatik Başlatma?</string>
   <string name="pref_start_on_mount_summary">SD kartınız bağlandığında Debian otomatik olarak başlatılır.</string>
+  <string name="pref_start_on_boot_summary">Android önyüklendiğinde Debian otomatik olarak başatılır</string>
   <string name="pref_use_checksum_title">Başlangıçta imaj doğrulaması yapılsın mı?</string>
   <string name="pref_use_checksum_summary">Başlatmadan önce , SHA1\'in görünüm bütünlük saglamlıgının tam oldugunu denetleyin.</string>
+  <string name="pref_limit_to_4gb_title">4GB İmaj Limiti</string>
+  <string name="pref_limit_to_4gb_summary">Çoğu SD Kart dosya limiti 4GB olan FAT dosya sistemine sahiptir.</string>
   <string name="pref_image_path_title">İmaj yolu</string>
   <string name="pref_image_path_summary">Debian\'ın yüklendigi disk imaj uzantısı (Varsayılan: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Başlanıç Sonrası Betiği</string>
@@ -14,7 +18,8 @@
   <string name="pref_pre_stop_summary">Debian durdurulmadan önce betiği çalıştırın (varsayılan: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Uyku moduna geçmeyi önleyin</string>
   <string name="pref_prevent_sleep_summary">Debian çalışırken cihazın uyku moduna geçmesini engelleyin</string>
-  <string name="menu_jackpal_terminal_title">Terminal Aç…</string>
+  <string name="menu_jackpal_terminal_title">Terminal Aç...</string>
+  <string name="menu_preferences_title">Ayarlar</string>
   <string name="menu_install_log_title">Yükleme kaydını görün</string>
   <string name="menu_delete_title">Hepsini sil</string>
   <string name="title_start">Debian\'ı başlat</string>
@@ -32,9 +37,10 @@
   <string name="megabytes">MegaByte</string>
   <string name="install">Yükle</string>
   <string name="uninstall">Kaldır</string>
-  <string name="get_superuser">Ayrıcalıklı Kullanıcılık edinin…</string>
-  <string name="needs_superuser_message">Lil\' Debi\'nin SuperUser erişimine ihtiyacı var , SuperUser uygulamasını yükleyin</string>
+  <string name="get_superuser">Superuser uygulamasını yükle...</string>
+  <string name="needs_superuser_message">Lil\' Debi root yetkilerine ihtiyaç duyar, Superuser uygulamasını yükleyin</string>
   <string name="smaller_imagesize_message">Belirtilen görüntü boyutu için hafızada yeterince yer yok , SD Kart\'a sığdırmak için boyut küçültülüyor</string>
+  <string name="image_size_limit_message">SD Kartlar genelde 4GB\'tan fazla olan dosyaları desteklemez! Ayarlardan bu limiti kapatabilirsiniz.</string>
   <string name="mounted_message">Debian bağlı durumda</string>
   <string name="not_mounted_message">Debian bağlı durumda değil</string>
   <string name="not_installed_message">Debian yüklü değil</string>
@@ -46,6 +52,8 @@
   <string name="image_path_parent_does_not_exist_message">Seçtiğiniz klasör bulunamamaktadır! Varsayılanı yeniden oluşturunuz .</string>
   <string name="no_sdcard_message">Harici Depolama SD Karta okuma/yazma için bağlanılamadı, Debian olmadan kuramaz ya da başlatamazınız.</string>
   <string name="no_sdcard_status">(SD card mevcut değil)</string>
+  <string name="terminal_emulator_not_installed">Android Terminal Emulator yüklü değil! Bu özelliği kullanabilmek için Lil\' Debi kaldırımalı, Terminal Emülator yüklenmeli ve Lil\' Debi tekrar kurulmalıdır.</string>
+  <string name="terminal_emulator_installed_after_lildebi">HATA: Lil\' Debi, Terminal Emülatörden önce kurulmuş!  Bu özelliği kullanabilmek için Lil\' Debi kaldırılıp tekrar kurulmalıdır.</string>
   <string name="title_install_log_view">Kayıtları yükle</string>
   <string name="title_share_button">Paylaş</string>
   <string name="starting_debian">Debian başlatıldı…</string>
@@ -55,4 +63,8 @@
   <string name="select_mirror">Yansımayı seçiniz</string>
   <string name="select_release">Sürüm seçiniz</string>
   <string name="select_arch">İşlemci mimarisini seçiniz</string>
+  <string name="pref_install_on_internal_storage_summary">Dahili Depolama: /data/debian (Beta)</string>
+  <string name="pref_install_on_internal_storage_title">Dahili Depolama\'ya yükle</string>
+  <string name="install_in_internal_storage_summary">Debian\'ı Dahili Depolama\'ya yükleyin: /data/debian</string>
+  <string name="not_enough_space">Yeterli alan yok (&lt; 250MB)</string>
 </resources>

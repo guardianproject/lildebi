@@ -3,9 +3,13 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">Lil\' Debi kan ikke Installere Debian på din enhet. Støtte for filsystemet \"ext2\" og filmontering av avspeilinger som volum er påkrevet. Derav er denne applikasjonen ubrukelig for deg, vi anbefaler avinstallasjon.</string>
   <string name="uninstall_button_title">Avinstaller Lil\' Debi</string>
+  <string name="pref_start_automatically_title">Start automatisk?</string>
   <string name="pref_start_on_mount_summary">Start Debian automatisk når SD-kortet blir montert</string>
+  <string name="pref_start_on_boot_summary">Automatisk igangsettelse av Debian når Android starter opp</string>
   <string name="pref_use_checksum_title">Sjekk kontrollsum av fil-avspeiling ved oppstart?</string>
   <string name="pref_use_checksum_summary">Før oppstart, sjekk at SHA1-kontrollsummen av fil-avspeilingen stemmer.</string>
+  <string name="pref_limit_to_4gb_title">4GB avgrensning for bilder</string>
+  <string name="pref_limit_to_4gb_summary">De fleste SD-kort har FAT-filsystem, hvis maksimale filstørrelser begrenser seg til 4GB.</string>
   <string name="pref_image_path_title">Avtrykksfilbane</string>
   <string name="pref_image_path_summary">Filbanen til oppstartsfilen for Debian (default: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Etterstartelsesskript</string>
@@ -15,6 +19,7 @@
   <string name="pref_prevent_sleep_title">Forhindre dvaletilstand</string>
   <string name="pref_prevent_sleep_summary">forhindre enheten fra å gå i dvalemodus når Debian kjører</string>
   <string name="menu_jackpal_terminal_title">Åpne terminal…</string>
+  <string name="menu_preferences_title">Innstillinger</string>
   <string name="menu_install_log_title">Se installasjonslogg</string>
   <string name="menu_delete_title">Slett alt</string>
   <string name="title_start">Start Debian</string>
@@ -32,9 +37,10 @@
   <string name="megabytes">MB</string>
   <string name="install">Installer</string>
   <string name="uninstall">Avinstaller…</string>
-  <string name="get_superuser">Elevér rettigheter…</string>
-  <string name="needs_superuser_message">Lil\' Debi trenger priviligerte tilgangsrettigheter, installer \'superbruker\'-applikasjonen.</string>
+  <string name="get_superuser">Innhent superbrukertilgang...</string>
+  <string name="needs_superuser_message">Lil\' Debi trenger root-tilgang, installer Superbruker</string>
   <string name="smaller_imagesize_message"> Forespeilet avtrykksstørrelse for stor for SD-kortet, reduserer størrelse for å få plass.</string>
+  <string name="image_size_limit_message">SD-kort støtter vanligvis ikke filer større enn 4GB! Du kan skru av denne begrensningen i innstillingene.</string>
   <string name="mounted_message">Debian montert</string>
   <string name="not_mounted_message">Debian ikke montert</string>
   <string name="not_installed_message">Debian ikke Installert</string>
@@ -46,6 +52,8 @@
   <string name="image_path_parent_does_not_exist_message">Mappen du valgte finnes ikke! Returnerer til forvalg.</string>
   <string name="no_sdcard_message">Det eksterne SD-kortet er ikke montert les/skriv, kan ikke Installere eller starte Debian foruten.</string>
   <string name="no_sdcard_status">(inget SD-kort)</string>
+  <string name="terminal_emulator_not_installed">Android terminalemulator ikke installert! For å bruke dette trekkplasteret, må du avinstallere Lil\' Debi, installere Terminalemulatoren, for så å re-installere Lil\' Debi</string>
+  <string name="terminal_emulator_installed_after_lildebi">FEIL: Android Terminalemulator ble installert etter Lil\' Debi! For å bruke dette trekkplasteret, må du avinstallere og installere Lil\' Debi på ny.</string>
   <string name="title_install_log_view">Installasjonslog</string>
   <string name="title_share_button">Del</string>
   <string name="starting_debian">Debian startet…</string>
@@ -56,4 +64,8 @@
   <string name="select_release">Velg utgivelse</string>
   <string name="select_arch">Velg CPU-arkitektur</string>
   <string name="app_description">Behov for en pålitelig Debian chroot? Installer Lil\' Debi og du kan ha Debian oppe å gå ved et enkelt tastetrykk. En hel debian chroot vil bli opprettet på din telefon bare ved bruk av debootstrap. Du velger utgave, speil og størrelse på installasjonen, og ferdig arbeid. Det kan ta opptil en time på en treg enhet, men så er den ferdig til bruk. Hele pakken er bygd ved bruk av fritt tilgjengelige, reproduserbare byggversjoner. Hver pakke blir faktisk sjekket opp mot Debians offisielle pakebrønn-nøkler, som er inkludert i app-en.</string>
+  <string name="pref_install_on_internal_storage_summary">Internt lagringsmedie: /data/debian (Beta)</string>
+  <string name="pref_install_on_internal_storage_title">Installer på internt lagringsmedie</string>
+  <string name="install_in_internal_storage_summary">Installer Debian på internt lagringsmedie: /data/debian</string>
+  <string name="not_enough_space">Utilstrekkelig plass (&lt; 250MB)</string>
 </resources>
