@@ -51,7 +51,7 @@ echo "done"
 
 if [ ! -z "$openfiles" ]; then
     echo "Files that are still open:"
-    for line in $openfiles; do 
+    for line in $openfiles; do
         echo $line
     done
 
@@ -76,7 +76,7 @@ else
         $losetup -d $attached
         echo "done"
     fi
-    
+
     echo ""
     echo "Debian chroot stopped and unmounted."
     if [ -e $sha1file ]; then

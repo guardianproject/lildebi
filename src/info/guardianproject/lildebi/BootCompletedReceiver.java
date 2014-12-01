@@ -9,23 +9,23 @@ import android.preference.PreferenceManager;
 
 public class BootCompletedReceiver {
 
-	private LilDebiAction action;
+    private LilDebiAction action;
 
-	public void onReceive(Context context, Intent intent) {
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(context);
+    public void onReceive(Context context, Intent intent) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
 
-		if (NativeHelper.installInInternalStorage && !NativeHelper.isStarted()) {
-			if (prefs.getBoolean(
-					context.getString(R.string.pref_start_automatically_key), false)) {
-				if (new File(NativeHelper.image_path).exists()
-						&& new File(NativeHelper.mnt).exists()) {
-					action = new LilDebiAction(context, null);
-					action.startDebian();
-				}
-			}
-		}
+        if (NativeHelper.installInInternalStorage && !NativeHelper.isStarted()) {
+            if (prefs.getBoolean(
+                    context.getString(R.string.pref_start_automatically_key), false)) {
+                if (new File(NativeHelper.image_path).exists()
+                        && new File(NativeHelper.mnt).exists()) {
+                    action = new LilDebiAction(context, null);
+                    action.startDebian();
+                }
+            }
+        }
 
-	}
+    }
 
 }

@@ -155,11 +155,11 @@ create_mountpoint /system
 keyring_name=debian-archive-keyring.gpg
 keyring=$app_bin/$keyring_name
 if test -f $keyring; then
-	echo "Using keyring for validating packages: $keyring"
-	KEYRING="--keyring=$keyring"
+    echo "Using keyring for validating packages: $keyring"
+    KEYRING="--keyring=$keyring"
 else
-	echo "No keyring found, not validating packages! ($keyring)"
-	KEYRING=
+    echo "No keyring found, not validating packages! ($keyring)"
+    KEYRING=
 fi
 
 

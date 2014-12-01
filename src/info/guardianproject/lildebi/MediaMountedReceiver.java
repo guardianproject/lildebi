@@ -10,27 +10,27 @@ import android.preference.PreferenceManager;
 
 public class MediaMountedReceiver extends BroadcastReceiver {
 
-	private LilDebiAction action;
+    private LilDebiAction action;
 
-	public void onReceive(Context context, Intent intent) {
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(context);
+    public void onReceive(Context context, Intent intent) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
 
-		if (!NativeHelper.installInInternalStorage) {
-			if (!NativeHelper.isStarted()
-					&& prefs.getBoolean(context
-							.getString(R.string.pref_start_automatically_key),
-							false)) {
-				if (new File(NativeHelper.image_path).exists()
-						&& new File(NativeHelper.mnt).exists()) {
-					action = new LilDebiAction(context, null);
-					action.startDebian();
-				}
-			}
-			LilDebi.sdcardMounted();
-		}
+        if (!NativeHelper.installInInternalStorage) {
+            if (!NativeHelper.isStarted()
+                    && prefs.getBoolean(context
+                            .getString(R.string.pref_start_automatically_key),
+                            false)) {
+                if (new File(NativeHelper.image_path).exists()
+                        && new File(NativeHelper.mnt).exists()) {
+                    action = new LilDebiAction(context, null);
+                    action.startDebian();
+                }
+            }
+            LilDebi.sdcardMounted();
+        }
 
-	}
+    }
 
 }
 
