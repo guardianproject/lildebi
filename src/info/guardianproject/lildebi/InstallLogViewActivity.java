@@ -1,11 +1,5 @@
+
 package info.guardianproject.lildebi;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
-import org.apache.commons.io.FileUtils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,16 +9,26 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.apache.commons.io.FileUtils;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class InstallLogViewActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.install_log_view);
-        new LoadLogTask().execute((Void[])null);
+        setProgressBarIndeterminateVisibility(true);
+        new LoadLogTask().execute();
         Button shareButton = (Button) findViewById(R.id.shareButton);
         shareButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -96,6 +100,7 @@ public class InstallLogViewActivity extends Activity {
         protected void onPostExecute(String result) {
             final TextView installLog = (TextView) findViewById(R.id.installLogView);
             installLog.setText(result);
+            setProgressBarIndeterminateVisibility(false);
         }
     }
 
