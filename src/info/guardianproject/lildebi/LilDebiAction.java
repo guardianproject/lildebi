@@ -72,7 +72,7 @@ public class LilDebiAction {
 	}
 
 	public void removeDebianSetup() {
-		command = "./remove-debian-setup.sh " + NativeHelper.getArgs();
+		command = "./delete-all-debian-setup.sh " + NativeHelper.getArgs();
 		commandThread = new CommandThread();
 		commandThread.start();
 	}

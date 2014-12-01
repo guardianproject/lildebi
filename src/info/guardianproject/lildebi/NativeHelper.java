@@ -229,7 +229,7 @@ public class NativeHelper {
 		chmod(0755, new File(app_bin, "create-debian-setup.sh"));
 		chmod(0755, new File(app_bin, "complete-debian-setup.sh"));
 		chmod(0755, new File(app_bin, "unmounted-install-tweaks.sh"));
-		chmod(0755, new File(app_bin, "remove-debian-setup.sh"));
+		chmod(0755, new File(app_bin, "delete-all-debian-setup.sh"));
 		chmod(0755, new File(app_bin, "configure-downloaded-image.sh"));
 		chmod(0755, new File(app_bin, "start-debian.sh"));
 		chmod(0755, new File(app_bin, "stop-debian.sh"));
