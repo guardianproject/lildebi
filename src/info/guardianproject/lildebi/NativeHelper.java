@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Scanner;
 
 import android.content.Context;
@@ -160,6 +161,14 @@ public class NativeHelper {
 			return 0;
 		}
 	}
+
+    public static String getLANG() {
+        Locale locale = Locale.getDefault();
+        if (locale == null)
+            return "";
+        else
+            return locale.getLanguage() + "_" + locale.getCountry();
+    }
 
 	private static void renameOldAppBin() {
 		String moveTo = app_bin.toString();

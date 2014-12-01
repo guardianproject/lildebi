@@ -8,6 +8,8 @@ app_bin=$1
 echo "----------------------------------------"
 echo `$app_bin/basename $0`
 
+. $app_bin/install.conf
+
 # get full debug output
 set -x
 
@@ -43,5 +45,11 @@ apt-get --yes --fix-broken upgrade
 
 # purge upgrade packages in cache
 apt-get clean
+
+# set Debian to current language
+for locale in en_US.UTF-8 $LANG; do
+    sed -i -e "s/^[# ]*$locale/$locale/" /etc/locale.gen
+done
+locale-gen
 
 echo "Debian is installed and ssh started!"

@@ -197,5 +197,15 @@ if [ -x ${mnt}${keygen} ]; then
         "for key in /etc/ssh/ssh_host_*_key; do $keygen -lv -f \$key; done"
 fi
 
+
+#------------------------------------------------------------------------------#
+# set the UTF-8 version as the system default if it has been generated
+if [ -x ${mnt}/usr/sbin/update-locale ]; then
+    LANG=`grep ^$LANG $mnt/etc/locale.gen | grep UTF-8 | cut -d ' ' -f 1 | head -1`
+    test -z $LANG || \
+        chroot $mnt update-locale "LANG=$LANG"
+fi
+
+
 echo ""
 echo "Debian chroot mounted and started."

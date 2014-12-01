@@ -249,6 +249,7 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 		conf += "mirror=http://" + selectedMirror.getText().toString() + "/debian/\n";
 		conf += "arch=" + selectedArch.getText().toString() + "\n";
 		conf += "imagesize=" + imagesize.getText().toString() + "\n";
+		conf += "LANG=" + NativeHelper.getLANG() + "\n";
 
 		try {
 			FileUtils.writeStringToFile(NativeHelper.install_conf, conf);

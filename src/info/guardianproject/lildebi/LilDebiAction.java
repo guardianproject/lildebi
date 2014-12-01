@@ -48,7 +48,8 @@ public class LilDebiAction {
 		if (useWakeLock)
 			wl.acquire();
 		
-		command = new String("./start-debian.sh" + NativeHelper.getArgs()
+		command = new String("LANG=" + NativeHelper.getLANG() +
+		        " ./start-debian.sh" + NativeHelper.getArgs()
 				+ " && " + NativeHelper.app_bin + "/chroot " + NativeHelper.mnt
 				+ " /bin/bash -c \"" + NativeHelper.postStartScript + "\"");
 		commandThread = new CommandThread();
