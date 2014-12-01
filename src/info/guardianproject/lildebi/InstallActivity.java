@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -179,20 +180,34 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
 			doBindService();
 			installButton.requestFocus();
             /* display existing log file */
-            StringBuilder log = new StringBuilder();
-            try {
-                BufferedReader r = new BufferedReader(new FileReader(NativeHelper.install_log));
-                String line;
-                while ((line = r.readLine()) != null) {
-                    log.append(line + "\n");
+            new AsyncTask<Void, Void, Void>() {
+                private final StringBuilder log = new StringBuilder();
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    try {
+                        BufferedReader r = new BufferedReader(new FileReader(
+                                NativeHelper.install_log));
+                        String line;
+                        while ((line = r.readLine()) != null) {
+                            log.append(line + "\n");
+                        }
+                        r.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
                 }
-                r.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            installLog.setText(log.toString());
+
+
+                @Override
+                protected void onPostExecute(Void result) {
+                    super.onPostExecute(result);
+                    installLog.setText(log.toString());
+                }
+            }.execute();
 		}
 	}
 
