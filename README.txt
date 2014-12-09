@@ -114,6 +114,10 @@ Or on OSX with brew:
 
   brew install apktool unzip
 
+If you want to reproduce a build and the cdebootstrap-static package is no
+longer available, you can download it from snapshot.debian.org.  For example:
+
+ * http://snapshot.debian.org/archive/debian/20141024T052403Z/pool/main/c/cdebootstrap/cdebootstrap_0.6.3_armel.deb
 
 NDK build options
 -----------------
