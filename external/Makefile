@@ -72,7 +72,6 @@ export TZ=UTC
 
 all: $(EXTERNAL_ROOT)/busybox/busybox
 	make -C $(EXTERNAL_ROOT)/cdebootstrap
-	make -C $(EXTERNAL_ROOT)/debian-archive-keyring
 
 assets: all
 	install $(EXTERNAL_ROOT)/busybox/busybox \
@@ -95,6 +94,13 @@ $(EXTERNAL_ROOT)/busybox/busybox: $(EXTERNAL_ROOT)/busybox/.config
 	echo "TIMESTAMP: $(TIMESTAMP)"
 	faketime -f $(TIMESTAMP) make -C $(EXTERNAL_ROOT)/busybox/
 
+# to re-download and verify that the .debs included in git match the official
+# Debian ones
+verify-debian-packages: clean
+	make -C $(EXTERNAL_ROOT)/debian-archive-keyring
+	-rm $(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap-static*.deb
+	make -C $(EXTERNAL_ROOT)/cdebootstrap
+
 clean: 
 	rm -f -- $(EXTERNAL_ROOT)/busybox/.config
 	rm -f -- $(EXTERNAL_ROOT)/busybox/busybox
@@ -102,6 +108,7 @@ clean:
 		patch -N -R -p1 --reject-file=- < ../003-mount-umount-fsck-df.patch
 	make -C $(EXTERNAL_ROOT)/busybox/ clean
 	make -C $(EXTERNAL_ROOT)/cdebootstrap/ clean
+	make -C $(EXTERNAL_ROOT)/debian-archive-keyring/ clean
 
 distclean: clean
 	rm -f -- $(ASSETS)/busybox
