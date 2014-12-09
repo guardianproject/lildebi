@@ -1,6 +1,6 @@
 
 PKG_NAME:=debian-archive-keyring
-PKG_VERSION:=2014.1
+PKG_VERSION:=2014.3
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION)_all.deb
 PKG_SOURCE_URL:=https://mirrors.kernel.org/debian/pool/main/d/debian-archive-keyring
