@@ -3,7 +3,10 @@ PKG_NAME:=cdebootstrap-static
 PKG_VERSION:=0.6.4
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION)_armel.deb
-PKG_SOURCE_URL:=https://mirrors.kernel.org/debian/pool/main/c/cdebootstrap
+# the archive, so the build stays working as long as possible:
+PKG_SOURCE_URL:=http://snapshot.debian.org/archive/debian/20141130T041023Z/pool/main/c/cdebootstrap
+# the canonical:
+#PKG_SOURCE_URL:=https://mirrors.kernel.org/debian/pool/main/c/cdebootstrap
 
 DL_DIR=$(PKG_NAME)-$(PKG_VERSION)
 
