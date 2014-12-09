@@ -36,11 +36,12 @@ $(DL_DIR)/usr/bin/cdebootstrap-static: $(DL_DIR)/$(PKG_SOURCE)
 	patch -N -p0 --reject-file=- < add-missing-ubuntu-releases.patch
 
 $(DL_DIR)/$(PKG_SOURCE): $(DL_DIR)
-	cd $(DL_DIR) && \
+	test -e $(PKG_SOURCE) || \
 		wget --continue $(PKG_SOURCE_URL)/$(PKG_SOURCE)
 	md5sum -c $(PKG_SOURCE).md5
 	sha1sum -c $(PKG_SOURCE).sha1
 	sha256sum -c $(PKG_SOURCE).sha256
+	cp $(PKG_SOURCE) $(DL_DIR)/
 
 $(DL_DIR):
 	mkdir $(DL_DIR)
