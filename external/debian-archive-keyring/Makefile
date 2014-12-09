@@ -3,7 +3,10 @@ PKG_NAME:=debian-archive-keyring
 PKG_VERSION:=2014.3
 
 PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION)_all.deb
-PKG_SOURCE_URL:=https://mirrors.kernel.org/debian/pool/main/d/debian-archive-keyring
+# the archive, so the build stays working as long as possible:
+PKG_SOURCE_URL:=http://snapshot.debian.org/archive/debian/20141209T161252Z/pool/main/d/debian-archive-keyring
+# the canonical:
+#PKG_SOURCE_URL:=https://mirrors.kernel.org/debian/pool/main/d/debian-archive-keyring
 
 DL_DIR=$(PKG_NAME)-$(PKG_VERSION)
 
