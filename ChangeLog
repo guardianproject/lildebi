@@ -1,3 +1,9 @@
+v0.5.3
++ support SuperSU
++ update to latest cdebootstrap
++ use Android locale in Debian setup
++ updated translations: fr nb nl ru tr
+
 v0.5.2
 + notification when install process is running
 + drastically improved install logging performance
