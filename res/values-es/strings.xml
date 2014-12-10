@@ -53,7 +53,6 @@
   <string name="no_sdcard_message">La tarjeta SD externa no está montada con acceso lectura/escritura, no se puede instalar o iniciar Debian sin él.</string>
   <string name="no_sdcard_status">(no hay tarjeta SD)</string>
   <string name="terminal_emulator_not_installed">¡Android Terminal Emulator no instalado! Para usar esta característica, tiene que instalarlo.</string>
-  <string name="terminal_emulator_never_ran">ERROR: ¡Android Terminal Emulator nunca ha sido ejecutado! Para usar esta característica, primero tiene que abrir Terminal Emulator al menos una vez.</string>
   <string name="title_install_log_view">Registro de instalación</string>
   <string name="title_share_button">Compartir</string>
   <string name="starting_debian">Debian iniciado…</string>
@@ -67,6 +66,4 @@
   <string name="pref_install_on_internal_storage_summary">Almacenamiento interno: /data/debian</string>
   <string name="pref_install_on_internal_storage_title">Instalar en el almacenamiento interno</string>
   <string name="install_in_internal_storage_summary">Instalar Debian en el almacenamiento interno: /data/debian</string>
-  <string name="minimum_free_size">el tamaño del espacio libre mínimo debe ser mayor de 230 MB para la instalación</string>
-  <string name="minimum_image_size">el tamaño mínimo de la imagen debe ser mayor de 230 MB para la instalación</string>
 </resources>
