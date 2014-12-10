@@ -3,9 +3,11 @@
   <string name="app_name">Lil\' Debi</string>
   <string name="unsupported_device_body">Vaše zariadenie nie je podporované Lil\' Debi pre nainštalovanie Debianu. Potrebujete podporu \"ext2\" systémového súboru pre namontovanie súborov ako disk. Preto je pre vás táto aplikácia nepotrebná a odporúčame vám ju odinštalovať.</string>
   <string name="uninstall_button_title">Odinštalovať Lil\' Debi</string>
+  <string name="pref_start_automatically_title">Začať automaticky?</string>
   <string name="pref_start_on_mount_summary">Automaticky spustiť Debian vždy, keď je vaša SD karta nainštalovaná</string>
   <string name="pref_use_checksum_title">Kontrolný súčet obrazu pri štarte?</string>
   <string name="pref_use_checksum_summary">Pred spustením skontrolujte SHA1 kontrolný súčet obrazu pre overenie jeho integrity.</string>
+  <string name="pref_limit_to_4gb_title">4GB limit pre obraz disku</string>
   <string name="pref_image_path_title">cesta k obrazu</string>
   <string name="pref_image_path_summary">Cesta k súboru an disku, na ktorom je Debian nainštalovaný (predvolené: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Post-štartovací skript</string>
@@ -14,6 +16,8 @@
   <string name="pref_pre_stop_summary">Skript, ktorý sa má spustiť pred Debianom je zastavený (predvolené: /etc/init.d/rc 0) </string>
   <string name="pref_prevent_sleep_title">Opatriť proti zaspatiu</string>
   <string name="pref_prevent_sleep_summary">opatriť zariadenie proti zaspaniu pokiaľ bude Debian zapnutý</string>
+  <string name="menu_jackpal_terminal_title">Otvoriť Terminal…</string>
+  <string name="menu_preferences_title">Nastavenia</string>
   <string name="menu_install_log_title">Zobraziť inštalačný denník</string>
   <string name="menu_delete_title">Vymazať všetko</string>
   <string name="title_start">Spustiť Debian</string>
