@@ -33,8 +33,8 @@
   <string name="megabytes">MB</string>
   <string name="install">Installa</string>
   <string name="uninstall">Disinstalla…</string>
-  <string name="get_superuser">Scarica SuperUser…</string>
-  <string name="needs_superuser_message">Lil\' Debi ha bisogno di un accesso SuperUtente, installa l\'app SuperUser</string>
+  <string name="get_superuser">Scarica Superuser…</string>
+  <string name="needs_superuser_message">Lil\' Debi ha bisogno di un accesso SuperUtente, installa l\'app Superuser</string>
   <string name="smaller_imagesize_message">Non c\'è abbastanza spazio per l\'immagine specificata, riduco la dimensione per farla entrare nella scheda SD</string>
   <string name="mounted_message">Debian montata</string>
   <string name="not_mounted_message">Debian non montata</string>

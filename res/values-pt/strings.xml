@@ -32,8 +32,8 @@
   <string name="megabytes">MB</string>
   <string name="install">Instalar</string>
   <string name="uninstall">Desinstalar…</string>
-  <string name="get_superuser">Obter SuperUsuario…</string>
-  <string name="needs_superuser_message">Lil\' Debi Precisa de acesso de SuperUsuario, instale o aplicativo SuperUser</string>
+  <string name="get_superuser">Obter Superusuário…</string>
+  <string name="needs_superuser_message">Lil\' Debi Precisa de acesso de SuperUsuario, instale o aplicativo Superusuário</string>
   <string name="smaller_imagesize_message">Sem espaço suficiente para o tamanho de imagem selecionado, reduzindo para caber no cartão SD.</string>
   <string name="mounted_message">Debian montado</string>
   <string name="not_mounted_message">Debian não montado</string>

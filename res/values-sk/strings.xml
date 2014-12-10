@@ -31,7 +31,7 @@
   <string name="install">Inštalovať</string>
   <string name="uninstall">Odinštalovať…</string>
   <string name="get_superuser">Získať superužívateľa…</string>
-  <string name="needs_superuser_message">Lil\' Debi potrebuje superužívateľský prístup, inštalujte superužívateľskú aplikáciu</string>
+  <string name="needs_superuser_message">Lil\' Debi potrebuje superužívateľský prístup, inštalujte Superuser aplikáciu</string>
   <string name="smaller_imagesize_message">Nie je dostatok priestoru pre zadanú veľkosť obrazu, znížte veľkosť obrazu aby sa zmestil na SD kartu</string>
   <string name="mounted_message">Debian nainštalovaný</string>
   <string name="not_mounted_message">Debian nenainštalovaný</string>

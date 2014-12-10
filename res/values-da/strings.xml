@@ -33,7 +33,7 @@
   <string name="install">Installer</string>
   <string name="uninstall">Afinstaller …</string>
   <string name="get_superuser">Hent superbruger …</string>
-  <string name="needs_superuser_message">Lil\' Debi skal bruge superbrugeradgang, installer app\'en SuperUser</string>
+  <string name="needs_superuser_message">Lil\' Debi skal bruge superbrugeradgang, installer app\'en Superuser</string>
   <string name="smaller_imagesize_message">Ikke nok plads for angivet aftryksstørrelse, reducerer størrelse for at passe på et SD-kort</string>
   <string name="mounted_message">Debian monteret</string>
   <string name="not_mounted_message">Debian er ikke monteret</string>

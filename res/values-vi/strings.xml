@@ -30,8 +30,8 @@
   <string name="megabytes">MB</string>
   <string name="install">Cài đặt</string>
   <string name="uninstall">Gỡ cài đặt…</string>
-  <string name="get_superuser">Quyền SuperUser…</string>
-  <string name="needs_superuser_message">Lil\' Debi cần quyền truy cập SuperUser, cài ứng dụng SuperUser vào</string>
+  <string name="get_superuser">Quyền Superuser…</string>
+  <string name="needs_superuser_message">Lil\' Debi cần quyền truy cập Superuser, cài ứng dụng Superuser vào</string>
   <string name="smaller_imagesize_message">Không đủ chỗ trống cho định dạng ổ đĩa, giảm kích thước để có thể chứa vào thẻ nhớ</string>
   <string name="mounted_message">Đã kết nối với Debian</string>
   <string name="not_mounted_message">Debian chưa được kết nối</string>

@@ -30,8 +30,8 @@
   <string name="megabytes">MB</string>
   <string name="install">Instaleaza</string>
   <string name="uninstall">Dezinstaleaza…</string>
-  <string name="get_superuser">Obtine SuperUser…</string>
-  <string name="needs_superuser_message">Lil\' Debi necesita acces SuperUser, instalati aplicatia SuperUser</string>
+  <string name="get_superuser">Obtine Superuser…</string>
+  <string name="needs_superuser_message">Lil\' Debi necesita acces Superuser, instalati aplicatia Superuser</string>
   <string name="smaller_imagesize_message">Nu este suficient spatiu pentru marimea de imagine aleasa, reduc imaginea pentru a incapea pe SD Card</string>
   <string name="mounted_message">Debian montat</string>
   <string name="not_mounted_message">Debian nu este montat</string>

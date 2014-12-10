@@ -30,8 +30,8 @@
   <string name="megabytes">MB</string>
   <string name="install">安装</string>
   <string name="uninstall">卸载…</string>
-  <string name="get_superuser">获取 SuperUser…</string>
-  <string name="needs_superuser_message">Lil\' Debi 需要超级用户访问权限，请安装 SuperUser 程序</string>
+  <string name="get_superuser">获取 超级用户…</string>
+  <string name="needs_superuser_message">Lil\' Debi 需要超级用户访问权限，请安装 超级用户 程序</string>
   <string name="smaller_imagesize_message">没有足够的空间建立指定大小的映像，请减小体积以适合 SD 卡的空间</string>
   <string name="mounted_message">Debian 已挂载</string>
   <string name="not_mounted_message">Debian 未挂载</string>

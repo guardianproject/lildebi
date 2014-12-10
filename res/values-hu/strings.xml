@@ -33,7 +33,7 @@
   <string name="install">Telepítés</string>
   <string name="uninstall">Eltávolítás…</string>
   <string name="get_superuser">Rendszergazdai jogosultság elérése…</string>
-  <string name="needs_superuser_message">A Lil\' Debi SuperUser hozzáférést igényel, telepítse a SuperUser appot</string>
+  <string name="needs_superuser_message">A Lil\' Debi Superuser hozzáférést igényel, telepítse a Rendszergazda appot</string>
   <string name="smaller_imagesize_message">Nincs elég hely a megadott képhez, a méret csökkentése ahhoz, hogy elférjen SD kártyán</string>
   <string name="mounted_message">Debian felcsatlakoztatva</string>
   <string name="not_mounted_message">Debian nincs felcsatlakoztatva</string>

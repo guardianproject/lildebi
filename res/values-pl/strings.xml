@@ -33,7 +33,7 @@
   <string name="install">Instaluj</string>
   <string name="uninstall">Odinstaluj…</string>
   <string name="get_superuser">Pozyskaj prawa administratora…</string>
-  <string name="needs_superuser_message">Lil\' Debi wymaga dostępu administracyjnego, proszę zainstalować program SuperUser</string>
+  <string name="needs_superuser_message">Lil\' Debi wymaga dostępu administracyjnego, proszę zainstalować program Superuser</string>
   <string name="smaller_imagesize_message">Brak miejsca dla danego rozmiaru obrazu, zmniejszanie obrazu w celu zmieszczenia go na karcie SD</string>
   <string name="mounted_message">Debian jest zamontowany</string>
   <string name="not_mounted_message">Debian nie jest zamontowany</string>

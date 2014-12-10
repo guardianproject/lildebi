@@ -30,8 +30,8 @@
   <string name="megabytes">MB</string>
   <string name="install">Namesti</string>
   <string name="uninstall">Odstranjevanje …</string>
-  <string name="get_superuser">Pridobi SuperUser …</string>
-  <string name="needs_superuser_message">Lil\' Debi potrebuje nadzorniški dostop, namesti SuperUser aplikacijo</string>
+  <string name="get_superuser">Pridobi Superuser …</string>
+  <string name="needs_superuser_message">Lil\' Debi potrebuje nadzorniški dostop, namesti Superuser aplikacijo</string>
   <string name="smaller_imagesize_message">Ni dovolj prostora na SD kartici za želeno velikost slike, samodejno bo prilagojena - zmanjšana</string>
   <string name="mounted_message">Debian priklopljen</string>
   <string name="not_mounted_message">Debian ni priklopljen</string>

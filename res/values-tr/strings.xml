@@ -38,7 +38,7 @@
   <string name="install">Yükle</string>
   <string name="uninstall">Kaldır</string>
   <string name="get_superuser">Superuser uygulamasını yükle…</string>
-  <string name="needs_superuser_message">Lil\' Debi root yetkilerine ihtiyaç duyar, Superuser uygulamasını yükleyin</string>
+  <string name="needs_superuser_message">Lil\' Debi root yetkilerine ihtiyaç duyar, Yetkili kullanıcı uygulamasını yükleyin</string>
   <string name="smaller_imagesize_message">Belirtilen görüntü boyutu için hafızada yeterince yer yok , SD Kart\'a sığdırmak için boyut küçültülüyor</string>
   <string name="image_size_limit_message">SD Kartlar genelde 4GB\'tan fazla olan dosyaları desteklemez! Ayarlardan bu limiti kapatabilirsiniz.</string>
   <string name="mounted_message">Debian bağlı durumda</string>
