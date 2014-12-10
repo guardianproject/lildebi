@@ -17,4 +17,18 @@
     <echo message="target: ${build.target}"></echo>
   </target>
 
+  <target name="-pre-build">
+    <tstamp>
+      <format property="current.timestamp" pattern="yyyyMMddHHmm.ss" />
+    </tstamp>
+    <echo message="timestamp: ${current.timestamp}"></echo>
+    <apply executable="touch" parallel="true" verbose="true">
+      <arg value="-t"/>
+      <arg value="${current.timestamp}"/>
+      <fileset dir="assets" casesensitive="yes">
+        <include name="*"/>
+      </fileset>
+    </apply>
+  </target>
+
 </project>
