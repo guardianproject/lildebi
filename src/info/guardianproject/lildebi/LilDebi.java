@@ -205,6 +205,11 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                     if (Build.VERSION.SDK_INT < 17)
                         foundSU = true;
                 } catch (NameNotFoundException e2) {
+                    try {
+                    	pm.getPackageInfo("com.thirdparty.superuser", PackageManager.GET_ACTIVITIES);
+                    	foundSU = true;
+                    } catch (NameNotFoundException e3) {
+                    }
                 }
             }
         }
