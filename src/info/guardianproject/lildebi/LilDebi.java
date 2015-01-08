@@ -203,6 +203,11 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                     pm.getPackageInfo("eu.chainfire.supersu", PackageManager.GET_ACTIVITIES);
                     foundSU = true;
                 } catch (NameNotFoundException e2) {
+                    try {
+                        pm.getPackageInfo("com.thirdparty.superuser", PackageManager.GET_ACTIVITIES);
+                        foundSU = true;
+                    } catch (NameNotFoundException e3) {
+                    }
                 }
             }
         }
