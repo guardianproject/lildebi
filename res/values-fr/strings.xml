@@ -8,8 +8,8 @@
   <string name="pref_start_on_boot_summary">Démarre automatiquement Debian chaque fois que Android est démarré</string>
   <string name="pref_use_checksum_title">Vérifier la somme de contrôle de l\'image au démarrage ?</string>
   <string name="pref_use_checksum_summary">Avant l\'amorçage, vérifier l\'intégrité de l\'image grâce à la somme de contrôle SHA1.</string>
-  <string name="pref_limit_to_4gb_title">Limite de l\'image de 4GB</string>
-  <string name="pref_limit_to_4gb_summary">La plupart des cartes SD utilise le système de fichiers FAT, qui a une limite de taille de 4GB par fichier.</string>
+  <string name="pref_limit_to_4gb_title">Limite de l\'image de 2GB</string>
+  <string name="pref_limit_to_4gb_summary">La plupart des cartes SD utilise le système de fichiers FAT, qui a une limite de taille de 2GB par fichier.</string>
   <string name="pref_image_path_title">Chemin de l\'image</string>
   <string name="pref_image_path_summary">Le chemin de l\'image disque sur laquelle Debian est installée (par défaut : /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Script post-démarrage</string>

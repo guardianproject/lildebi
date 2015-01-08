@@ -8,8 +8,8 @@
   <string name="pref_start_on_boot_summary">Android önyüklendiğinde Debian otomatik olarak başatılır</string>
   <string name="pref_use_checksum_title">Başlangıçta imaj doğrulaması yapılsın mı?</string>
   <string name="pref_use_checksum_summary">Başlatmadan önce , SHA1\'in görünüm bütünlük saglamlıgının tam oldugunu denetleyin.</string>
-  <string name="pref_limit_to_4gb_title">4GB İmaj Limiti</string>
-  <string name="pref_limit_to_4gb_summary">Çoğu SD Kart dosya limiti 4GB olan FAT dosya sistemine sahiptir.</string>
+  <string name="pref_limit_to_4gb_title">2GB İmaj Limiti</string>
+  <string name="pref_limit_to_4gb_summary">Çoğu SD Kart dosya limiti 2GB olan FAT dosya sistemine sahiptir.</string>
   <string name="pref_image_path_title">İmaj yolu</string>
   <string name="pref_image_path_summary">Debian\'ın yüklendigi disk imaj uzantısı (Varsayılan: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Başlanıç Sonrası Betiği</string>
@@ -40,7 +40,7 @@
   <string name="get_superuser">Superuser uygulamasını yükle…</string>
   <string name="needs_superuser_message">Lil\' Debi root yetkilerine ihtiyaç duyar, Yetkili kullanıcı uygulamasını yükleyin</string>
   <string name="smaller_imagesize_message">Belirtilen görüntü boyutu için hafızada yeterince yer yok , SD Kart\'a sığdırmak için boyut küçültülüyor</string>
-  <string name="image_size_limit_message">SD Kartlar genelde 4GB\'tan fazla olan dosyaları desteklemez! Ayarlardan bu limiti kapatabilirsiniz.</string>
+  <string name="image_size_limit_message">SD Kartlar genelde 2GB\'tan fazla olan dosyaları desteklemez! Ayarlardan bu limiti kapatabilirsiniz.</string>
   <string name="mounted_message">Debian bağlı durumda</string>
   <string name="not_mounted_message">Debian bağlı durumda değil</string>
   <string name="not_installed_message">Debian yüklü değil</string>

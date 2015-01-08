@@ -7,7 +7,7 @@
   <string name="pref_start_on_mount_summary">Automaticky spustiť Debian vždy, keď je vaša SD karta nainštalovaná</string>
   <string name="pref_use_checksum_title">Kontrolný súčet obrazu pri štarte?</string>
   <string name="pref_use_checksum_summary">Pred spustením skontrolujte SHA1 kontrolný súčet obrazu pre overenie jeho integrity.</string>
-  <string name="pref_limit_to_4gb_title">4GB limit pre obraz disku</string>
+  <string name="pref_limit_to_4gb_title">2GB limit pre obraz disku</string>
   <string name="pref_image_path_title">cesta k obrazu</string>
   <string name="pref_image_path_summary">Cesta k súboru an disku, na ktorom je Debian nainštalovaný (predvolené: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Post-štartovací skript</string>

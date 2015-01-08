@@ -233,7 +233,9 @@ public class InstallActivity extends Activity implements View.OnCreateContextMen
             changedSize = true;
         }
         // FAT has a 4gb - 1 byte file size limit
-        long sizeLimit = (4 * 1024) - 1;
+        //long sizeLimit = (4 * 1024) - 1;
+        // busybox without CONFIG_LFS has a 2000MB limit
+        long sizeLimit = 2000;
         if (NativeHelper.limitTo4GB && requestedSize > sizeLimit) {
             resId = R.string.image_size_limit_message;
             requestedSize = sizeLimit;

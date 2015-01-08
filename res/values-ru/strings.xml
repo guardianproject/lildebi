@@ -8,8 +8,8 @@
   <string name="pref_start_on_boot_summary">Автоматически запускать Debian при загрузке Android</string>
   <string name="pref_use_checksum_title">Проверить контрольную сумму образа при запуске?</string>
   <string name="pref_use_checksum_summary">Перед загрузкой, проверьте контрольную сумму SHA1 образа, для того чтобы удостовериться в его целостности.</string>
-  <string name="pref_limit_to_4gb_title">Ограничение размера образа: 4 Гб</string>
-  <string name="pref_limit_to_4gb_summary">Большинство карт памяти SD отформатировано под файловую систему FAT, в которой размер каждого отдельного файла не может превышать 4 Гб.</string>
+  <string name="pref_limit_to_4gb_title">Ограничение размера образа: 2 Гб</string>
+  <string name="pref_limit_to_4gb_summary">Большинство карт памяти SD отформатировано под файловую систему FAT, в которой размер каждого отдельного файла не может превышать 2 Гб.</string>
   <string name="pref_image_path_title">Путь к образу</string>
   <string name="pref_image_path_summary">Путь к файлу образа диска, куда установлен Debian (по умолчанию: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Сценарий после запуска</string>
@@ -40,7 +40,7 @@
   <string name="get_superuser">Получить права Суперпользователя….</string>
   <string name="needs_superuser_message">Малышу Деби нужны права доступа root, устанавливаем Суперпользователя</string>
   <string name="smaller_imagesize_message">Недостаточно места для указанного размера образа, уменьшите размер для того, чтобы файл образа поместился на SD  карту.</string>
-  <string name="image_size_limit_message">Обычно карты памяти SD не поддерживают файлы, размером более 4 Гб! Вы можете отключить это ограничение в настройках.</string>
+  <string name="image_size_limit_message">Обычно карты памяти SD не поддерживают файлы, размером более 2 Гб! Вы можете отключить это ограничение в настройках.</string>
   <string name="mounted_message">Debian смонтирован</string>
   <string name="not_mounted_message">Debian не смонтирован</string>
   <string name="not_installed_message">Debian не установлен</string>

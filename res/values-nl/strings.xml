@@ -8,8 +8,8 @@
   <string name="pref_start_on_boot_summary">Start Debian automatisch waneer Android start.</string>
   <string name="pref_use_checksum_title">Image-bestand verifiëren bij starten?</string>
   <string name="pref_use_checksum_summary">Voor het starten de SHA1-checksum van het image-bestand controleren om zijn integriteit te waarborgen.</string>
-  <string name="pref_limit_to_4gb_title">4GB Image Limiet</string>
-  <string name="pref_limit_to_4gb_summary">De meeste SD Kaarten hebben het FAT bestandssysteem wat een maximale bestandsgroote heeft van 4GB</string>
+  <string name="pref_limit_to_4gb_title">2GB Image Limiet</string>
+  <string name="pref_limit_to_4gb_summary">De meeste SD Kaarten hebben het FAT bestandssysteem wat een maximale bestandsgroote heeft van 2GB</string>
   <string name="pref_image_path_title">Image pad:</string>
   <string name="pref_image_path_summary">Het pad naar het schijf-image bestand waar Debian is geinstalleerd (standaard: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Post-start Script</string>
@@ -40,7 +40,7 @@
   <string name="get_superuser">Download Superuser…</string>
   <string name="needs_superuser_message">Lil\' Debi vereist root toegang, installeer Superuser</string>
   <string name="smaller_imagesize_message">Niet genoeg ruimte voor opgegeven image-grootte, grootte wordt verkleind om op SD-kaart te passen.</string>
-  <string name="image_size_limit_message">SD Kaarten kunnen meestal geen bestanden opslaan van meer dan 4GB! Deze limiet kan uitgezet worden in de Instellingen</string>
+  <string name="image_size_limit_message">SD Kaarten kunnen meestal geen bestanden opslaan van meer dan 2GB! Deze limiet kan uitgezet worden in de Instellingen</string>
   <string name="mounted_message">Debian gekoppeld</string>
   <string name="not_mounted_message">Debian niet gekoppeld</string>
   <string name="not_installed_message">Debian niet geinstalleerd</string>

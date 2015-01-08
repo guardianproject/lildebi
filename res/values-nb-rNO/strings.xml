@@ -8,8 +8,8 @@
   <string name="pref_start_on_boot_summary">Automatisk igangsettelse av Debian når Android starter opp</string>
   <string name="pref_use_checksum_title">Sjekk kontrollsum av fil-avspeiling ved oppstart?</string>
   <string name="pref_use_checksum_summary">Før oppstart, sjekk at SHA1-kontrollsummen av fil-avspeilingen stemmer.</string>
-  <string name="pref_limit_to_4gb_title">4GB avgrensning for bilder</string>
-  <string name="pref_limit_to_4gb_summary">De fleste SD-kort har FAT-filsystem, hvis maksimale filstørrelser begrenser seg til 4GB.</string>
+  <string name="pref_limit_to_4gb_title">2GB avgrensning for bilder</string>
+  <string name="pref_limit_to_4gb_summary">De fleste SD-kort har FAT-filsystem, hvis maksimale filstørrelser begrenser seg til 2GB.</string>
   <string name="pref_image_path_title">Avtrykksfilbane</string>
   <string name="pref_image_path_summary">Filbanen til oppstartsfilen for Debian (default: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Etterstartelsesskript</string>
@@ -40,7 +40,7 @@
   <string name="get_superuser">Innhent superbrukertilgang…</string>
   <string name="needs_superuser_message">Lil\' Debi trenger root-tilgang, installer Superbruker</string>
   <string name="smaller_imagesize_message"> Forespeilet avtrykksstørrelse for stor for SD-kortet, reduserer størrelse for å få plass.</string>
-  <string name="image_size_limit_message">SD-kort støtter vanligvis ikke filer større enn 4GB! Du kan skru av denne begrensningen i innstillingene.</string>
+  <string name="image_size_limit_message">SD-kort støtter vanligvis ikke filer større enn 2GB! Du kan skru av denne begrensningen i innstillingene.</string>
   <string name="mounted_message">Debian montert</string>
   <string name="not_mounted_message">Debian ikke montert</string>
   <string name="not_installed_message">Debian ikke Installert</string>
