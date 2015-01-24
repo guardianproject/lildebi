@@ -9,7 +9,8 @@ export USER=root
 
 username=`$app_bin/whoami`
 id=`$app_bin/id -u`
-if [ "$id" -eq 0 ]; then
+# make sure we got a valid ID before checking its 0
+if [ ! -z "$id" ] && [ `echo "$id" | grep -v '[^0-9]' > /dev/null` ] && [ "$id" -eq 0 ]; then
 # try using the chroot included in LilDebi, otherwise fail over to a possible system one
     PATH=$app_bin SHELL=/bin/bash $app_bin/chroot /debian /bin/bash --login -i \
         || chroot /debian /bin/bash --login -i
