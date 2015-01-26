@@ -25,6 +25,7 @@ if [ -z $ANDROID_HOME ]; then
 fi
 
 projectroot=`pwd`
+projectname=`sed -n 's,.*name="app_name">\(.*\)<.*,\1,p' res/values/strings.xml`
 
 # standardize timezone to reduce build differences
 export TZ=UTC
@@ -51,11 +52,12 @@ fi
 ./setup-ant
 faketime -f "$TIMESTAMP" ant release
 
+apk=$projectroot/bin/$projectname-*-release.apk
 if which gpg > /dev/null; then
     if [ -z "`gpg --list-secret-keys`" ]; then
         echo "No GPG secret keys found, not signing APK"
     else
-        gpg --detach-sign bin/LilDebi-[0-9].*-release.apk
+        gpg --detach-sign $apk
     fi
 else
     echo "gpg not found, not signing APK"
