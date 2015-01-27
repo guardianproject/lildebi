@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="app_name">Lil\' Debi</string>
-  <string name="unsupported_device_body">Il tuo device non è supportato da Lil\' Debi per installarci Debian. E\' necessario il supporto al filesystem \"ext2\" e la possibilità di montare in loopback files come dischi. Di conseguenza quest\'app non ha alcuna utilità, ti consigliamo di disinstallarla.</string>
+  <string name="unsupported_device_body">Il tuo device non è supportato da Lil\' Debi per installarvi Debian. E\' necessario il supporto al filesystem \"ext2\" e la possibilità di montare in loopback files come dischi. Di conseguenza quest\'app non ha alcuna utilità, ti consigliamo di disinstallarla.</string>
   <string name="uninstall_button_title">Disinstalla Lil\' Debi</string>
   <string name="pref_start_automatically_title">Avvio Automatico?</string>
   <string name="pref_start_on_mount_summary">Avvia automaticamente Debian ogni volta che la tua scheda SD è montata</string>
@@ -12,11 +12,11 @@
   <string name="pref_image_path_summary">Il path al file di immagine del disco dove Debian è installata (default: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Script post-avvio</string>
   <string name="pref_post_start_summary">Script da eseguire dopo l\'avvio di Debian (predefinito: /etc/init.d/rc 2)</string>
-  <string name="pref_pre_stop_title">Script pre-stop</string>
+  <string name="pref_pre_stop_title">Script pre-arresto</string>
   <string name="pref_pre_stop_summary">Script da eseguire prima dell\'arresto di Debian (predefinito: /etc/init.d/rc 0)</string>
   <string name="pref_prevent_sleep_title">Impedisci lo stand-by</string>
   <string name="pref_prevent_sleep_summary">impedisce al device di andare in stand-by mentre Debian è in esecuzione</string>
-  <string name="menu_jackpal_terminal_title">Apertura Terminale…</string>
+  <string name="menu_jackpal_terminal_title">Apri Terminale…</string>
   <string name="menu_install_log_title">Visualizza Registro Installazione</string>
   <string name="menu_delete_title">Elimina Tutto</string>
   <string name="title_start">Avvia Debian</string>
@@ -34,7 +34,7 @@
   <string name="install">Installa</string>
   <string name="uninstall">Disinstalla…</string>
   <string name="get_superuser">Scarica Superuser…</string>
-  <string name="needs_superuser_message">Lil\' Debi ha bisogno di un accesso SuperUtente, installa l\'app Superuser</string>
+  <string name="needs_superuser_message">Lil\' Debi ha bisogno di un accesso SuperUtente (root), installa l\'app Superuser</string>
   <string name="smaller_imagesize_message">Non c\'è abbastanza spazio per l\'immagine specificata, riduco la dimensione per farla entrare nella scheda SD</string>
   <string name="mounted_message">Debian montata</string>
   <string name="not_mounted_message">Debian non montata</string>
@@ -45,7 +45,7 @@
   <string name="no_ext2_message">/proc/filesystems non riporta \'ext2\' come filesystem supportato</string>
   <string name="image_path_exists_message">Attenzione: esiste già un file con il nome che hai scelto per l\'immagine!</string>
   <string name="image_path_parent_does_not_exist_message">La cartella che hai selezionato non esiste! Ripristino quella predefinita.</string>
-  <string name="no_sdcard_message">La scheda SD esterna non è montata in lettura/scrittura, impossibile installare Debian senza ciò.</string>
+  <string name="no_sdcard_message">La scheda SD esterna non è montata in lettura/scrittura, impossibile installare Debian senza. </string>
   <string name="no_sdcard_status">(nessuna scheda SD)</string>
   <string name="title_install_log_view">Registro Installazione</string>
   <string name="title_share_button">Condividi</string>
@@ -54,9 +54,9 @@
   <string name="calculating_checksum">Calcolo del checksum SHA1…</string>
   <string name="checksum_complete">Checksum SHA1 completato!</string>
   <string name="select_mirror">Seleziona server Mirror</string>
-  <string name="select_release">Seleziona Rilascio</string>
+  <string name="select_release">Seleziona Release</string>
   <string name="select_arch">Seleziona Architettura CPU</string>
-  <string name="app_description">Vuoi un facile chroot di Debian funzionante, che ci si può fidare? Installare Lil \'Debi, e si può avere una installazione Debian in esecuzione con un solo clic di un pulsante. Si costruisce un intero chroot Debian sul vostro telefono interamente utilizzando debootstrap. Si sceglie il rilascio, specchio, e la dimensione dell\'immagine del disco, e lontano va. Si potrebbe richiedere fino a un\'ora su un dispositivo lento, quindi il suo fare. L\'intero pacchetto è costruito dalla sorgente usando pubblicamente disponibili, ripetibile costruisce. Si convalida anche ogni pacchetto utilizzando i tasti ufficiali repository di Debian, che sono incluse in app.</string>
+  <string name="app_description">Vuoi un facile chroot di Debian funzionante, di cui ti puoi fidare? Installa Lil \'Debi, e avrai un' installazione Debian con un clic. Costruisce un intero chroot Debian sul vostro telefono interamente utilizzando debootstrap. Si sceglie la versione di rilascio, il mirror, e la dimensione dell\'immagine sul disco e via! Potrebbe richiedere fino ad un\'ora su un dispositivo lento. L\'intero pacchetto è compilato da sorgenti usando build pubblicamente disponibili e ripetibili. Convalida inoltre ogni pacchetto utilizzando le chiavi ufficiali dai repository Debian, che sono incluse nell' app.</string>
   <string name="pref_install_on_internal_storage_summary">Internal Storage: /data/debian</string>
   <string name="pref_install_on_internal_storage_title">Installa sulla memoria interna</string>
   <string name="install_in_internal_storage_summary">Installa Debian nella memoria interna: /data/debian</string>
