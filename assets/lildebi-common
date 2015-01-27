@@ -71,25 +71,25 @@ make_debian_symlink () {
 make_root_symlinks () {
     wd=`pwd`
     cd /
-    mount -oremount,rw rootfs /
+    mount -o remount,rw rootfs /
     for x in \
         bin boot home media opt selinux srv usr var tmp
     do
         ln -s $mnt/$x /$x
     done
-    mount -oremount,ro rootfs /
+    mount -o remount,ro rootfs /
     cd "$wd"
 }
 
 remove_root_symlinks () {
     cd /
-    mount -oremount,rw rootfs /
+    mount -o remount,rw rootfs /
     for x in \
         bin boot home media opt selinux srv usr var tmp
     do
         rm /$x
     done
-    mount -oremount,ro rootfs /
+    mount -o remount,ro rootfs /
 }
 
 find_losetup () {
