@@ -41,8 +41,10 @@ Build Setup
 
 On Debian/Ubuntu/Mint/etc.:
 
+  ```
   sudo apt-get install autoconf automake libtool transfig wget patch \
        texinfo ant make openjdk-7-jdk faketime
+```
 
 On Mac OS X, you will need Fink, MacPorts, or Brew to install some of these
 dependencies.  For example, GNU tar is required, OS X's tar will not work.
@@ -62,6 +64,7 @@ getting busybox code as a submodule, building the native utilities, and then
 finally building the Android app.  Here are all those steps in a form to run
 in the terminal:
 
+```
   git clone https://github.com/guardianproject/lildebi
   cd lildebi
   git submodule init
@@ -69,6 +72,7 @@ in the terminal:
   make NDK_BASE=/path/to/your/android-ndk -C external assets
   ./setup-ant
   ant debug
+```
 
 Once that has completed, you can install it however you would normally install
 an .apk file.  You will find the .apk in the bin/ folder.  An easy way to
