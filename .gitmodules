@@ -6,3 +6,8 @@
 	path = external/libsuperuser
 	url = git@github.com:Chainfire/libsuperuser.git
 	ignore = dirty
+[submodule "external/gnupg"]
+	path = external/gnupg
+	url = git://git.gnupg.org/gnupg.git
+	branch = STABLE-BRANCH-1-4
+	ignore = dirty
