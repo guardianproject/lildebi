@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.22.1
-# Fri Aug  1 00:04:47 2014
+# Thu Jan  24 00:05:36 2015
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -55,7 +55,7 @@ CONFIG_BUSYBOX_EXEC_PATH="/proc/self/exe"
 #
 # Build Options
 #
-# CONFIG_STATIC is not set
+CONFIG_STATIC=y
 # CONFIG_PIE is not set
 # CONFIG_NOMMU is not set
 # CONFIG_BUILD_LIBBUSYBOX is not set
@@ -66,7 +66,7 @@ CONFIG_CROSS_COMPILER_PREFIX="arm-linux-androideabi-"
 CONFIG_SYSROOT="/opt/android-ndk/platforms/android-8/arch-arm"
 CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -DSK_RELEASE -nostdlib -march=armv5te -mtune=xscale -msoft-float -mthumb -mthumb-interwork -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -fpic -fno-short-enums -fgcse-after-reload -frename-registers"
 CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined ${SYSROOT}/usr/lib/crtbegin_dynamic.o ${SYSROOT}/usr/lib/crtend_android.o"
-CONFIG_EXTRA_LDLIBS="dl m c gcc"
+CONFIG_EXTRA_LDLIBS="m c gcc"
 
 #
 # Debugging Options
@@ -715,7 +715,7 @@ CONFIG_FEATURE_CROND_DIR=""
 # CONFIG_MOUNTPOINT is not set
 # CONFIG_MT is not set
 # CONFIG_RAIDAUTORUN is not set
-# CONFIG_READAHEAD is not set
+CONFIG_READAHEAD=y
 # CONFIG_RUNLEVEL is not set
 # CONFIG_RX is not set
 # CONFIG_SETSID is not set
