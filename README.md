@@ -166,9 +166,10 @@ externals/Makefile using a custom config file.
 
 gpgv
 ----
-https://github.com/guardianproject/gnupg-for-android
+git://git.gnupg.org/gnupg.git
 
-Building gpgv for Android is quite complicated, so the binary is included in
-this project. The binary is built from source using the gnupg-for-android
-build system.  The binary ends up in external/data/ called gpgv2-static.  To
-build it yourself, follow the included instructions.
+Only `gpgv` is needed, so it is built from GnuPG v1.4.x.  It is built
+statically to get around PIE vs non-PIE.  If an executable is built fully
+statically, with no dynamic linking at all, then the same binary will work on
+both PIE systems (android-21 and above), and systems where PIE does not work
+(older than android-16).

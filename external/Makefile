@@ -70,12 +70,13 @@ export TZ=UTC
 
 .PHONY: all assets clean distclean
 
-all: $(EXTERNAL_ROOT)/busybox/busybox
+all: $(EXTERNAL_ROOT)/busybox/busybox $(EXTERNAL_ROOT)/gnupg/g10/gpgv
 	make -C $(EXTERNAL_ROOT)/cdebootstrap
 
 assets: all
 	install $(EXTERNAL_ROOT)/busybox/busybox \
 		$(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar \
+		$(EXTERNAL_ROOT)/gnupg/g10/gpgv \
 		$(ASSETS)/
 
 
@@ -94,6 +95,39 @@ $(EXTERNAL_ROOT)/busybox/busybox: $(EXTERNAL_ROOT)/busybox/.config
 	echo "TIMESTAMP: $(TIMESTAMP)"
 	faketime -f $(TIMESTAMP) make -C $(EXTERNAL_ROOT)/busybox/
 
+
+$(EXTERNAL_ROOT)/gnupg/configure: $(EXTERNAL_ROOT)/gnupg/configure.ac
+	cd $(EXTERNAL_ROOT)/gnupg && \
+		./autogen.sh --force
+
+$(EXTERNAL_ROOT)/gnupg/Makefile: $(EXTERNAL_ROOT)/gnupg/configure
+	cd $(EXTERNAL_ROOT)/gnupg && \
+		SYSROOT=$(NDK_SYSROOT) \
+		AR="$(AR)" \
+		CC="$(CC)" \
+		LD="$(LD)" \
+		CFLAGS="$(ALL_CFLAGS)" \
+		LDFLAGS="$(ALL_LDFLAGS) -static" \
+			./configure \
+				--host=$(HOST) \
+				--disable-agent-support \
+				--disable-bzip2 \
+				--disable-card-support \
+				--disable-exec \
+				--disable-keyserver-helpers \
+				--disable-hkp \
+				--disable-ldap \
+				--disable-nls \
+				--disable-photo-viewers
+
+$(EXTERNAL_ROOT)/gnupg/g10/gpgv: $(EXTERNAL_ROOT)/gnupg/Makefile
+	make -C $(EXTERNAL_ROOT)/gnupg/cipher
+	make -C $(EXTERNAL_ROOT)/gnupg/mpi
+	make -C $(EXTERNAL_ROOT)/gnupg/util
+	make -C $(EXTERNAL_ROOT)/gnupg/zlib
+	make -C $(EXTERNAL_ROOT)/gnupg/g10
+	$(STRIP) $(EXTERNAL_ROOT)/gnupg/g10/gpgv
+
 # to re-download and verify that the .debs included in git match the official
 # Debian ones
 verify-debian-packages: clean
@@ -101,13 +135,14 @@ verify-debian-packages: clean
 	-rm $(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap-static*.deb
 	make -C $(EXTERNAL_ROOT)/cdebootstrap
 
-clean: 
+clean:
 	rm -f -- $(EXTERNAL_ROOT)/busybox/.config
 	rm -f -- $(EXTERNAL_ROOT)/busybox/busybox
 	-cd $(EXTERNAL_ROOT)/busybox/ && \
 		patch -N -R -p1 --reject-file=- < ../003-mount-umount-fsck-df.patch
 	make -C $(EXTERNAL_ROOT)/busybox/ clean
 	make -C $(EXTERNAL_ROOT)/cdebootstrap/ clean
+	make -C $(EXTERNAL_ROOT)/gnupg/ clean
 	make -C $(EXTERNAL_ROOT)/debian-archive-keyring/ clean
 
 distclean: clean
