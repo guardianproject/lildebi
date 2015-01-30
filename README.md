@@ -78,7 +78,9 @@ Once that has completed, you can install it however you would normally install
 an .apk file.  You will find the .apk in the bin/ folder.  An easy way to
 install it via the terminal is to run:
 
+```
   adb install bin/LilDebi-debug.apk
+```
 
 
 Deterministic Release
@@ -100,8 +102,10 @@ script. Running a program with `faketime` causes that program to recent a
 fixed time based on the timestamp provided to `faketime`.  This ensures that
 the timestamps in the files are always the same.
 
+```
   faketime "`git log -n1 --format=format:%ai`" \
     ant clean debug
+```
 
 The actual process that is used for making the release builds is the included
 `./make-release-build` script.  To reproduce the official releases, run this
@@ -112,11 +116,15 @@ compare your release build to the official release using the included
 All of them are Debian/Ubuntu packages except for `apktool`.  Here's what to
 install:
 
+```
   apt-get install unzip meld bsdmainutils
+```
 
 Or on OSX with brew:
 
+```
   brew install apktool unzip
+```
 
 If you want to reproduce a build and the cdebootstrap-static package is no
 longer available, you can download it from snapshot.debian.org.  For example:
