@@ -104,7 +104,7 @@ the timestamps in the files are always the same.
 
 ```
   faketime "`git log -n1 --format=format:%ai`" \
-    ant clean debug
+  ant clean debug
 ```
 
 The actual process that is used for making the release builds is the included
