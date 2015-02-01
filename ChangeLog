@@ -1,8 +1,13 @@
+v0.5.4
++ /debian/shell can now be run as any user, not only root
++ fixes #131 for some devices where /debian/shell requires root
++ new icon to pay tribute to Ada Lovelace
+
 v0.5.3
 + support SuperSU
 + update to latest cdebootstrap
 + use Android locale in Debian setup
-+ updated translations: fr nb nl ru tr
++ updated translations: fr nb nl ru sk tr
 
 v0.5.2
 + notification when install process is running
