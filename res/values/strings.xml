@@ -23,6 +23,13 @@
     <string name="menu_preferences_title">Settings</string>
     <string name="menu_install_log_title">View Install Log</string>
     <string name="menu_delete_title">Delete All</string>
+    <string name="menu_about_title">About Lil\' Debi</string>
+    <string name="about_content">Lil\' Debi builds up a whole Debian chroot on your phone entirely using debootstrap. You choose the release, mirror, and size of the disk image, and away it goes. It could take up to an hour on a slow device.\n\nThen it has a simple chroot manager that fscks your disk, mounts/unmounts things, starts/stops sshd if you have it installed, etc. You can also then use \‘apt-get\’ to install any package that is released for ARM processors. This includes things like a complete real shell, Tor, TraceRouteTCP, iwconfig/ipconfig, and other security and crypto tools. Works well with Terminal Emulator—just run \`/debian/shell\` to get a Debian shell.\n\nThe aim of Lil\' Debi is to provide a transparent and tightly integrated Debian install on your Android device. It mounts all of your Android partitions in Debian space, so you see a fusion of both systems. It\'s even possible to have Lil\’ Debi launch the normal Debian init start-up scripts when it starts, so that all you need to do is apt-get install and any servers you install will just work.\n\nLil\' Debi works with as few modifications to the Android system as possible. Currently, it only adds a /bin symlink, and a /debian mount directory. It does not touch /system at all.</string>
+    <string name="about_source">Source:</string>
+    <string name="about_sourceurl">https://github.com/guardianproject/lildebi</string>
+    <string name="about_license">License:</string>
+    <string name="about_licenseurl">https://www.gnu.org/licenses/license-list.html#GNUGPLv3</string>
+    <string name="about_version">Version:</string>
     <string name="title_start">Start Debian</string>
     <string name="title_stop">Stop Debian</string>
     <string name="title_configure">Configure Image</string>
@@ -30,6 +37,7 @@
     <string name="doit">Delete Setup</string>
     <string name="cancel">Cancel</string>
     <string name="blank">(blank)</string>
+    <string name="ok">OK</string>
     <string name="confirm_delete_message">Are you sure you want to delete the whole Lil\' Debi setup?</string>
     <string name="release">Release:</string>
     <string name="mirror">Mirror:</string>
