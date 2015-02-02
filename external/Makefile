@@ -28,14 +28,14 @@ endif
 # Android NDK setup
 NDK_BASE ?= /opt/android-ndk
 NDK_ABI=arm
-NDK_COMPILER_VERSION=4.6
+NDK_TOOLCHAIN_VERSION=4.8
 # NDK platform level, aka APP_PLATFORM, is equivalent to minSdkVersion
 NDK_PLATFORM_LEVEL ?= \
 	$(shell sed -n 's,.*android:minSdkVersion="\([0-9][0-9]*\)".*,\1,p' $(PROJECT_ROOT)/AndroidManifest.xml)
 
 NDK_SYSROOT=$(NDK_BASE)/platforms/android-$(NDK_PLATFORM_LEVEL)/arch-$(NDK_ABI)
 NDK_UNAME := $(shell uname -s | tr '[A-Z]' '[a-z]')
-NDK_TOOLCHAIN = $(NDK_ABI)-linux-androideabi-$(NDK_COMPILER_VERSION)
+NDK_TOOLCHAIN = $(NDK_ABI)-linux-androideabi-$(NDK_TOOLCHAIN_VERSION)
 NDK_TOOLCHAIN_BASE=$(NDK_BASE)/toolchains/$(NDK_TOOLCHAIN)/prebuilt/$(NDK_UNAME)-$(NDK_PROCESSOR)
 
 # to use the real HOST tag, you need the latest libtool files:
