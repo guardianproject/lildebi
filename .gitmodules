@@ -2,3 +2,7 @@
 	path = external/busybox
 	url = git://busybox.net/busybox.git
 	ignore = dirty
+[submodule "external/libsuperuser"]
+	path = external/libsuperuser
+	url = git@github.com:Chainfire/libsuperuser.git
+	ignore = dirty
