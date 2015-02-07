@@ -7,12 +7,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,6 +24,8 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import eu.chainfire.libsuperuser.Shell;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,16 +43,19 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
     private TextView consoleText;
     private static int savedStatus = -1;
 
-    private PackageManager pm;
-
     private Handler commandThreadHandler;
     private LilDebiAction action;
+
+    private boolean foundSU = false;
+    Thread findSUThread = new Thread() {
+        public void run() {
+            foundSU = Shell.SU.available();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        pm = getPackageManager();
 
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.lildebi);
@@ -62,6 +64,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
         startStopButton = (Button) findViewById(R.id.startStopButton);
         consoleScroll = (ScrollView) findViewById(R.id.consoleScroll);
         consoleText = (TextView) findViewById(R.id.consoleText);
+
+        // All SU calls are blocking calls. libsuperuser doen't allow
+        // to make such blocking calls from Main Thread.
+        findSUThread.start();
 
         commandThreadHandler = new Handler() {
             public void handleMessage(Message msg) {
@@ -86,6 +92,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
     @Override
     protected void onResume() {
         super.onResume();
+        // check again for SU
+        if (!foundSU && !findSUThread.isAlive())
+            findSUThread.start();
         if (NativeHelper.isInstallRunning) {
             // go back to the running install screen
             Intent intent = new Intent(this, InstallActivity.class);
@@ -190,30 +199,12 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
             startStopButton.setVisibility(View.GONE);
             return;
         }
-        boolean foundSU = false;
+
         try {
-            pm.getPackageInfo("com.koushikdutta.superuser", PackageManager.GET_ACTIVITIES);
-            foundSU = true;
-        } catch (NameNotFoundException e) {
-            try {
-                pm.getPackageInfo("com.noshufou.android.su", PackageManager.GET_ACTIVITIES);
-                foundSU = true;
-            } catch (NameNotFoundException e1) {
-                try {
-                    pm.getPackageInfo("eu.chainfire.supersu", PackageManager.GET_ACTIVITIES);
-                    foundSU = true;
-                } catch (NameNotFoundException e2) {
-                    try {
-                        pm.getPackageInfo("com.thirdparty.superuser", PackageManager.GET_ACTIVITIES);
-                        foundSU = true;
-                    } catch (NameNotFoundException e3) {
-                    }
-                }
-            }
+            findSUThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        if (Build.DISPLAY.contains("cyanogen")
-                || (Build.DISPLAY.contains("cm_")))
-            foundSU = true;
 
         if (!foundSU) {
             statusTitle.setVisibility(View.VISIBLE);
