@@ -14,6 +14,7 @@ CWD = $(shell pwd)
 PROJECT_ROOT = $(CWD)/..
 EXTERNAL_ROOT = $(PROJECT_ROOT)/external
 ASSETS = $(PROJECT_ROOT)/assets
+LIBS = $(PROJECT_ROOT)/libs
 
 # Android now has 64-bit and 32-bit versions of the NDK for GNU/Linux.  We
 # assume that the build platform uses the appropriate version, otherwise the
@@ -70,14 +71,16 @@ export TZ=UTC
 
 .PHONY: all assets clean distclean
 
-all: $(EXTERNAL_ROOT)/busybox/busybox
+all: $(EXTERNAL_ROOT)/busybox/busybox libsuper
 	make -C $(EXTERNAL_ROOT)/cdebootstrap
+
 
 assets: all
 	install $(EXTERNAL_ROOT)/busybox/busybox \
 		$(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar \
 		$(ASSETS)/
-
+	install $(EXTERNAL_ROOT)/libsuperuser/libsuperuser/build/outputs/aar/libsuperuser-release.aar \
+		$(LIBS)/
 
 $(EXTERNAL_ROOT)/busybox/.config: $(EXTERNAL_ROOT)/busybox_config
 	cp $(EXTERNAL_ROOT)/busybox_config $(EXTERNAL_ROOT)/busybox/.config
@@ -94,6 +97,10 @@ $(EXTERNAL_ROOT)/busybox/busybox: $(EXTERNAL_ROOT)/busybox/.config
 	echo "TIMESTAMP: $(TIMESTAMP)"
 	faketime -f $(TIMESTAMP) make -C $(EXTERNAL_ROOT)/busybox/
 
+libsuper: $(EXTERNAL_ROOT)/libsuperuser/libsuperuser
+	-cd $(EXTERNAL_ROOT)/libsuperuser/libsuperuser/ && \
+	../gradlew assembleRelease
+
 # to re-download and verify that the .debs included in git match the official
 # Debian ones
 verify-debian-packages: clean
@@ -109,7 +116,10 @@ clean:
 	make -C $(EXTERNAL_ROOT)/busybox/ clean
 	make -C $(EXTERNAL_ROOT)/cdebootstrap/ clean
 	make -C $(EXTERNAL_ROOT)/debian-archive-keyring/ clean
+	-cd $(EXTERNAL_ROOT)/libsuperuser && \
+		./gradlew -i clean
 
 distclean: clean
 	rm -f -- $(ASSETS)/busybox
 	rm -f -- $(ASSETS)/cdebootstrap.tar
+	rm -f -- lib/libsuperuser-release.aar
