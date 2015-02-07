@@ -3,10 +3,12 @@ package info.guardianproject.lildebi;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
@@ -17,6 +19,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -171,6 +175,47 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                                     dialog.cancel();
                                 }
                             }).show();
+            return true;
+        case R.id.menu_about:
+             View view = null;
+             if (Build.VERSION.SDK_INT >= 11) {
+                 LayoutInflater li = LayoutInflater.from(this);
+                 view = li.inflate(R.layout.about_activity, null);
+             } else {
+                 view = View.inflate(
+                         new ContextThemeWrapper(this, R.style.AboutDialogLight),
+                         R.layout.about_activity, null);
+             }
+
+                // Fill in the version...
+             try {
+                 PackageInfo pi = getPackageManager()
+                         .getPackageInfo(getApplicationContext()
+                                 .getPackageName(), 0);
+                 ((TextView) view.findViewById(R.id.version))
+                         .setText(pi.versionName);
+             } catch (Exception e) {
+             }
+
+             Builder p = null;
+             if (Build.VERSION.SDK_INT >= 11) {
+                 p = new AlertDialog.Builder(this).setView(view);
+             } else {
+                 p = new AlertDialog.Builder(
+                         new ContextThemeWrapper(this, R.style.AboutDialogLight)
+                         ).setView(view);
+             }
+             final AlertDialog alrt = p.create();
+             alrt.setIcon(R.drawable.icon);
+             alrt.setTitle(getString(R.string.menu_about_title));
+             alrt.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.ok),
+                     new DialogInterface.OnClickListener() {
+                         @Override
+                         public void onClick(DialogInterface dialog,
+                                 int whichButton) {
+                         }
+                     });
+             alrt.show();
             return true;
         }
         return false;
