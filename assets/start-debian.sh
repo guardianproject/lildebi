@@ -139,6 +139,7 @@ test_mount_bind /mnt/sdcard/external_sd/.android_secure
 test_mount_bind /mnt/secure/.android_secure
 test_mount_bind /mnt/shell/emulated
 test_mount_bind /pds
+test_mount_bind /sd-ext
 test_mount_bind /sqlite_stmt_journals
 test_mount_bind /storage/emulated/0
 test_mount_bind /storage/emulated/legacy
