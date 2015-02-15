@@ -1,0 +1,12 @@
+/* Library version */
+#undef LIBDI_VERSION
+
+/* Library version - major */
+#undef LIBDI_VERSION_MAJOR
+
+/* Library version - minor */
+#undef LIBDI_VERSION_MINOR
+
+/* Library version - revision */
+#undef LIBDI_VERSION_REVISION
+

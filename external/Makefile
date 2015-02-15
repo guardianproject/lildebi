@@ -70,8 +70,9 @@ export TZ=UTC
 
 .PHONY: all assets clean distclean
 
-all: $(EXTERNAL_ROOT)/busybox/busybox $(EXTERNAL_ROOT)/gnupg/g10/gpgv
-	make -C $(EXTERNAL_ROOT)/cdebootstrap
+all: $(EXTERNAL_ROOT)/busybox/busybox $(EXTERNAL_ROOT)/gnupg/g10/gpgv \
+	$(EXTERNAL_ROOT)/cdebootstrap/src/cdebootstrap \
+	$(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar
 
 assets: all
 	install $(EXTERNAL_ROOT)/busybox/busybox \
@@ -102,6 +103,7 @@ $(EXTERNAL_ROOT)/gnupg/configure: $(EXTERNAL_ROOT)/gnupg/configure.ac
 
 $(EXTERNAL_ROOT)/gnupg/Makefile: $(EXTERNAL_ROOT)/gnupg/configure
 	cd $(EXTERNAL_ROOT)/gnupg && \
+	sed -i 's/\#undef\ USE_SHM_COPROCESSING//g' config.h.in && \
 		SYSROOT=$(NDK_SYSROOT) \
 		AR="$(AR)" \
 		CC="$(CC)" \
@@ -128,6 +130,44 @@ $(EXTERNAL_ROOT)/gnupg/g10/gpgv: $(EXTERNAL_ROOT)/gnupg/Makefile
 	make -C $(EXTERNAL_ROOT)/gnupg/g10
 	$(STRIP) $(EXTERNAL_ROOT)/gnupg/g10/gpgv
 
+$(EXTERNAL_ROOT)/cdebootstrap/Makefile: $(EXTERNAL_ROOT)/cdebootstrap/configure
+	cd $(EXTERNAL_ROOT) && \
+	wget http://ftp.de.debian.org/debian/pool/main/c/cdebootstrap/cdebootstrap_0.6.4.tar.gz -O - | tar xzv -
+	cd $(EXTERNAL_ROOT)/cdebootstrap && \
+		SYSROOT=$(NDK_SYSROOT) \
+                AR="$(AR)" \
+                CC="$(CC) -L$(EXTERNAL_ROOT)/cdebootstrap/lib" \
+                LD="$(LD)" \
+                CFLAGS="$(ALL_CFLAGS)" \
+                LDFLAGS="$(ALL_LDFLAGS) -static" \
+                        ./configure \
+                                --host=$(HOST) \
+				--with-frontend=standalone
+				--with-debian-architecture=armel \
+				--prefix=$(EXTERNAL_ROOT)/cdebootstrap/installdir/usr \
+				--program-suffix=-static
+
+$(EXTERNAL_ROOT)/cdebootstrap/src/cdebootstrap: $(EXTERNAL_ROOT)/cdebootstrap/Makefile
+	make -C $(EXTERNAL_ROOT)/cdebootstrap
+	make -C $(EXTERNAL_ROOT)/cdebootstrap install
+
+$(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar: $(EXTERNAL_ROOT)/cdebootstrap/installdir/usr/bin/cdebootstrap-static
+	TIMESTAMP="`stat $(EXTERNAL_ROOT)/cdebootstrap/installdir | sed -n 's,Modify: \(.*\),\1,p'`"
+	cd $(EXTERNAL_ROOT)/cdebootstrap && \
+		patch -N -p0 --reject-file=- < add-missing-ubuntu-releases.patch
+	for f in `find $(EXTERNAL_ROOT)/cdebootstrap/installdir`; do touch --date=$(TIMESTAMP) "$$f"; done
+	cd $(EXTERNAL_ROOT)/cdebootstrap/installdir && \
+		find usr/ -type f -print0 -o -type l -print0 \
+		| sort --zero-terminated \
+		| tar --no-recursion --null --files-from - \
+			--owner=1000 --group=1000 --numeric-owner --format=gnu \
+			--create --file $(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar
+	touch --date=$(TIMESTAMP) $(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar
+
+$(EXTERNAL_ROOT)/cdebootstrap/installdir/usr/bin/cdebootstrap-static: $(EXTERNAL_ROOT)/cdebootstrap/installdir
+	tar -cf $(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar --exclude=usr/share/man --exclude=usr/share/doc \
+		--preserve-permissions $(EXTERNAL_ROOT)/cdebootstrap/installdir/usr
+
 # to re-download and verify that the .debs included in git match the official
 # Debian ones
 verify-debian-packages: clean
@@ -148,3 +188,7 @@ clean:
 distclean: clean
 	rm -f -- $(ASSETS)/busybox
 	rm -f -- $(ASSETS)/cdebootstrap.tar
+	rm -f -- $(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar
+	rm -rf -- $(EXTERNAL_ROOT)/cdebootstrap/installdir
+	make -C $(EXTERNAL_ROOT)/cdebootstrap/ distclean
+	make -C $(EXTERNAL_ROOT)/gnupg/ distclean
