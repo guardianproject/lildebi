@@ -9,12 +9,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,6 +29,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import eu.chainfire.libsuperuser.Shell;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -48,16 +47,19 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
     private TextView consoleText;
     private static int savedStatus = -1;
 
-    private PackageManager pm;
-
     private Handler commandThreadHandler;
     private LilDebiAction action;
+
+    private boolean foundSU = false;
+    Thread findSUThread = new Thread() {
+        public void run() {
+            foundSU = Shell.SU.available();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        pm = getPackageManager();
 
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.lildebi);
@@ -66,6 +68,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
         startStopButton = (Button) findViewById(R.id.startStopButton);
         consoleScroll = (ScrollView) findViewById(R.id.consoleScroll);
         consoleText = (TextView) findViewById(R.id.consoleText);
+
+        // All SU calls are blocking calls. libsuperuser doen't allow
+        // to make such blocking calls from Main Thread.
+        findSUThread.start();
 
         commandThreadHandler = new Handler() {
             public void handleMessage(Message msg) {
@@ -90,6 +96,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
     @Override
     protected void onResume() {
         super.onResume();
+        // check again for SU
+        if (!foundSU && !findSUThread.isAlive())
+            findSUThread.start();
         if (NativeHelper.isInstallRunning) {
             // go back to the running install screen
             Intent intent = new Intent(this, InstallActivity.class);
@@ -176,46 +185,45 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                                 }
                             }).show();
             return true;
-        case R.id.menu_about:
-             View view = null;
-             if (Build.VERSION.SDK_INT >= 11) {
-                 LayoutInflater li = LayoutInflater.from(this);
-                 view = li.inflate(R.layout.about_activity, null);
-             } else {
-                 view = View.inflate(
-                         new ContextThemeWrapper(this, R.style.AboutDialogLight),
-                         R.layout.about_activity, null);
-             }
-
+    case R.id.menu_about:
+            View view = null;
+            if (Build.VERSION.SDK_INT >= 11) {
+                LayoutInflater li = LayoutInflater.from(this);
+                view = li.inflate(R.layout.about_activity, null);
+            } else {
+                view = View.inflate(
+                        new ContextThemeWrapper(this, R.style.AboutDialogLight),
+                        R.layout.about_activity, null);
+            }
                 // Fill in the version...
-             try {
-                 PackageInfo pi = getPackageManager()
-                         .getPackageInfo(getApplicationContext()
-                                 .getPackageName(), 0);
-                 ((TextView) view.findViewById(R.id.version))
-                         .setText(pi.versionName);
-             } catch (Exception e) {
-             }
+            try {
+                PackageInfo pi = getPackageManager()
+                        .getPackageInfo(getApplicationContext()
+                                .getPackageName(), 0);
+                ((TextView) view.findViewById(R.id.version))
+                        .setText(pi.versionName);
+            } catch (Exception e) {
+            }
 
-             Builder p = null;
-             if (Build.VERSION.SDK_INT >= 11) {
-                 p = new AlertDialog.Builder(this).setView(view);
-             } else {
-                 p = new AlertDialog.Builder(
-                         new ContextThemeWrapper(this, R.style.AboutDialogLight)
-                         ).setView(view);
-             }
-             final AlertDialog alrt = p.create();
-             alrt.setIcon(R.drawable.icon);
-             alrt.setTitle(getString(R.string.menu_about_title));
-             alrt.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.ok),
-                     new DialogInterface.OnClickListener() {
-                         @Override
-                         public void onClick(DialogInterface dialog,
-                                 int whichButton) {
-                         }
-                     });
-             alrt.show();
+            Builder p = null;
+            if (Build.VERSION.SDK_INT >= 11) {
+                p = new AlertDialog.Builder(this).setView(view);
+            } else {
+                p = new AlertDialog.Builder(
+                        new ContextThemeWrapper(this, R.style.AboutDialogLight)
+                        ).setView(view);
+            }
+            final AlertDialog alrt = p.create();
+            alrt.setIcon(R.drawable.icon);
+            alrt.setTitle(getString(R.string.menu_about_title));
+            alrt.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog,
+                                int whichButton) {
+                        }
+                    });
+            alrt.show();
             return true;
         }
         return false;
@@ -235,30 +243,12 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
             startStopButton.setVisibility(View.GONE);
             return;
         }
-        boolean foundSU = false;
+
         try {
-            pm.getPackageInfo("com.koushikdutta.superuser", PackageManager.GET_ACTIVITIES);
-            foundSU = true;
-        } catch (NameNotFoundException e) {
-            try {
-                pm.getPackageInfo("com.noshufou.android.su", PackageManager.GET_ACTIVITIES);
-                foundSU = true;
-            } catch (NameNotFoundException e1) {
-                try {
-                    pm.getPackageInfo("eu.chainfire.supersu", PackageManager.GET_ACTIVITIES);
-                    foundSU = true;
-                } catch (NameNotFoundException e2) {
-                    try {
-                        pm.getPackageInfo("com.thirdparty.superuser", PackageManager.GET_ACTIVITIES);
-                        foundSU = true;
-                    } catch (NameNotFoundException e3) {
-                    }
-                }
-            }
+            findSUThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        if (Build.DISPLAY.contains("cyanogen")
-                || (Build.DISPLAY.contains("cm_")))
-            foundSU = true;
 
         if (!foundSU) {
             statusTitle.setVisibility(View.VISIBLE);
