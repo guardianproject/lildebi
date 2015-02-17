@@ -28,7 +28,7 @@ endif
 # Android NDK setup
 NDK_BASE ?= /opt/android-ndk
 NDK_ABI=arm
-NDK_TOOLCHAIN_VERSION=4.8
+NDK_TOOLCHAIN_VERSION=4.9
 # NDK platform level, aka APP_PLATFORM, is equivalent to minSdkVersion
 NDK_PLATFORM_LEVEL ?= \
 	$(shell sed -n 's,.*android:minSdkVersion="\([0-9][0-9]*\)".*,\1,p' $(PROJECT_ROOT)/AndroidManifest.xml)
@@ -130,19 +130,23 @@ $(EXTERNAL_ROOT)/gnupg/g10/gpgv: $(EXTERNAL_ROOT)/gnupg/Makefile
 	make -C $(EXTERNAL_ROOT)/gnupg/g10
 	$(STRIP) $(EXTERNAL_ROOT)/gnupg/g10/gpgv
 
-$(EXTERNAL_ROOT)/cdebootstrap/Makefile: $(EXTERNAL_ROOT)/cdebootstrap/configure
+$(EXTERNAL_ROOT)/cdebootstrap/configure: $(EXTERNAL_ROOT)/cdebootstrap
 	cd $(EXTERNAL_ROOT) && \
-	wget http://ftp.de.debian.org/debian/pool/main/c/cdebootstrap/cdebootstrap_0.6.4.tar.gz -O - | tar xzv -
+        wget http://ftp.de.debian.org/debian/pool/main/c/cdebootstrap/cdebootstrap_0.6.4.tar.gz -O - | tar xzv && \
+	cd $(EXTERNAL_ROOT)/cdebootstrap && \
+		patch -N -p0 --reject-file=- < add-missing-ubuntu-releases.patch
+
+$(EXTERNAL_ROOT)/cdebootstrap/Makefile: $(EXTERNAL_ROOT)/cdebootstrap/configure
 	cd $(EXTERNAL_ROOT)/cdebootstrap && \
 		SYSROOT=$(NDK_SYSROOT) \
                 AR="$(AR)" \
-                CC="$(CC) -L$(EXTERNAL_ROOT)/cdebootstrap/lib" \
+                CC="$(CC) -L$(EXTERNAL_ROOT)/cdebootstrap/lib -I$(EXTERNAL_ROOT)/cdebootstrap/include" \
                 LD="$(LD)" \
                 CFLAGS="$(ALL_CFLAGS)" \
                 LDFLAGS="$(ALL_LDFLAGS) -static" \
                         ./configure \
                                 --host=$(HOST) \
-				--with-frontend=standalone
+				--with-frontend=standalone \
 				--with-debian-architecture=armel \
 				--prefix=$(EXTERNAL_ROOT)/cdebootstrap/installdir/usr \
 				--program-suffix=-static
@@ -153,8 +157,6 @@ $(EXTERNAL_ROOT)/cdebootstrap/src/cdebootstrap: $(EXTERNAL_ROOT)/cdebootstrap/Ma
 
 $(EXTERNAL_ROOT)/cdebootstrap/cdebootstrap.tar: $(EXTERNAL_ROOT)/cdebootstrap/installdir/usr/bin/cdebootstrap-static
 	TIMESTAMP="`stat $(EXTERNAL_ROOT)/cdebootstrap/installdir | sed -n 's,Modify: \(.*\),\1,p'`"
-	cd $(EXTERNAL_ROOT)/cdebootstrap && \
-		patch -N -p0 --reject-file=- < add-missing-ubuntu-releases.patch
 	for f in `find $(EXTERNAL_ROOT)/cdebootstrap/installdir`; do touch --date=$(TIMESTAMP) "$$f"; done
 	cd $(EXTERNAL_ROOT)/cdebootstrap/installdir && \
 		find usr/ -type f -print0 -o -type l -print0 \
