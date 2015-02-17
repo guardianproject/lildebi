@@ -140,9 +140,9 @@ clean:
 	rm -f -- $(EXTERNAL_ROOT)/busybox/busybox
 	-cd $(EXTERNAL_ROOT)/busybox/ && \
 		patch -N -R -p1 --reject-file=- < ../003-mount-umount-fsck-df.patch
+	-make -C $(EXTERNAL_ROOT)/gnupg/ clean
 	make -C $(EXTERNAL_ROOT)/busybox/ clean
 	make -C $(EXTERNAL_ROOT)/cdebootstrap/ clean
-	make -C $(EXTERNAL_ROOT)/gnupg/ clean
 	make -C $(EXTERNAL_ROOT)/debian-archive-keyring/ clean
 
 distclean: clean
