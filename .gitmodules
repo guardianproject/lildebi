@@ -4,7 +4,7 @@
 	ignore = dirty
 [submodule "external/libsuperuser"]
 	path = external/libsuperuser
-	url = git@github.com:Chainfire/libsuperuser.git
+	url = https://github.com/Chainfire/libsuperuser.git
 	ignore = dirty
 [submodule "external/gnupg"]
 	path = external/gnupg
