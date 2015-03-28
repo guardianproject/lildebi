@@ -222,15 +222,19 @@ find_and_run_fsck () {
     else
         echo "NO fsck FOUND, SKIPPING DISK CHECK!"
         fsck_return=0
-        install_fsck=yes
     fi
 
     test $fsck_return -lt 4 || exit $fsck_return
 }
 
 install_e2fsck_static () {
+    if [ -x $app_bin/e2fsck.static ] && [ -x $mnt/sbin/e2fsck.static ]; then
+        echo "Updating e2fsck.static from Debian..."
+        cp $mnt/sbin/e2fsck.static $app_bin/
+    elif [ ! -x /system/bin/e2fsck ]; then
         echo "Installing e2fsck.static from Debian..."
         PATH=/sbin:/bin:/usr/bin \
             chroot $mnt /usr/bin/apt-get --no-install-recommends install e2fsck-static
         cp $mnt/sbin/e2fsck.static $app_bin/
+    fi
 }
