@@ -7,5 +7,5 @@
 
 for script in halt reboot hwclock.sh sendsigs umountfs umountroot; do
     echo "removing $script:"
-    /usr/sbin/update-rc.d -f $script remove
+    /usr/sbin/update-rc.d -f $script disable
 done
