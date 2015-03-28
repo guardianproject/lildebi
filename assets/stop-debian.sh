@@ -12,37 +12,32 @@ export PATH=$1:$PATH
 test -e $1/lildebi-common || exit 1
 . $1/lildebi-common
 
+kill_processes () {
+    local signal="$1"
+
+    for root in /proc/*/root; do
+      if [ ! -r "$root" ] || [ ! "`readlink "$root"`" = "$mnt" ]; then
+        continue
+      fi
+      pid="${root#/proc/}"
+      pid="${pid%/root}"
+      kill -"$signal" "$pid" 2>/dev/null || true
+    done
+
+    # /debian/shell starts outside of the chroot, so it must be killed separately
+    for pid in `ps | grep '/[d]ebian/shell' | cut -b1-5`; do
+      kill -$signal $pid
+    done
+}
+
 echo -n "Asking all processes to terminate..."
 # first send TERM
-for root in /proc/*/root; do
-  if [ ! -r "$root" ] || [ ! "`readlink "$root"`" = "$mnt" ]; then
-    continue
-  fi
-  pid="${root#/proc/}"
-  pid="${pid%/root}"
-  kill -TERM "$pid" 2>/dev/null || true
-done
-# /debian/shell starts outside of the chroot, so it must be killed separately
-for pid in `ps | grep '/[d]ebian/shell' | cut -b1-5`; do
-    kill -TERM $pid
-done
+kill_processes TERM
 sleep 1
 echo "done"
 # then send KILL to force the rest to die
-echo "Killing remaining processes:"
-for root in /proc/*/root; do
-  if [ ! -r "$root" ] || [ ! "`readlink "$root"`" = "$mnt" ]; then
-    continue
-  fi
-  pid="${root#/proc/}"
-  pid="${pid%/root}"
-  echo "$pid `readlink $(dirname $root)/exe`"
-  kill -KILL "$pid" 2>/dev/null || true
-done
-for pid in `ps | grep '/[d]ebian/shell' | cut -b1-5`; do
-    echo "$pid /debian/shell"
-    kill -KILL $pid
-done
+echo -n "Killing remaining processes..."
+kill_processes KILL
 echo "done"
 
 echo -n "Checking for open files in Debian chroot..."
