@@ -42,6 +42,18 @@
             android:text="@string/title_start" />
     </LinearLayout>
 
+   <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        
+         <Button 
+            android:id="@+id/xfceInstallButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="xfce INSTALL"        />
+   </LinearLayout>
+
     <ScrollView
         android:id="@+id/consoleScroll"
         android:layout_width="fill_parent"
