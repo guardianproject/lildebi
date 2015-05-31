@@ -17,6 +17,7 @@ public class InstallService extends Service {
 
     public static final String INSTALL_LOG_UPDATE = "INSTALL_LOG_UPDATE";
     public static final String INSTALL_FINISHED = "INSTALL_FINISHED";
+    String command;
 
     public class LocalBinder extends Binder {
         public InstallService getService() {
@@ -92,15 +93,41 @@ public class InstallService extends Service {
                 et.start();
 
                 String stdArgs = NativeHelper.getArgs();
-                String command = "./create-debian-setup.sh " + stdArgs;
-                command += "\\\n&& " + "./stop-debian.sh " + stdArgs;
-                command += "\\\n&& " + "./unmounted-install-tweaks.sh " + stdArgs;
-                command += "\\\n&& " + "./start-debian.sh " + stdArgs;
-                command += "\\\n&& " + NativeHelper.app_bin + "/chroot " + NativeHelper.mnt
-                        + " " + NativeHelper.app_bin + "/complete-debian-setup.sh "
-                        + stdArgs;
-                writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
-                writeCommand(os, command);
+                
+                
+                switch (LilDebi.installCandidate){
+                
+                case 1:
+                	command = "./create-debian-setup.sh " + stdArgs;
+                    command += "\\\n&& " + "./stop-debian.sh " + stdArgs;
+                    command += "\\\n&& " + "./unmounted-install-tweaks.sh " + stdArgs;
+                    command += "\\\n&& " + "./start-debian.sh " + stdArgs;
+                    command += "\\\n&& " + NativeHelper.app_bin + "/chroot " + NativeHelper.mnt
+                            + " " + NativeHelper.app_bin + "/complete-debian-setup.sh "
+                            + stdArgs;
+                    writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
+                    writeCommand(os, command);
+                	break;
+                
+                case 2:
+                	command = "./create-debian-setup.sh " + stdArgs;
+                    command += "\\\n&& " + "./stop-debian.sh " + stdArgs;
+                    command += "\\\n&& " + "./unmounted-install-tweaks.sh " + stdArgs;
+                    command += "\\\n&& " + "./start-debian.sh " + stdArgs;
+                    command += "\\\n&& " + NativeHelper.app_bin + "/chroot " + NativeHelper.mnt
+                            + " " + NativeHelper.app_bin + "/complete-debian-setup.sh "+ stdArgs
+                            + NativeHelper.app_bin + "/install-xfce.sh" + stdArgs ;
+                            
+                            
+                    writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
+                    writeCommand(os, command);
+                	
+                	break;
+                	
+                
+                
+                }
+                
                 // Avoid keeping the resource mounted because of some failure
                 writeCommand(os, "./stop-debian.sh " + stdArgs);
                 writeCommand(os, "exit");
@@ -157,3 +184,4 @@ public class InstallService extends Service {
         }
     }
 }
+
