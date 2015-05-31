@@ -70,4 +70,15 @@
     <string name="install_in_internal_storage_summary">Install Debian into Internal Storage: /data/debian</string>
     <string name="not_enough_space">Not enough space (&lt; 250MB)</string>
 
+
+    <string name="install_ssh">Installing SSH</string>
+    <string name="install_xfce">Installing XFCE</string>
+    
+    <string name="runXfce"> Start XFCE</string>
+    <string name="startXfce">Starting XFCE</string>
+    <string name="rdp"> Please Install and configure XServer XSDL Application </string>
+    
+    <string name="installWithXfce">Install with XFCE</string>
+    <string name="startingInstallWithXfce"> Starting Install with XFCE</string>
+
 </resources>
