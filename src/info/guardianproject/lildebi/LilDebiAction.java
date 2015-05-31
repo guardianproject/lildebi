@@ -58,6 +58,32 @@ public class LilDebiAction {
                 .show();
     }
 
+    
+    public void xfceInstall(){
+    	
+    	try{
+    	if (useWakeLock)
+            wl.acquire();
+    
+    	command = new String("LANG=" + NativeHelper.getLANG() +
+                " ./start-debian.sh" + NativeHelper.getArgs()
+                + " && " + NativeHelper.app_bin + "/chroot " + NativeHelper.mnt
+                + " /bin/bash -c \"" + "start-xfce.sh"  + "\"");
+        commandThread = new CommandThread();
+        commandThread.start();
+        Toast.makeText(context, R.string.startXfce, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.rdp, Toast.LENGTH_LONG).show();
+        
+    	}
+    	catch (Exception e) {
+            Log.e(LilDebi.TAG, "Error!!!", e);
+        }
+    			
+    			
+    }
+    
+
+
     public void stopDebian() {
         if (wl.isHeld())
             wl.release();
@@ -65,6 +91,20 @@ public class LilDebiAction {
         command = new String(NativeHelper.app_bin + "/chroot "
                 + NativeHelper.mnt + " /bin/bash -c \""
                 + NativeHelper.preStopScript + "\"; ./stop-debian.sh "
+                + NativeHelper.getArgs());
+        commandThread = new CommandThread();
+        commandThread.start();
+        Toast.makeText(context, R.string.stopping_debian, Toast.LENGTH_LONG)
+                .show();
+    }
+
+    public void killDebian() {
+        if (wl.isHeld())
+            wl.release();
+
+        command = new String(NativeHelper.app_bin + "/chroot "
+                + NativeHelper.mnt + " /bin/bash -c \""
+                + NativeHelper.preStopScript + "\"; ./kill-debian.sh "
                 + NativeHelper.getArgs());
         commandThread = new CommandThread();
         commandThread.start();
@@ -147,3 +187,4 @@ public class LilDebiAction {
         }
     }
 }
+
