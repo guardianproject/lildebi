@@ -28,7 +28,7 @@ endif
 # Android NDK setup
 NDK_BASE ?= /opt/android-ndk
 NDK_ABI=arm
-NDK_TOOLCHAIN_VERSION=4.8
+NDK_TOOLCHAIN_VERSION=4.9
 # NDK platform level, aka APP_PLATFORM, is equivalent to minSdkVersion
 NDK_PLATFORM_LEVEL ?= \
 	$(shell sed -n 's,.*android:minSdkVersion="\([0-9][0-9]*\)".*,\1,p' $(PROJECT_ROOT)/AndroidManifest.xml)
