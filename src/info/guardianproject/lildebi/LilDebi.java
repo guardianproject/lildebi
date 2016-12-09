@@ -206,6 +206,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
             e.printStackTrace();
         }
 
+        if (Build.DISPLAY.contains("carbon"))
+            foundSU = true;
+
         if (!foundSU) {
             statusTitle.setVisibility(View.VISIBLE);
             statusText.setVisibility(View.VISIBLE);
