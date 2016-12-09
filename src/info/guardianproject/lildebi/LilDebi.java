@@ -43,6 +43,10 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
     private TextView consoleText;
     private static int savedStatus = -1;
 
+    private static Button xfceInstallButton;
+    int installButtonClicked;
+    static Integer installCandidate;
+
     private Handler commandThreadHandler;
     private LilDebiAction action;
 
@@ -64,6 +68,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
         startStopButton = (Button) findViewById(R.id.startStopButton);
         consoleScroll = (ScrollView) findViewById(R.id.consoleScroll);
         consoleText = (TextView) findViewById(R.id.consoleText);
+	xfceInstallButton = (Button) findViewById(R.id.xfceInstallButton);
 
         // All SU calls are blocking calls. libsuperuser doen't allow
         // to make such blocking calls from Main Thread.
@@ -211,6 +216,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
             statusText.setVisibility(View.VISIBLE);
             statusText.setText(R.string.needs_superuser_message);
             savedStatus = R.string.needs_superuser_message;
+            xfceInstallButton.setVisibility(View.INVISIBLE);
             startStopButton.setVisibility(View.VISIBLE);
             startStopButton.setText(R.string.get_superuser);
             startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -233,6 +239,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                 statusText.setVisibility(View.VISIBLE);
                 statusText.setText(R.string.not_configured_message);
                 savedStatus = R.string.not_configured_message;
+                xfceInstallButton.setVisibility(View.INVISIBLE);
                 startStopButton.setVisibility(View.VISIBLE);
                 startStopButton.setText(R.string.title_configure);
                 startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -248,6 +255,7 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                 statusText.setVisibility(View.GONE);
                 statusText.setText(R.string.mounted_message);
                 savedStatus = R.string.mounted_message;
+                xfceInstallButton.setVisibility(View.INVISIBLE);
                 startStopButton.setVisibility(View.VISIBLE);
                 startStopButton.setText(R.string.title_stop);
                 startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -267,11 +275,26 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                 startStopButton.setText(R.string.title_start);
                 startStopButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
+                    	
                         startStopButton.setEnabled(false);
                         setProgressBarIndeterminateVisibility(true);
                         action.startDebian();
                     }
                 });
+                
+                xfceInstallButton.setVisibility(View.VISIBLE);
+                xfceInstallButton.setText(R.string.runXfce);
+                xfceInstallButton.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View view) {
+						 setProgressBarIndeterminateVisibility(true);
+	                        action.xfceInstall();
+						
+					}
+				});
+                
+                
             }
         } else if (! isOnline()) {
             statusTitle.setVisibility(View.VISIBLE);
@@ -289,12 +312,28 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
             startStopButton.setText(R.string.install);
             startStopButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
+                	installCandidate =1 ;
                     Intent intent = new Intent(getApplicationContext(),
                             InstallActivity.class);
                     startActivityForResult(intent, NativeHelper.STARTING_INSTALL);
                     return;
                 }
             });
+            
+            xfceInstallButton.setVisibility(View.VISIBLE);
+            xfceInstallButton.setText(R.string.installWithXfce);
+            xfceInstallButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                	installCandidate = 2;
+                    Intent intent = new Intent(getApplicationContext(),
+                            InstallActivity.class);
+                    startActivityForResult(intent, NativeHelper.STARTING_INSTALL);
+                    return;
+                }
+            });
+            
+            
+            
         }
     }
 
@@ -393,3 +432,4 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
     }
     // the saved state is restored in onCreate()
 }
+

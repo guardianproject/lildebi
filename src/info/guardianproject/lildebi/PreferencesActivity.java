@@ -3,15 +3,20 @@ package info.guardianproject.lildebi;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
+import android.preference.Preference;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,10 +26,15 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
     CheckBoxPreference installOnInternalStorageBox;
     CheckBoxPreference limitTo4gbCheckBox;
     CheckBoxPreference startAutomatically;
-    EditTextPreference imagepathEditText;
+    EditTextPreference imagepathEditText;     
     EditTextPreference postStartEditText;
     EditTextPreference preStopEditText;
-
+    
+  
+    private static final String TAG = "FilePickUp";
+    private static final int REQUEST_CODE = 1234;
+    
+   
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if (key.equals(getString(R.string.pref_image_path_key))) {
@@ -80,14 +90,27 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
             NativeHelper.limitTo4GB = prefs.getBoolean(
                     getString(R.string.pref_limit_to_4gb_key), true);
         }
+        
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-        startAutomatically = (CheckBoxPreference) findPreference(getString(R.string.pref_start_automatically_key));
+        startAutomatically = (CheckBoxPreference) findPreference(getString(R.string.pref_start_automatically_key)); 
         imagepathEditText = (EditTextPreference) findPreference(getString(R.string.pref_image_path_key));
+        Preference button = (Preference)findPreference("button");
+        button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            
+        	@Override
+            public boolean onPreferenceClick(Preference arg0) { 
+                 
+            	showChooser();
+                return true;
+            }
+        });
+        
+    
         postStartEditText = (EditTextPreference) findPreference(getString(R.string.pref_post_start_key));
         preStopEditText = (EditTextPreference) findPreference(getString(R.string.pref_pre_stop_key));
         useChecksumCheckBox = (CheckBoxPreference) findPreference(getString(R.string.pref_use_checksum_key));
@@ -148,7 +171,7 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
             startAutomatically
                     .setSummary(getString(R.string.pref_start_on_mount_summary));
         }
-        if (NativeHelper.postStartScript
+         if (NativeHelper.postStartScript
                 .equals(getString(R.string.default_post_start_script))) {
             postStartEditText
                     .setSummary(getString(R.string.pref_post_start_summary));
@@ -162,11 +185,27 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
         } else {
             preStopEditText.setSummary(NativeHelper.preStopScript);
         }
+        
+   
     }
 
     private void showCompleteToast() {
         Toast.makeText(this, R.string.checksum_complete, Toast.LENGTH_LONG).show();
     }
+    
+    private void showChooser() {
+       
+        Intent target = FileUtils.createGetContentIntent();
+        Intent intent = Intent.createChooser(
+                target, getString(R.string.chooser_title));
+        try {
+            startActivityForResult(intent, REQUEST_CODE);
+        } catch (ActivityNotFoundException e) {
+            
+        }
+        
+    }
+
 
     private class ShellAsyncTask extends AsyncTask<Boolean, Void, Void> {
 
@@ -215,4 +254,43 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
             showCompleteToast();
         }
     }
+    
+    public static void setPath(String path) throws IOException{
+    	
+    	File f=new File(path);
+    	File canpath=new File(path);
+    	canpath=Environment.getExternalStorageDirectory();
+    	
+    	try{
+    		NativeHelper.image_path= canpath +"/"+ f.getName();
+    		}catch(Exception e){e.printStackTrace();}
+    }    
+    
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_CODE:
+                // If the file selection was successful
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
+                        // Get the URI of the selected file
+                        final Uri uri = data.getData();
+                        Log.i(TAG, "Uri = " + uri.toString());
+                        try {
+                            // Get the file path from the URI
+                            final String path = FileUtils.getPath(this, uri);
+                            Toast.makeText(PreferencesActivity.this,
+                                    "File Selected: " + path, Toast.LENGTH_LONG).show();
+                            setPath(uri.toString());
+                        } catch (Exception e) {
+                            Log.e("FileSelectorTestActivity", "File select error", e);
+                        }
+                    }
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+  
 }
