@@ -1,4 +1,9 @@
 
+
+__UNMAINTAINED__ we no longer have the time to maintain this app, but
+would love to see someone take it over and continue developing it!
+
+
 Lil' Debi
 =========
 
