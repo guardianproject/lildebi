@@ -4,11 +4,14 @@
   <string name="unsupported_device_body">Ihr Gerät wird von Debilein nicht unterstützt. Um Debian installieren zu können, muss Ihr Gerät das \'ext2\'-Dateisystem und das Mounten von Dateien als Festplatten unterstützen. Diese Anwendung ist demnach unnütz, wir empfehlen, sie zu deinstallieren.</string>
   <string name="uninstall_button_title">Debilein deinstallieren</string>
   <string name="pref_start_automatically_title">Automatisch starten?</string>
-  <string name="pref_start_on_mount_summary">Debian immer automatisch starten wenn die SD Karte gemountet ist</string>
+  <string name="pref_start_on_mount_summary">Debian immer automatisch starten, wenn die SD-Karte gemountet ist</string>
+  <string name="pref_start_on_boot_summary">Debian immer automatisch starten, wenn Android gebootet wird</string>
   <string name="pref_use_checksum_title">Prüfsumme des Abbilds beim Starten verifizieren?</string>
   <string name="pref_use_checksum_summary">Vor dem Hochfahren die SHA1 Prüfsumme des Abbilds auf Integrität überprüfen.</string>
+  <string name="pref_limit_to_4gb_title">Max 2 GB große Festplattenabbilder</string>
+  <string name="pref_limit_to_4gb_summary">Die meisten SD-Karten haben das FAT-Dateisystem, auf welchem maximal 2 GB große Dateien gespeichert werden können.</string>
   <string name="pref_image_path_title">Pfad zum Abbild</string>
-  <string name="pref_image_path_summary">Der Pfad zum Festplattenabbild auf welchem Debian installiert ist (Standard: /sdcard/debian.img)</string>
+  <string name="pref_image_path_summary">Der Pfad zum Festplattenabbild, auf welchem Debian installiert ist (Standard: /sdcard/debian.img)</string>
   <string name="pref_post_start_title">Skript nach Start</string>
   <string name="pref_post_start_summary">Auszuführendes Skript nachdem Debian gestartet wurde (Standard: /etc/init.d/rc 2)</string>
   <string name="pref_pre_stop_title">Skript vor Halt</string>
@@ -16,13 +19,14 @@
   <string name="pref_prevent_sleep_title">Ruhezustand verhindern</string>
   <string name="pref_prevent_sleep_summary">Das Gerät nicht in den Ruhezustand versetzen während Debian läuft</string>
   <string name="menu_jackpal_terminal_title">Terminal öffnen…</string>
+  <string name="menu_preferences_title">Einstellungen</string>
   <string name="menu_install_log_title">Installationslog anzeigen</string>
   <string name="menu_delete_title">Alles löschen</string>
   <string name="title_start">Debian starten</string>
   <string name="title_stop">Debian anhalten</string>
   <string name="title_configure">Abbild konfigurieren</string>
   <string name="title_status">Status:</string>
-  <string name="doit">Eingestellungen löschen</string>
+  <string name="doit">Installation löschen</string>
   <string name="cancel">Abbrechen</string>
   <string name="blank">(leer)</string>
   <string name="confirm_delete_message">Sind Sie sich sicher, dass Sie die gesamte Debilein-Installation löschen möchten?</string>
@@ -34,7 +38,7 @@
   <string name="install">Installieren</string>
   <string name="uninstall">Deinstallieren…</string>
   <string name="get_superuser">Werde Superuser</string>
-  <string name="needs_superuser_message">Lil\' Debi benötigt Superuser-Zugriff, installiere die Superuser app</string>
+  <string name="needs_superuser_message">Debilein benötigt Superuser-Zugriff, installiere die Superuser-App</string>
   <string name="smaller_imagesize_message">Nicht genug Speicherplatz für das Abbild, Größe wird reduziert, um auf die SD-Karte zu passen</string>
   <string name="mounted_message">Debian hochgefahren</string>
   <string name="not_mounted_message">Debian nicht hochgefahren</string>
@@ -56,5 +60,9 @@
   <string name="select_mirror">Spiegelserver auswählen</string>
   <string name="select_release">Release auswählen</string>
   <string name="select_arch">CPU-Architektur auswählen</string>
+  <string name="app_description">Möchten Sie eine einfache Debian-Changeroot-Umgebung, der Sie vertrauen können? Installieren Sie Debilein und Sie können Debian mit einem Klick installieren. Es erzeugt auf Ihrem Telefon eine ganze Debian-Umgebung mit Hilfe von debootstrap. Sie können das Release, den Spiegelserver und die Größe des Festplattenabbilds wählen und los geht\'s. Auf einem langsamen Gerät kann dies bis zu einer Stunde dauern und danach geht\'s los. Das ganze Paket wird von öffentlich zugänglichen Quelltexten reproduzierbar gebaut. Es überprüft sogar jedes Paket mit Hilfe der offiziellen Debianschlüssel, welche in der App enthalten sind.</string>
   <string name="pref_install_on_internal_storage_summary">Interner Speicher: /data/debian</string>
+  <string name="pref_install_on_internal_storage_title">Im internen Speicher installieren</string>
+  <string name="install_in_internal_storage_summary">Debian in internen Speicher installieren: /data/debian</string>
+  <string name="not_enough_space">Nicht genügend Speicher (&lt; 250MB)</string>
 </resources>
