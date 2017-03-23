@@ -72,6 +72,20 @@ public class LilDebiAction {
                 .show();
     }
 
+    public void killDebian() {
+        if (wl.isHeld())
+            wl.release();
+
+        command = new String(NativeHelper.app_bin + "/chroot "
+                + NativeHelper.mnt + " /bin/bash -c \""
+                + NativeHelper.preStopScript + "\"; ./kill-debian.sh "
+                + NativeHelper.getArgs());
+        commandThread = new CommandThread();
+        commandThread.start();
+        Toast.makeText(context, R.string.stopping_debian, Toast.LENGTH_LONG)
+                .show();
+    }
+
     public void removeDebianSetup() {
         command = "./delete-all-debian-setup.sh " + NativeHelper.getArgs();
         commandThread = new CommandThread();
