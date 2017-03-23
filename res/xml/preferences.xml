@@ -33,6 +33,17 @@
         android:key="@string/pref_image_path_key"
         android:summary="@string/pref_image_path_summary"
         android:title="@string/pref_image_path_title" />
+    
+    <Preference
+        android:id="@+id/browse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:title="Choose Image Path"
+        android:key="button">
+    </Preference> 
+    
     <EditTextPreference
         android:defaultValue="@string/default_post_start_script"
         android:inputType="textNoSuggestions"

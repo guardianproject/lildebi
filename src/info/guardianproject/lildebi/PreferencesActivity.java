@@ -6,14 +6,19 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
+import android.preference.Preference;
 import android.util.Log;
 import android.widget.Toast;
+
+import info.guardianproject.lildebi.NativeHelper;
 
 public class PreferencesActivity extends android.preference.PreferenceActivity
         implements OnSharedPreferenceChangeListener {
@@ -24,6 +29,8 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
     EditTextPreference imagepathEditText;
     EditTextPreference postStartEditText;
     EditTextPreference preStopEditText;
+    private static File selectedFile;
+    private static final int REQUEST_CODE = 1;
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
@@ -93,11 +100,18 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
         useChecksumCheckBox = (CheckBoxPreference) findPreference(getString(R.string.pref_use_checksum_key));
         installOnInternalStorageBox = (CheckBoxPreference) findPreference(getString(R.string.pref_use_checksum_key));
         limitTo4gbCheckBox = (CheckBoxPreference) findPreference(getString(R.string.pref_limit_to_4gb_key));
-
         SharedPreferences prefs = getPreferenceScreen().getSharedPreferences();
         Boolean checked = prefs.getBoolean(
                 getString(R.string.pref_install_on_internal_storage_key), false);
 
+        Preference button = (Preference)findPreference("button");
+        button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        	@Override
+        	public boolean onPreferenceClick(Preference arg0) { 
+        		filePicker();
+        		return true;
+        	}
+        });
         if (checked) {
             NativeHelper.installInInternalStorage = true;
             NativeHelper.image_path = NativeHelper.mnt;
@@ -111,8 +125,34 @@ public class PreferencesActivity extends android.preference.PreferenceActivity
             startAutomatically
                     .setSummary(getString(R.string.pref_start_on_boot_summary));
     }
+    
+    public void filePicker(){
+    	try {
+    		Intent intent = new Intent(this, FileManager.class);
+    		startActivityForResult(intent, REQUEST_CODE);
+    	} catch (ActivityNotFoundException e) {
+    		e.printStackTrace();
+    	}
+
+    }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	if(resultCode == RESULT_OK) {
+    		switch (requestCode) {
+    		case REQUEST_CODE:
+    			if(data.hasExtra(FileManager.EXTRA_FILE_PATH)) {
+
+    				selectedFile = new File
+    						(data.getStringExtra(FileManager.EXTRA_FILE_PATH));
+    				NativeHelper.image_path = selectedFile.getPath();
+    				Log.d("filePath", "Uri = " + selectedFile.getPath());
+    			} 
+    		}
+    	}
+    }
+
+	@Override
     protected void onResume() {
         super.onResume();
         SharedPreferences prefs = getPreferenceScreen().getSharedPreferences();

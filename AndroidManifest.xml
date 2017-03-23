@@ -47,6 +47,7 @@
         <activity android:name="UnsupportedDeviceActivity" />
         <activity android:name="PreferencesActivity" />
         <activity android:name="InstallLogViewActivity" />
+        <activity android:name="FileManager"></activity>
 
         <service android:name="InstallService" />
 
