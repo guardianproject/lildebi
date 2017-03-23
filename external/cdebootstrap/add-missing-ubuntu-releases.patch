@@ -1,6 +1,6 @@
---- cdebootstrap-static-0.6.4-old/usr/share/cdebootstrap-static/suites	2014-07-07 18:22:27.000000000 -0400
-+++ cdebootstrap-static-0.6.4/usr/share/cdebootstrap-static/suites	2014-07-08 17:07:57.976326272 -0400
-@@ -50,6 +50,34 @@
+--- installdir/usr/share/cdebootstrap/suites	2014-07-07 18:22:27.000000000 -0400
++++ installdir/usr/share/cdebootstrap/suites	2014-07-08 17:07:57.976326272 -0400
+@@ -50,6 +50,38 @@
  Config: generic-ubuntu
  Keyring: ubuntu-archive-keyring.gpg
  
@@ -29,6 +29,10 @@
 +Keyring: ubuntu-archive-keyring.gpg
 +
 +Suite: utopic
++Config: generic-ubuntu
++Keyring: ubuntu-archive-keyring.gpg
++
++Suite: vivid
 +Config: generic-ubuntu
 +Keyring: ubuntu-archive-keyring.gpg
 +
