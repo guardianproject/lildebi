@@ -20,6 +20,7 @@
     <string name="pref_prevent_sleep_title">Prevent Sleep</string>
     <string name="pref_prevent_sleep_summary">prevent the device from sleeping while Debian is running</string>
     <string name="menu_jackpal_terminal_title">Open Terminal…</string>
+    <string name="x_server_xsdl">Open XServer XSDL</string>
     <string name="menu_preferences_title">Settings</string>
     <string name="menu_install_log_title">View Install Log</string>
     <string name="menu_delete_title">Delete All</string>
@@ -55,6 +56,7 @@
     <string name="no_sdcard_status">(no SD card)</string>
     <string name="terminal_emulator_not_installed">Android Terminal Emulator not installed! To use this feature, you must uninstall Lil\' Debi, install Terminal Emulator, then reinstall Lil\' Debi.</string>
     <string name="terminal_emulator_installed_after_lildebi">ERROR: Android Terminal Emulator was installed after Lil\' Debi! To use this feature, you must uninstall then reinstall Lil\' Debi.</string>
+    <string name="x_server_xdsl_not_installed">xServer XDSL not installed</string>
     <string name="title_install_log_view">Install Log</string>
     <string name="title_share_button">Share</string>
     <string name="starting_debian">Started Debian…</string>
@@ -69,5 +71,6 @@
     <string name="pref_install_on_internal_storage_title">Install on Internal Storage</string>
     <string name="install_in_internal_storage_summary">Install Debian into Internal Storage: /data/debian</string>
     <string name="not_enough_space">Not enough space (&lt; 250MB)</string>
+    <string name="select_profile">Select Installation Profile</string>
 
 </resources>

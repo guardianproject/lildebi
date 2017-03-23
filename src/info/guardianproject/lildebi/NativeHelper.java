@@ -2,15 +2,20 @@ package info.guardianproject.lildebi;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.Scanner;
 
 import android.content.Context;
@@ -28,6 +33,8 @@ public class NativeHelper {
     public static File app_bin;
     public static File app_log;
     public static File install_log;
+    public static File app_profiles;
+    public static File app_usergenprofiles;
     public static File publicFiles;
     public static File sh;
     public static File install_conf;
@@ -43,10 +50,27 @@ public class NativeHelper {
     public static boolean isInstallRunning = false;
     public static boolean installInInternalStorage;
     public static boolean limitTo4GB;
+    
+    public static File file;
+    public static String profileName;
+    public static String generatedFileName;
+    public static List<String> myProfileList = new ArrayList<String>();
+    public static List<String> myGenProfileList = new ArrayList<String>();
+    public static String DIRECTORY_PATH = "/data/data/info.guardianproject.lildebi/app_profiles";
+    public static String USEGERGENPROFILES_PATH = "/data/data/info.guardianproject.lildebi/app_usergenprofiles/";
+    public static String exportPath = "export TERM=linux \nexport HOME=/root \nexport PATH=$app_bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH \napt-get update \n";
+    public static String Name;
+    public static String path_to_install_script;
+    public static String pre_start_script;
+    public static String post_start_script;
+    public static String gui_support;
+    public static String fileName;
 
     public static void setup(Context context) {
         app_bin = context.getDir("bin", Context.MODE_PRIVATE).getAbsoluteFile();
         app_log = context.getDir("log", Context.MODE_PRIVATE).getAbsoluteFile();
+        app_profiles = context.getDir("profiles", Context.MODE_PRIVATE).getAbsoluteFile();
+        app_usergenprofiles = context.getDir("usergenprofiles", Context.MODE_PRIVATE).getAbsoluteFile();
         install_log = new File(app_log, "install.log");
         // this is the same as android-8's getExternalFilesDir() but works on android-1
         publicFiles = new File(Environment.getExternalStorageDirectory(),
@@ -82,7 +106,6 @@ public class NativeHelper {
         preStopScript = prefs.getString(
                 context.getString(R.string.pref_pre_stop_key),
                 context.getString(R.string.default_pre_stop_script));
-
         boolean detectedInternalInstall = false;
         /* attempt to auto-detect existing internal install */
         if (!isStarted()
@@ -93,6 +116,115 @@ public class NativeHelper {
         installInInternalStorage = prefs.getBoolean(prefName, detectedInternalInstall);
         if (installInInternalStorage)
             NativeHelper.image_path = NativeHelper.mnt;
+        
+        try{//writing default profiles
+        	Log.d("try block", "in try");
+        	File root = new File(DIRECTORY_PATH);
+        	File gpxfile = new File(root, "ssh");
+        	FileWriter profilewriter = new FileWriter(gpxfile);
+        	StringBuilder profilestring = new StringBuilder();
+        	profilestring.append(exportPath);
+        	profilestring.append("apt-get install ssh -y");
+        	profilewriter.append(profilestring);
+        	profilewriter.flush();
+        	profilewriter.close();
+
+        	File gpxfile1 = new File(root, "apache2");
+        	FileWriter profilewriter1 = new FileWriter(gpxfile1);
+        	StringBuilder profilestring1 = new StringBuilder();
+        	profilestring1.append(exportPath);
+        	profilestring1.append("apt-get install apache2 -y");
+        	profilewriter1.append(profilestring1);
+        	profilewriter1.flush();
+        	profilewriter1.close();
+
+        	File gpxfile2 = new File(root, "wireshark");
+        	FileWriter profilewriter2 = new FileWriter(gpxfile2);
+        	StringBuilder profilestring2 = new StringBuilder();
+        	profilestring2.append(exportPath);
+        	profilestring2.append("apt-get install wireshark -y");
+        	profilewriter2.append(profilestring2);
+        	profilewriter2.flush();
+        	profilewriter2.close();
+
+        }catch (Exception e) {
+        	e.printStackTrace();     
+        }
+        try {
+        	File folder = new File(USEGERGENPROFILES_PATH);
+        	File[] listOfFiles = folder.listFiles();
+        	int countOfProfiles=0;
+        	for (File file : listOfFiles) {
+        		//get the count of profiles created by user 
+        		if (file.isFile()) {
+        			profileName = file.getName();
+        			myProfileList.add(profileName);
+        			Log.d("all profiles ", profileName);
+        			countOfProfiles++;
+        		}
+        	}
+        	String n[] = new String[countOfProfiles];
+        	for (int i = 0; i < countOfProfiles; i++) {
+        		n[i] = myProfileList.get(i) ;
+        		Log.d("[i] value", n[i]);
+        		Log.d("No. of profiles", ""+countOfProfiles);
+        		Log.d("printing data for ", ""+n[i]);
+        		file = new File( USEGERGENPROFILES_PATH + n[i]);
+        		Log.d("file name", file.getPath());
+        		Properties prop = new Properties();
+        		InputStream input = null;
+        		try {//reading the data from user generated profiles
+        			input = new FileInputStream(file);
+        			prop.load(input);
+        			Name = prop.getProperty("Name");
+        			path_to_install_script = prop.getProperty("path_to_install_script");
+        			pre_start_script = prop.getProperty("pre_start_script");
+        			post_start_script = prop.getProperty("post_start_script");
+        			gui_support = prop.getProperty("gui_support");
+        			File root = new File(DIRECTORY_PATH);
+        			//store the data into script files accordingly
+        			fileName = Name;
+        			File gpxfile = new File(root, fileName);
+        			FileWriter writer = new FileWriter(gpxfile);
+        			StringBuilder s = new StringBuilder();
+        			s.append(exportPath);
+        			s.append("apt-get install -y "+Name+"\n");
+        			s.append("sed -i '$ d' /etc/rc.local ");
+        			s.append("echo '"+pre_start_script+"'>> /etc/rc.local ");
+        			s.append("echo 'exit 0' > /etc/rc.local ");
+        			writer.append(s);
+        			writer.flush();
+        			writer.close();
+
+        			Log.d("Name", Name);
+        			Log.d("path_to_install_script", path_to_install_script);
+        			Log.d("pre_start_script", pre_start_script);
+        			Log.d("post_start_script", post_start_script);
+        			Log.d("gui_support", gui_support);
+        		} catch (IOException ex) {
+        			ex.printStackTrace();
+        		}         			
+        	}
+        }catch (Exception e) {
+        	e.printStackTrace();     
+        }
+        try {//allow scripts to execute by adding permissions to execute
+        	File folder = new File(DIRECTORY_PATH);
+        	File[] listOfFiles = folder.listFiles();
+        	int countOfGeneratedFiles =0;
+        	for (File file : listOfFiles) {
+        		if (file.isFile()) {
+        			generatedFileName = file.getName();
+        			myGenProfileList.add(generatedFileName);
+        			chmod(0755, new File(app_profiles, generatedFileName));
+        			Log.d("all generated files ", generatedFileName);
+        			countOfGeneratedFiles++;
+        		}
+        	}
+        	Log.d("countOfGeneratedFiles", ""+countOfGeneratedFiles);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
     }
 
     public static boolean isStarted() {

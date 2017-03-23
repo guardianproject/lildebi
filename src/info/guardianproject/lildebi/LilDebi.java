@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,8 +21,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +38,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-public class LilDebi extends Activity implements OnCreateContextMenuListener {
+public class LilDebi extends Activity implements OnCreateContextMenuListener, OnItemSelectedListener {
     public static final String TAG = "LilDebi";
 
     private static TextView statusTitle;
@@ -45,6 +50,12 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
 
     private Handler commandThreadHandler;
     private LilDebiAction action;
+    
+    public static TextView selectInstallationProfile;
+    public static Spinner spinnerForProfile;
+    public static TextView selectedProfileTextView;
+    public static String selProfile;
+    public static ArrayAdapter<String> adapter_state;
 
     private boolean foundSU = false;
     Thread findSUThread = new Thread() {
@@ -64,6 +75,15 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
         startStopButton = (Button) findViewById(R.id.startStopButton);
         consoleScroll = (ScrollView) findViewById(R.id.consoleScroll);
         consoleText = (TextView) findViewById(R.id.consoleText);
+        selectInstallationProfile = (TextView) findViewById(R.id.selectInstallationProfile);
+        selectedProfileTextView = (TextView) findViewById(R.id.selectedProfile);
+        spinnerForProfile = (Spinner) findViewById(R.id.selectProfile);
+        adapter_state = new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item, NativeHelper.myGenProfileList);
+        adapter_state
+        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerForProfile.setAdapter(adapter_state);
+        spinnerForProfile.setOnItemSelectedListener(this);
 
         // All SU calls are blocking calls. libsuperuser doen't allow
         // to make such blocking calls from Main Thread.
@@ -167,6 +187,20 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                     startActivity(intent);
                 }
             return true;
+        case R.id.x_org_server:
+        	Intent xdsl = new Intent("x.org.server");
+        	xdsl.setComponent(new ComponentName("x.org.server","x.org.server.MainActivity"));
+        	 try {
+                 startActivity(xdsl);
+             } catch (ActivityNotFoundException e) {
+                 e.printStackTrace();
+                 Toast.makeText(this, R.string.x_server_xdsl_not_installed,
+                         Toast.LENGTH_LONG).show();
+                 Intent intent = new Intent(Intent.ACTION_VIEW);
+                 intent.setData(Uri.parse("market://details?id=x.org.server"));
+                 startActivity(intent);
+             }
+        	return true;
         case R.id.menu_delete:
             new AlertDialog.Builder(this).setMessage(R.string.confirm_delete_message)
                     .setCancelable(false).setPositiveButton(R.string.doit,
@@ -197,6 +231,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
             statusText.setText(R.string.no_sdcard_status);
             savedStatus = R.string.no_sdcard_status;
             startStopButton.setVisibility(View.GONE);
+            spinnerForProfile.setVisibility(View.GONE);
+            selectedProfileTextView.setVisibility(View.GONE);
+            selectInstallationProfile.setVisibility(View.GONE);
             return;
         }
 
@@ -211,6 +248,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
             statusText.setVisibility(View.VISIBLE);
             statusText.setText(R.string.needs_superuser_message);
             savedStatus = R.string.needs_superuser_message;
+            selectInstallationProfile.setVisibility(View.GONE);
+            spinnerForProfile.setVisibility(View.GONE);
+            selectedProfileTextView.setVisibility(View.GONE);
             startStopButton.setVisibility(View.VISIBLE);
             startStopButton.setText(R.string.get_superuser);
             startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -233,6 +273,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                 statusText.setVisibility(View.VISIBLE);
                 statusText.setText(R.string.not_configured_message);
                 savedStatus = R.string.not_configured_message;
+                selectInstallationProfile.setVisibility(View.GONE);
+                spinnerForProfile.setVisibility(View.GONE);
+                selectedProfileTextView.setVisibility(View.GONE);
                 startStopButton.setVisibility(View.VISIBLE);
                 startStopButton.setText(R.string.title_configure);
                 startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -248,6 +291,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                 statusText.setVisibility(View.GONE);
                 statusText.setText(R.string.mounted_message);
                 savedStatus = R.string.mounted_message;
+                selectInstallationProfile.setVisibility(View.GONE);
+                spinnerForProfile.setVisibility(View.GONE);
+                selectedProfileTextView.setVisibility(View.GONE);
                 startStopButton.setVisibility(View.VISIBLE);
                 startStopButton.setText(R.string.title_stop);
                 startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -263,6 +309,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
                 statusText.setVisibility(View.VISIBLE);
                 statusText.setText(R.string.not_mounted_message);
                 savedStatus = R.string.not_mounted_message;
+                selectInstallationProfile.setVisibility(View.GONE);
+                spinnerForProfile.setVisibility(View.GONE);
+                selectedProfileTextView.setVisibility(View.GONE);
                 startStopButton.setVisibility(View.VISIBLE);
                 startStopButton.setText(R.string.title_start);
                 startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -285,6 +334,9 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
             statusText.setVisibility(View.VISIBLE);
             statusText.setText(R.string.not_installed_message);
             savedStatus = R.string.not_installed_message;
+            selectInstallationProfile.setVisibility(View.VISIBLE);
+            spinnerForProfile.setVisibility(View.VISIBLE);
+            selectedProfileTextView.setVisibility(View.VISIBLE);
             startStopButton.setVisibility(View.VISIBLE);
             startStopButton.setText(R.string.install);
             startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -392,4 +444,19 @@ public class LilDebi extends Activity implements OnCreateContextMenuListener {
         super.onSaveInstanceState(savedInstanceState);
     }
     // the saved state is restored in onCreate()
+
+    @Override
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int position,
+    		long arg3) {
+    	spinnerForProfile.setSelection(position);
+    	selProfile = (String) spinnerForProfile.getSelectedItem();
+    	selectedProfileTextView.setText("Selected profile:" + selProfile);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+    	// overriden method not used 
+
+    }
 }

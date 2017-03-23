@@ -99,6 +99,7 @@ public class InstallService extends Service {
                 command += "\\\n&& " + NativeHelper.app_bin + "/chroot " + NativeHelper.mnt
                         + " " + NativeHelper.app_bin + "/complete-debian-setup.sh "
                         + stdArgs;
+                command += "\\\n&& " + NativeHelper.app_profiles + "./"+ LilDebi.selProfile + stdArgs;
                 writeCommand(os, "cd " + NativeHelper.app_bin.getAbsolutePath());
                 writeCommand(os, command);
                 // Avoid keeping the resource mounted because of some failure

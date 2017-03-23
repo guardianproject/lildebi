@@ -5,6 +5,9 @@
         android:id="@+id/menu_jackpal_terminal"
         android:title="@string/menu_jackpal_terminal_title"/>
     <item
+        android:id="@+id/x_org_server"
+        android:title="@string/x_server_xsdl"/>
+    <item
         android:id="@+id/menu_preferences"
         android:title="@string/menu_preferences_title"/>
     <item
